@@ -856,7 +856,9 @@ MainWindow.o: MainWindow.cpp ../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
-main.o: main.cpp ../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+main.o: main.cpp ../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
 		MainWindow.h \
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
