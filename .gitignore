@@ -4,3 +4,4 @@ locus.app/
 .qmake.stash
 .DS_Store
 *.o
+src/locus/Makefile

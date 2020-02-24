@@ -6,14 +6,20 @@ namespace locus {
 
 MainWindow::MainWindow() {
 
+  const char* banner_html =
+    "<div>"
+    " <h1>Locus 0.0.0</h1>"
+    " <br>"
+    " <h3>Logica 0.1.0</h3>"
+    "</div>";
+
   QWidget *widget = new QWidget;
   setCentralWidget(widget);
 
   QWidget *topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  infoLabel = new QLabel(tr("<i>Choose a menu option, or right-click to "
-                            "invoke a context menu</i>"));
+  infoLabel = new QLabel(tr(banner_html));
   infoLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   infoLabel->setAlignment(Qt::AlignCenter);
 
