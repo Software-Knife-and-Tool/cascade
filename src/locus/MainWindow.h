@@ -2,12 +2,14 @@
 #define _LOCUS_SRC_LOCUS_MAINWINDOW_H_
 
 #include <QMainWindow>
+#include <QStatusBar>
 
 QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
+class QStatusBar;
 QT_END_NAMESPACE
 
 namespace locus {
@@ -18,6 +20,11 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow();
 
+  void setContextStatus(const char* str) {
+
+    statusBar()->showMessage(tr(str));
+  }
+  
  protected:
 #ifndef QT_NO_CONTEXTMENU
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -52,6 +59,7 @@ class MainWindow : public QMainWindow {
   QMenu *editMenu;
   QMenu *formatMenu;
   QMenu *helpMenu;
+
   QActionGroup *alignmentGroup;
   QAction *newAct;
   QAction *openAct;
@@ -73,6 +81,9 @@ class MainWindow : public QMainWindow {
   QAction *setParagraphSpacingAct;
   QAction *aboutAct;
   QAction *aboutQtAct;
+
+ private:
+  
   QLabel *infoLabel;
 };
 
