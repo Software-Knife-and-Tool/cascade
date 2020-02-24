@@ -1,3 +1,5 @@
+moc_*.cpp
+moc_*.h
 locus.app/
 .qmake.stash
 .DS_Store

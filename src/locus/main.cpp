@@ -1,13 +1,14 @@
 #include <QApplication>
-#include "locus.h"
+
+#include "MainWindow.h"
 
 int main(int argc, char **argv) {
+  
   QApplication app(argc, argv);
-    
-  locus::LocusPushButton button("quit");
-  button.resize(100, 30);
 
-  button.show();
+  locus::MainWindow mainWindow;
+  
+  mainWindow.show();
+  
   return app.exec();
 }
-

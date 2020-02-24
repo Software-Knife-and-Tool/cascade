@@ -10,6 +10,6 @@ class LocusPushButton : public QPushButton {
   LocusPushButton(const QString &text);
 };
 
-} /* namespace locus */
+} /* locus namespace */
 
 #endif /* _LOGICA_SRC_LOCUS_H_ */ 
