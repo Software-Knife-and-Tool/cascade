@@ -1,13 +1,15 @@
+#include <QDesktopWidget>
 #include <QApplication>
-#include "locus.h"
+
+#include "MainWindow.h"
 
 int main(int argc, char **argv) {
-  QApplication app(argc, argv);
-    
-  locus::LocusPushButton button("quit");
-  button.resize(100, 30);
 
-  button.show();
+  QApplication app(argc, argv);
+  
+  locus::MainWindow mainWindow;
+  mainWindow.show();
+  
+  mainWindow.setFixedSize(1024, 768);
   return app.exec();
 }
-
