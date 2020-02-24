@@ -1,4 +1,5 @@
 #include <QtWidgets>
+#include <QDateTime>
 
 #include "MainWindow.h"
 
@@ -39,8 +40,11 @@ MainWindow::MainWindow() {
   QString message = tr("A context menu is available by right-clicking");
   QLabel *context = new QLabel(message);
 
-  QDateTime now = QDateTime::currentDateTime();
-  QLabel *dateLabel = new QLabel(now.toString("ddd MMMM d yy h:m:s ap"));
+  startTime = QDateTime::currentDateTime();
+  
+  QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
+  statusClock = new StatusClock(statusBar(), dateLabel);
+  
   statusBar()->addPermanentWidget(dateLabel);  
   statusBar()->addWidget(context);
 

@@ -3,12 +3,17 @@
 
 #include <QMainWindow>
 #include <QStatusBar>
+#include <QTimer>
+#include <QDateTime>
+
+#include "StatusClock.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
+class QDateTime;
 class QStatusBar;
 QT_END_NAMESPACE
 
@@ -24,13 +29,13 @@ class MainWindow : public QMainWindow {
 
     statusBar()->showMessage(tr(str));
   }
-  
+
  protected:
 #ifndef QT_NO_CONTEXTMENU
   void contextMenuEvent(QContextMenuEvent *event) override;
 #endif // QT_NO_CONTEXTMENU
 
- private slots:
+  private slots:
   void newFile();
   void open();
   void save();
@@ -84,7 +89,9 @@ class MainWindow : public QMainWindow {
 
  private:
   
-  QLabel *infoLabel;
+  QDateTime startTime;
+  StatusClock* statusClock;
+  QLabel *infoLabel;  
 };
 
 } /* locus namespace */
