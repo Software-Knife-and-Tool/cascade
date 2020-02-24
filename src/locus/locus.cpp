@@ -1,9 +1,11 @@
 #include <QDebug>
 #include "locus.h"
 
-MyPushButton::MyPushButton(const QString &text)
-    : QPushButton(text)
-{
-    setObjectName("mypushbutton");
-    qDebug() << "My PushButton has been constructed";
+namespace locus {
+  
+LocusPushButton::LocusPushButton(const QString &text) : QPushButton(text) {
+  setObjectName("locus button");
+  qDebug() << "locus Button has been constructed";
 }
+
+} /* namespace locus */

@@ -15,6 +15,7 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += locus.h
-SOURCES += locus.cpp locusunix.cpp locuswin.cpp main.cpp
+SOURCES += locus.cpp      \
+           main.cpp
 
 QT += core gui widgets

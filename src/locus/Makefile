@@ -53,12 +53,8 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = locus.cpp \
-		locusunix.cpp \
-		locuswin.cpp \
 		main.cpp 
 OBJECTS       = locus.o \
-		locusunix.o \
-		locuswin.o \
 		main.o
 DIST          = ../../../Qt/5.14.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.14.1/clang_64/mkspecs/qdevice.pri \
@@ -237,8 +233,6 @@ DIST          = ../../../Qt/5.14.1/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.14.1/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt/5.14.1/clang_64/mkspecs/features/lex.prf \
 		locus.pro locus.h locus.cpp \
-		locusunix.cpp \
-		locuswin.cpp \
 		main.cpp
 QMAKE_TARGET  = locus
 DESTDIR       = 
@@ -654,7 +648,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.14.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents locus.h $(DISTDIR)/
-	$(COPY_FILE) --parents locus.cpp locusunix.cpp locuswin.cpp main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents locus.cpp main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -715,12 +709,6 @@ locus.o: locus.cpp ../../../Qt/5.14.1/clang_64/lib/QtCore.framework/Headers/QDeb
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o locus.o locus.cpp
-
-locusunix.o: locusunix.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o locusunix.o locusunix.cpp
-
-locuswin.o: locuswin.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o locuswin.o locuswin.cpp
 
 main.o: main.cpp ../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/5.14.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
