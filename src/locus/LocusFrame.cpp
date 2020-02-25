@@ -1,14 +1,14 @@
 #include <QtWidgets>
 
-#include "HomeFrame.h"
+#include "LocusFrame.h"
 
 namespace locus {
 
-HomeFrame::HomeFrame() {
+LocusFrame::LocusFrame() {
 
   const char* banner_html =
     "<div>"
-    " <h1>Locus 0.0.0</h1>"
+    " <h1>Locus 0.0.1</h1>"
     " <br>"
     " <h3>Logica 0.1.0</h3>"
     "</div>";

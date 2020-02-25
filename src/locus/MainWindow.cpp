@@ -2,43 +2,19 @@
 #include <QDateTime>
 
 #include "MainWindow.h"
+#include "LocusFrame.h"
 
 namespace locus {
 
 MainWindow::MainWindow() {
 
-  const char* banner_html =
-    "<div>"
-    " <h1>Locus 0.0.0</h1>"
-    " <br>"
-    " <h3>Logica 0.1.0</h3>"
-    "</div>";
-
-  QWidget *widget = new QWidget;
-  setCentralWidget(widget);
-
-  QWidget *topFiller = new QWidget;
-  topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  infoLabel = new QLabel(tr(banner_html));
-  infoLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  infoLabel->setAlignment(Qt::AlignCenter);
-
-  QWidget *bottomFiller = new QWidget;
-  bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(topFiller);
-  layout->addWidget(infoLabel);
-  layout->addWidget(bottomFiller);
-  widget->setLayout(layout);
-
   createActions();
   createMenus();
   createStatusBar();
 
- 
+  locusFrame = new LocusFrame();
+  setCentralWidget(locusFrame);
+  
   setWindowTitle(tr("Logica Locus"));
   setMinimumSize(160, 160);
   resize(480, 320);

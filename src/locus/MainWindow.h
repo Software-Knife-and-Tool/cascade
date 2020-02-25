@@ -7,6 +7,7 @@
 #include <QDateTime>
 
 #include "StatusClock.h"
+#include "LocusFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -18,7 +19,7 @@ class QStatusBar;
 QT_END_NAMESPACE
 
 namespace locus {
-  
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
@@ -92,6 +93,7 @@ class MainWindow : public QMainWindow {
   
   QDateTime startTime;
   StatusClock* statusClock;
+  LocusFrame* locusFrame;
   QLabel *infoLabel;  
 };
 

@@ -15,12 +15,12 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += locus.h        \
-           HomeFrame.h    \
+           LocusFrame.h   \
            MainWindow.h   \
            StatusClock.h
 
 SOURCES += locus.cpp      \
-           HomeFrame.cpp  \           
+           LocusFrame.cpp \           
            MainWindow.cpp \
            main.cpp
 

@@ -1,5 +1,5 @@
-#ifndef _LOCUS_SRC_LOCUS_HOMEFRAME_H_
-#define _LOCUS_SRC_LOCUS_HOMEFRAME_H_
+#ifndef _LOCUS_SRC_LOCUS_LOCUSFRAME_H_
+#define _LOCUS_SRC_LOCUS_LOCUSFRAME_H_
 
 #include <QWidget>
 #include <QFrame>
@@ -12,11 +12,11 @@ QT_END_NAMESPACE
 
 namespace locus {
   
-class HomeFrame : public QFrame {
+class LocusFrame : public QFrame {
   Q_OBJECT
 
  public:
-  HomeFrame();
+  LocusFrame();
 
  protected:
 
@@ -29,4 +29,4 @@ class HomeFrame : public QFrame {
 
 } /* locus namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_HOMEFRAME_H_ */
+#endif  /* _LOCUS_SRC_LOCUS_LOCUSFRAME_H_ */
