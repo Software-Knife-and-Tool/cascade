@@ -15,11 +15,17 @@ LocusFrame::LocusFrame() {
 
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
-    
+
+  QString system_html = QString("<div><h1>").arg(
+                                        userName,
+                                        QString(" on "),
+                                        hostName,
+                                        QString("</h1></div>"));
+  
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  bannerLabel = new QLabel(tr(banner_html).append(userName));
+  bannerLabel = new QLabel(tr(banner_html));
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
