@@ -1,40 +1,26 @@
-#ifndef _LOCUS_SRC_LOCUS_MAINWINDOW_H_
-#define _LOCUS_SRC_LOCUS_MAINWINDOW_H_
+#ifndef _LOCUS_SRC_LOCUS_MAINMENUBAR_H_
+#define _LOCUS_SRC_LOCUS_MAINMENUBAR_H_
 
 #include <QMainWindow>
-#include <QStatusBar>
-#include <QTimer>
-#include <QDateTime>
+#include <QMenu>
 
-#include "StatusClock.h"
-#include "LocusFrame.h"
-#include "MainMenuBar.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
-class QDateTime;
-class QStatusBar;
 QT_END_NAMESPACE
 
 namespace locus {
 
-class MainWindow : public QMainWindow {
+class MainMenuBar : public QMenu {
 
   Q_OBJECT
 
  public:
-  MainWindow();
-
-  void setContextStatus(const char* str) {
-
-    statusBar()->showMessage(tr(str));
-  }
-
- protected:
-  void contextMenuEvent(QContextMenuEvent *event) override;
+  MainMenuBar(MainWindow*);
 
  private slots:
   void newFile();
@@ -64,7 +50,6 @@ class MainWindow : public QMainWindow {
 
   QMenu *fileMenu;
   QMenu *editMenu;
-  QMenu *locusMenu;
   QMenu *formatMenu;
   QMenu *helpMenu;
 
@@ -91,13 +76,10 @@ class MainWindow : public QMainWindow {
   QAction *aboutQtAct;
 
  private:
-  QDateTime startTime;
-  StatusClock* statusClock;
-  LocusFrame* locusFrame;
-  // MainMenuBar* mainMenuBar;
-  QLabel *infoLabel;  
+
+  MainWindow* mw;
 };
 
 } /* locus namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_MAINWINDOW_H_ */
+#endif  /* _LOCUS_SRC_LOCUS_MAINMENUBAR_H_ */
