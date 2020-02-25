@@ -13,10 +13,13 @@ LocusFrame::LocusFrame() {
     " <h3>Logica 0.1.0</h3>"
     "</div>";
 
+  QString hostName = QSysInfo::machineHostName();
+  QString userName = qgetenv("USER");
+    
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  bannerLabel = new QLabel(tr(banner_html));
+  bannerLabel = new QLabel(tr(banner_html).append(userName));
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
@@ -30,8 +33,7 @@ LocusFrame::LocusFrame() {
   layout->addWidget(bottomFiller);
   this->setLayout(layout);
 
-  setMinimumSize(160, 160);
-  resize(480, 320);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
 } /* locus namespace */
