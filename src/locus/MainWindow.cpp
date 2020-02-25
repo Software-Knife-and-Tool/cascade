@@ -257,6 +257,14 @@ void MainWindow::createMenus() {
   editMenu->addAction(pasteAct);
   editMenu->addSeparator();
 
+  locusMenu = menuBar()->addMenu(tr("&Locus"));
+  locusMenu->addAction(newAct);
+  // locusMenu->addAction(openAct);
+  // locusMenu->addAction(saveAct);
+  // locusMenu->addAction(printAct);
+  // locusMenu->addSeparator();
+  // locusMenu->addAction(exitAct);
+  
   helpMenu = menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
   helpMenu->addAction(aboutQtAct);
