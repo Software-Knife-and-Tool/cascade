@@ -37,14 +37,12 @@ MainWindow::MainWindow() {
   createActions();
   createMenus();
   createStatusBar();
-
  
   setWindowTitle(tr("Logica Locus"));
   setMinimumSize(160, 160);
   resize(480, 320);
 }
 
-#ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   
   QMenu menu(this);
@@ -53,7 +51,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   menu.addAction(pasteAct);
   menu.exec(event->globalPos());
 }
-#endif // QT_NO_CONTEXTMENU
 
 void MainWindow::newFile() {
   setContextStatus("Invoked <b>File|New</b>");
