@@ -1,18 +1,27 @@
 #include <QtWidgets>
 
-#include "HomeFrame.h"
+#include "LocusFrame.h"
 
 namespace locus {
 
-HomeFrame::HomeFrame() {
+LocusFrame::LocusFrame() {
 
   const char* banner_html =
     "<div>"
-    " <h1>Locus 0.0.0</h1>"
+    " <h1>Locus 0.0.1</h1>"
     " <br>"
     " <h3>Logica 0.1.0</h3>"
     "</div>";
 
+  QString hostName = QSysInfo::machineHostName();
+  QString userName = qgetenv("USER");
+
+  QString system_html = QString("<div><h1>").arg(
+                                        userName,
+                                        QString(" on "),
+                                        hostName,
+                                        QString("</h1></div>"));
+  
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -30,8 +39,7 @@ HomeFrame::HomeFrame() {
   layout->addWidget(bottomFiller);
   this->setLayout(layout);
 
-  setMinimumSize(160, 160);
-  resize(480, 320);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
 } /* locus namespace */
