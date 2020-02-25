@@ -59,6 +59,7 @@ class MainWindow : public QMainWindow {
  private:
   void createActions();
   void createMenus();
+  void createStatusBar();
 
   QMenu *fileMenu;
   QMenu *editMenu;

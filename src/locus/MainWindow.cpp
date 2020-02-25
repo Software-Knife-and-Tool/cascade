@@ -36,18 +36,9 @@ MainWindow::MainWindow() {
 
   createActions();
   createMenus();
+  createStatusBar();
 
-  QString message = tr("A context menu is available by right-clicking");
-  QLabel *context = new QLabel(message);
-
-  startTime = QDateTime::currentDateTime();
-  
-  QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
-  statusClock = new StatusClock(statusBar(), dateLabel);
-  
-  statusBar()->addPermanentWidget(dateLabel);  
-  statusBar()->addWidget(context);
-
+ 
   setWindowTitle(tr("Logica Locus"));
   setMinimumSize(160, 160);
   resize(480, 320);
@@ -305,6 +296,20 @@ void MainWindow::createMenus() {
   formatMenu->addSeparator();
   formatMenu->addAction(setLineSpacingAct);
   formatMenu->addAction(setParagraphSpacingAct);
+}
+
+void MainWindow::createStatusBar() {
+
+  QString message = tr("A context menu is available by right-clicking");
+  QLabel *context = new QLabel(message);
+
+  startTime = QDateTime::currentDateTime();
+  
+  QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
+  statusClock = new StatusClock(statusBar(), dateLabel);
+  
+  statusBar()->addPermanentWidget(dateLabel);  
+  statusBar()->addWidget(context);
 }
 
 } /* locus namespace */
