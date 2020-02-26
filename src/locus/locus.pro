@@ -3,14 +3,14 @@ TARGET = locus
 INCLUDEPATH += .
 
 HEADERS += locus.h        \
-           ConsoleFrame.h \
+           ConsoleWidget.h \
            LocusFrame.h   \
            MainMenuBar.h  \
            MainWindow.h   \
            StatusClock.h
 
 SOURCES += locus.cpp      \
-           ConsoleFrame.cpp \           
+           ConsoleWidget.cpp \           
            LocusFrame.cpp \           
            MainMenuBar.cpp\
            MainWindow.cpp \

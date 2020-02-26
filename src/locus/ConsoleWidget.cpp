@@ -1,4 +1,4 @@
-#include "ConsoleFrame.h"
+#include "ConsoleWidget.h"
 
 #include <QPainter>
 #include <QScrollBar>
@@ -121,7 +121,7 @@ int drawWidth(QPainter& painter, const QString& text) {
 }
 
 /** * class members **/
-void ConsoleFrame::paintEvent(QPaintEvent* /*event*/) {
+void ConsoleWidget::paintEvent(QPaintEvent* /*event*/) {
 
   QPainter painter(viewport());
   painter.fillRect(viewport()->rect(), Qt::white);
@@ -170,7 +170,7 @@ void ConsoleFrame::paintEvent(QPaintEvent* /*event*/) {
   horizontalScrollBar()->setPageStep(viewport()->width());
 }
 
-void ConsoleFrame::mousePressEvent(QMouseEvent* event) {
+void ConsoleWidget::mousePressEvent(QMouseEvent* event) {
   QAbstractScrollArea::mousePressEvent(event);
 
   if(event->buttons().testFlag(Qt::LeftButton)) {
@@ -180,11 +180,11 @@ void ConsoleFrame::mousePressEvent(QMouseEvent* event) {
   update();
 }
 
-void ConsoleFrame::mouseReleaseEvent(QMouseEvent* event) {
+void ConsoleWidget::mouseReleaseEvent(QMouseEvent* event) {
   QAbstractScrollArea::mouseReleaseEvent(event);
 }
 
-void ConsoleFrame::mouseMoveEvent(QMouseEvent* event) {
+void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
   QAbstractScrollArea::mouseMoveEvent(event);
 
   if(event->buttons().testFlag(Qt::LeftButton)) {
@@ -194,7 +194,7 @@ void ConsoleFrame::mouseMoveEvent(QMouseEvent* event) {
   update();
 }
 
-void ConsoleFrame::drawCursor() {
+void ConsoleWidget::drawCursor() {
 
   //    const int x = m.width(_buffer[current_line], _selection->cursor().column);
   //    painter.setPen(QPen(Qt::red, 2));
@@ -202,7 +202,7 @@ void ConsoleFrame::drawCursor() {
   //    painter.setPen(Qt::black);
 }
 
-TextPosition ConsoleFrame::getTextPosition(const QPoint& pos) const {
+TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 
   QFontMetrics m(font());
 
@@ -231,7 +231,7 @@ TextPosition ConsoleFrame::getTextPosition(const QPoint& pos) const {
   return tp;
 }
 
-ConsoleFrame::ConsoleFrame(QWidget *parent)
+ConsoleWidget::ConsoleWidget(QWidget *parent)
   : QAbstractScrollArea(parent), _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);

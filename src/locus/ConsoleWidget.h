@@ -17,13 +17,13 @@ class QMouseEvent;
 struct TextSelection;
 struct TextPosition;
 
-class ConsoleFrame : public QAbstractScrollArea {
+class ConsoleWidget : public QAbstractScrollArea {
 
   Q_OBJECT
 
  public:
 
-  explicit ConsoleFrame(QWidget *parent = 0);
+  explicit ConsoleWidget(QWidget *parent = 0);
 
 
  protected:
