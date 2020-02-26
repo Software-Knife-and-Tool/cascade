@@ -1,3 +1,4 @@
+CONFIG += console
 TEMPLATE = app
 TARGET = locus
 INCLUDEPATH += .

@@ -1,10 +1,10 @@
 #include "ConsoleWidget.h"
 
-#include <QPainter>
-#include <QScrollBar>
+#include <QDebug>
 #include <QKeyEvent>
 #include <QMouseEvent>
-#include <QDebug>
+#include <QPainter>
+#include <QScrollBar>
   
 struct LineStyle {
 
@@ -27,7 +27,7 @@ struct TextPosition {
 
 bool operator<(const TextPosition& lhs, const TextPosition& rhs) {
 
-  if(lhs.row == rhs.row) {
+  if (lhs.row == rhs.row) {
     return lhs.column < rhs.column;
   }
   else {
@@ -122,7 +122,7 @@ int drawWidth(QPainter& painter, const QString& text) {
 }
 
 /** * class members **/
-void ConsoleWidget::paintEvent(QPaintEvent* /*event*/) {
+void ConsoleWidget::paintEvent(QPaintEvent*) {
 
   QPainter painter(viewport());
   painter.fillRect(viewport()->rect(), Qt::white);
@@ -132,17 +132,16 @@ void ConsoleWidget::paintEvent(QPaintEvent* /*event*/) {
   int current_line = verticalScrollBar()->value() / m.height();
 
   int y_offset = 0;
-
   int maximum_width = 0;
 
-  while(y_offset < viewport()->height() && current_line >= 0 && current_line < _buffer.size()) {
+  while (y_offset < viewport()->height() && current_line >= 0 && current_line < buffer_.size()) {
 
     const int text_offset = y_offset + m.ascent();
     int x_offset = -horizontalScrollBar()->value();
 
-    const QString& line = _buffer[current_line];
+    const QString& line = buffer_[current_line];
 
-    foreach(const LineStyle& style, getLineStyle(*_selection.data(), line.size(), current_line)) {
+    foreach (const auto style, getLineStyle(*_selection.data(), line.size(), current_line)) {
 
       painter.setPen(style.foreground);
       painter.setBrush(style.background);
@@ -159,10 +158,29 @@ void ConsoleWidget::paintEvent(QPaintEvent* /*event*/) {
     maximum_width = qMax(maximum_width, m.width(line));
 
     y_offset += m.height();
+
     ++current_line;
   }
+  
+  if (y_offset < viewport()->height() && current_line >= 0 && line_.size() > 0) {
 
-  verticalScrollBar()->setRange(0, _buffer.size() * m.height());
+    const int text_offset = y_offset + m.ascent();
+    int x_offset = -horizontalScrollBar()->value();
+
+    foreach (const auto style, getLineStyle(*_selection.data(), line_.size(), current_line)) {
+    
+      painter.setPen(style.foreground);
+      painter.setBrush(style.background);
+
+      const QString text = line_.mid(style.start, style.length);
+      int text_width = drawWidth(painter, text);
+      
+      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
+      painter.drawText(x_offset, text_offset, text);
+    }
+  }
+  
+  verticalScrollBar()->setRange(0, buffer_.size() * m.height());
   verticalScrollBar()->setSingleStep(m.height());
   verticalScrollBar()->setPageStep(viewport()->height());
 
@@ -171,33 +189,9 @@ void ConsoleWidget::paintEvent(QPaintEvent* /*event*/) {
   horizontalScrollBar()->setPageStep(viewport()->width());
 }
 
-void ConsoleWidget::mousePressEvent(QMouseEvent* event) {
-  QAbstractScrollArea::mousePressEvent(event);
-
-  if(event->buttons().testFlag(Qt::LeftButton)) {
-    _selection->start(getTextPosition(event->pos()));
-  }
-
-  update();
-}
-
-void ConsoleWidget::mouseReleaseEvent(QMouseEvent* event) {
-  QAbstractScrollArea::mouseReleaseEvent(event);
-}
-
-void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
-  QAbstractScrollArea::mouseMoveEvent(event);
-
-  if(event->buttons().testFlag(Qt::LeftButton)) {
-    _selection->end(getTextPosition(event->pos()));
-  }
-
-  update();
-}
-
 void ConsoleWidget::drawCursor() {
 
-  // const int x = m.width(_buffer[current_line], _selection->cursor().column);
+  // const int x = m.width(buffer_[current_line], _selection->cursor().column);
   // painter.setPen(QPen(Qt::red, 2));
   // painter.drawLine(x, y_offset, x, y_offset + m.height());
   // painter.setPen(Qt::black);
@@ -219,10 +213,10 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
   int current_column = 0;
 
   while(tp.row >= 0 &&
-        m.width(_buffer[tp.row],
+        m.width(buffer_[tp.row],
                 current_column) < pos.x() + horizontalScrollBar()->value()) {
 
-    if(++current_column >= _buffer[tp.row].size()) {
+    if(++current_column >= buffer_[tp.row].size()) {
       break;
     }
   }
@@ -232,13 +226,55 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
   return tp;
 }
 
+/** * events **/
+void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
+  switch (event->key()) {
+    case Qt::Key_Return:
+      break;
+    case Qt::Key_Backspace:
+      break;
+    default:
+      line_.append(event->text());
+      this->viewport()->update();
+      break;
+  }
+}
+
+void ConsoleWidget::keyReleaseEvent(QKeyEvent *event) { }
+
+void ConsoleWidget::mousePressEvent(QMouseEvent*) {
+#if 0
+  QAbstractScrollArea::mousePressEvent(event);
+
+
+  if (event->buttons().testFlag(Qt::LeftButton)) {
+    _selection->start(getTextPosition(event->pos()));
+  }
+  
+  this->viewport()->update();
+#endif
+}
+
+void ConsoleWidget::mouseReleaseEvent(QMouseEvent* event) {
+  QAbstractScrollArea::mouseReleaseEvent(event);
+}
+
+void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
+  QAbstractScrollArea::mouseMoveEvent(event);
+
+  if(event->buttons().testFlag(Qt::LeftButton)) {
+    _selection->end(getTextPosition(event->pos()));
+  }
+
+  update();
+}
+
+/** * constructor **/
 ConsoleWidget::ConsoleWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-
   
-  _buffer << QString("mu v0.1.0");
-  _buffer << QString("> ");
+  buffer_ << QString("mu v0.1.0");
 }
