@@ -196,10 +196,10 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 
 void ConsoleWidget::drawCursor() {
 
-  //    const int x = m.width(_buffer[current_line], _selection->cursor().column);
-  //    painter.setPen(QPen(Qt::red, 2));
-  //    painter.drawLine(x, y_offset, x, y_offset +m.height());
-  //    painter.setPen(Qt::black);
+  // const int x = m.width(_buffer[current_line], _selection->cursor().column);
+  // painter.setPen(QPen(Qt::red, 2));
+  // painter.drawLine(x, y_offset, x, y_offset + m.height());
+  // painter.setPen(Qt::black);
 }
 
 TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
@@ -232,11 +232,11 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 }
 
 ConsoleWidget::ConsoleWidget(QWidget *parent)
-  : QAbstractScrollArea(parent), _selection(new TextSelection) {
+  : QAbstractScrollArea(parent),
+    _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
 
-  for(int i=0; i < 100; ++i) {
-    _buffer << QString("1234567890ABCDEFGHIJKLMNOPQRTSUVWXYZ");
-  }
+  _buffer << QString("mu v0.1.0");
+  _buffer << QString("> ");
 }
