@@ -1,3 +1,4 @@
+CONFIG += console
 TEMPLATE = app
 TARGET = locus
 INCLUDEPATH += .
@@ -6,14 +7,14 @@ MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
 
 HEADERS += locus.h        \
-           ConsoleFrame.h \
+           ConsoleWidget.h \
            LocusFrame.h   \
            MainMenuBar.h  \
            MainWindow.h   \
            StatusClock.h
 
 SOURCES += locus.cpp      \
-           ConsoleFrame.cpp \           
+           ConsoleWidget.cpp \           
            LocusFrame.cpp \           
            MainMenuBar.cpp\
            MainWindow.cpp \

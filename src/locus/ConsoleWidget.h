@@ -4,6 +4,7 @@
 #include <QAbstractScrollArea>
 #include <QDebug>
 #include <QFrame>
+#include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPen>
@@ -17,23 +18,23 @@ class QMouseEvent;
 struct TextSelection;
 struct TextPosition;
 
-class ConsoleFrame : public QAbstractScrollArea {
+class ConsoleWidget : public QAbstractScrollArea {
 
   Q_OBJECT
 
  public:
 
-  explicit ConsoleFrame(QWidget *parent = 0);
-
+  explicit ConsoleWidget(QWidget *parent = 0);
 
  protected:
 
-  void paintEvent(QPaintEvent* event);
+  void paintEvent(QPaintEvent* event) override;
 
-  void mousePressEvent(QMouseEvent* event);
-  void mouseReleaseEvent(QMouseEvent* event);
-  void mouseMoveEvent(QMouseEvent* event);
-
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
+  void keyReleaseEvent(QKeyEvent* event) override;
 
  private:
 
@@ -41,7 +42,9 @@ class ConsoleFrame : public QAbstractScrollArea {
 
   TextPosition getTextPosition(const QPoint& pos) const;
 
-  QStringList _buffer;
+  QStringList buffer_;
+  QString line_;
+
   QSharedPointer<TextSelection> _selection;
 };
 

@@ -29,6 +29,8 @@ LocusFrame::LocusFrame() {
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
+  consoleWidget = new ConsoleWidget(this);
+  
   bottomFiller = new QWidget;
   bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -36,6 +38,7 @@ LocusFrame::LocusFrame() {
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(topFiller);
   layout->addWidget(bannerLabel);
+  layout->addWidget(consoleWidget);
   layout->addWidget(bottomFiller);
   this->setLayout(layout);
 
