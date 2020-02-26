@@ -230,8 +230,12 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
+      buffer_ << line_;
+      line_.clear();
       break;
     case Qt::Key_Backspace:
+      line_.resize(line_.size() - 1);
+      this->viewport()->update();
       break;
     default:
       line_.append(event->text());
