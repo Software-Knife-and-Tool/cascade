@@ -235,7 +235,6 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
       break;
     case Qt::Key_Backspace:
       line_.resize(line_.size() - 1);
-      
       this->viewport()->update();
       break;
     default:
