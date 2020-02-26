@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QScrollBar>
+#include <QKeyEvent>
 #include <QMouseEvent>
 #include <QDebug>
   
@@ -237,6 +238,7 @@ ConsoleWidget::ConsoleWidget(QWidget *parent)
 
   viewport()->setCursor(Qt::IBeamCursor);
 
+  
   _buffer << QString("mu v0.1.0");
   _buffer << QString("> ");
 }
