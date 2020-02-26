@@ -22,6 +22,10 @@ class MainMenuBar : public QMenu {
  public:
   MainMenuBar(MainWindow*);
 
+  QAction *cutAct;
+  QAction *copyAct;
+  QAction *pasteAct;
+
  private slots:
   void newFile();
   void open();
@@ -61,9 +65,6 @@ class MainMenuBar : public QMenu {
   QAction *exitAct;
   QAction *undoAct;
   QAction *redoAct;
-  QAction *cutAct;
-  QAction *copyAct;
-  QAction *pasteAct;
   QAction *boldAct;
   QAction *italicAct;
   QAction *leftAlignAct;

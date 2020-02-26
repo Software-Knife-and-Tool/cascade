@@ -14,13 +14,14 @@ QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
-class QMenu;
 class QDateTime;
 class QStatusBar;
 QT_END_NAMESPACE
 
 namespace locus {
 
+class MainMenuBar;
+  
 class MainWindow : public QMainWindow {
 
   Q_OBJECT
@@ -28,13 +29,10 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow();
 
-  void setContextStatus(const char* str) {
-
-    statusBar()->showMessage(tr(str));
-  }
-
+  void setContextStatus(const char*);
+  
  protected:
-  // void contextMenuEvent(QContextMenuEvent *event) override;
+  void contextMenuEvent(QContextMenuEvent *event) override;
 
  private:
   void createStatusBar();
@@ -43,7 +41,7 @@ class MainWindow : public QMainWindow {
   QDateTime startTime;
   StatusClock* statusClock;
   LocusFrame* locusFrame;
-  // MainMenuBar* mainMenuBar;
+  MainMenuBar* mainMenuBar;
   QLabel *infoLabel;  
 };
 
