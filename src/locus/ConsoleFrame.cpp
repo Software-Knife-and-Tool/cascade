@@ -4,7 +4,7 @@
 #include <QScrollBar>
 #include <QMouseEvent>
 #include <QDebug>
-
+  
 struct LineStyle {
 
   LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
@@ -16,7 +16,6 @@ struct LineStyle {
   int length;
 };
 
-
 struct TextPosition {
 
   TextPosition(int r = 0, int c = 0) : row(r), column(c) {}
@@ -24,7 +23,6 @@ struct TextPosition {
   int row;
   int column;
 };
-
 
 bool operator<(const TextPosition& lhs, const TextPosition& rhs) {
 
@@ -36,7 +34,6 @@ bool operator<(const TextPosition& lhs, const TextPosition& rhs) {
   }
 }
 
-
 bool operator==(const TextPosition& lhs, const TextPosition& rhs) {
   return lhs.row == rhs.row && lhs.column == rhs.column;
 }
@@ -45,7 +42,6 @@ bool operator==(const TextPosition& lhs, const TextPosition& rhs) {
 bool operator!=(const TextPosition& lhs, const TextPosition& rhs) {
   return ! (lhs == rhs);
 }
-
 
 struct TextSelection {
 
@@ -82,16 +78,13 @@ struct TextSelection {
   TextPosition end_pos;
 };
 
-
 inline LineStyle normalStyle(int start, int length) {
   return LineStyle(Qt::white, Qt::black, start, length);
 }
 
-
 inline LineStyle highlightStyle(int start, int length) {
   return LineStyle(Qt::darkGray, Qt::white, start, length);
 }
-
 
 QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
@@ -99,51 +92,35 @@ QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
   if(! sel.hasActiveSelection()) {
     styles << normalStyle(0, length);
-  }
-  else if(sel.first().row == row && sel.last().row == row) {
+  } else if(sel.first().row == row && sel.last().row == row) {
 
     styles << normalStyle(0, sel.first().column);
     styles << highlightStyle(sel.first().column, sel.last().column - sel.first().column);
 
     styles << normalStyle(sel.last().column, length - sel.last().column + 1);
-  }
-  else if(sel.first().row == row) {
+  } else if(sel.first().row == row) {
 
     styles << normalStyle(0, sel.first().column);
     styles << highlightStyle(sel.first().column, length - sel.first().column + 1);
-  }
-  else if(sel.last().row == row) {
+  } else if(sel.last().row == row) {
 
     styles << highlightStyle(0, sel.last().column);
     styles << normalStyle(sel.last().column, length - sel.last().column + 1);
-  }
-  else if(sel.first().row < row && sel.last().row > row) {
+  } else if(sel.first().row < row && sel.last().row > row) {
     styles << highlightStyle(0, length);
-  }
-  else {
+  } else {
     styles << normalStyle(0, length);
   }
 
   return styles;
 }
 
-
 int drawWidth(QPainter& painter, const QString& text) {
   //return painter.boundingRect(QRect(), Qt::AlignLeft, text).width();
   return painter.fontMetrics().width(text);
 }
 
-
-ConsoleFrame::ConsoleFrame(QWidget *parent) : QAbstractScrollArea(parent), _selection(new TextSelection) {
-
-  viewport()->setCursor(Qt::IBeamCursor);
-
-  for(int i=0; i < 100; ++i) {
-    _buffer << QString("1234567890ABCDEFGHIJKLMNOPQRTSUVWXYZ");
-  }
-}
-
-
+/** * class members **/
 void ConsoleFrame::paintEvent(QPaintEvent* /*event*/) {
 
   QPainter painter(viewport());
@@ -193,7 +170,6 @@ void ConsoleFrame::paintEvent(QPaintEvent* /*event*/) {
   horizontalScrollBar()->setPageStep(viewport()->width());
 }
 
-
 void ConsoleFrame::mousePressEvent(QMouseEvent* event) {
   QAbstractScrollArea::mousePressEvent(event);
 
@@ -204,11 +180,9 @@ void ConsoleFrame::mousePressEvent(QMouseEvent* event) {
   update();
 }
 
-
 void ConsoleFrame::mouseReleaseEvent(QMouseEvent* event) {
   QAbstractScrollArea::mouseReleaseEvent(event);
 }
-
 
 void ConsoleFrame::mouseMoveEvent(QMouseEvent* event) {
   QAbstractScrollArea::mouseMoveEvent(event);
@@ -220,7 +194,6 @@ void ConsoleFrame::mouseMoveEvent(QMouseEvent* event) {
   update();
 }
 
-
 void ConsoleFrame::drawCursor() {
 
   //    const int x = m.width(_buffer[current_line], _selection->cursor().column);
@@ -228,7 +201,6 @@ void ConsoleFrame::drawCursor() {
   //    painter.drawLine(x, y_offset, x, y_offset +m.height());
   //    painter.setPen(Qt::black);
 }
-
 
 TextPosition ConsoleFrame::getTextPosition(const QPoint& pos) const {
 
@@ -245,7 +217,9 @@ TextPosition ConsoleFrame::getTextPosition(const QPoint& pos) const {
 
   int current_column = 0;
 
-  while(tp.row >= 0 && m.width(_buffer[tp.row], current_column) < pos.x() + horizontalScrollBar()->value()) {
+  while(tp.row >= 0 &&
+        m.width(_buffer[tp.row],
+                current_column) < pos.x() + horizontalScrollBar()->value()) {
 
     if(++current_column >= _buffer[tp.row].size()) {
       break;
@@ -255,4 +229,14 @@ TextPosition ConsoleFrame::getTextPosition(const QPoint& pos) const {
   tp.column = current_column;
 
   return tp;
+}
+
+ConsoleFrame::ConsoleFrame(QWidget *parent)
+  : QAbstractScrollArea(parent), _selection(new TextSelection) {
+
+  viewport()->setCursor(Qt::IBeamCursor);
+
+  for(int i=0; i < 100; ++i) {
+    _buffer << QString("1234567890ABCDEFGHIJKLMNOPQRTSUVWXYZ");
+  }
 }

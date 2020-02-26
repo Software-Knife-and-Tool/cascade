@@ -2,8 +2,14 @@
 #define _LOCUS_SRC_LOCUS_CONSOLE_WIDGET_H_
 
 #include <QAbstractScrollArea>
-#include <QStringList>
+#include <QDebug>
+#include <QFrame>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
+#include <QScrollBar>
 #include <QSharedPointer>
+#include <QStringList>
 
 class QPaintEvent;
 class QMouseEvent;
