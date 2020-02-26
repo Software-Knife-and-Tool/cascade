@@ -17,12 +17,14 @@ INCLUDEPATH += .
 HEADERS += locus.h        \
            ConsoleFrame.h \
            LocusFrame.h   \
+           MainMenuBar.h  \
            MainWindow.h   \
            StatusClock.h
 
 SOURCES += locus.cpp      \
            ConsoleFrame.cpp \           
            LocusFrame.cpp \           
+           MainMenuBar.cpp\
            MainWindow.cpp \
            main.cpp
 

@@ -8,7 +8,7 @@
 class QPaintEvent;
 class QMouseEvent;
 
-class TextSelection;
+struct TextSelection;
 struct TextPosition;
 
 class ConsoleFrame : public QAbstractScrollArea {
