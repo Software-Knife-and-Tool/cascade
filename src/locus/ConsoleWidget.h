@@ -90,6 +90,7 @@ class ConsoleWidget : public QAbstractScrollArea {
   QString line_;
 
   QSharedPointer<TextSelection> _selection;
+  locus::Mu* mu;
 };
 
 #endif /* _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_ */
