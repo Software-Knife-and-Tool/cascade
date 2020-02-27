@@ -43,44 +43,39 @@
 
 namespace locus {
 
-LocusFrame::LocusFrame(MainWindow* w) {
+LocusFrame::LocusFrame(MainWindow*) {
 
-  const char* banner_html =
-    "<div>"
-    " <h1>Locus 0.0.1</h1>"
-    " <br>"
-    " <h3>Logica 0.1.0</h3>"
-    "</div>";
-
+  mu = new Mu();
+    
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
 
   QString system_html =
-    QString("<div><h1>").arg(userName,
-                             QString(" on "),
-                             hostName,
-                             QString("</h1></div>"));
-
-  mu = new Mu();
+    QString("<div align=left><p><h1>Locus ") +
+    QString("0.0.1") +
+    QString("</h1></p>") +
+    QString("<p><h3>Logica ") +
+    QString("0.1.0") +
+    QString("</h3></p>") +
+    QString("<p><h3>Mu ") +
+    mu->version() +
+    QString("</h3></p>") +
+    QString("<h3>") +
+    userName +
+    QString(" running on ") +
+    hostName +
+    QString("</h3></div");
     
-  topFiller = new QWidget;
-  topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  bannerLabel = new QLabel(tr(banner_html).append(w->mu->version()));
+  bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
   
   consoleWidget = new ConsoleWidget(this, mu);
   
-  bottomFiller = new QWidget;
-  bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(topFiller);
   layout->addWidget(bannerLabel);
   layout->addWidget(consoleWidget);
-  layout->addWidget(bottomFiller);
   this->setLayout(layout);
 
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
