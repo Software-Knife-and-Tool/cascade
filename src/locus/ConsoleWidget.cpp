@@ -270,7 +270,9 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
       buffer_ << line_;
+      buffer_ << mu->mu(line_);
       line_.clear();
+      this->viewport()->update();
       break;
     case Qt::Key_Backspace:
       line_.resize(line_.size() - 1);
@@ -313,11 +315,11 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent)
+ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
   : QAbstractScrollArea(parent),
+    mu(mu),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  
-  buffer_ << QString("mu v0.1.0");
+  buffer_ << QString(";;; mu ").append(mu->version());
 }

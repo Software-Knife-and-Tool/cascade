@@ -51,7 +51,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "MainWindow.h"
+#include "LocusFrame.h"
 #include "Mu.h"
 
 class QPaintEvent;
@@ -60,7 +60,7 @@ class QMouseEvent;
 struct TextSelection;
 struct TextPosition;
 
-class MainWindow;
+class LocusFrame;
 
 class ConsoleWidget : public QAbstractScrollArea {
 
@@ -68,7 +68,7 @@ class ConsoleWidget : public QAbstractScrollArea {
 
  public:
 
-  explicit ConsoleWidget(QWidget*);
+  explicit ConsoleWidget(QWidget*, locus::Mu*);
 
  protected:
 
@@ -90,6 +90,7 @@ class ConsoleWidget : public QAbstractScrollArea {
   QString line_;
 
   QSharedPointer<TextSelection> _selection;
+  locus::Mu* mu;
 };
 
 #endif /* _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_ */
