@@ -1,23 +1,26 @@
-CONFIG += console
+CONFIG += console c++14
 TEMPLATE = app
 TARGET = locus
-INCLUDEPATH += .
+INCLUDEPATH += . /usr/local/logica
 DESTDIR = ../../build
 MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
+LIBS += /usr/local/logica/libmu/libmu.a
 
-HEADERS += locus.h        \
+HEADERS += \
+           /usr/local/logica/libmu/libmu.h \
            ConsoleWidget.h \
-           LocusFrame.h   \
-           MainMenuBar.h  \
-           MainWindow.h   \
+           LocusFrame.h    \
+           MainMenuBar.h   \
+           MainWindow.h    \
+           Mu.h            \
            StatusClock.h
 
-SOURCES += locus.cpp      \
+SOURCES += \
            ConsoleWidget.cpp \           
-           LocusFrame.cpp \           
-           MainMenuBar.cpp\
-           MainWindow.cpp \
+           LocusFrame.cpp    \           
+           MainMenuBar.cpp   \
+           MainWindow.cpp    \
            main.cpp
 
 QT += core gui widgets

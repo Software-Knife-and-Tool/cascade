@@ -33,22 +33,44 @@
 
 /********
  **
- **  main.cpp: Locus main
+ **  Mu.h: Mu class
  **
  **/
 
-#include <QDesktopWidget>
-#include <QApplication>
+#ifndef _LOGICA_SRC_LOCUS_MU_H_
+#define _LOGICA_SRC_LOCUS_MU_H_
 
-#include "MainWindow.h"
+#include <QString>
 
-int main(int argc, char **argv) {
+#include "libmu/libmu.h"
 
-  QApplication app(argc, argv);
+namespace locus {
   
-  locus::MainWindow mainWindow;
-  mainWindow.show();
+class Mu {
+ public:
+  QString version() {
+
+    return QString(libmu->version().c_str());  
+  }
+
+  QString mu(QString form) {
+    
+    return
+      QString::fromStdString(
+       libmu->printToString(libmu->eval(libmu->read(form.toStdString())),
+                            true));
+  }
   
-  mainWindow.setFixedSize(1024, 768);
-  return app.exec();
-}
+  Mu() {
+  
+    platform::Platform* platform = new platform::Platform();
+    libmu = std::make_unique<libmu::LibMu>(platform);
+  }
+
+ private:
+  std::unique_ptr<libmu::LibMu> libmu;
+};
+
+} /* locus namespace */
+
+#endif /* _LOGICA_SRC_LOCUS_MU_H_ */ 
