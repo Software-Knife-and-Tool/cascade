@@ -53,8 +53,7 @@ LocusFrame::LocusFrame(MainWindow*) {
   QString system_html =
     QString("<div align=left><p><h1>Locus ") +
     QString("0.0.1") +
-    QString("</h1></p>") +
-    QString("<p><h3>Logica ") +
+    QString("</h1></p>") + QString("<p><h3>Logica ") +
     QString("0.1.0") +
     QString("</h3></p>") +
     QString("<p><h3>Mu ") +
