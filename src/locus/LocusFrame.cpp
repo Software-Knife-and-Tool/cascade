@@ -60,15 +60,17 @@ LocusFrame::LocusFrame(MainWindow* w) {
                              QString(" on "),
                              hostName,
                              QString("</h1></div>"));
-  
+
+  mu = new Mu();
+    
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   bannerLabel = new QLabel(tr(banner_html).append(w->mu->version()));
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
-
-  consoleWidget = new ConsoleWidget(w);
+  
+  consoleWidget = new ConsoleWidget(this, mu);
   
   bottomFiller = new QWidget;
   bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

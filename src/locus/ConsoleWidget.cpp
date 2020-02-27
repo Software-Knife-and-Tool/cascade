@@ -313,11 +313,11 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent)
+ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
   : QAbstractScrollArea(parent),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  
-  buffer_ << QString("mu v0.1.0");
+
+  buffer_ << mu->version();
 }

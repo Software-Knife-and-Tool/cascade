@@ -45,6 +45,7 @@
 
 #include "ConsoleWidget.h"
 #include "MainWindow.h"
+#include "Mu.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
@@ -71,6 +72,7 @@ class LocusFrame : public QFrame {
   ConsoleWidget *consoleWidget;
   QWidget *bottomFiller;
   QLabel *bannerLabel;
+  Mu* mu;
 };
 
 } /* locus namespace */
