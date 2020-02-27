@@ -33,22 +33,18 @@
 
 /********
  **
- **  main.cpp: Locus main
+ **  Mu.cpp: Mu class implementation
  **
  **/
 
-#include <QDesktopWidget>
-#include <QApplication>
+#include "Mu.h"
 
-#include "MainWindow.h"
+#include </usr/local/logica/libmu/libmu.h>
 
-int main(int argc, char **argv) {
+namespace locus {
 
-  QApplication app(argc, argv);
+Mu::Mu() {
   
-  locus::MainWindow mainWindow;
-  mainWindow.show();
-  
-  mainWindow.setFixedSize(1024, 768);
-  return app.exec();
 }
+
+} /* locus namespace */
