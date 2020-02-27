@@ -200,11 +200,31 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
 
     ++current_line;
   }
-  
+
+  int x_offset = -horizontalScrollBar()->value();
+      
+  if (y_offset < viewport()->height() && current_line >= 0 && prompt_.size() > 0) {
+
+    const int text_offset = y_offset + m.ascent();
+
+    foreach (const auto style, getLineStyle(*_selection.data(), prompt_.size(), current_line)) {
+    
+      painter.setPen(style.foreground);
+      painter.setBrush(style.background);
+
+      const QString text = prompt_.mid(style.start, style.length);
+      int text_width = drawWidth(painter, text);
+      
+      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
+      painter.drawText(x_offset, text_offset, text);
+
+      x_offset += text_width;
+    }
+  }
+
   if (y_offset < viewport()->height() && current_line >= 0 && line_.size() > 0) {
 
     const int text_offset = y_offset + m.ascent();
-    int x_offset = -horizontalScrollBar()->value();
 
     foreach (const auto style, getLineStyle(*_selection.data(), line_.size(), current_line)) {
     
@@ -216,7 +236,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
       
       painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
       painter.drawText(x_offset, text_offset, text);
-    }
+    }    
   }
   
   verticalScrollBar()->setRange(0, buffer_.size() * m.height());
@@ -269,23 +289,23 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
-      buffer_ << line_;
+      buffer_ << prompt_ + line_;
       buffer_ << mu->mu(line_);
       line_.clear();
-      this->viewport()->update();
+      viewport()->update();
       break;
     case Qt::Key_Backspace:
       line_.resize(line_.size() - 1);
-      this->viewport()->update();
+      viewport()->update();
       break;
     default:
       line_.append(event->text());
-      this->viewport()->update();
+      viewport()->update();
       break;
   }
 }
 
-void ConsoleWidget::keyReleaseEvent(QKeyEvent *event) { }
+void ConsoleWidget::keyReleaseEvent(QKeyEvent *) { }
 
 void ConsoleWidget::mousePressEvent(QMouseEvent*) {
 #if 0
@@ -301,10 +321,12 @@ void ConsoleWidget::mousePressEvent(QMouseEvent*) {
 }
 
 void ConsoleWidget::mouseReleaseEvent(QMouseEvent* event) {
+
   QAbstractScrollArea::mouseReleaseEvent(event);
 }
 
 void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
+  
   QAbstractScrollArea::mouseMoveEvent(event);
 
   if(event->buttons().testFlag(Qt::LeftButton)) {
@@ -322,4 +344,5 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
 
   viewport()->setCursor(Qt::IBeamCursor);
   buffer_ << QString(";;; mu ").append(mu->version());
+  prompt_ = QString("> ");
 }

@@ -88,6 +88,7 @@ class ConsoleWidget : public QAbstractScrollArea {
 
   QStringList buffer_;
   QString line_;
+  QString prompt_;
 
   QSharedPointer<TextSelection> _selection;
   locus::Mu* mu;
