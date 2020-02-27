@@ -173,6 +173,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
   int y_offset = 0;
   int maximum_width = 0;
 
+  /* display the buffer */
   while (y_offset < viewport()->height() && current_line >= 0 && current_line < buffer_.size()) {
 
     const int text_offset = y_offset + m.ascent();
@@ -201,6 +202,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
     ++current_line;
   }
 
+  /* display the prompt */
   int x_offset = -horizontalScrollBar()->value();
       
   if (y_offset < viewport()->height() && current_line >= 0 && prompt_.size() > 0) {
@@ -222,6 +224,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
     }
   }
 
+  /* display the current line */
   if (y_offset < viewport()->height() && current_line >= 0 && line_.size() > 0) {
 
     const int text_offset = y_offset + m.ascent();
@@ -236,7 +239,27 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
       
       painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
       painter.drawText(x_offset, text_offset, text);
-    }    
+
+      x_offset += text_width;
+    }
+  }
+
+  /* display the cursor */
+  if (y_offset < viewport()->height() && current_line >= 0 && cursor_.size() > 0) {
+
+    const int text_offset = y_offset + m.ascent();
+
+    foreach (const auto style, getLineStyle(*_selection.data(), cursor_.size(), current_line)) {
+    
+      painter.setPen(style.foreground);
+      painter.setBrush(style.background);
+
+      const QString text = cursor_.mid(style.start, style.length);
+      int text_width = drawWidth(painter, text);
+      
+      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
+      painter.drawText(x_offset, text_offset, text);
+    }
   }
   
   verticalScrollBar()->setRange(0, buffer_.size() * m.height());
@@ -345,4 +368,5 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
   viewport()->setCursor(Qt::IBeamCursor);
   buffer_ << QString(";;; mu ").append(mu->version());
   prompt_ = QString("> ");
+  cursor_ = QString("_");
 }
