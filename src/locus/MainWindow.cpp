@@ -40,25 +40,11 @@
 #include <QtWidgets>
 #include <QDateTime>
 
-#include "MainWindow.h"
 #include "LocusFrame.h"
 #include "MainMenuBar.h"
+#include "MainWindow.h"
 
 namespace locus {
-
-MainWindow::MainWindow() {
-
-  createStatusBar();
-
-  mainMenuBar = new MainMenuBar(this);
-  
-  locusFrame = new LocusFrame(this);
-  setCentralWidget(locusFrame);
-  
-  setWindowTitle(tr("(locus 'logica)"));
-  setMinimumSize(160, 160);
-  resize(480, 320);
-}
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   
@@ -86,6 +72,20 @@ void MainWindow::createStatusBar() {
   
   statusBar()->addPermanentWidget(dateLabel);  
   statusBar()->addWidget(context);
+}
+
+MainWindow::MainWindow() {
+
+  createStatusBar();
+
+  mainMenuBar = new MainMenuBar(this);
+  
+  locusFrame = new LocusFrame(this);
+  setCentralWidget(locusFrame);
+  
+  setWindowTitle(tr("(logica locus)"));
+  setMinimumSize(160, 160);
+  resize(480, 320);
 }
 
 } /* locus namespace */

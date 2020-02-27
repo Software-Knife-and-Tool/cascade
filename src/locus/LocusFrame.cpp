@@ -55,11 +55,11 @@ LocusFrame::LocusFrame(MainWindow* w) {
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
 
-  QString system_html = QString("<div><h1>").arg(
-                                        userName,
-                                        QString(" on "),
-                                        hostName,
-                                        QString("</h1></div>"));
+  QString system_html =
+    QString("<div><h1>").arg(userName,
+                             QString(" on "),
+                             hostName,
+                             QString("</h1></div>"));
   
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

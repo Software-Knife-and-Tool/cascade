@@ -57,6 +57,7 @@ class ConsoleWidget;
 namespace locus {
   
 class LocusFrame : public QFrame {
+
   Q_OBJECT
 
  public:
