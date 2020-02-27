@@ -40,11 +40,35 @@
 #ifndef _LOGICA_SRC_LOCUS_MU_H_
 #define _LOGICA_SRC_LOCUS_MU_H_
 
+#include <QString>
+
+#include "libmu/libmu.h"
+
 namespace locus {
   
 class Mu {
  public:
-  Mu();
+  QString version() {
+
+    return QString(libmu->version().c_str());  
+  }
+
+  QString mu(QString form) {
+    
+    return
+      QString::fromStdString(
+       libmu->printToString(libmu->eval(libmu->read(form.toStdString())),
+                            true));
+  }
+  
+  Mu() {
+  
+    platform::Platform* platform = new platform::Platform();
+    libmu = std::make_unique<libmu::LibMu>(platform);
+  }
+
+ private:
+  std::unique_ptr<libmu::LibMu> libmu;
 };
 
 } /* locus namespace */

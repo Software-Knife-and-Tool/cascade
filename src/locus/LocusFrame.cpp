@@ -43,7 +43,7 @@
 
 namespace locus {
 
-LocusFrame::LocusFrame() {
+LocusFrame::LocusFrame(MainWindow* w) {
 
   const char* banner_html =
     "<div>"
@@ -64,11 +64,11 @@ LocusFrame::LocusFrame() {
   topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  bannerLabel = new QLabel(tr(banner_html));
+  bannerLabel = new QLabel(tr(banner_html).append(w->mu->version()));
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
-  consoleWidget = new ConsoleWidget(this);
+  consoleWidget = new ConsoleWidget(w);
   
   bottomFiller = new QWidget;
   bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

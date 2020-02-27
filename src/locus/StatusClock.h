@@ -76,7 +76,7 @@ class StatusClock : public QObject {
   void statusClock() {
     
     QDateTime now = QDateTime::currentDateTime();
-    dateLabel->setText(now.toString("ddd MMMM d yy h:m ap"));
+    dateLabel->setText(now.toString("ddd MMMM d yy h:m ap "));
   }
 };
 

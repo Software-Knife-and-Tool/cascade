@@ -44,6 +44,7 @@
 #include <QFrame>
 
 #include "ConsoleWidget.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
@@ -51,13 +52,15 @@ class QWidget;
 class QLabel;
 QT_END_NAMESPACE
 
+class ConsoleWidget;
+
 namespace locus {
   
 class LocusFrame : public QFrame {
   Q_OBJECT
 
  public:
-  LocusFrame();
+  LocusFrame(MainWindow*);
 
  protected:
 

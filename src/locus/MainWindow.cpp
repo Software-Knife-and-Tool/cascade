@@ -52,7 +52,7 @@ MainWindow::MainWindow() {
 
   mainMenuBar = new MainMenuBar(this);
   
-  locusFrame = new LocusFrame();
+  locusFrame = new LocusFrame(this);
   setCentralWidget(locusFrame);
   
   setWindowTitle(tr("(locus 'logica)"));

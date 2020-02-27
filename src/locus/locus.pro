@@ -17,7 +17,6 @@ HEADERS += \
            StatusClock.h
 
 SOURCES += \
-           Mu.cpp            \
            ConsoleWidget.cpp \           
            LocusFrame.cpp    \           
            MainMenuBar.cpp   \

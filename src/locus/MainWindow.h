@@ -48,6 +48,7 @@
 #include "StatusClock.h"
 #include "LocusFrame.h"
 #include "MainMenuBar.h"
+#include "Mu.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -60,12 +61,15 @@ QT_END_NAMESPACE
 namespace locus {
 
 class MainMenuBar;
+class LocusFrame;
   
 class MainWindow : public QMainWindow {
 
   Q_OBJECT
 
  public:
+  locus::Mu* mu;
+  
   MainWindow();
 
   void setContextStatus(const char*);
@@ -77,11 +81,11 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
-  QDateTime startTime;
-  StatusClock* statusClock;
   LocusFrame* locusFrame;
   MainMenuBar* mainMenuBar;
-  QLabel *infoLabel;  
+  QDateTime startTime;
+  QLabel *infoLabel;
+  StatusClock* statusClock;
 };
 
 } /* locus namespace */
