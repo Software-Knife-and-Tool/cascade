@@ -127,6 +127,8 @@ inline LineStyle highlightStyle(int start, int length) {
   return LineStyle(Qt::darkGray, Qt::white, start, length);
 }
 
+namespace {
+    
 QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
   QList<LineStyle> styles;
@@ -161,6 +163,8 @@ int drawWidth(QPainter& painter, const QString& text) {
   return painter.fontMetrics().horizontalAdvance(text);
 }
 
+} /* anonymous namespace */
+  
 /** * draw line **/
 void ConsoleWidget::DrawLine(int& x_offset,
                              int y_offset,
