@@ -89,7 +89,6 @@ class MainMenuBar : public QMenu {
  private:
   void createActions();
   void createMenus();
-  void createStatusBar();
 
   QMenu *fileMenu;
   QMenu *editMenu;
@@ -98,28 +97,25 @@ class MainMenuBar : public QMenu {
   QMenu *helpMenu;
 
   QActionGroup *alignmentGroup;
+  QAction *aboutAct;
+  QAction *boldAct;
+  QAction *centerAct;
+  QAction *exitAct;
+  QAction *italicAct;
+  QAction *justifyAct;
+  QAction *leftAlignAct;
   QAction *locusAct;
   QAction *logicaAct;
-  QAction *scriptAct;
-
   QAction *newAct;
   QAction *openAct;
-
-  QAction *saveAct;
   QAction *printAct;
-  QAction *exitAct;
-  QAction *undoAct;
   QAction *redoAct;
-  QAction *boldAct;
-  QAction *italicAct;
-  QAction *leftAlignAct;
   QAction *rightAlignAct;
-  QAction *justifyAct;
-  QAction *centerAct;
+  QAction *saveAct;
+  QAction *scriptAct;
   QAction *setLineSpacingAct;
   QAction *setParagraphSpacingAct;
-  QAction *aboutAct;
-  QAction *aboutQtAct;
+  QAction *undoAct;
 
  private:
   MainWindow* mw;
