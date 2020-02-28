@@ -313,7 +313,9 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
       buffer_ << prompt_ + line_;
-      buffer_ << mu->mu(line_);
+      mu->withException([this]() {
+                          buffer_ << mu->mu(line_);
+                        });
       line_.clear();
       viewport()->update();
       break;
