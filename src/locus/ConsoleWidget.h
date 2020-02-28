@@ -84,8 +84,9 @@ class ConsoleWidget : public QAbstractScrollArea {
 
  private:
 
-  void drawCursor();
-
+  void DrawCursor();
+  void DrawLine(int&, int, QString, QFontMetrics, int);
+  
   TextPosition getTextPosition(const QPoint& pos) const;
 
   QStringList buffer_;

@@ -80,7 +80,6 @@ bool operator==(const TextPosition& lhs, const TextPosition& rhs) {
   return lhs.row == rhs.row && lhs.column == rhs.column;
 }
 
-
 bool operator!=(const TextPosition& lhs, const TextPosition& rhs) {
   return ! (lhs == rhs);
 }
@@ -128,6 +127,8 @@ inline LineStyle highlightStyle(int start, int length) {
   return LineStyle(Qt::darkGray, Qt::white, start, length);
 }
 
+namespace {
+    
 QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
   QList<LineStyle> styles;
@@ -162,6 +163,37 @@ int drawWidth(QPainter& painter, const QString& text) {
   return painter.fontMetrics().horizontalAdvance(text);
 }
 
+} /* anonymous namespace */
+  
+/** * draw line **/
+void ConsoleWidget::DrawLine(int& x_offset,
+                             int y_offset,
+                             QString line,
+                             QFontMetrics m,
+                             int current_line) {
+
+  QPainter painter(viewport());
+    
+  if (y_offset < viewport()->height() && current_line >= 0 && line.size() > 0) {
+    const int text_offset = y_offset + m.ascent();
+
+    foreach (const auto style,
+             getLineStyle(*_selection.data(), line.size(), current_line)) {
+    
+      painter.setPen(style.foreground);
+      painter.setBrush(style.background);
+
+      const QString text = line.mid(style.start, style.length);
+      int text_width = drawWidth(painter, text);
+      
+      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()),
+                       style.background);
+      painter.drawText(x_offset, text_offset, text);
+      x_offset += text_width;
+    }
+  }
+}
+
 /** * class members **/
 void ConsoleWidget::paintEvent(QPaintEvent*) {
 
@@ -173,107 +205,49 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
   int current_line = verticalScrollBar()->value() / m.height();
 
   int y_offset = 0;
-  int maximum_width = 0;
+  int x_offset = 0;
+  int maximum_width = 0;  
 
   /* display the buffer */
-  while (y_offset < viewport()->height() && current_line >= 0 && current_line < buffer_.size()) {
+  while (y_offset < viewport()->height() &&
+         current_line >= 0 &&
+         current_line < buffer_.size()) {
 
-    const int text_offset = y_offset + m.ascent();
-    int x_offset = -horizontalScrollBar()->value();
+    x_offset = -horizontalScrollBar()->value();
 
-    const QString& line = buffer_[current_line];
-
-    foreach (const auto style, getLineStyle(*_selection.data(), line.size(), current_line)) {
-
-      painter.setPen(style.foreground);
-      painter.setBrush(style.background);
-
-      const QString text = line.mid(style.start, style.length);
-      int text_width = drawWidth(painter, text);
-
-      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
-
-      painter.drawText(x_offset, text_offset, text);
-      x_offset += text_width;
-    }
-
-    maximum_width = qMax(maximum_width, m.horizontalAdvance(line));
+    DrawLine(x_offset, y_offset, buffer_[current_line], m, current_line);
+    
+    maximum_width = qMax(maximum_width,
+                         m.horizontalAdvance(buffer_[current_line]));
 
     y_offset += m.height();
-
     ++current_line;
   }
 
   /* display the prompt */
-  int x_offset = -horizontalScrollBar()->value();
-      
-  if (y_offset < viewport()->height() && current_line >= 0 && prompt_.size() > 0) {
-
-    const int text_offset = y_offset + m.ascent();
-
-    foreach (const auto style, getLineStyle(*_selection.data(), prompt_.size(), current_line)) {
-    
-      painter.setPen(style.foreground);
-      painter.setBrush(style.background);
-
-      const QString text = prompt_.mid(style.start, style.length);
-      int text_width = drawWidth(painter, text);
-      
-      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
-      painter.drawText(x_offset, text_offset, text);
-
-      x_offset += text_width;
-    }
-  }
-
+  x_offset = -horizontalScrollBar()->value();
+  DrawLine(x_offset, y_offset, prompt_, m, current_line);
   /* display the current line */
-  if (y_offset < viewport()->height() && current_line >= 0 && line_.size() > 0) {
-
-    const int text_offset = y_offset + m.ascent();
-
-    foreach (const auto style, getLineStyle(*_selection.data(), line_.size(), current_line)) {
-    
-      painter.setPen(style.foreground);
-      painter.setBrush(style.background);
-
-      const QString text = line_.mid(style.start, style.length);
-      int text_width = drawWidth(painter, text);
-      
-      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
-      painter.drawText(x_offset, text_offset, text);
-
-      x_offset += text_width;
-    }
-  }
-
+  DrawLine(x_offset, y_offset, line_, m, current_line);
   /* display the cursor */
-  if (y_offset < viewport()->height() && current_line >= 0 && cursor_.size() > 0) {
+  DrawLine(x_offset, y_offset, cursor_, m, current_line);
 
-    const int text_offset = y_offset + m.ascent();
+  maximum_width = qMax(maximum_width,
+                       m.horizontalAdvance(prompt_) +
+                       m.horizontalAdvance(line_) +
+                       m.horizontalAdvance(cursor_));
 
-    foreach (const auto style, getLineStyle(*_selection.data(), cursor_.size(), current_line)) {
-    
-      painter.setPen(style.foreground);
-      painter.setBrush(style.background);
-
-      const QString text = cursor_.mid(style.start, style.length);
-      int text_width = drawWidth(painter, text);
-      
-      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()), style.background);
-      painter.drawText(x_offset, text_offset, text);
-    }
-  }
-  
   verticalScrollBar()->setRange(0, buffer_.size() * m.height());
   verticalScrollBar()->setSingleStep(m.height());
   verticalScrollBar()->setPageStep(viewport()->height());
 
-  horizontalScrollBar()->setRange(0, qMax(maximum_width, horizontalScrollBar()->maximum()));
+  horizontalScrollBar()->setRange(0, qMax(maximum_width,
+                                          horizontalScrollBar()->maximum()));
   horizontalScrollBar()->setSingleStep(m.averageCharWidth());
   horizontalScrollBar()->setPageStep(viewport()->width());
 }
 
-void ConsoleWidget::drawCursor() {
+void ConsoleWidget::DrawCursor() {
 
   // const int x = m.width(buffer_[current_line], _selection->cursor().column);
   // painter.setPen(QPen(Qt::red, 2));
