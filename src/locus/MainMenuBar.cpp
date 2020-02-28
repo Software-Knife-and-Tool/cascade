@@ -133,6 +133,21 @@ void MainMenuBar::aboutQt() {
 
 void MainMenuBar::createActions() {
  
+  locusAct = new QAction(tr("&Locus"), this);
+  locusAct->setShortcuts(QKeySequence::New);
+  locusAct->setStatusTip(tr("Locus Panel"));
+  connect(locusAct, &QAction::triggered, this, &MainMenuBar::newFile);
+
+  logicaAct = new QAction(tr("&Logica"), this);
+  logicaAct->setShortcuts(QKeySequence::New);
+  logicaAct->setStatusTip(tr("Logica Panel"));
+  connect(logicaAct, &QAction::triggered, this, &MainMenuBar::newFile);
+
+  scriptAct = new QAction(tr("&Script"), this);
+  scriptAct->setShortcuts(QKeySequence::New);
+  scriptAct->setStatusTip(tr("Scripting Panel"));
+  connect(scriptAct, &QAction::triggered, this, &MainMenuBar::newFile);
+
   newAct = new QAction(tr("&New"), this);
   newAct->setShortcuts(QKeySequence::New);
   newAct->setStatusTip(tr("Create a new file"));
@@ -168,7 +183,7 @@ void MainMenuBar::createActions() {
   redoAct->setStatusTip(tr("Redo the last operation"));
   connect(redoAct, &QAction::triggered, this, &MainMenuBar::redo);
 
-  cutAct = new QAction(tr("Cu&t"), this);
+  cutAct = new QAction(tr("&Cut"), this);
   cutAct->setShortcuts(QKeySequence::Cut);
   cutAct->setStatusTip(tr("Cut the current selection's contents to the "
                           "clipboard"));
@@ -275,13 +290,15 @@ void MainMenuBar::createMenus() {
   editMenu->addAction(copyAct);
   editMenu->addAction(pasteAct);
   editMenu->addSeparator();
-
-  locusMenu = mw->menuBar()->addMenu(tr("&Locus"));
-  locusMenu->addAction(newAct);
   
   helpMenu = mw->menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
   helpMenu->addAction(aboutQtAct);
+  
+  viewMenu = mw->menuBar()->addMenu(tr("&View"));
+  viewMenu->addAction(locusAct);
+  viewMenu->addAction(logicaAct);
+  viewMenu->addAction(scriptAct);
 
   formatMenu = editMenu->addMenu(tr("&Format"));
   formatMenu->addAction(boldAct);

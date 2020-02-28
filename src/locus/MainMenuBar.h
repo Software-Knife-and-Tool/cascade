@@ -93,13 +93,18 @@ class MainMenuBar : public QMenu {
 
   QMenu *fileMenu;
   QMenu *editMenu;
-  QMenu *locusMenu;
+  QMenu *viewMenu;
   QMenu *formatMenu;
   QMenu *helpMenu;
 
   QActionGroup *alignmentGroup;
+  QAction *locusAct;
+  QAction *logicaAct;
+  QAction *scriptAct;
+
   QAction *newAct;
   QAction *openAct;
+
   QAction *saveAct;
   QAction *printAct;
   QAction *exitAct;
