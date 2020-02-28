@@ -159,7 +159,7 @@ QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
 int drawWidth(QPainter& painter, const QString& text) {
   //return painter.boundingRect(QRect(), Qt::AlignLeft, text).width();
-  return painter.fontMetrics().width(text);
+  return painter.fontMetrics().horizontalAdvance(text);
 }
 
 /** * class members **/
@@ -197,7 +197,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
       x_offset += text_width;
     }
 
-    maximum_width = qMax(maximum_width, m.width(line));
+    maximum_width = qMax(maximum_width, m.horizontalAdvance(line));
 
     y_offset += m.height();
 
@@ -297,8 +297,9 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
   int current_column = 0;
 
   while(tp.row >= 0 &&
-        m.width(buffer_[tp.row],
-                current_column) < pos.x() + horizontalScrollBar()->value()) {
+        m.horizontalAdvance(buffer_[tp.row],
+                            current_column) <
+                            pos.x() + horizontalScrollBar()->value()) {
 
     if(++current_column >= buffer_[tp.row].size()) {
       break;
