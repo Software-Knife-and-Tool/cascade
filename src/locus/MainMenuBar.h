@@ -93,6 +93,7 @@ class MainMenuBar : public QMenu {
 
   QMenu *fileMenu;
   QMenu *editMenu;
+  QMenu *locusMenu;
   QMenu *formatMenu;
   QMenu *helpMenu;
 
@@ -116,8 +117,8 @@ class MainMenuBar : public QMenu {
   QAction *aboutQtAct;
 
  private:
-
   MainWindow* mw;
+  
 };
 
 } /* locus namespace */
