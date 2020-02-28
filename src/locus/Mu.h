@@ -60,6 +60,11 @@ class Mu {
        libmu->printToString(libmu->eval(libmu->read(form.toStdString())),
                             true));
   }
+
+  void withException(std::function<void()> fn) {
+    libmu->withException(libmu.get(),
+                         [fn](libmu::LibMu*) { (void)fn(); });
+  }
   
   Mu() {
   

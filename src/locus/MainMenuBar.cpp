@@ -235,11 +235,6 @@ void MainMenuBar::createActions() {
   aboutAct->setStatusTip(tr("Show the application's About box"));
   connect(aboutAct, &QAction::triggered, this, &MainMenuBar::about);
 
-  aboutQtAct = new QAction(tr("About &Qt"), this);
-  aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
-  connect(aboutQtAct, &QAction::triggered, qApp, &QApplication::aboutQt);
-  connect(aboutQtAct, &QAction::triggered, this, &MainMenuBar::aboutQt);
-
   leftAlignAct = new QAction(tr("&Left Align"), this);
   leftAlignAct->setCheckable(true);
   leftAlignAct->setShortcut(tr("Ctrl+L"));
@@ -282,6 +277,7 @@ void MainMenuBar::createMenus() {
   fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 
+  /* fileMenu is a sub-menu of editMenu */
   editMenu = mw->menuBar()->addMenu(tr("&Edit"));
   editMenu->addAction(undoAct);
   editMenu->addAction(redoAct);
@@ -290,15 +286,6 @@ void MainMenuBar::createMenus() {
   editMenu->addAction(copyAct);
   editMenu->addAction(pasteAct);
   editMenu->addSeparator();
-  
-  helpMenu = mw->menuBar()->addMenu(tr("&Help"));
-  helpMenu->addAction(aboutAct);
-  helpMenu->addAction(aboutQtAct);
-  
-  viewMenu = mw->menuBar()->addMenu(tr("&View"));
-  viewMenu->addAction(locusAct);
-  viewMenu->addAction(logicaAct);
-  viewMenu->addAction(scriptAct);
 
   formatMenu = editMenu->addMenu(tr("&Format"));
   formatMenu->addAction(boldAct);
@@ -311,6 +298,16 @@ void MainMenuBar::createMenus() {
   formatMenu->addSeparator();
   formatMenu->addAction(setLineSpacingAct);
   formatMenu->addAction(setParagraphSpacingAct);
+
+  /* this ends up in the locus menu */
+  helpMenu = mw->menuBar()->addMenu(tr("&Help"));
+  helpMenu->addAction(aboutAct);
+
+  /* we get a bonus full-screen entry in this menu */
+  viewMenu = mw->menuBar()->addMenu(tr("&View"));
+  viewMenu->addAction(locusAct);
+  viewMenu->addAction(logicaAct);
+  viewMenu->addAction(scriptAct);
 }
 
 } /* locus namespace */
