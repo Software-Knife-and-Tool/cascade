@@ -57,6 +57,8 @@
 class QPaintEvent;
 class QMouseEvent;
 
+namespace locus {
+  
 struct TextSelection;
 struct TextPosition;
 
@@ -94,5 +96,7 @@ class ConsoleWidget : public QAbstractScrollArea {
   QSharedPointer<TextSelection> _selection;
   locus::Mu* mu;
 };
+
+} /* locus namespace */
 
 #endif /* _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_ */

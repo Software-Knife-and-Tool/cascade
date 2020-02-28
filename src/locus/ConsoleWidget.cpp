@@ -44,6 +44,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QScrollBar>
+
+namespace locus {
   
 struct LineStyle {
 
@@ -372,3 +374,4 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
   prompt_ = QString("> ");
   cursor_ = QString("_");
 }
+} /* locus namespace */
