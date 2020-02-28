@@ -276,8 +276,8 @@ void MainMenuBar::createMenus() {
   editMenu->addAction(pasteAct);
   editMenu->addSeparator();
 
-  // locusMenu = mw->menuBar()->addMenu(tr("&Locus"));
-  // locusMenu->addAction(newAct);
+  locusMenu = mw->menuBar()->addMenu(tr("&Locus"));
+  locusMenu->addAction(newAct);
   
   helpMenu = mw->menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
