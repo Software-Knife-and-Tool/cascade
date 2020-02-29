@@ -89,13 +89,17 @@ MainWindow::MainWindow() {
     
   locusFrame = new LocusFrame(mdiArea);
   locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  mdiArea->addSubWindow(locusFrame);
+  locusFrame->showMaximized();
   
+  auto w = mdiArea->addSubWindow(locusFrame);
+  w->setWindowFlags(Qt::FramelessWindowHint);
+  w->showMaximized();
+
   createStatusBar();
     
   setWindowTitle(tr("(logica locus)"));
-  setMinimumSize(160, 160);
-  resize(480, 320);
+  // setMinimumSize(160, 160);
+  // resize(480, 320);
 }
 
 } /* locus namespace */
