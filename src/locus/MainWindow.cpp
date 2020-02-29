@@ -98,8 +98,6 @@ MainWindow::MainWindow() {
   createStatusBar();
     
   setWindowTitle(tr("(logica locus)"));
-  // setMinimumSize(160, 160);
-  // resize(480, 320);
 }
 
 } /* locus namespace */

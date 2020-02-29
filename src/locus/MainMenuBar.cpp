@@ -126,28 +126,8 @@ void MainMenuBar::about() {
                         "menu-bar menus and context menus."));
 }
 
-void MainMenuBar::aboutQt() {
-  
-  mw->setContextStatus("Invoked <b>Help|About Qt</b>");
-}
-
 void MainMenuBar::createActions() {
  
-  locusAct = new QAction(tr("&Locus"), this);
-  locusAct->setShortcuts(QKeySequence::New);
-  locusAct->setStatusTip(tr("Locus Panel"));
-  connect(locusAct, &QAction::triggered, this, &MainMenuBar::newFile);
-
-  logicaAct = new QAction(tr("&Logica"), this);
-  logicaAct->setShortcuts(QKeySequence::New);
-  logicaAct->setStatusTip(tr("Logica Panel"));
-  connect(logicaAct, &QAction::triggered, this, &MainMenuBar::newFile);
-
-  scriptAct = new QAction(tr("&Script"), this);
-  scriptAct->setShortcuts(QKeySequence::New);
-  scriptAct->setStatusTip(tr("Scripting Panel"));
-  connect(scriptAct, &QAction::triggered, this, &MainMenuBar::newFile);
-
   newAct = new QAction(tr("&New"), this);
   newAct->setShortcuts(QKeySequence::New);
   newAct->setStatusTip(tr("Create a new file"));
@@ -168,7 +148,7 @@ void MainMenuBar::createActions() {
   printAct->setStatusTip(tr("Print the document"));
   connect(printAct, &QAction::triggered, this, &MainMenuBar::print);
 
-  exitAct = new QAction(tr("E&xit"), this);
+  exitAct = new QAction(tr("&Exit"), this);
   exitAct->setShortcuts(QKeySequence::Quit);
   exitAct->setStatusTip(tr("Exit the application"));
   connect(exitAct, &QAction::triggered, this, &QWidget::close);
@@ -307,13 +287,7 @@ void MainMenuBar::createMenus() {
   /* this ends up in the locus main menu */
   helpMenu = mw->menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
-  helpMenu->addAction(prefsAct);
-  
-  /* we get a bonus full-screen entry in this menu */
-  viewMenu = mw->menuBar()->addMenu(tr("&View"));
-  viewMenu->addAction(locusAct);
-  viewMenu->addAction(logicaAct);
-  viewMenu->addAction(scriptAct);
+  helpMenu->addAction(prefsAct);  
 }
 
 } /* locus namespace */
