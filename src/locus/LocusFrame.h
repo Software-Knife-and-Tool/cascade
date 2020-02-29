@@ -42,6 +42,7 @@
 
 #include <QWidget>
 #include <QFrame>
+#include <QMdiArea>
 
 #include "ConsoleWidget.h"
 #include "MainWindow.h"
@@ -62,7 +63,7 @@ class LocusFrame : public QFrame {
   Q_OBJECT
 
  public:
-  LocusFrame(MainWindow*);
+  LocusFrame(QWidget*);
 
  protected:
 

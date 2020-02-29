@@ -43,7 +43,7 @@
 
 namespace locus {
 
-LocusFrame::LocusFrame(MainWindow*)
+LocusFrame::LocusFrame(QWidget*)
   : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   QString hostName = QSysInfo::machineHostName();
@@ -67,8 +67,6 @@ LocusFrame::LocusFrame(MainWindow*)
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
-  
-  // consoleWidget = new ConsoleWidget(this, mu);
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);

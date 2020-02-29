@@ -78,18 +78,19 @@ void MainWindow::createStatusBar() {
 MainWindow::MainWindow() {
 
   mainMenuBar = new MainMenuBar(this);
-  locusFrame = new LocusFrame(this);
-  locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  
+
   mdiArea = new QMdiArea(this);
   mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   mdiArea->setViewMode(QMdiArea::TabbedView);
   mdiArea->setTabPosition(QTabWidget::North);
+
+  setCentralWidget(mdiArea);
+    
+  locusFrame = new LocusFrame(mdiArea);
+  locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   mdiArea->addSubWindow(locusFrame);
   
-  setCentralWidget(mdiArea);
-
   createStatusBar();
     
   setWindowTitle(tr("(logica locus)"));
