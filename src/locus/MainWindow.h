@@ -44,6 +44,7 @@
 #include <QStatusBar>
 #include <QTimer>
 #include <QDateTime>
+#include <QMdiArea>
 
 #include "StatusClock.h"
 #include "LocusFrame.h"
@@ -84,7 +85,8 @@ class MainWindow : public QMainWindow {
   LocusFrame* locusFrame;
   MainMenuBar* mainMenuBar;
   QDateTime startTime;
-  QLabel *infoLabel;
+  QMdiArea* mdiArea;
+  // QLabel *infoLabel;
   StatusClock* statusClock;
 };
 

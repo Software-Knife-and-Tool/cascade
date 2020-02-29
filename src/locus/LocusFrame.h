@@ -68,9 +68,9 @@ class LocusFrame : public QFrame {
 
  private:
   QVBoxLayout *layout;
+  Mu* mu;
   ConsoleWidget *consoleWidget;
   QLabel *bannerLabel;
-  Mu* mu;
 };
 
 } /* locus namespace */

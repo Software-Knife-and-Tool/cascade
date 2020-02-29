@@ -43,9 +43,8 @@
 
 namespace locus {
 
-LocusFrame::LocusFrame(MainWindow*) {
-
-  mu = new Mu();
+LocusFrame::LocusFrame(MainWindow*)
+  : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
@@ -69,7 +68,7 @@ LocusFrame::LocusFrame(MainWindow*) {
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
   
-  consoleWidget = new ConsoleWidget(this, mu);
+  // consoleWidget = new ConsoleWidget(this, mu);
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
@@ -78,6 +77,7 @@ LocusFrame::LocusFrame(MainWindow*) {
   this->setLayout(layout);
 
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* locus namespace */
