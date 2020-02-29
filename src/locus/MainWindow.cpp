@@ -39,6 +39,7 @@
 
 #include <QtWidgets>
 #include <QDateTime>
+#include <QMdiArea>
 
 #include "LocusFrame.h"
 #include "MainMenuBar.h"
@@ -76,13 +77,22 @@ void MainWindow::createStatusBar() {
 
 MainWindow::MainWindow() {
 
-  createStatusBar();
-
   mainMenuBar = new MainMenuBar(this);
+
+  mdiArea = new QMdiArea(this);
+  mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  mdiArea->setViewMode(QMdiArea::TabbedView);
+  mdiArea->setTabPosition(QTabWidget::North);
+
+  setCentralWidget(mdiArea);
+    
+  locusFrame = new LocusFrame(mdiArea);
+  locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  mdiArea->addSubWindow(locusFrame);
   
-  locusFrame = new LocusFrame(this);
-  setCentralWidget(locusFrame);
-  
+  createStatusBar();
+    
   setWindowTitle(tr("(logica locus)"));
   setMinimumSize(160, 160);
   resize(480, 320);
