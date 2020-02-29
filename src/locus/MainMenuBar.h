@@ -108,6 +108,7 @@ class MainMenuBar : public QMenu {
   QAction *logicaAct;
   QAction *newAct;
   QAction *openAct;
+  QAction *prefsAct;
   QAction *printAct;
   QAction *redoAct;
   QAction *rightAlignAct;

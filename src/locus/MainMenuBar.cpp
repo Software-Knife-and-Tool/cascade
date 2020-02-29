@@ -201,6 +201,11 @@ void MainMenuBar::createActions() {
                             "selection"));
   connect(pasteAct, &QAction::triggered, this, &MainMenuBar::paste);
 
+  prefsAct = new QAction(tr("&Preferences"), this);
+  prefsAct->setShortcuts(QKeySequence::Paste);
+  prefsAct->setStatusTip(tr("Show the preferences panel"));
+  connect(prefsAct, &QAction::triggered, this, &MainMenuBar::paste);
+
   boldAct = new QAction(tr("&Bold"), this);
   boldAct->setCheckable(true);
   boldAct->setShortcut(QKeySequence::Bold);
@@ -299,10 +304,11 @@ void MainMenuBar::createMenus() {
   formatMenu->addAction(setLineSpacingAct);
   formatMenu->addAction(setParagraphSpacingAct);
 
-  /* this ends up in the locus menu */
+  /* this ends up in the locus main menu */
   helpMenu = mw->menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
-
+  helpMenu->addAction(prefsAct);
+  
   /* we get a bonus full-screen entry in this menu */
   viewMenu = mw->menuBar()->addMenu(tr("&View"));
   viewMenu->addAction(locusAct);
