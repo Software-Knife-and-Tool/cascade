@@ -54,6 +54,8 @@ QT_END_NAMESPACE
 
 namespace locus {
 
+class MainWindow;
+  
 class MainMenuBar : public QMenu {
 
   Q_OBJECT

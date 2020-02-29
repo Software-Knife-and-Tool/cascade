@@ -41,6 +41,7 @@
 #include <QDateTime>
 #include <QMdiArea>
 
+#include "ComposerFrame.h"
 #include "LocusFrame.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
@@ -91,9 +92,17 @@ MainWindow::MainWindow() {
   locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   locusFrame->showMaximized();
   
-  auto w = mdiArea->addSubWindow(locusFrame);
-  w->setWindowFlags(Qt::FramelessWindowHint);
-  w->showMaximized();
+  auto lw = mdiArea->addSubWindow(locusFrame);
+  lw->setWindowFlags(Qt::FramelessWindowHint);
+  lw->showMaximized();
+
+  composerFrame = new ComposerFrame(mdiArea);
+  composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  composerFrame->showMaximized();
+  
+  //auto cw = mdiArea->addSubWindow(composerFrame);
+  //cw->setWindowFlags(Qt::FramelessWindowHint);
+  //cw->showMaximized();
 
   createStatusBar();
     

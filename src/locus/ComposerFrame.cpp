@@ -33,64 +33,26 @@
 
 /********
  **
- **  MainWindow.h: MainWindow class
+ **  ComposerFrame.cpp: ComposerFrame implementation
  **
  **/
 
-#ifndef _LOCUS_SRC_LOCUS_MAINWINDOW_H_
-#define _LOCUS_SRC_LOCUS_MAINWINDOW_H_
-
-#include <QMainWindow>
-#include <QStatusBar>
-#include <QTimer>
-#include <QDateTime>
-#include <QMdiArea>
+#include <QtWidgets>
 
 #include "ComposerFrame.h"
-#include "LocusFrame.h"
-#include "MainMenuBar.h"
-#include "Mu.h"
-#include "StatusClock.h"
-
-QT_BEGIN_NAMESPACE
-class QAction;
-class QActionGroup;
-class QLabel;
-class QDateTime;
-class QStatusBar;
-QT_END_NAMESPACE
 
 namespace locus {
 
-class MainMenuBar;
-class LocusFrame;
-  
-class MainWindow : public QMainWindow {
+ComposerFrame::ComposerFrame(QWidget*) {
+    
+  layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  // layout->addWidget(bannerLabel);
+  // layout->addWidget(consoleWidget);
+  this->setLayout(layout);
 
-  Q_OBJECT
-
- public:
-  locus::Mu* mu;
-  
-  MainWindow();
-
-  void setContextStatus(const char*);
-  
- protected:
-  void contextMenuEvent(QContextMenuEvent *event) override;
-
- private:
-  void createStatusBar();
-
- private:
-  LocusFrame* locusFrame;
-  ComposerFrame* composerFrame;
-  MainMenuBar* mainMenuBar;
-  QDateTime startTime;
-  QMdiArea* mdiArea;
-  StatusClock* statusClock;
-};
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
 
 } /* locus namespace */
-
-#endif  /* _LOCUS_SRC_LOCUS_MAINWINDOW_H_ */

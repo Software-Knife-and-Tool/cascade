@@ -49,7 +49,7 @@ namespace locus {
   
 struct LineStyle {
 
-  LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
+LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
 
   QBrush background;
   QPen foreground;
