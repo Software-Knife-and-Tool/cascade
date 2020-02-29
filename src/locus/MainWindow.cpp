@@ -87,7 +87,7 @@ MainWindow::MainWindow() {
   mdiArea->setTabPosition(QTabWidget::North);
 
   setCentralWidget(mdiArea);
-    
+
   locusFrame = new LocusFrame(mdiArea);
   locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   locusFrame->showMaximized();
@@ -96,13 +96,42 @@ MainWindow::MainWindow() {
   lw->setWindowFlags(Qt::FramelessWindowHint);
   lw->showMaximized();
 
+#if 0
+  connect(lw,
+          &QMdiSubWindow::windowStateChanged,
+          [=, &lw]() {
+            switch (lw->windowState()) {
+            case Qt::WindowMinimized:
+            case Qt::WindowMaximized:
+            case Qt::WindowFullScreen:
+              break;
+            case Qt::WindowNoState:
+            case Qt::WindowActive:
+              lw->showMaximized();
+            default:
+              lw->showMinimized();
+              break;
+            }});
+#endif
+  
   composerFrame = new ComposerFrame(mdiArea);
   composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   composerFrame->showMaximized();
   
-  //auto cw = mdiArea->addSubWindow(composerFrame);
-  //cw->setWindowFlags(Qt::FramelessWindowHint);
-  //cw->showMaximized();
+  auto cw = mdiArea->addSubWindow(composerFrame);
+  cw->setWindowFlags(Qt::FramelessWindowHint);
+  cw->showMaximized();
+
+#if 0
+  connect(w,&QMdiSubWindow::windowStateChanged,[=](){
+        if(w->windowState() == Qt::WindowNoState){
+            mdiArea->removeSubWindow(w);
+            if(mdiArea->subWindowList().size() == 0){
+                qDebug() << "modify the menu";
+            }
+        }
+    });
+#endif
 
   createStatusBar();
     
