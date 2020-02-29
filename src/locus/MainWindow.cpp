@@ -108,6 +108,7 @@ MainWindow::MainWindow() {
             case Qt::WindowNoState:
             case Qt::WindowActive:
               lw->showMaximized();
+              break;
             default:
               lw->showMinimized();
               break;
