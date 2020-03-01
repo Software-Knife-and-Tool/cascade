@@ -9,6 +9,7 @@ LIBS += /usr/local/logica/libmu/libmu.a
 
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
+           ComposerFrame.h \
            ConsoleWidget.h \
            LocusFrame.h    \
            MainMenuBar.h   \
@@ -17,6 +18,7 @@ HEADERS += \
            StatusClock.h
 
 SOURCES += \
+           ComposerFrame.cpp \           
            ConsoleWidget.cpp \           
            LocusFrame.cpp    \           
            MainMenuBar.cpp   \

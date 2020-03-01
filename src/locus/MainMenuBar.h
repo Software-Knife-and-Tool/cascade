@@ -54,6 +54,8 @@ QT_END_NAMESPACE
 
 namespace locus {
 
+class MainWindow;
+  
 class MainMenuBar : public QMenu {
 
   Q_OBJECT
@@ -84,7 +86,6 @@ class MainMenuBar : public QMenu {
   void setLineSpacing();
   void setParagraphSpacing();
   void about();
-  void aboutQt();
 
  private:
   void createActions();
@@ -92,7 +93,6 @@ class MainMenuBar : public QMenu {
 
   QMenu *fileMenu;
   QMenu *editMenu;
-  QMenu *viewMenu;
   QMenu *formatMenu;
   QMenu *helpMenu;
 
@@ -104,8 +104,6 @@ class MainMenuBar : public QMenu {
   QAction *italicAct;
   QAction *justifyAct;
   QAction *leftAlignAct;
-  QAction *locusAct;
-  QAction *logicaAct;
   QAction *newAct;
   QAction *openAct;
   QAction *prefsAct;

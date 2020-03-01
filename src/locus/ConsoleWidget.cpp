@@ -49,7 +49,7 @@ namespace locus {
   
 struct LineStyle {
 
-  LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
+LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
 
   QBrush background;
   QPen foreground;
@@ -290,9 +290,9 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
       buffer_ << prompt_ + line_;
-      mu->withException([this]() {
-                          buffer_ << mu->mu(line_);
-                        });
+      //      mu->withException([this]() {
+      //                    buffer_ << mu->mu(line_);
+      //                  });
       line_.clear();
       viewport()->update();
       break;
