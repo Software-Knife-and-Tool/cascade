@@ -40,6 +40,7 @@
 #include <QtWidgets>
 #include <QDateTime>
 #include <QMdiArea>
+#include <QtGui>
 
 #include "ComposerFrame.h"
 #include "LocusFrame.h"
@@ -95,25 +96,10 @@ MainWindow::MainWindow() {
   auto lw = mdiArea->addSubWindow(locusFrame);
   lw->setWindowFlags(Qt::FramelessWindowHint);
   lw->showMaximized();
-
-#if 0
-  connect(lw,
-          &QMdiSubWindow::windowStateChanged,
-          [=, &lw]() {
-            switch (lw->windowState()) {
-            case Qt::WindowMinimized:
-            case Qt::WindowMaximized:
-            case Qt::WindowFullScreen:
-              break;
-            case Qt::WindowNoState:
-            case Qt::WindowActive:
-              lw->showMaximized();
-              break;
-            default:
-              lw->showMinimized();
-              break;
-            }});
-#endif
+  connect(lw, &QMdiSubWindow::windowStateChanged,
+          [=]() {
+            locusFrame->setVisible(lw->windowState() == Qt::WindowNoState);
+          });
   
   composerFrame = new ComposerFrame(mdiArea);
   composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
