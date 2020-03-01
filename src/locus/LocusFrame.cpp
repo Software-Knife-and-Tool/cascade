@@ -44,10 +44,7 @@
 namespace locus {
 
 LocusFrame::LocusFrame(QWidget*)
-  :
-
-  // mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
-  consoleWidget(new ConsoleWidget(this, mu)) {
+  : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
@@ -58,9 +55,9 @@ LocusFrame::LocusFrame(QWidget*)
     QString("</h1></p>") + QString("<p><h3>Logica ") +
     QString("0.1.0") +
     QString("</h3></p>") +
-    // QString("<p><h3>Mu ") +
-    // mu->version() +
-    // QString("</h3></p>") +
+    QString("<p><h3>Mu ") +
+    mu->version() +
+    QString("</h3></p>") +
     QString("<h3>") +
     userName +
     QString(" running on ") +
