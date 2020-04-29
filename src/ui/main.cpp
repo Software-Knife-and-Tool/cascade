@@ -33,12 +33,11 @@
 
 /********
  **
- **  main.cpp: Locus main
+ **  main.cpp: Cascade Ui main
  **
  **/
-
-#include <QDesktopWidget>
 #include <QApplication>
+#include <QDesktopWidget>
 
 #include "MainWindow.h"
 
@@ -46,7 +45,7 @@ int main(int argc, char **argv) {
 
   QApplication app(argc, argv);
   
-  locus::MainWindow mainWindow;
+  cascade::MainWindow mainWindow;
   mainWindow.show();
   
   mainWindow.setFixedSize(1024, 768);

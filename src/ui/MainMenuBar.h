@@ -36,9 +36,8 @@
  **  MainMenuBar.h: MainMenuBar class
  **
  **/
-
-#ifndef _LOCUS_SRC_LOCUS_MAINMENUBAR_H_
-#define _LOCUS_SRC_LOCUS_MAINMENUBAR_H_
+#ifndef _CASCADE_SRC_UI_MAINMENUBAR_H_
+#define _CASCADE_SRC_UI_MAINMENUBAR_H_
 
 #include <QMainWindow>
 #include <QMenu>
@@ -52,13 +51,13 @@ class QLabel;
 class QMenu;
 QT_END_NAMESPACE
 
-namespace locus {
+namespace cascade {
 
 class MainWindow;
   
 class MainMenuBar : public QMenu {
 
-  Q_OBJECT
+ Q_OBJECT
 
  public:
   MainMenuBar(MainWindow*);
@@ -121,6 +120,6 @@ class MainMenuBar : public QMenu {
   
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_MAINMENUBAR_H_ */
+#endif  /* _CASCADE_SRC_UI_MAINMENUBAR_H_ */

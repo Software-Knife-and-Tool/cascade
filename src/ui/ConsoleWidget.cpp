@@ -45,12 +45,11 @@
 #include <QPainter>
 #include <QScrollBar>
 
-namespace locus {
+namespace cascade {
   
 struct LineStyle {
 
 LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
-
   QBrush background;
   QPen foreground;
 
@@ -59,7 +58,6 @@ LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), fo
 };
 
 struct TextPosition {
-
   TextPosition(int r = 0, int c = 0) : row(r), column(c) {}
 
   int row;
@@ -133,23 +131,23 @@ QList<LineStyle> getLineStyle(const TextSelection& sel, int length, int row) {
 
   QList<LineStyle> styles;
 
-  if(! sel.hasActiveSelection()) {
+  if (!sel.hasActiveSelection()) {
     styles << normalStyle(0, length);
-  } else if(sel.first().row == row && sel.last().row == row) {
+  } else if (sel.first().row == row && sel.last().row == row) {
 
     styles << normalStyle(0, sel.first().column);
     styles << highlightStyle(sel.first().column, sel.last().column - sel.first().column);
 
     styles << normalStyle(sel.last().column, length - sel.last().column + 1);
-  } else if(sel.first().row == row) {
+  } else if (sel.first().row == row) {
 
     styles << normalStyle(0, sel.first().column);
     styles << highlightStyle(sel.first().column, length - sel.first().column + 1);
-  } else if(sel.last().row == row) {
+  } else if (sel.last().row == row) {
 
     styles << highlightStyle(0, sel.last().column);
     styles << normalStyle(sel.last().column, length - sel.last().column + 1);
-  } else if(sel.first().row < row && sel.last().row > row) {
+  } else if (sel.first().row < row && sel.last().row > row) {
     styles << highlightStyle(0, length);
   } else {
     styles << normalStyle(0, length);
@@ -261,7 +259,7 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 
   int current_line = 0;
 
-  while(current_line * m.height() < pos.y()) {
+  while (current_line * m.height() < pos.y()) {
     ++current_line;
   }
 
@@ -270,12 +268,12 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 
   int current_column = 0;
 
-  while(tp.row >= 0 &&
+  while (tp.row >= 0 &&
         m.horizontalAdvance(buffer_[tp.row],
                             current_column) <
                             pos.x() + horizontalScrollBar()->value()) {
 
-    if(++current_column >= buffer_[tp.row].size()) {
+    if (++current_column >= buffer_[tp.row].size()) {
       break;
     }
   }
@@ -339,7 +337,7 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
+ConsoleWidget::ConsoleWidget(QWidget *parent, cascade::Mu* mu)
   : QAbstractScrollArea(parent),
     mu(mu),
     _selection(new TextSelection) {
@@ -349,4 +347,5 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, locus::Mu* mu)
   prompt_ = QString("> ");
   cursor_ = QString("_");
 }
-} /* locus namespace */
+
+} /* cascade namespace */

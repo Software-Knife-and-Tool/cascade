@@ -37,19 +37,19 @@
  **
  **/
 
-#ifndef _LOCUS_SRC_LOCUS_COMPOSERFRAME_H_
-#define _LOCUS_SRC_LOCUS_COMPOSERFRAME_H_
+#ifndef _CASCADE_SRC_UI_COMPOSERFRAME_H_
+#define _CASCADE_SRC_UI_COMPOSERFRAME_H_
 
-#include <QWidget>
 #include <QFrame>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
+class QLabel;
 class QVBoxLayout;
 class QWidget;
-class QLabel;
 QT_END_NAMESPACE
 
-namespace locus {
+namespace cascade {
   
 class ComposerFrame : public QFrame {
 
@@ -64,6 +64,6 @@ class ComposerFrame : public QFrame {
   QVBoxLayout *layout;
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_COMPOSERFRAME_H_ */
+#endif  /* _CASCADE_SRC_UI_COMPOSERFRAME_H_ */

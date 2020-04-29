@@ -36,16 +36,15 @@
  **  StatusClock.h: StatusClock class
  **
  **/ 
+#ifndef _CASCADE_SRC_UI_STATUSCLOCK_H_
+#define _CASCADE_SRC_UI_STATUSCLOCK_H_
 
-#ifndef _LOCUS_SRC_LOCUS_STATUSCLOCK_H_
-#define _LOCUS_SRC_LOCUS_STATUSCLOCK_H_
-
-#include <QMainWindow>
-#include <QWidget>
-#include <QStatusBar>
-#include <QTimer>
 #include <QDateTime>
 #include <QLabel>
+#include <QMainWindow>
+#include <QStatusBar>
+#include <QTimer>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -53,12 +52,12 @@ class QStatusBar;
 class QDateTime;
 QT_END_NAMESPACE
 
-namespace locus {
+namespace cascade {
 
 class MainWindow;
   
 class StatusClock : public QObject {
-  Q_OBJECT
+ Q_OBJECT
     
  public:
   QStatusBar *statusBar;
@@ -80,6 +79,6 @@ class StatusClock : public QObject {
   }
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_STATUSCLOCK_H_ */
+#endif  /* _CASCADE_SRC_UI_STATUSCLOCK_H_ */
