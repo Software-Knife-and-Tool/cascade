@@ -1,2 +1,2 @@
-# locus
-logica GUI
+# Cascade
+logica compiler development GUI
