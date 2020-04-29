@@ -62,7 +62,7 @@ void MainWindow::setContextStatus(const char* str) {
 }
 
 void MainWindow::createStatusBar() {
-  QString message = tr("A context menu is available by right-clicking");
+  QString message = tr("user: putnamjm");
   QLabel *context = new QLabel(message);
 
   startTime = QDateTime::currentDateTime();
