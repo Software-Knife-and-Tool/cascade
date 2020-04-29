@@ -50,7 +50,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "UiFrame.h"
+// #include "UiFrame.h"
 #include "Mu.h"
 
 class QPaintEvent;

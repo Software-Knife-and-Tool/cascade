@@ -33,19 +33,19 @@
 
 /********
  **
- **  UiFrame.h: UiFrame class
+ **  CascadeFrame.h: CascadeFrame class
  **
  **/
 
-#ifndef _CASCADE_SRC_UI_UIFRAME_H_
-#define _CASCADE_SRC_UI_UIFRAME_H_
+#ifndef _CASCADE_SRC_UI_CASCADEFRAME_H_
+#define _CASCADE_SRC_UI_CASCADEFRAME_H_
 
 #include <QFrame>
 #include <QMdiArea>
 #include <QWidget>
 
 #include "ConsoleWidget.h"
-#include "MainWindow.h"
+// #include "MainWindow.h"
 #include "Mu.h"
 
 QT_BEGIN_NAMESPACE
@@ -58,11 +58,11 @@ class ConsoleWidget;
 
 namespace cascade {
   
-class UiFrame : public QFrame {
+class CascadeFrame : public QFrame {
  Q_OBJECT
 
  public:
-  UiFrame(QWidget*);
+  CascadeFrame(QWidget*);
 
  protected:
 
@@ -75,4 +75,4 @@ class UiFrame : public QFrame {
 
 } /* cascade namespace */
 
-#endif  /* _CASCADE_SRC_UI_UIFRAME_H_ */
+#endif  /* _CASCADE_SRC_UI_CASCADEFRAME_H_ */

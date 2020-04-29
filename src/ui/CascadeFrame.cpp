@@ -33,17 +33,17 @@
 
 /********
  **
- **  UiFrame.cpp: UiFrame implementation
+ **  CascadeFrame.cpp: CascadeFrame implementation
  **
  **/
 
 #include <QtWidgets>
 
-#include "UiFrame.h"
+#include "CascadeFrame.h"
 
 namespace cascade {
 
-UiFrame::UiFrame(QWidget*)
+CascadeFrame::CascadeFrame(QWidget*)
   : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   QString hostName = QSysInfo::machineHostName();
@@ -67,15 +67,16 @@ UiFrame::UiFrame(QWidget*)
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
+
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(bannerLabel);
   layout->addWidget(consoleWidget);
+  
   this->setLayout(layout);
-
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* cascade namespace */

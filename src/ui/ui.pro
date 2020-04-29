@@ -10,20 +10,20 @@ TEMPLATE = app
 
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
+           CascadeFrame.h  \
            ComposerFrame.h \
            ConsoleWidget.h \
            MainMenuBar.h   \
            MainWindow.h    \
            Mu.h            \
-           StatusClock.h   \
-           UiFrame.h
+           StatusClock.h
 
 SOURCES += \
+           CascadeFrame.cpp       \           
            ComposerFrame.cpp \           
            ConsoleWidget.cpp \           
            MainMenuBar.cpp   \
            MainWindow.cpp    \
-           UiFrame.cpp       \           
            main.cpp
 
 QT += core gui widgets
