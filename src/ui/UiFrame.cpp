@@ -33,26 +33,26 @@
 
 /********
  **
- **  LocusFrame.cpp: LocusFrame implementation
+ **  UiFrame.cpp: UiFrame implementation
  **
  **/
 
 #include <QtWidgets>
 
-#include "LocusFrame.h"
+#include "UiFrame.h"
 
-namespace locus {
+namespace cascade {
 
-LocusFrame::LocusFrame(QWidget*)
+UiFrame::UiFrame(QWidget*)
   : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
 
   QString system_html =
-    QString("<div align=left><p><h1>Locus ") +
+    QString("<div align=left><p><h1>Cascade ") +
     QString("0.0.1") +
-    QString("</h1></p>") + QString("<p><h3>Logica ") +
+    QString("</h1></p>") + QString("<p><h3>Cascade ") +
     QString("0.1.0") +
     QString("</h3></p>") +
     QString("<p><h3>Mu ") +
@@ -78,4 +78,4 @@ LocusFrame::LocusFrame(QWidget*)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* locus namespace */
+} /* cascade namespace */

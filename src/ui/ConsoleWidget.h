@@ -36,9 +36,8 @@
  **  ConsoleWidget.h: ConsoleWidget class
  **
  **/
-
-#ifndef _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_
-#define _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_
+#ifndef _CASCADE_SRC_UI_CONSOLEWIDGET_H_
+#define _CASCADE_SRC_UI_CONSOLEWIDGET_H_
 
 #include <QAbstractScrollArea>
 #include <QDebug>
@@ -51,53 +50,50 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "LocusFrame.h"
+#include "UiFrame.h"
 #include "Mu.h"
 
 class QPaintEvent;
 class QMouseEvent;
 
-namespace locus {
+namespace cascade {
   
 struct TextSelection;
 struct TextPosition;
 
-class LocusFrame;
+class UiFrame;
 
 class ConsoleWidget : public QAbstractScrollArea {
 
-  Q_OBJECT
+ Q_OBJECT
 
  public:
-
-  explicit ConsoleWidget(QWidget*, locus::Mu*);
+  explicit ConsoleWidget(QWidget*, Mu*);
 
  protected:
-
   void paintEvent(QPaintEvent* event) override;
 
-  void mousePressEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent* event) override;
-  void mouseMoveEvent(QMouseEvent* event) override;
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
 
  private:
-
   void DrawCursor();
   void DrawLine(int&, int, QString, QFontMetrics, int);
   
   TextPosition getTextPosition(const QPoint& pos) const;
 
-  QStringList buffer_;
+  QString cursor_;
   QString line_;
   QString prompt_;
-  QString cursor_;
+  QStringList buffer_;
 
-  locus::Mu* mu;
+  Mu* mu;
   QSharedPointer<TextSelection> _selection;
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif /* _LOCUS_SRC_LOCUS_CONSOLEWIDGET_H_ */
+#endif /* _CASCADE_SRC_UI_CONSOLEWIDGET_H_ */

@@ -41,7 +41,7 @@
 
 #include "ComposerFrame.h"
 
-namespace locus {
+namespace cascade {
 
 ComposerFrame::ComposerFrame(QWidget*) {
 
@@ -53,4 +53,4 @@ ComposerFrame::ComposerFrame(QWidget*) {
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* locus namespace */
+} /* cascade namespace */

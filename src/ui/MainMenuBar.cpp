@@ -39,13 +39,12 @@
 
 #include <QtWidgets>
 
-#include "MainWindow.h"
 #include "MainMenuBar.h"
+#include "MainWindow.h"
 
-namespace locus {
+namespace cascade {
 
 MainMenuBar::MainMenuBar(MainWindow *w) : mw(w) {
-
   createActions();
   createMenus();
 }
@@ -284,10 +283,10 @@ void MainMenuBar::createMenus() {
   formatMenu->addAction(setLineSpacingAct);
   formatMenu->addAction(setParagraphSpacingAct);
 
-  /* this ends up in the locus main menu */
+  /* this ends up in the ui main menu */
   helpMenu = mw->menuBar()->addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
   helpMenu->addAction(prefsAct);  
 }
 
-} /* locus namespace */
+} /* cascade namespace */

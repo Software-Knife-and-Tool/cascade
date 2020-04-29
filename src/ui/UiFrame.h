@@ -33,16 +33,16 @@
 
 /********
  **
- **  LocusFrame.h: LocusFrame class
+ **  UiFrame.h: UiFrame class
  **
  **/
 
-#ifndef _LOCUS_SRC_LOCUS_LOCUSFRAME_H_
-#define _LOCUS_SRC_LOCUS_LOCUSFRAME_H_
+#ifndef _CASCADE_SRC_UI_UIFRAME_H_
+#define _CASCADE_SRC_UI_UIFRAME_H_
 
-#include <QWidget>
 #include <QFrame>
 #include <QMdiArea>
+#include <QWidget>
 
 #include "ConsoleWidget.h"
 #include "MainWindow.h"
@@ -56,24 +56,23 @@ QT_END_NAMESPACE
 
 class ConsoleWidget;
 
-namespace locus {
+namespace cascade {
   
-class LocusFrame : public QFrame {
-
-  Q_OBJECT
+class UiFrame : public QFrame {
+ Q_OBJECT
 
  public:
-  LocusFrame(QWidget*);
+  UiFrame(QWidget*);
 
  protected:
 
  private:
-  QVBoxLayout *layout;
-  Mu* mu;
   ConsoleWidget *consoleWidget;
+  Mu* mu;
   QLabel *bannerLabel;
+  QVBoxLayout *layout;
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_LOCUSFRAME_H_ */
+#endif  /* _CASCADE_SRC_UI_UIFRAME_H_ */

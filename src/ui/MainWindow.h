@@ -36,41 +36,40 @@
  **  MainWindow.h: MainWindow class
  **
  **/
+#ifndef _CASCADE_SRC_UI_MAINWINDOW_H_
+#define _CASCADE_SRC_UI_MAINWINDOW_H_
 
-#ifndef _LOCUS_SRC_LOCUS_MAINWINDOW_H_
-#define _LOCUS_SRC_LOCUS_MAINWINDOW_H_
-
+#include <QDateTime>
 #include <QMainWindow>
+#include <QMdiArea>
 #include <QStatusBar>
 #include <QTimer>
-#include <QDateTime>
-#include <QMdiArea>
 
 #include "ComposerFrame.h"
-#include "LocusFrame.h"
 #include "MainMenuBar.h"
 #include "Mu.h"
 #include "StatusClock.h"
+#include "UiFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
-class QLabel;
 class QDateTime;
+class QLabel;
 class QStatusBar;
 QT_END_NAMESPACE
 
-namespace locus {
+namespace cascade {
 
 class MainMenuBar;
-class LocusFrame;
+class UiFrame;
   
 class MainWindow : public QMainWindow {
 
   Q_OBJECT
 
  public:
-  locus::Mu* mu;
+  Mu* mu;
   
   MainWindow();
 
@@ -83,14 +82,14 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
-  LocusFrame* locusFrame;
   ComposerFrame* composerFrame;
   MainMenuBar* mainMenuBar;
   QDateTime startTime;
   QMdiArea* mdiArea;
   StatusClock* statusClock;
+  UiFrame* uiFrame;
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif  /* _LOCUS_SRC_LOCUS_MAINWINDOW_H_ */
+#endif  /* _CASCADE_SRC_UI_MAINWINDOW_H_ */

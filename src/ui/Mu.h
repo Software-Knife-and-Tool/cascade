@@ -36,15 +36,14 @@
  **  Mu.h: Mu class
  **
  **/
-
-#ifndef _LOGICA_SRC_LOCUS_MU_H_
-#define _LOGICA_SRC_LOCUS_MU_H_
+#ifndef _CASCADE_SRC_UI_MU_H_
+#define _CASCADE_SRC_UI_MU_H_
 
 #include <QString>
 
 #include "libmu/libmu.h"
 
-namespace locus {
+namespace cascade {
   
 class Mu {
  public:
@@ -76,6 +75,6 @@ class Mu {
   std::unique_ptr<libmu::LibMu> libmu;
 };
 
-} /* locus namespace */
+} /* cascade namespace */
 
-#endif /* _LOGICA_SRC_LOCUS_MU_H_ */ 
+#endif /* _CASCADE_SRC_UI_MU_H_ */ 

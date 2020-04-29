@@ -36,22 +36,21 @@
  **  MainWindow.cpp: MainWindow implementation
  **
  **/
-
-#include <QtWidgets>
 #include <QDateTime>
 #include <QMdiArea>
 #include <QtGui>
+#include <QtWidgets>
 
 #include "ComposerFrame.h"
-#include "LocusFrame.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
+#include "UiFrame.h"
 
-namespace locus {
+namespace cascade {
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
-  
   QMenu menu(this);
+  
   menu.addAction(mainMenuBar->cutAct);
   menu.addAction(mainMenuBar->copyAct);
   menu.addAction(mainMenuBar->pasteAct);
@@ -59,12 +58,10 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 void MainWindow::setContextStatus(const char* str) {
-
   statusBar()->showMessage(tr(str));
 }
 
 void MainWindow::createStatusBar() {
-
   QString message = tr("A context menu is available by right-clicking");
   QLabel *context = new QLabel(message);
 
@@ -78,7 +75,6 @@ void MainWindow::createStatusBar() {
 }
 
 MainWindow::MainWindow() {
-
   mainMenuBar = new MainMenuBar(this);
 
   mdiArea = new QMdiArea(this);
@@ -89,16 +85,16 @@ MainWindow::MainWindow() {
 
   setCentralWidget(mdiArea);
 
-  locusFrame = new LocusFrame(mdiArea);
-  locusFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  locusFrame->showMaximized();
+  uiFrame = new UiFrame(mdiArea);
+  uiFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  uiFrame->showMaximized();
   
-  auto lw = mdiArea->addSubWindow(locusFrame);
+  auto lw = mdiArea->addSubWindow(uiFrame);
   lw->setWindowFlags(Qt::FramelessWindowHint);
   lw->showMaximized();
   connect(lw, &QMdiSubWindow::windowStateChanged,
           [=]() {
-            locusFrame->setVisible(lw->windowState() == Qt::WindowNoState);
+            uiFrame->setVisible(lw->windowState() == Qt::WindowNoState);
           });
   
   composerFrame = new ComposerFrame(mdiArea);
@@ -122,7 +118,7 @@ MainWindow::MainWindow() {
 
   createStatusBar();
     
-  setWindowTitle(tr("(logica locus)"));
+  setWindowTitle(tr("(logica Cascade Compiler Development Environment)"));
 }
 
-} /* locus namespace */
+} /* cascade namespace */
