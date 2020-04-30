@@ -44,10 +44,10 @@
 namespace cascade {
 
 ComposerFrame::ComposerFrame(QWidget*) {
-
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(new QLabel(QString("ComposerFrame")));
+
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

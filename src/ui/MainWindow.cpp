@@ -90,7 +90,7 @@ MainWindow::MainWindow() {
   /* cascade */
   cascadeFrame = new CascadeFrame(mdiArea);
   cascadeFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  cascadeFrame->showMaximized();
+  // cascadeFrame->showMaximized();
 
   auto hw = mdiArea->addSubWindow(cascadeFrame);
   hw->setWindowFlags(Qt::FramelessWindowHint);
@@ -104,17 +104,17 @@ MainWindow::MainWindow() {
   /* composer */
   composerFrame = new ComposerFrame(mdiArea);
   composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  composerFrame->showMaximized();
+  // composerFrame->showMaximized();
   
   auto cw = mdiArea->addSubWindow(composerFrame);
   cw->setWindowTitle(tr("composer"));
   cw->setWindowFlags(Qt::FramelessWindowHint);
+  cw->setWindowState(Qt::WindowMaximized);
   cw->showMaximized();
   connect(cw, &QMdiSubWindow::windowStateChanged,
           [=]() {
             composerFrame->setVisible(cw->windowState() == Qt::WindowNoState);
           });
-
 #if 0
   /* inspector */
   inFrame = new UiFrame(mdiArea);
