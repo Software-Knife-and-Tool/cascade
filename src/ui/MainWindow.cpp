@@ -79,8 +79,11 @@ void MainWindow::createStatusBar() {
 MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
-  
-  setCentralWidget(new CascadeFrame(this, tabBar));
+
+  tabBar->addTab(new CascadeFrame(this), QString("cascade"));
+  tabBar->addTab(new ComposerFrame(this), QString("composer"));
+
+  setCentralWidget(tabBar);
 
 #if 0
   /* cascade */

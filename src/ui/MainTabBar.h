@@ -40,7 +40,7 @@
 #define _CASCADE_SRC_UI_MAINTABBAR_H_
 
 #include <QMainWindow>
-#include <QMenu>
+#include <QTabWidget>
 
 #include "MainWindow.h"
 
@@ -48,33 +48,26 @@ QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
-class QMenu;
+class QTabWidget;
 QT_END_NAMESPACE
 
 namespace cascade {
 
 class MainWindow;
   
-class MainTabBar : public QMenu {
+class MainTabBar : public QTabWidget {
 
  Q_OBJECT
 
  public:
   MainTabBar(MainWindow*);
 
-private slots:
+ private slots:
    
  private:
-  void createMenus();
-
-  QMenu *fileMenu;
-  QMenu *editMenu;
-  QMenu *formatMenu;
-  QMenu *helpMenu;
 
  private:
   MainWindow* mw;
-  QMenuBar*   tb;  
 };
 
 } /* cascade namespace */
