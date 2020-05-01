@@ -33,49 +33,48 @@
 
 /********
  **
- **  UiFrame.cpp: UiFrame implementation
+ **  CascadeFrame.h: CascadeFrame class
  **
  **/
+#ifndef _CASCADE_SRC_UI_CASCADEFRAME_H_
+#define _CASCADE_SRC_UI_CASCADEFRAME_H_
 
-#include <QtWidgets>
+#include <QFrame>
+#include <QMdiArea>
+#include <QWidget>
 
-#include "UiFrame.h"
+#include "ConsoleWidget.h"
+#include "MainTabBar.h"
+#include "Mu.h"
+
+QT_BEGIN_NAMESPACE
+class QVBoxLayout;
+class QWidget;
+class QLabel;
+QT_END_NAMESPACE
+
+class ConsoleWidget;
 
 namespace cascade {
 
-UiFrame::UiFrame(QWidget*)
-  : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
-    
-  QString hostName = QSysInfo::machineHostName();
-  QString userName = qgetenv("USER");
-
-  QString system_html =
-    QString("<div align=left><p><h1>Cascade ") +
-    QString("0.0.1") +
-    QString("</h1></p>") + QString("<p><h3>Cascade ") +
-    QString("0.1.0") +
-    QString("</h3></p>") +
-    QString("<p><h3>Mu ") +
-    mu->version() +
-    QString("</h3></p>") +
-    QString("<h3>") +
-    userName +
-    QString(" running on ") +
-    hostName +
-    QString("</h3></div");
-    
-  bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  bannerLabel->setAlignment(Qt::AlignCenter);
+class MainTabBar;
   
-  layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
-  layout->addWidget(consoleWidget);
-  this->setLayout(layout);
+class CascadeFrame : public QFrame {
+  Q_OBJECT
 
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
+ public:
+  CascadeFrame(QWidget*, MainTabBar*);
+
+ protected:
+
+ private:
+  ConsoleWidget* consoleWidget;
+  Mu* mu;
+  MainTabBar* tb;
+  QLabel* bannerLabel;
+  QVBoxLayout* layout;
+};
 
 } /* cascade namespace */
+
+#endif  /* _CASCADE_SRC_UI_CASCADEFRAME_H_ */

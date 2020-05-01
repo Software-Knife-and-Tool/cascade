@@ -33,46 +33,30 @@
 
 /********
  **
- **  UiFrame.h: UiFrame class
+ **  MainTabBar.cpp: MainTabBar class
  **
  **/
 
-#ifndef _CASCADE_SRC_UI_UIFRAME_H_
-#define _CASCADE_SRC_UI_UIFRAME_H_
+#include <QtWidgets>
 
-#include <QFrame>
-#include <QMdiArea>
-#include <QWidget>
-
-#include "ConsoleWidget.h"
+#include "MainTabBar.h"
 #include "MainWindow.h"
-#include "Mu.h"
-
-QT_BEGIN_NAMESPACE
-class QVBoxLayout;
-class QWidget;
-class QLabel;
-QT_END_NAMESPACE
-
-class ConsoleWidget;
 
 namespace cascade {
+
+MainTabBar::MainTabBar(MainWindow *w) : mw(w) {
+  tb = new QMenuBar();
+  tb->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   
-class UiFrame : public QFrame {
- Q_OBJECT
+  createMenus();
+}
 
- public:
-  UiFrame(QWidget*);
+void MainTabBar::createMenus() {
 
- protected:
-
- private:
-  ConsoleWidget *consoleWidget;
-  Mu* mu;
-  QLabel *bannerLabel;
-  QVBoxLayout *layout;
-};
+  fileMenu = this->tb->addMenu(tr("&File"));
+  editMenu = this->tb->addMenu(tr("&Help"));
+  formatMenu = this->tb->addMenu(tr("&Help"));
+  helpMenu = this->tb->addMenu(tr("&Help"));
+}
 
 } /* cascade namespace */
-
-#endif  /* _CASCADE_SRC_UI_UIFRAME_H_ */

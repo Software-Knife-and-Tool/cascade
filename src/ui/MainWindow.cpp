@@ -36,15 +36,17 @@
  **  MainWindow.cpp: MainWindow implementation
  **
  **/
+#include <cstdlib>
+
 #include <QDateTime>
 #include <QMdiArea>
 #include <QtGui>
 #include <QtWidgets>
 
+#include "CascadeFrame.h"
 #include "ComposerFrame.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
-#include "UiFrame.h"
 
 namespace cascade {
 
@@ -62,8 +64,8 @@ void MainWindow::setContextStatus(const char* str) {
 }
 
 void MainWindow::createStatusBar() {
-  QString message = tr("user: putnamjm");
-  QLabel *context = new QLabel(message);
+  QString user = tr(std::getenv("LOGNAME"));
+  QLabel *context = new QLabel(tr(" ") + user);
 
   startTime = QDateTime::currentDateTime();
   
@@ -76,35 +78,68 @@ void MainWindow::createStatusBar() {
 
 MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
-
-  mdiArea = new QMdiArea(this);
-  mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  mdiArea->setViewMode(QMdiArea::TabbedView);
-  mdiArea->setTabPosition(QTabWidget::North);
-
-  setCentralWidget(mdiArea);
-
-  uiFrame = new UiFrame(mdiArea);
-  uiFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  uiFrame->showMaximized();
+  tabBar = new MainTabBar(this);
   
-  auto lw = mdiArea->addSubWindow(uiFrame);
-  lw->setWindowFlags(Qt::FramelessWindowHint);
-  lw->showMaximized();
-  connect(lw, &QMdiSubWindow::windowStateChanged,
+  setCentralWidget(new CascadeFrame(this, tabBar));
+
+#if 0
+  /* cascade */
+  cascadeFrame = new CascadeFrame(this);
+  cascadeFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  auto hw = this->addSubWindow(cascadeFrame);
+  hw->setWindowFlags(Qt::FramelessWindowHint);
+  hw->setWindowTitle(tr("cascade"));
+  hw->showMaximized();
+  connect(hw, &QMdiSubWindow::windowStateChanged,
           [=]() {
-            uiFrame->setVisible(lw->windowState() == Qt::WindowNoState);
+            cascadeFrame->setVisible(hw->windowState() == Qt::WindowNoState);
           });
-  
+
+  /* composer */
   composerFrame = new ComposerFrame(mdiArea);
   composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  composerFrame->showMaximized();
+  // composerFrame->showMaximized();
   
   auto cw = mdiArea->addSubWindow(composerFrame);
+  cw->setWindowTitle(tr("composer"));
   cw->setWindowFlags(Qt::FramelessWindowHint);
+  cw->setWindowState(Qt::WindowMaximized);
   cw->showMaximized();
+  connect(cw, &QMdiSubWindow::windowStateChanged,
+          [=]() {
+            composerFrame->setVisible(cw->windowState() == Qt::WindowNoState);
+          });
 
+  /* inspector */
+  inFrame = new UiFrame(mdiArea);
+  inFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  inFrame->showMaximized();
+
+  auto iw = mdiArea->addSubWindow(inFrame);
+  iw->setWindowFlags(Qt::FramelessWindowHint);
+  iw->setWindowTitle(tr("inspector"));
+  iw->showMaximized();
+  connect(iw, &QMdiSubWindow::windowStateChanged,
+          [=]() {
+            uiFrame->setVisible(iw->windowState() == Qt::WindowNoState);
+          });
+
+  /* scripts */
+  scFrame = new UiFrame(mdiArea);
+  scFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  scFrame->showMaximized();
+
+  auto sw = mdiArea->addSubWindow(scFrame);
+  sw->setWindowFlags(Qt::FramelessWindowHint);
+  sw->setWindowTitle(tr("scripting"));
+  sw->showMaximized();
+  connect(sw, &QMdiSubWindow::windowStateChanged,
+          [=]() {
+            uiFrame->setVisible(sw->windowState() == Qt::WindowNoState);
+          });
+#endif
+  
 #if 0
   connect(w,&QMdiSubWindow::windowStateChanged,[=](){
         if(w->windowState() == Qt::WindowNoState){
@@ -118,7 +153,7 @@ MainWindow::MainWindow() {
 
   createStatusBar();
     
-  setWindowTitle(tr("(logica Cascade Compiler Development Environment)"));
+  setWindowTitle(tr("Logica Cascade Development Environment"));
 }
 
 } /* cascade namespace */

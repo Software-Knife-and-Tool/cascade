@@ -33,24 +33,53 @@
 
 /********
  **
- **  ComposerFrame.cpp: ComposerFrame implementation
+ **  CascadeFrame.cpp: CascadeFrame implementation
  **
  **/
 
 #include <QtWidgets>
 
-#include "ComposerFrame.h"
+#include "CascadeFrame.h"
 
 namespace cascade {
 
-ComposerFrame::ComposerFrame(QWidget*) {
-  layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(new QLabel(QString("ComposerFrame")));
+  CascadeFrame::CascadeFrame(QWidget* qw, MainTabBar* mtb)
+    : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
 
-  this->setLayout(layout);
+    tb = mtb;
+    
+  QString hostName = QSysInfo::machineHostName();
+  QString userName = qgetenv("USER");
+
+  QString system_html =
+    QString("<div align=left><p><h1>Cascade ") +
+    QString("0.0.1") +
+    QString("</h1></p>") + QString("<p><h3>Cascade ") +
+    QString("0.1.0") +
+    QString("</h3></p>") +
+    QString("<p><h3>Mu ") +
+    mu->version() +
+    QString("</h3></p>") +
+    QString("<h3>") +
+    userName +
+    QString(" running on ") +
+    hostName +
+    QString("</h3></div");
+    
+  bannerLabel = new QLabel(system_html);
+  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel->setAlignment(Qt::AlignCenter);
+
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  
+  layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(mtb);
+  layout->addWidget(bannerLabel);
+  layout->addWidget(consoleWidget);
+  
+  this->setLayout(layout);
 }
 
 } /* cascade namespace */

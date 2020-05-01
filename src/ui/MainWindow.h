@@ -45,11 +45,12 @@
 #include <QStatusBar>
 #include <QTimer>
 
+#include "CascadeFrame.h"
 #include "ComposerFrame.h"
 #include "MainMenuBar.h"
+#include "MainTabBar.h"
 #include "Mu.h"
 #include "StatusClock.h"
-#include "UiFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -62,11 +63,13 @@ QT_END_NAMESPACE
 namespace cascade {
 
 class MainMenuBar;
+class MainTabBar;
 class UiFrame;
+class CascadeFrame;
   
 class MainWindow : public QMainWindow {
 
-  Q_OBJECT
+ Q_OBJECT
 
  public:
   Mu* mu;
@@ -74,6 +77,7 @@ class MainWindow : public QMainWindow {
   MainWindow();
 
   void setContextStatus(const char*);
+  MainTabBar* mainTabBar() { return this->tabBar; }
   
  protected:
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -82,12 +86,13 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
+  CascadeFrame* cascadeFrame;
   ComposerFrame* composerFrame;
   MainMenuBar* mainMenuBar;
+  MainTabBar* tabBar;
   QDateTime startTime;
   QMdiArea* mdiArea;
   StatusClock* statusClock;
-  UiFrame* uiFrame;
 };
 
 } /* cascade namespace */

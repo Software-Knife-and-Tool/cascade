@@ -33,24 +33,50 @@
 
 /********
  **
- **  ComposerFrame.cpp: ComposerFrame implementation
+ **  MainTabBar.h: MainTabBar class
  **
  **/
+#ifndef _CASCADE_SRC_UI_MAINTABBAR_H_
+#define _CASCADE_SRC_UI_MAINTABBAR_H_
 
-#include <QtWidgets>
+#include <QMainWindow>
+#include <QMenu>
 
-#include "ComposerFrame.h"
+#include "MainWindow.h"
+
+QT_BEGIN_NAMESPACE
+class QAction;
+class QActionGroup;
+class QLabel;
+class QMenu;
+QT_END_NAMESPACE
 
 namespace cascade {
 
-ComposerFrame::ComposerFrame(QWidget*) {
-  layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(new QLabel(QString("ComposerFrame")));
+class MainWindow;
+  
+class MainTabBar : public QMenu {
 
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
+ Q_OBJECT
+
+ public:
+  MainTabBar(MainWindow*);
+
+private slots:
+   
+ private:
+  void createMenus();
+
+  QMenu *fileMenu;
+  QMenu *editMenu;
+  QMenu *formatMenu;
+  QMenu *helpMenu;
+
+ private:
+  MainWindow* mw;
+  QMenuBar*   tb;  
+};
 
 } /* cascade namespace */
+
+#endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */
