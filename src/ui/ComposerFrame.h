@@ -50,10 +50,12 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace cascade {
+
+class MainWindow;
   
 class ComposerFrame : public QFrame {
 
-  Q_OBJECT
+ Q_OBJECT
 
  public:
   ComposerFrame(QWidget*);

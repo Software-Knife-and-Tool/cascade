@@ -78,21 +78,16 @@ void MainWindow::createStatusBar() {
 
 MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
+  tabBar = new MainTabBar(this);
+  
+  setCentralWidget(new CascadeFrame(this, tabBar));
 
-  mdiArea = new QMdiArea(this);
-  mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  mdiArea->setViewMode(QMdiArea::TabbedView);
-  mdiArea->setTabPosition(QTabWidget::North);
-
-  setCentralWidget(mdiArea);
-
+#if 0
   /* cascade */
-  cascadeFrame = new CascadeFrame(mdiArea);
+  cascadeFrame = new CascadeFrame(this);
   cascadeFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  // cascadeFrame->showMaximized();
 
-  auto hw = mdiArea->addSubWindow(cascadeFrame);
+  auto hw = this->addSubWindow(cascadeFrame);
   hw->setWindowFlags(Qt::FramelessWindowHint);
   hw->setWindowTitle(tr("cascade"));
   hw->showMaximized();
@@ -115,7 +110,7 @@ MainWindow::MainWindow() {
           [=]() {
             composerFrame->setVisible(cw->windowState() == Qt::WindowNoState);
           });
-#if 0
+
   /* inspector */
   inFrame = new UiFrame(mdiArea);
   inFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

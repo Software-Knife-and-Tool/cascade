@@ -14,15 +14,17 @@ HEADERS += \
            ComposerFrame.h \
            ConsoleWidget.h \
            MainMenuBar.h   \
+           MainTabBar.h    \
            MainWindow.h    \
            Mu.h            \
            StatusClock.h
 
 SOURCES += \
-           CascadeFrame.cpp       \           
+           CascadeFrame.cpp  \           
            ComposerFrame.cpp \           
            ConsoleWidget.cpp \           
            MainMenuBar.cpp   \
+           MainTabBar.cpp    \
            MainWindow.cpp    \
            main.cpp
 

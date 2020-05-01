@@ -43,8 +43,10 @@
 
 namespace cascade {
 
-CascadeFrame::CascadeFrame(QWidget*)
-  : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
+  CascadeFrame::CascadeFrame(QWidget* qw, MainTabBar* mtb)
+    : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
+
+    tb = mtb;
     
   QString hostName = QSysInfo::machineHostName();
   QString userName = qgetenv("USER");
@@ -73,6 +75,7 @@ CascadeFrame::CascadeFrame(QWidget*)
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(mtb);
   layout->addWidget(bannerLabel);
   layout->addWidget(consoleWidget);
   

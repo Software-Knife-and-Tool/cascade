@@ -33,48 +33,50 @@
 
 /********
  **
- **  CascadeFrame.h: CascadeFrame class
+ **  MainTabBar.h: MainTabBar class
  **
  **/
-#ifndef _CASCADE_SRC_UI_CASCADEFRAME_H_
-#define _CASCADE_SRC_UI_CASCADEFRAME_H_
+#ifndef _CASCADE_SRC_UI_MAINTABBAR_H_
+#define _CASCADE_SRC_UI_MAINTABBAR_H_
 
-#include <QFrame>
-#include <QMdiArea>
-#include <QWidget>
+#include <QMainWindow>
+#include <QMenu>
 
-#include "ConsoleWidget.h"
-#include "MainTabBar.h"
-#include "Mu.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
-class QVBoxLayout;
-class QWidget;
+class QAction;
+class QActionGroup;
 class QLabel;
+class QMenu;
 QT_END_NAMESPACE
-
-class ConsoleWidget;
 
 namespace cascade {
 
-class MainTabBar;
+class MainWindow;
   
-class CascadeFrame : public QFrame {
-  Q_OBJECT
+class MainTabBar : public QMenu {
+
+ Q_OBJECT
 
  public:
-  CascadeFrame(QWidget*, MainTabBar*);
+  MainTabBar(MainWindow*);
 
- protected:
+private slots:
+   
+ private:
+  void createMenus();
+
+  QMenu *fileMenu;
+  QMenu *editMenu;
+  QMenu *formatMenu;
+  QMenu *helpMenu;
 
  private:
-  ConsoleWidget* consoleWidget;
-  Mu* mu;
-  MainTabBar* tb;
-  QLabel* bannerLabel;
-  QVBoxLayout* layout;
+  MainWindow* mw;
+  QMenuBar*   tb;  
 };
 
 } /* cascade namespace */
 
-#endif  /* _CASCADE_SRC_UI_CASCADEFRAME_H_ */
+#endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */

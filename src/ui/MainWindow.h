@@ -48,6 +48,7 @@
 #include "CascadeFrame.h"
 #include "ComposerFrame.h"
 #include "MainMenuBar.h"
+#include "MainTabBar.h"
 #include "Mu.h"
 #include "StatusClock.h"
 
@@ -62,7 +63,9 @@ QT_END_NAMESPACE
 namespace cascade {
 
 class MainMenuBar;
+class MainTabBar;
 class UiFrame;
+class CascadeFrame;
   
 class MainWindow : public QMainWindow {
 
@@ -74,6 +77,7 @@ class MainWindow : public QMainWindow {
   MainWindow();
 
   void setContextStatus(const char*);
+  MainTabBar* mainTabBar() { return this->tabBar; }
   
  protected:
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -85,6 +89,7 @@ class MainWindow : public QMainWindow {
   CascadeFrame* cascadeFrame;
   ComposerFrame* composerFrame;
   MainMenuBar* mainMenuBar;
+  MainTabBar* tabBar;
   QDateTime startTime;
   QMdiArea* mdiArea;
   StatusClock* statusClock;
