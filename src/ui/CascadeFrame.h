@@ -63,14 +63,13 @@ class CascadeFrame : public QFrame {
   Q_OBJECT
 
  public:
-  CascadeFrame(QWidget*, MainTabBar*);
+  CascadeFrame(QWidget*);
 
  protected:
 
  private:
   ConsoleWidget* consoleWidget;
   Mu* mu;
-  MainTabBar* tb;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };

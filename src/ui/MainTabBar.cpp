@@ -38,6 +38,7 @@
  **/
 
 #include <QtWidgets>
+#include <QTabBar>
 
 #include "MainTabBar.h"
 #include "MainWindow.h"
@@ -45,18 +46,12 @@
 namespace cascade {
 
 MainTabBar::MainTabBar(MainWindow *w) : mw(w) {
-  tb = new QMenuBar();
-  tb->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  
-  createMenus();
-}
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-void MainTabBar::createMenus() {
-
-  fileMenu = this->tb->addMenu(tr("&File"));
-  editMenu = this->tb->addMenu(tr("&Help"));
-  formatMenu = this->tb->addMenu(tr("&Help"));
-  helpMenu = this->tb->addMenu(tr("&Help"));
+  // addTab(QString("cascade"));
+  // addTab(QString("composer"));
+  // addTab(QString("inspector"));
+  // addTab(QString("scripting"));
 }
 
 } /* cascade namespace */
