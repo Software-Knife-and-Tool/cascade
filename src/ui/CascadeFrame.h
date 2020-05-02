@@ -68,8 +68,8 @@ class CascadeFrame : public QFrame {
  protected:
 
  private:
-  ConsoleWidget* consoleWidget;
   Mu* mu;
+  ConsoleWidget* consoleWidget;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };

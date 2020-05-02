@@ -62,10 +62,12 @@ class MainTabBar : public QTabWidget {
  public:
   MainTabBar(MainWindow*);
 
+  void add(QWidget* w, QString label) {
+    addTab(w, label);
+  }
+
  private slots:
    
- private:
-
  private:
   MainWindow* mw;
 };
