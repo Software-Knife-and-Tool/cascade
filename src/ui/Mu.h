@@ -57,21 +57,32 @@ class Mu {
     return
       QString::fromStdString(
        libmu->printToString(libmu->eval(libmu->read(form.toStdString())),
-                            true));
+                            true) +
+       platform::Platform::GetStdString(stdout));
   }
 
-  void withException(std::function<void()> fn) {
+  QString withException(std::function<void()> fn) {
     libmu->withException(libmu.get(),
                          [fn](libmu::LibMu*) { (void)fn(); });
+    return
+      QString::fromStdString(
+        platform::Platform::GetStdString(stderr));
   }
   
-  Mu() {
-  
-    platform::Platform* platform = new platform::Platform();
-    libmu = std::make_unique<libmu::LibMu>(platform);
+  Mu() : platform(new platform::Platform()) {
+    stdout = platform::Platform::OpenOutputString();
+    stderr = platform::Platform::OpenOutputString();
+    libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
+
+    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
+    libmu->eval(libmu->read("(:defcon lib-base \"/usr/local/logica\")"));
+    libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
   }
 
  private:
+  platform::Platform* platform;
+  platform::Platform::StreamId stdout;
+  platform::Platform::StreamId stderr;
   std::unique_ptr<libmu::LibMu> libmu;
 };
 

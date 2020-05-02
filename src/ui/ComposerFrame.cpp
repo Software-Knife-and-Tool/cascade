@@ -36,7 +36,8 @@
  **  ComposerFrame.cpp: ComposerFrame implementation
  **
  **/
-
+#include <QLabel>
+#include <QTextEdit>
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
@@ -44,9 +45,13 @@
 namespace cascade {
 
 ComposerFrame::ComposerFrame(QWidget*) {
+  edit_text = new QTextEdit();
+  results_text = new QLabel(QString("Results Panel"));
+    
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(new QLabel(QString("ComposerFrame")));
+  layout->addWidget(edit_text);
+  layout->addWidget(results_text);
 
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);

@@ -41,10 +41,13 @@
 #define _CASCADE_SRC_UI_COMPOSERFRAME_H_
 
 #include <QFrame>
+#include <QLabel>
+#include <QTextEdit>
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
+class QTextEdit;
 class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
@@ -64,6 +67,8 @@ class ComposerFrame : public QFrame {
 
  private:
   QVBoxLayout *layout;
+  QTextEdit* edit_text;
+  QLabel* results_text;
 };
 
 } /* cascade namespace */

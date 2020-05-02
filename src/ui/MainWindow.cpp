@@ -80,79 +80,10 @@ MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
 
-  tabBar->addTab(new CascadeFrame(this), QString("cascade"));
-  tabBar->addTab(new ComposerFrame(this), QString("composer"));
+  tabBar->add(new CascadeFrame(this), QString("cascade"));
+  tabBar->add(new ComposerFrame(this), QString("composer"));
 
   setCentralWidget(tabBar);
-
-#if 0
-  /* cascade */
-  cascadeFrame = new CascadeFrame(this);
-  cascadeFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  auto hw = this->addSubWindow(cascadeFrame);
-  hw->setWindowFlags(Qt::FramelessWindowHint);
-  hw->setWindowTitle(tr("cascade"));
-  hw->showMaximized();
-  connect(hw, &QMdiSubWindow::windowStateChanged,
-          [=]() {
-            cascadeFrame->setVisible(hw->windowState() == Qt::WindowNoState);
-          });
-
-  /* composer */
-  composerFrame = new ComposerFrame(mdiArea);
-  composerFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  // composerFrame->showMaximized();
-  
-  auto cw = mdiArea->addSubWindow(composerFrame);
-  cw->setWindowTitle(tr("composer"));
-  cw->setWindowFlags(Qt::FramelessWindowHint);
-  cw->setWindowState(Qt::WindowMaximized);
-  cw->showMaximized();
-  connect(cw, &QMdiSubWindow::windowStateChanged,
-          [=]() {
-            composerFrame->setVisible(cw->windowState() == Qt::WindowNoState);
-          });
-
-  /* inspector */
-  inFrame = new UiFrame(mdiArea);
-  inFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  inFrame->showMaximized();
-
-  auto iw = mdiArea->addSubWindow(inFrame);
-  iw->setWindowFlags(Qt::FramelessWindowHint);
-  iw->setWindowTitle(tr("inspector"));
-  iw->showMaximized();
-  connect(iw, &QMdiSubWindow::windowStateChanged,
-          [=]() {
-            uiFrame->setVisible(iw->windowState() == Qt::WindowNoState);
-          });
-
-  /* scripts */
-  scFrame = new UiFrame(mdiArea);
-  scFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  scFrame->showMaximized();
-
-  auto sw = mdiArea->addSubWindow(scFrame);
-  sw->setWindowFlags(Qt::FramelessWindowHint);
-  sw->setWindowTitle(tr("scripting"));
-  sw->showMaximized();
-  connect(sw, &QMdiSubWindow::windowStateChanged,
-          [=]() {
-            uiFrame->setVisible(sw->windowState() == Qt::WindowNoState);
-          });
-#endif
-  
-#if 0
-  connect(w,&QMdiSubWindow::windowStateChanged,[=](){
-        if(w->windowState() == Qt::WindowNoState){
-            mdiArea->removeSubWindow(w);
-            if(mdiArea->subWindowList().size() == 0){
-                qDebug() << "modify the menu";
-            }
-        }
-    });
-#endif
 
   createStatusBar();
     
