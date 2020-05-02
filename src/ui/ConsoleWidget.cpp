@@ -286,13 +286,25 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 /** * events **/
 void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
-    case Qt::Key_Return:
+  case Qt::Key_Return: {
       buffer_ << prompt_ + line_;
-      buffer_ << mu->withException([this]() {
-                                     buffer_ << mu->mu(line_);
-                                   });
+
+      auto error_text =
+        mu->withException([this]() {
+         auto lines =
+           mu->mu(line_).split('\n',
+                               QString::SplitBehavior::KeepEmptyParts,
+                               Qt::CaseSensitive);
+         for (int i = 0; i < lines.size(); ++i)
+           buffer_ << lines.at(i);
+       });
+      
+      if (error_text.size() > 1)
+        buffer_ << error_text;
+
       line_.clear();
       break;
+    }
     case Qt::Key_Backspace:
       line_.resize(line_.size() - 1);
       break;

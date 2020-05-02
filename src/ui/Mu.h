@@ -73,6 +73,10 @@ class Mu {
     stdout = platform::Platform::OpenOutputString();
     stderr = platform::Platform::OpenOutputString();
     libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
+
+    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
+    libmu->eval(libmu->read("(:defcon lib-base \"/usr/local/logica\")"));
+    libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
   }
 
  private:
