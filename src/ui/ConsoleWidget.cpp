@@ -288,21 +288,20 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
     case Qt::Key_Return:
       buffer_ << prompt_ + line_;
-      mu->withException([this]() {
-                          buffer_ << mu->mu(line_);
-                        });
+      buffer_ << mu->withException([this]() {
+                                     buffer_ << mu->mu(line_);
+                                   });
       line_.clear();
-      viewport()->update();
       break;
     case Qt::Key_Backspace:
       line_.resize(line_.size() - 1);
-      viewport()->update();
       break;
     default:
       line_.append(event->text());
-      viewport()->update();
       break;
   }
+
+  viewport()->update();
 }
 
 void ConsoleWidget::keyReleaseEvent(QKeyEvent *) { }

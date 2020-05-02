@@ -66,6 +66,10 @@ namespace cascade {
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
+  QSizePolicy consoleh_policy = consoleWidget->sizePolicy();
+  consoleh_policy.setVerticalStretch(1);
+  consoleWidget->setSizePolicy(consoleh_policy);
+  
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   
