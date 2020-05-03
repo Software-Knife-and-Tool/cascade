@@ -43,11 +43,13 @@
 #include <QFrame>
 #include <QLabel>
 #include <QTextEdit>
+#include <QToolBar>
 #include <QWidget>
 
 QT_BEGIN_NAMESPACE
 class QLabel;
 class QTextEdit;
+class QToolBar;
 class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
@@ -68,6 +70,7 @@ class ComposerFrame : public QFrame {
  private:
   QVBoxLayout* layout;
   QTextEdit* edit_text;
+  QToolBar* tool_bar;
   QLabel* eval_text;
 };
 
