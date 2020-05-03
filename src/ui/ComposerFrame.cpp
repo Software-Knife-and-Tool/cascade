@@ -48,6 +48,14 @@ ComposerFrame::ComposerFrame(QWidget*) {
   edit_text = new QTextEdit();
   eval_text = new QLabel(QString("Eval Panel"));
 
+  edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  // edit_text->setAlignment(Qt::AlignCenter);
+  edit_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+
+  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  eval_text->setAlignment(Qt::AlignCenter);
+  eval_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   edit_text->setSizePolicy(spEdit);
