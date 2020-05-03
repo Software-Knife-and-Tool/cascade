@@ -33,21 +33,59 @@
 
 /********
  **
- **  main.cpp: Composer Ui main
+ **  Mu.h: Mu class
  **
  **/
-#include <QApplication>
-#include <QDesktopWidget>
+#ifndef _CASCADE_SRC_UI_MU_H_
+#define _CASCADE_SRC_UI_MU_H_
 
-#include "MainWindow.h"
+#include <QString>
 
-int main(int argc, char **argv) {
+#include "libmu/libmu.h"
 
-  QApplication app(argc, argv);
+namespace composer {
   
-  composer::MainWindow mainWindow;
-  mainWindow.show();
+class Mu {
+ public:
+  QString version() {
+
+    return QString(libmu->version().c_str());  
+  }
+
+  QString mu(QString form) {
+    auto rval = libmu->eval(libmu->read(form.toStdString()));
+    
+    return
+      QString::fromStdString(
+        platform::Platform::GetStdString(stdout) +
+        libmu->printToString(rval, true));
+  }
+
+  QString withException(std::function<void()> fn) {
+    libmu->withException(libmu.get(),
+                         [fn](libmu::LibMu*) { (void)fn(); });
+    return
+      QString::fromStdString(
+        platform::Platform::GetStdString(stderr));
+  }
   
-  mainWindow.setFixedSize(1024, 768);
-  return app.exec();
-}
+  Mu() : platform(new platform::Platform()) {
+    stdout = platform::Platform::OpenOutputString();
+    stderr = platform::Platform::OpenOutputString();
+    libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
+
+    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
+    libmu->eval(libmu->read("(:defcon lib-base \"/usr/local/logica\")"));
+    libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
+  }
+
+ private:
+  platform::Platform* platform;
+  platform::Platform::StreamId stdout;
+  platform::Platform::StreamId stderr;
+  std::unique_ptr<libmu::LibMu> libmu;
+};
+
+} /* composer namespace */
+
+#endif /* _CASCADE_SRC_UI_MU_H_ */ 

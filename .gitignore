@@ -1,6 +1,6 @@
 moc_*.cpp
 moc_*.h
-cascade.app/
+composer.app/
 .qmake.stash
 .DS_Store
 *.o

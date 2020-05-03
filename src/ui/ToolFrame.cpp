@@ -33,18 +33,18 @@
 
 /********
  **
- **  CascadeFrame.cpp: CascadeFrame implementation
+ **  ToolFrame.cpp: ToolFrame implementation
  **
  **/
 
 #include <QtWidgets>
 #include <QString>
 
-#include "CascadeFrame.h"
+#include "ToolFrame.h"
 
-namespace cascade {
+namespace composer {
 
-CascadeFrame::CascadeFrame(QWidget*)
+ToolFrame::ToolFrame(QWidget*)
     : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
   auto hostName = QSysInfo::machineHostName();
@@ -56,7 +56,7 @@ CascadeFrame::CascadeFrame(QWidget*)
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica Cascade IDE <i>0.0.1</i></h1>"
+    "        <h1>Logica Composer IDE <i>0.0.1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>blackloch.local</i>, an Intel Core I7 workstation</h2>"
     "        <h2>macOs Mojave 10.14.6</h2>"
@@ -97,4 +97,4 @@ CascadeFrame::CascadeFrame(QWidget*)
   this->setLayout(layout);
 }
 
-} /* cascade namespace */
+} /* composer namespace */

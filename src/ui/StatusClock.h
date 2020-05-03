@@ -52,7 +52,7 @@ class QStatusBar;
 class QDateTime;
 QT_END_NAMESPACE
 
-namespace cascade {
+namespace composer {
 
 class MainWindow;
   
@@ -79,6 +79,6 @@ class StatusClock : public QObject {
   }
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif  /* _CASCADE_SRC_UI_STATUSCLOCK_H_ */

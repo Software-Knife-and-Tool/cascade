@@ -33,17 +33,17 @@
 
 /********
  **
- **  Mu.h: Mu class
+ **  logica.h: Mu class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MU_H_
-#define _CASCADE_SRC_UI_MU_H_
+#ifndef _CASCADE_SRC_UI_LOGICA_H_
+#define _CASCADE_SRC_UI_LOGICA_H_
 
 #include <QString>
 
 #include "libmu/libmu.h"
 
-namespace cascade {
+namespace composer {
   
 class Mu {
  public:
@@ -69,7 +69,7 @@ class Mu {
         platform::Platform::GetStdString(stderr));
   }
   
-  Mu() : platform(new platform::Platform()) {
+  Logica() : platform(new platform::Platform()) {
     stdout = platform::Platform::OpenOutputString();
     stderr = platform::Platform::OpenOutputString();
     libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
@@ -86,6 +86,6 @@ class Mu {
   std::unique_ptr<libmu::LibMu> libmu;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_MU_H_ */ 
+#endif /* _CASCADE_SRC_UI_LOGICA_H_ */ 

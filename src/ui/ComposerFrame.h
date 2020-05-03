@@ -54,7 +54,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace cascade {
+namespace composer {
 
 class MainWindow;
   
@@ -74,6 +74,6 @@ class ComposerFrame : public QFrame {
   QLabel* eval_text;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif  /* _CASCADE_SRC_UI_COMPOSERFRAME_H_ */

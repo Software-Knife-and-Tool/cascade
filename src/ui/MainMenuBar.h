@@ -51,7 +51,7 @@ class QLabel;
 class QMenu;
 QT_END_NAMESPACE
 
-namespace cascade {
+namespace composer {
 
 class MainWindow;
   
@@ -117,9 +117,8 @@ class MainMenuBar : public QMenu {
 
  private:
   MainWindow* mw;
-  
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif  /* _CASCADE_SRC_UI_MAINMENUBAR_H_ */

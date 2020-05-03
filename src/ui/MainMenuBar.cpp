@@ -42,7 +42,7 @@
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
-namespace cascade {
+namespace composer {
 
 MainMenuBar::MainMenuBar(MainWindow *w) : mw(w) {
   createActions();
@@ -289,4 +289,4 @@ void MainMenuBar::createMenus() {
   helpMenu->addAction(prefsAct);  
 }
 
-} /* cascade namespace */
+} /* composer namespace */

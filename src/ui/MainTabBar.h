@@ -51,7 +51,7 @@ class QLabel;
 class QTabWidget;
 QT_END_NAMESPACE
 
-namespace cascade {
+namespace composer {
 
 class MainWindow;
   
@@ -72,6 +72,6 @@ class MainTabBar : public QTabWidget {
   MainWindow* mw;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */

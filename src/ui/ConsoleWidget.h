@@ -55,7 +55,7 @@
 class QPaintEvent;
 class QMouseEvent;
 
-namespace cascade {
+namespace composer {
   
 struct TextSelection;
 struct TextPosition;
@@ -91,6 +91,6 @@ class ConsoleWidget : public QAbstractScrollArea {
   QSharedPointer<TextSelection> _selection;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif /* _CASCADE_SRC_UI_CONSOLEWIDGET_H_ */
