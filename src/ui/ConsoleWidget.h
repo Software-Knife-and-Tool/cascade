@@ -50,7 +50,6 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-// #include "UiFrame.h"
 #include "Mu.h"
 
 class QPaintEvent;
@@ -60,8 +59,6 @@ namespace cascade {
   
 struct TextSelection;
 struct TextPosition;
-
-class UiFrame;
 
 class ConsoleWidget : public QAbstractScrollArea {
 

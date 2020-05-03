@@ -170,6 +170,9 @@ void ConsoleWidget::DrawLine(int& x_offset,
                              QFontMetrics m,
                              int current_line) {
 
+  static const int XOFF = 5;
+  static const int YOFF = 5;
+  
   QPainter painter(viewport());
     
   if (y_offset < viewport()->height() && current_line >= 0 && line.size() > 0) {
@@ -184,9 +187,9 @@ void ConsoleWidget::DrawLine(int& x_offset,
       const QString text = line.mid(style.start, style.length);
       int text_width = drawWidth(painter, text);
       
-      painter.fillRect(QRect(x_offset, y_offset, text_width, m.height()),
+      painter.fillRect(QRect(x_offset + XOFF, y_offset + YOFF, text_width, m.height()),
                        style.background);
-      painter.drawText(x_offset, text_offset, text);
+      painter.drawText(x_offset + XOFF, text_offset + YOFF, text);
       x_offset += text_width;
     }
   }
@@ -322,7 +325,6 @@ void ConsoleWidget::mousePressEvent(QMouseEvent*) {
 #if 0
   QAbstractScrollArea::mousePressEvent(event);
 
-
   if (event->buttons().testFlag(Qt::LeftButton)) {
     _selection->start(getTextPosition(event->pos()));
   }
@@ -355,7 +357,7 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, cascade::Mu* mu)
 
   viewport()->setCursor(Qt::IBeamCursor);
   buffer_ << QString(";;; mu ").append(mu->version());
-  prompt_ = QString("> ");
+  prompt_ = QString("mu> ");
   cursor_ = QString("_");
 }
 

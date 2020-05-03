@@ -77,20 +77,6 @@ CascadeFrame::CascadeFrame(QWidget*)
     
   auto system_html = QString::fromStdString(html);
 
-#if 0
-    QString("<div align=left><p><h1>Cascade ") +
-    QString("0.0.1") +
-    QString("</h1></p>") +
-    QString("<p><h3>Cascade ") +
-    QString("0.1.0") +
-    QString("</h3></p>") +
-    QString("<p><h3>libmu ") + mu->version() +
-    QString("</h3></p>") +
-    QString("<h3>") + userName +
-    QString(" running on ") + hostName +
-    QString("</h3></div");
- #endif
-  
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);

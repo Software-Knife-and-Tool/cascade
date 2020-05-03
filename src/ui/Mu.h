@@ -53,12 +53,12 @@ class Mu {
   }
 
   QString mu(QString form) {
+    auto rval = libmu->eval(libmu->read(form.toStdString()));
     
     return
       QString::fromStdString(
-       libmu->printToString(libmu->eval(libmu->read(form.toStdString())),
-                            true) +
-       platform::Platform::GetStdString(stdout));
+        platform::Platform::GetStdString(stdout) +
+        libmu->printToString(rval, true));
   }
 
   QString withException(std::function<void()> fn) {

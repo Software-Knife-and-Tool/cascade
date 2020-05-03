@@ -64,7 +64,6 @@ namespace cascade {
 
 class MainMenuBar;
 class MainTabBar;
-class UiFrame;
 class CascadeFrame;
   
 class MainWindow : public QMainWindow {
