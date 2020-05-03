@@ -66,9 +66,9 @@ class ComposerFrame : public QFrame {
  protected:
 
  private:
-  QVBoxLayout *layout;
+  QVBoxLayout* layout;
   QTextEdit* edit_text;
-  QLabel* results_text;
+  QLabel* eval_text;
 };
 
 } /* cascade namespace */

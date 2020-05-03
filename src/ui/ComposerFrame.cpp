@@ -46,12 +46,20 @@ namespace cascade {
 
 ComposerFrame::ComposerFrame(QWidget*) {
   edit_text = new QTextEdit();
-  results_text = new QLabel(QString("Results Panel"));
-    
+  eval_text = new QLabel(QString("Eval Panel"));
+
+  QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spEdit.setVerticalStretch(1);
+  edit_text->setSizePolicy(spEdit);
+
+  QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spEval.setVerticalStretch(1);
+  eval_text->setSizePolicy(spEval);
+ 
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(edit_text);
-  layout->addWidget(results_text);
+  layout->addWidget(eval_text);
 
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
