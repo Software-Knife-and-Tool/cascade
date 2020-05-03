@@ -38,18 +38,46 @@
  **/
 
 #include <QtWidgets>
+#include <QString>
 
 #include "CascadeFrame.h"
 
 namespace cascade {
 
-  CascadeFrame::CascadeFrame(QWidget*)
+CascadeFrame::CascadeFrame(QWidget*)
     : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
     
-  QString hostName = QSysInfo::machineHostName();
-  QString userName = qgetenv("USER");
+  auto hostName = QSysInfo::machineHostName();
+  auto userName = qgetenv("USER");
 
-  QString system_html =
+  std::string html =
+    "<html>"
+    "  <body bgcolor=#c0c0c0>"
+    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
+    "      <div>"
+    "        <br>"
+    "        <h1>Logica Cascade IDE <i>0.0.1</i></h1>"
+    "        <p></p>"
+    "        <h2>running on <i>blackloch.local</i>, an Intel Core I7 workstation</h2>"
+    "        <h2>macOs Mojave 10.14.6</h2>"
+    "        <p></p>"
+    "        <p>"
+    "          <h3>"
+    "            canon <i>0.0.1</i><br>"
+    "            libmu <i>0.0.1</i><br>"
+    "            mu <i>0.0.1</i>"
+    "          </h3>"
+    "        </p>"
+    "        <p></p>"
+    "      </div>"
+    "      <p></p>"
+    "    </span>"
+    "  </body>"
+    "</html>";
+    
+  auto system_html = QString::fromStdString(html);
+
+#if 0
     QString("<div align=left><p><h1>Cascade ") +
     QString("0.0.1") +
     QString("</h1></p>") +
@@ -61,10 +89,12 @@ namespace cascade {
     QString("<h3>") + userName +
     QString(" running on ") + hostName +
     QString("</h3></div");
-    
+ #endif
+  
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
+  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
   QSizePolicy consoleh_policy = consoleWidget->sizePolicy();
   consoleh_policy.setVerticalStretch(1);

@@ -87,7 +87,7 @@ MainWindow::MainWindow() {
 
   createStatusBar();
     
-  setWindowTitle(tr("Logica Cascade Development Environment"));
+  setWindowTitle(tr("Software Knife and Tool Cascade Development Environment"));
 }
 
 } /* cascade namespace */
