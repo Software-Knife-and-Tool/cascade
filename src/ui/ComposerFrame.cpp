@@ -38,6 +38,7 @@
  **/
 #include <QLabel>
 #include <QTextEdit>
+#include <QToolBar>
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
@@ -47,6 +48,9 @@ namespace cascade {
 ComposerFrame::ComposerFrame(QWidget*) {
   edit_text = new QTextEdit();
   eval_text = new QLabel(QString("Eval Panel"));
+  tool_bar = new QToolBar();
+
+  tool_bar->addAction(tr("eval"));
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   // edit_text->setAlignment(Qt::AlignCenter);
@@ -66,6 +70,7 @@ ComposerFrame::ComposerFrame(QWidget*) {
  
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
   layout->addWidget(edit_text);
   layout->addWidget(eval_text);
 
