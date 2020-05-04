@@ -15,9 +15,10 @@ HEADERS += \
            MainMenuBar.h     \
            MainTabBar.h      \
            MainWindow.h      \
-           Mu.h              \
            StatusClock.h     \
-           ToolFrame.h
+           ToolFrame.h       \
+           logica.h          \
+           mu.h
 
 SOURCES += \
            ComposerFrame.cpp \           

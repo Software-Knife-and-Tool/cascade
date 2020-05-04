@@ -48,9 +48,9 @@
 #include "ComposerFrame.h"
 #include "MainMenuBar.h"
 #include "MainTabBar.h"
-#include "Mu.h"
 #include "StatusClock.h"
 #include "ToolFrame.h"
+#include "mu.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;

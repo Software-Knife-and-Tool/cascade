@@ -50,7 +50,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "Mu.h"
+#include "mu.h"
 
 class QPaintEvent;
 class QMouseEvent;

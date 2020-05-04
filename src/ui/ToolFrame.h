@@ -45,7 +45,7 @@
 
 #include "ConsoleWidget.h"
 #include "MainTabBar.h"
-#include "Mu.h"
+#include "mu.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
