@@ -1,5 +1,6 @@
 moc_*.cpp
 moc_*.h
+build/composer*
 composer.app/
 .qmake.stash
 .DS_Store
