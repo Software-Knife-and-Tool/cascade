@@ -1,2 +1,2 @@
-# Cascade
-logica compiler development GUI
+# Composer
+logica code development GUI
