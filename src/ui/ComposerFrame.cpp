@@ -46,24 +46,17 @@
 
 namespace composer {
 
-void ComposerFrame::WriteLogica(QString out) {
-  eval_text->setText(out);
-}
-
-QString ComposerFrame::ReadLogica() {
-  return QString("oi!");
-}
-
 void ComposerFrame::compose() {
-  WriteLogica("compose");
+
 }
 
 void ComposerFrame::eval() {
-  WriteLogica("eval: " + edit_text->toPlainText());
+  logica->Write(edit_text->toPlainText());
+  eval_text->setText(logica->Read());
 }
 
 void ComposerFrame::save() {
-  WriteLogica("save");
+
 }
 
 ComposerFrame::ComposerFrame(QWidget*)
