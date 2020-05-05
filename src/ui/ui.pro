@@ -5,27 +5,28 @@ INCLUDEPATH += . /usr/local/logica
 LIBS += /usr/local/logica/libmu/libmu.a
 MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
-TARGET = cascade
+TARGET = composer
 TEMPLATE = app
 
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
-           CascadeFrame.h  \
-           ComposerFrame.h \
-           ConsoleWidget.h \
-           MainMenuBar.h   \
-           MainTabBar.h    \
-           MainWindow.h    \
-           Mu.h            \
-           StatusClock.h
+           ComposerFrame.h   \
+           ConsoleWidget.h   \
+           MainMenuBar.h     \
+           MainTabBar.h      \
+           MainWindow.h      \
+           StatusClock.h     \
+           ToolFrame.h       \
+           logica.h          \
+           mu.h
 
 SOURCES += \
-           CascadeFrame.cpp  \           
            ComposerFrame.cpp \           
            ConsoleWidget.cpp \           
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \
+           ToolFrame.cpp     \           
            main.cpp
 
 QT += core gui widgets

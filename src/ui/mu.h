@@ -43,7 +43,7 @@
 
 #include "libmu/libmu.h"
 
-namespace cascade {
+namespace composer {
   
 class Mu {
  public:
@@ -86,6 +86,6 @@ class Mu {
   std::unique_ptr<libmu::LibMu> libmu;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
 #endif /* _CASCADE_SRC_UI_MU_H_ */ 

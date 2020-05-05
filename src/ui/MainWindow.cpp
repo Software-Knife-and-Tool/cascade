@@ -43,12 +43,12 @@
 #include <QtGui>
 #include <QtWidgets>
 
-#include "CascadeFrame.h"
+#include "ToolFrame.h"
 #include "ComposerFrame.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
-namespace cascade {
+namespace composer {
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
@@ -80,14 +80,14 @@ MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
 
-  tabBar->add(new CascadeFrame(this), QString("cascade"));
+  tabBar->add(new ToolFrame(this), QString("tool"));
   tabBar->add(new ComposerFrame(this), QString("composer"));
 
   setCentralWidget(tabBar);
 
   createStatusBar();
     
-  setWindowTitle(tr("Software Knife and Tool Cascade Development Environment"));
+  setWindowTitle(tr("Software Knife and Tool Logica Composer"));
 }
 
-} /* cascade namespace */
+} /* composer namespace */

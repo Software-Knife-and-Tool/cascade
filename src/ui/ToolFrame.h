@@ -33,11 +33,11 @@
 
 /********
  **
- **  CascadeFrame.h: CascadeFrame class
+ **  ToolFrame.h: ToolFrame class
  **
  **/
-#ifndef _CASCADE_SRC_UI_CASCADEFRAME_H_
-#define _CASCADE_SRC_UI_CASCADEFRAME_H_
+#ifndef _CASCADE_SRC_UI_TOOLFRAME_H_
+#define _CASCADE_SRC_UI_TOOLFRAME_H_
 
 #include <QFrame>
 #include <QMdiArea>
@@ -45,7 +45,7 @@
 
 #include "ConsoleWidget.h"
 #include "MainTabBar.h"
-#include "Mu.h"
+#include "mu.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
@@ -55,15 +55,15 @@ QT_END_NAMESPACE
 
 class ConsoleWidget;
 
-namespace cascade {
+namespace composer {
 
 class MainTabBar;
   
-class CascadeFrame : public QFrame {
+class ToolFrame : public QFrame {
   Q_OBJECT
 
  public:
-  CascadeFrame(QWidget*);
+  ToolFrame(QWidget*);
 
  protected:
 
@@ -74,6 +74,6 @@ class CascadeFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* cascade namespace */
+} /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_CASCADEFRAME_H_ */
+#endif  /* _CASCADE_SRC_UI_TOOLFRAME_H_ */

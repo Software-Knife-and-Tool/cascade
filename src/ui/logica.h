@@ -33,21 +33,73 @@
 
 /********
  **
- **  main.cpp: Composer Ui main
+ **  logica.h: logica class
  **
  **/
-#include <QApplication>
-#include <QDesktopWidget>
+#ifndef _CASCADE_SRC_UI_LOGICA_H_
+#define _CASCADE_SRC_UI_LOGICA_H_
 
-#include "MainWindow.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-int main(int argc, char **argv) {
+#include <QString>
 
-  QApplication app(argc, argv);
+#include "libmu/libmu.h"
+#include "ComposerFrame.h"
+
+namespace composer {
+
+class ComposerFrame;
   
-  composer::MainWindow mainWindow;
-  mainWindow.show();
-  
-  mainWindow.setFixedSize(1024, 768);
-  return app.exec();
-}
+class Logica {
+ public:
+  void Write(QString) {
+    
+  }
+
+  QString Read() {
+
+    return QString("logica out");
+  }
+
+  Logica(ComposerFrame* frame) : platform(new platform::Platform()) {
+    (void)platform::Platform::OpenPipeStream("/tmp/logica", "");
+
+    this->frame = frame;
+    this->stdin = open("/tmp/logica", O_RDONLY);
+    this->stdout = open("/tmp/logica", O_WRONLY);
+
+    // frame->WriteOut(QString("why rhett..."));
+#if 0
+    switch (fork()) {
+      case 0: { /* child */
+        char* args[NULL];
+
+        exit(-1);
+        dup2(0, this->stdin);
+        dup2(1, this->stdout);
+        dup2(2, this->stdout);
+        execv("/usr/local/logica/bin/pipe-mu", args);
+        assert(false);
+        break;
+      }
+      case -1: /* error forking, parent */
+        break;
+      default: /* parent */
+        break;
+    }
+#endif
+  }
+
+ private:
+  ComposerFrame* frame;
+  platform::Platform* platform;
+  int stdin;
+  int stdout;
+};
+
+} /* composer namespace */
+
+#endif /* _CASCADE_SRC_UI_LOGICA_H_ */ 

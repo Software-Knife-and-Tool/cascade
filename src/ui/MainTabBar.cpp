@@ -43,7 +43,7 @@
 #include "MainTabBar.h"
 #include "MainWindow.h"
 
-namespace cascade {
+namespace composer {
 
 MainTabBar::MainTabBar(MainWindow *w) : mw(w) {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -54,4 +54,4 @@ MainTabBar::MainTabBar(MainWindow *w) : mw(w) {
   // addTab(QString("scripting"));
 }
 
-} /* cascade namespace */
+} /* composer namespace */

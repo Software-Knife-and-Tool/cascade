@@ -45,7 +45,7 @@
 #include <QPainter>
 #include <QScrollBar>
 
-namespace cascade {
+namespace composer {
   
 struct LineStyle {
 
@@ -350,7 +350,7 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent, cascade::Mu* mu)
+ConsoleWidget::ConsoleWidget(QWidget *parent, composer::Mu* mu)
   : QAbstractScrollArea(parent),
     mu(mu),
     _selection(new TextSelection) {
@@ -361,4 +361,4 @@ ConsoleWidget::ConsoleWidget(QWidget *parent, cascade::Mu* mu)
   cursor_ = QString("_");
 }
 
-} /* cascade namespace */
+} /* composer namespace */

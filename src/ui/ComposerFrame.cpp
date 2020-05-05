@@ -42,22 +42,30 @@
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
+#include "logica.h"
 
-namespace cascade {
+namespace composer {
+
+void ComposerFrame::WriteOut(QString out) {
+  eval_text->setText("boy howdy!");
+}
 
 ComposerFrame::ComposerFrame(QWidget*) {
+
+  proc = new Logica(this);
+  
   edit_text = new QTextEdit();
   eval_text = new QLabel(QString("Eval Panel"));
   tool_bar = new QToolBar();
 
+  tool_bar->addAction(tr("compose"));
+  tool_bar->addAction(tr("save"));
   tool_bar->addAction(tr("eval"));
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  // edit_text->setAlignment(Qt::AlignCenter);
   edit_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  eval_text->setAlignment(Qt::AlignCenter);
   eval_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -74,9 +82,11 @@ ComposerFrame::ComposerFrame(QWidget*) {
   layout->addWidget(edit_text);
   layout->addWidget(eval_text);
 
+  WriteOut("boy howdy.");
+  
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* cascade namespace */
+} /* composer namespace */
