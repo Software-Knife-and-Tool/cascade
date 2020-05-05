@@ -68,19 +68,22 @@ class Logica {
     (void)platform::Platform::OpenPipeStream("/tmp/logica", "");
 
     this->frame = frame;
-    this->stdin = open("/tmp/logica", O_RDONLY);
-    this->stdout = open("/tmp/logica", O_WRONLY);
 
-    // frame->WriteOut(QString("why rhett..."));
-#if 0
+    this->stdin = open("/tmp/logica", O_RDONLY|O_NONBLOCK);
+    this->stdout = open("/tmp/logica", O_WRONLY|O_NONBLOCK);
+        
     switch (fork()) {
       case 0: { /* child */
+
         char* args[NULL];
 
-        exit(-1);
+        this->stdin = open("/tmp/logica", O_RDONLY);
+        this->stdout = open("/tmp/logica", O_WRONLY);
+
         dup2(0, this->stdin);
         dup2(1, this->stdout);
         dup2(2, this->stdout);
+
         execv("/usr/local/logica/bin/pipe-mu", args);
         assert(false);
         break;
@@ -88,9 +91,10 @@ class Logica {
       case -1: /* error forking, parent */
         break;
       default: /* parent */
+
+        unlink("/tmp/logica");
         break;
     }
-#endif
   }
 
  private:
