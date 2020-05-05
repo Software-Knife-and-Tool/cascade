@@ -59,7 +59,7 @@ void ComposerFrame::compose() {
 }
 
 void ComposerFrame::eval() {
-  WriteLogica("eval");
+  WriteLogica("eval: " + edit_text->toPlainText());
 }
 
 void ComposerFrame::save() {
@@ -90,7 +90,8 @@ ComposerFrame::ComposerFrame(QWidget*)
 
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
-
+  eval_text->setAlignment(Qt::AlignTop);
+  
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   edit_text->setSizePolicy(spEdit);
