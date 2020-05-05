@@ -65,17 +65,22 @@ class ComposerFrame : public QFrame {
  Q_OBJECT
 
  public:
-  void WriteOut(QString);
-  explicit ComposerFrame(QWidget*);
+  void WriteLogica(QString);
+  QString ReadLogica();
   
- protected:
+  explicit ComposerFrame(QWidget*);
+      
+  void compose();
+  void eval();
+  void save();
 
  private:
   QVBoxLayout* layout;
+  
   QTextEdit* edit_text;
-  QToolBar* tool_bar;
   QLabel* eval_text;
-  Logica* proc;
+  Logica* logica;
+  QToolBar* tool_bar;
 };
 
 } /* composer namespace */

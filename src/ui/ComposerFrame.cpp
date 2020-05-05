@@ -46,21 +46,44 @@
 
 namespace composer {
 
-void ComposerFrame::WriteOut(QString out) {
-  eval_text->setText("boy howdy!");
+void ComposerFrame::WriteLogica(QString out) {
+  eval_text->setText(out);
 }
 
-ComposerFrame::ComposerFrame(QWidget*) {
+QString ComposerFrame::ReadLogica() {
+  return QString("oi!");
+}
 
-  proc = new Logica(this);
+void ComposerFrame::compose() {
+  WriteLogica("compose");
+}
+
+void ComposerFrame::eval() {
+  WriteLogica("eval");
+}
+
+void ComposerFrame::save() {
+  WriteLogica("save");
+}
+
+ComposerFrame::ComposerFrame(QWidget*)
+  : edit_text(new QTextEdit()),
+    eval_text(new QLabel()),
+    logica(new Logica(this)),
+    tool_bar(new QToolBar()) {
   
-  edit_text = new QTextEdit();
-  eval_text = new QLabel(QString("Eval Panel"));
-  tool_bar = new QToolBar();
-
-  tool_bar->addAction(tr("compose"));
-  tool_bar->addAction(tr("save"));
-  tool_bar->addAction(tr("eval"));
+  connect(tool_bar->addAction(tr("compose")),
+          &QAction::triggered,
+          this,
+          &ComposerFrame::compose);
+  connect(tool_bar->addAction(tr("save")),
+          &QAction::triggered,
+          this,
+          &ComposerFrame::save);
+  connect(tool_bar->addAction(tr("eval")),
+          &QAction::triggered,
+          this,
+          &ComposerFrame::eval);
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   edit_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
@@ -81,8 +104,6 @@ ComposerFrame::ComposerFrame(QWidget*) {
   layout->addWidget(tool_bar);
   layout->addWidget(edit_text);
   layout->addWidget(eval_text);
-
-  WriteOut("boy howdy.");
   
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);

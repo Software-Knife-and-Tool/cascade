@@ -82,9 +82,9 @@ ToolFrame::ToolFrame(QWidget*)
   bannerLabel->setAlignment(Qt::AlignCenter);
   bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
-  QSizePolicy consoleh_policy = consoleWidget->sizePolicy();
-  consoleh_policy.setVerticalStretch(1);
-  consoleWidget->setSizePolicy(consoleh_policy);
+  QSizePolicy console_policy = consoleWidget->sizePolicy();
+  console_policy.setVerticalStretch(1);
+  consoleWidget->setSizePolicy(console_policy);
   
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
