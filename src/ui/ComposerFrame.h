@@ -46,6 +46,8 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "logica.h"
+
 QT_BEGIN_NAMESPACE
 class QLabel;
 class QTextEdit;
@@ -63,8 +65,9 @@ class ComposerFrame : public QFrame {
  Q_OBJECT
 
  public:
-  ComposerFrame(QWidget*);
-
+  void WriteOut(QString);
+  explicit ComposerFrame(QWidget*);
+  
  protected:
 
  private:
@@ -72,6 +75,7 @@ class ComposerFrame : public QFrame {
   QTextEdit* edit_text;
   QToolBar* tool_bar;
   QLabel* eval_text;
+  Logica* proc;
 };
 
 } /* composer namespace */

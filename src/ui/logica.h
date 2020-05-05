@@ -33,57 +33,71 @@
 
 /********
  **
- **  logica.h: Mu class
+ **  logica.h: logica class
  **
  **/
 #ifndef _CASCADE_SRC_UI_LOGICA_H_
 #define _CASCADE_SRC_UI_LOGICA_H_
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #include <QString>
 
 #include "libmu/libmu.h"
+#include "ComposerFrame.h"
 
 namespace composer {
+
+class ComposerFrame;
   
-class Mu {
+class Logica {
  public:
-  QString version() {
-
-    return QString(libmu->version().c_str());  
-  }
-
-  QString mu(QString form) {
-    auto rval = libmu->eval(libmu->read(form.toStdString()));
+  void Write(QString) {
     
-    return
-      QString::fromStdString(
-        platform::Platform::GetStdString(stdout) +
-        libmu->printToString(rval, true));
   }
 
-  QString withException(std::function<void()> fn) {
-    libmu->withException(libmu.get(),
-                         [fn](libmu::LibMu*) { (void)fn(); });
-    return
-      QString::fromStdString(
-        platform::Platform::GetStdString(stderr));
-  }
-  
-  Logica() : platform(new platform::Platform()) {
-    stdout = platform::Platform::OpenOutputString();
-    stderr = platform::Platform::OpenOutputString();
-    libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
+  QString Read() {
 
-    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
-    libmu->eval(libmu->read("(:defcon lib-base \"/usr/local/logica\")"));
-    libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
+    return QString("logica out");
+  }
+
+  Logica(ComposerFrame* frame) : platform(new platform::Platform()) {
+    (void)platform::Platform::OpenPipeStream("/tmp/logica", "");
+
+    this->frame = frame;
+    this->stdin = open("/tmp/logica", O_RDONLY);
+    this->stdout = open("/tmp/logica", O_WRONLY);
+
+    // frame->WriteOut(QString("why rhett..."));
+#if 0
+    switch (fork()) {
+      case 0: { /* child */
+        char* args[NULL];
+
+        exit(-1);
+        dup2(0, this->stdin);
+        dup2(1, this->stdout);
+        dup2(2, this->stdout);
+        execv("/usr/local/logica/bin/pipe-mu", args);
+        assert(false);
+        break;
+      }
+      case -1: /* error forking, parent */
+        break;
+      default: /* parent */
+        break;
+    }
+#endif
   }
 
  private:
+  ComposerFrame* frame;
   platform::Platform* platform;
-  platform::Platform::StreamId stdout;
-  platform::Platform::StreamId stderr;
-  std::unique_ptr<libmu::LibMu> libmu;
+  int stdin;
+  int stdout;
 };
 
 } /* composer namespace */

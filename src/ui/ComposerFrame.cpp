@@ -42,10 +42,18 @@
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
+#include "logica.h"
 
 namespace composer {
 
+void ComposerFrame::WriteOut(QString out) {
+  eval_text->setText("boy howdy!");
+}
+
 ComposerFrame::ComposerFrame(QWidget*) {
+
+  proc = new Logica(this);
+  
   edit_text = new QTextEdit();
   eval_text = new QLabel(QString("Eval Panel"));
   tool_bar = new QToolBar();
@@ -74,6 +82,8 @@ ComposerFrame::ComposerFrame(QWidget*) {
   layout->addWidget(edit_text);
   layout->addWidget(eval_text);
 
+  WriteOut("boy howdy.");
+  
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
