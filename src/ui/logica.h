@@ -56,15 +56,19 @@ class ComposerFrame;
 class Logica {
  public:
   void Write(QString str) {
-    QString andnl = str + QString("\n");
-    QByteArray ba = andnl.toLocal8Bit();
+    QByteArray ba = str.toLocal8Bit();
     const char *c_str = ba.data();
     write(this->stdout, c_str, strlen(c_str));
   }
 
   QString Read() {
+    int ch;
+    QString out;
+
+    while (read(this->stdin, &ch, 1) >= 0)
+      out.push_back((char)ch);
     
-    return QString("logica out");
+    return out;
   }
 
   Logica(ComposerFrame* frame) : platform(new platform::Platform()) {

@@ -65,9 +65,6 @@ class ComposerFrame : public QFrame {
  Q_OBJECT
 
  public:
-  void WriteLogica(QString);
-  QString ReadLogica();
-  
   explicit ComposerFrame(QWidget*);
       
   void compose();
