@@ -80,18 +80,18 @@ class Logica {
 
     logica = open(in_fifo, O_RDONLY | O_NONBLOCK);
     composer = open(out_fifo, O_WRONLY | O_NONBLOCK);
-        
-    switch (fork()) {
+
+    int pid;
+    
+    switch (pid = fork()) {
       case 0: {   /* child */
-        int composer = open(out_fifo, O_RDONLY);
-        int logica = open(in_fifo, O_WRONLY);
+        int composer = open(out_fifo, O_RDONLY | O_NONBLOCK);
+        int logica = open(in_fifo, O_WRONLY | O_NONBLOCK);
 
         dup2(0, composer);
         dup2(1, logica);
         dup2(2, logica);
-
         execv("/usr/local/logica/bin/pipe-mu", args);
-        assert(false);
         break;
       }
       case -1: /* error when forking, parent */
