@@ -72,6 +72,8 @@ class ComposerFrame : public QFrame {
   void save();
 
  private:
+  const char* style = "color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);";
+
   QVBoxLayout* layout;
   
   QTextEdit* edit_text;
