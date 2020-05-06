@@ -52,7 +52,7 @@ void ComposerFrame::compose() {
 
 void ComposerFrame::eval() {
   logica->Write(edit_text->toPlainText());
-  eval_text->setText(logica->Read());
+  eval_text->setText("!" + logica->Read());
 }
 
 void ComposerFrame::save() {

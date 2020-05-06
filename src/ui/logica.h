@@ -58,6 +58,7 @@ class Logica {
   void Write(QString str) {
     QByteArray ba = str.toLocal8Bit();
     const char *c_str = ba.data();
+
     write(logica, c_str, strlen(c_str));
   }
 
