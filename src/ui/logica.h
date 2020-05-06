@@ -73,7 +73,7 @@ class Logica {
   }
 
   Logica() : platform(new platform::Platform()) {
-    char* args[NULL];
+    const char* args[]{"pipe-mu", NULL};
 
     (void)platform::Platform::OpenPipeStream(in_fifo, "");
     (void)platform::Platform::OpenPipeStream(out_fifo, "");
@@ -91,7 +91,7 @@ class Logica {
         dup2(0, composer);
         dup2(1, logica);
         dup2(2, logica);
-        execv("/usr/local/logica/bin/pipe-mu", args);
+        execv("/usr/local/logica/bin/pipe-mu",const_cast<char**>(args));
         break;
       }
       case -1: /* error when forking, parent */
