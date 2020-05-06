@@ -52,7 +52,7 @@ void ComposerFrame::compose() {
 
 void ComposerFrame::eval() {
   logica->Write(edit_text->toPlainText());
-  eval_text->setText(logica->Read());
+  eval_text->setText("!" + logica->Read());
 }
 
 void ComposerFrame::save() {
@@ -62,28 +62,22 @@ void ComposerFrame::save() {
 ComposerFrame::ComposerFrame(QWidget*)
   : edit_text(new QTextEdit()),
     eval_text(new QLabel()),
-    logica(new Logica(this)),
+    logica(new Logica()),
     tool_bar(new QToolBar()) {
   
   connect(tool_bar->addAction(tr("compose")),
-          &QAction::triggered,
-          this,
-          &ComposerFrame::compose);
+          &QAction::triggered, this, &ComposerFrame::compose);
   connect(tool_bar->addAction(tr("save")),
-          &QAction::triggered,
-          this,
-          &ComposerFrame::save);
+          &QAction::triggered, this, &ComposerFrame::save);
   connect(tool_bar->addAction(tr("eval")),
-          &QAction::triggered,
-          this,
-          &ComposerFrame::eval);
+          &QAction::triggered, this, &ComposerFrame::eval);
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  edit_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+  edit_text->setStyleSheet(style);
 
-  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  eval_text->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
   eval_text->setAlignment(Qt::AlignTop);
+  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  eval_text->setStyleSheet(style);
   
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);

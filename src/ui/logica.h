@@ -58,57 +58,60 @@ class Logica {
   void Write(QString str) {
     QByteArray ba = str.toLocal8Bit();
     const char *c_str = ba.data();
-    write(this->stdout, c_str, strlen(c_str));
+
+    write(logica, c_str, strlen(c_str));
   }
 
   QString Read() {
     int ch;
     QString out;
 
-    while (read(this->stdin, &ch, 1) >= 0)
+    while (read(composer, &ch, 1) >= 0)
       out.push_back((char)ch);
     
     return out;
   }
 
-  Logica(ComposerFrame* frame) : platform(new platform::Platform()) {
-    (void)platform::Platform::OpenPipeStream("/tmp/logica", "");
+  Logica() : platform(new platform::Platform()) {
+    char* args[NULL];
 
-    this->frame = frame;
+    (void)platform::Platform::OpenPipeStream(in_fifo, "");
+    (void)platform::Platform::OpenPipeStream(out_fifo, "");
 
-    this->stdin = open("/tmp/logica", O_RDONLY|O_NONBLOCK);
-    this->stdout = open("/tmp/logica", O_WRONLY|O_NONBLOCK);
+    logica = open(in_fifo, O_RDONLY | O_NONBLOCK);
+    composer = open(out_fifo, O_WRONLY | O_NONBLOCK);
         
     switch (fork()) {
-      case 0: { /* child */
+      case 0: {   /* child */
+        int composer = open(out_fifo, O_RDONLY);
+        int logica = open(in_fifo, O_WRONLY);
 
-        char* args[NULL];
-
-        this->stdin = open("/tmp/logica", O_RDONLY);
-        this->stdout = open("/tmp/logica", O_WRONLY);
-
-        dup2(0, this->stdin);
-        dup2(1, this->stdout);
-        dup2(2, this->stdout);
+        dup2(0, composer);
+        dup2(1, logica);
+        dup2(2, logica);
 
         execv("/usr/local/logica/bin/pipe-mu", args);
         assert(false);
         break;
       }
-      case -1: /* error forking, parent */
+      case -1: /* error when forking, parent */
+        assert(false);
         break;
       default: /* parent */
-
-        unlink("/tmp/logica");
+        unlink(in_fifo);
+        unlink(out_fifo);
         break;
     }
   }
 
  private:
-  ComposerFrame* frame;
+  const char* in_fifo = "/tmp/from-logica";
+  const char* out_fifo = "/tmp/to-logica";
+  
   platform::Platform* platform;
-  int stdin;
-  int stdout;
+
+  int composer;
+  int logica;
 };
 
 } /* composer namespace */
