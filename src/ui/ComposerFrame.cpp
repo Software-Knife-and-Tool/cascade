@@ -51,8 +51,9 @@ void ComposerFrame::compose() {
 }
 
 void ComposerFrame::eval() {
-
   QString out;
+
+  tabBar->setContextStatus(tr("eval"));
   
   auto error_text =
     canon->withException([this,&out]() {
@@ -66,8 +67,9 @@ void ComposerFrame::save() {
 
 }
 
-ComposerFrame::ComposerFrame(QWidget*)
-  : edit_text(new QTextEdit()),
+ComposerFrame::ComposerFrame(MainTabBar* tabBar)
+  : tabBar(tabBar),
+    edit_text(new QTextEdit()),
     eval_text(new QLabel()),
     canon(new Canon()),
     tool_bar(new QToolBar()) {

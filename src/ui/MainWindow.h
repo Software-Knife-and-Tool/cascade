@@ -45,11 +45,9 @@
 #include <QStatusBar>
 #include <QTimer>
 
-#include "ComposerFrame.h"
 #include "MainMenuBar.h"
 #include "MainTabBar.h"
 #include "StatusClock.h"
-#include "ToolFrame.h"
 #include "mu.h"
 
 QT_BEGIN_NAMESPACE
@@ -71,12 +69,11 @@ class MainWindow : public QMainWindow {
  Q_OBJECT
 
  public:
-  Mu* mu;
-  
-  MainWindow();
+  explicit MainWindow();
 
-  void setContextStatus(const char*);
+  void setContextStatus(QString);
   MainTabBar* mainTabBar() { return this->tabBar; }
+  MainMenuBar* mainMenuBar() { return this->menuBar; }
   
  protected:
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -85,12 +82,10 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
-  ToolFrame* toolFrame;
-  ComposerFrame* composerFrame;
-  MainMenuBar* mainMenuBar;
+  QLabel *contextLabel;
+  MainMenuBar* menuBar;
   MainTabBar* tabBar;
   QDateTime startTime;
-  QMdiArea* mdiArea;
   StatusClock* statusClock;
 };
 

@@ -44,7 +44,7 @@
 
 namespace composer {
 
-MainMenuBar::MainMenuBar(MainWindow *w) : mw(w) {
+MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
   createActions();
   createMenus();
 }
@@ -253,7 +253,7 @@ void MainMenuBar::createActions() {
 
 void MainMenuBar::createMenus() {
 
-  fileMenu = mw->menuBar()->addMenu(tr("&File"));
+  fileMenu = addMenu(tr("&File"));
   fileMenu->addAction(newAct);
   fileMenu->addAction(openAct);
   fileMenu->addAction(saveAct);
@@ -262,7 +262,7 @@ void MainMenuBar::createMenus() {
   fileMenu->addAction(exitAct);
 
   /* fileMenu is a sub-menu of editMenu */
-  editMenu = mw->menuBar()->addMenu(tr("&Edit"));
+  editMenu = addMenu(tr("&Edit"));
   editMenu->addAction(undoAct);
   editMenu->addAction(redoAct);
   editMenu->addSeparator();
@@ -284,7 +284,7 @@ void MainMenuBar::createMenus() {
   formatMenu->addAction(setParagraphSpacingAct);
 
   /* this ends up in the ui main menu */
-  helpMenu = mw->menuBar()->addMenu(tr("&Help"));
+  helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
   helpMenu->addAction(prefsAct);  
 }

@@ -46,6 +46,7 @@
 #include <QWidget>
 
 #include "canon.h"
+#include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -57,14 +58,15 @@ QT_END_NAMESPACE
 
 namespace composer {
 
-class MainWindow;
+class MainTabBar;
+  class MainWindow;
   
 class ComposerFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(QWidget*);
+  explicit ComposerFrame(MainTabBar*);
       
   void compose();
   void eval();
@@ -74,7 +76,8 @@ class ComposerFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);";
 
   QVBoxLayout* layout;
-  
+
+  MainTabBar *tabBar;
   QTextEdit* edit_text;
   QLabel* eval_text;
   Canon* canon;
