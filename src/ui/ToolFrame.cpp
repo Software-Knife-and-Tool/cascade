@@ -55,7 +55,7 @@ ToolFrame::ToolFrame(QWidget*) : consoleWidget(new ConsoleWidget(this)) {
     "      <div>"
     "        <br>"
     "        <h1>Logica Composer IDE <i>0.0.2</i></h1>"
-    "        <p></p>"f.
+    "        <p></p>"
     "        <h2>running on <i>blackloch.local</i>, an Intel Core I7 workstation</h2>"
     "        <h2>macOs Mojave 10.14.6</h2>"
     "        <p></p>"

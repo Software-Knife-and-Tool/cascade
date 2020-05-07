@@ -45,6 +45,7 @@
 
 #include "ToolFrame.h"
 #include "ComposerFrame.h"
+#include "MainTabBar.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
@@ -53,38 +54,51 @@ namespace composer {
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
   
-  menu.addAction(mainMenuBar->cutAct);
-  menu.addAction(mainMenuBar->copyAct);
-  menu.addAction(mainMenuBar->pasteAct);
+  menu.addAction(menuBar->cutAct);
+  menu.addAction(menuBar->copyAct);
+  menu.addAction(menuBar->pasteAct);
   menu.exec(event->globalPos());
 }
 
-void MainWindow::setContextStatus(const char* str) {
-  statusBar()->showMessage(tr(str));
+void MainWindow::setContextStatus(QString str) {
+  contextLabel = new QLabel(str);
 }
 
 void MainWindow::createStatusBar() {
-  QString user = tr(std::getenv("LOGNAME"));
-  QLabel *context = new QLabel(tr(" ") + user);
+  QString logname = tr(std::getenv("LOGNAME"));
+  QLabel *userLabel = new QLabel(tr(" ") + logname);
+  
+  contextLabel = new QLabel(tr("prelude"));
 
   startTime = QDateTime::currentDateTime();
-  
+                               
   QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   statusClock = new StatusClock(statusBar(), dateLabel);
+
+  QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  user_sp.setHorizontalStretch(1);
+  userLabel->setSizePolicy(user_sp);
+  contextLabel->setAlignment(Qt::AlignLeft);
   
+  QSizePolicy context_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  context_sp.setHorizontalStretch(3);
+  contextLabel->setSizePolicy(context_sp);
+  contextLabel->setAlignment(Qt::AlignCenter);
+  
+  QSizePolicy date_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  date_sp.setHorizontalStretch(1);
+  dateLabel->setSizePolicy(date_sp);
+  dateLabel->setAlignment(Qt::AlignRight);
+
   statusBar()->addPermanentWidget(dateLabel);  
-  statusBar()->addWidget(context);
+  statusBar()->addWidget(userLabel);
+  statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow() {
-  mainMenuBar = new MainMenuBar(this);
-  tabBar = new MainTabBar(this);
-
-  tabBar->add(new ToolFrame(this), QString("prelude"));
-  tabBar->add(new ComposerFrame(this), QString("compose"));
-  tabBar->add(new ComposerFrame(this), QString("inspect"));
-  tabBar->add(new ComposerFrame(this), QString("script"));
-
+MainWindow::MainWindow() :
+  menuBar(new MainMenuBar(this)),
+  tabBar(new MainTabBar(this)) {
+  
   setCentralWidget(tabBar);
 
   createStatusBar();

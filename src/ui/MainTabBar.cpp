@@ -36,22 +36,27 @@
  **  MainTabBar.cpp: MainTabBar class
  **
  **/
-
 #include <QtWidgets>
 #include <QTabBar>
 
+#include "ComposerFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
+#include "ToolFrame.h"
 
 namespace composer {
 
-MainTabBar::MainTabBar(MainWindow *w) : mw(w) {
+void MainTabBar::setContextStatus(QString str) {
+  mw->setContextStatus(str);
+}
+
+MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  // addTab(QString("cascade"));
-  // addTab(QString("composer"));
-  // addTab(QString("inspector"));
-  // addTab(QString("scripting"));
+  add(new ToolFrame(this), QString("prelude"));
+  add(new ComposerFrame(this), QString("compose"));
+  add(new ComposerFrame(this), QString("inspect"));
+  add(new ComposerFrame(this), QString("script"));
 }
 
 } /* composer namespace */

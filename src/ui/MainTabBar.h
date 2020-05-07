@@ -60,14 +60,20 @@ class MainTabBar : public QTabWidget {
  Q_OBJECT
 
  public:
-  MainTabBar(MainWindow*);
+  explicit MainTabBar(MainWindow*);
 
+  void setContextStatus(QString);
+  
+  MainWindow* mainWindow() {
+    return this->mw;
+  }
+  
   void add(QWidget* w, QString label) {
     addTab(w, label);
   }
 
  private slots:
-   
+
  private:
   MainWindow* mw;
 };
