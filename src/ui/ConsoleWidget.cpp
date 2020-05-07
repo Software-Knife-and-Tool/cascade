@@ -36,7 +36,6 @@
  **  ConsoleWidget.cpp: ConsoleWidget implementation
  **
  **/
-
 #include "ConsoleWidget.h"
 
 #include <QDebug>
@@ -49,7 +48,9 @@ namespace composer {
   
 struct LineStyle {
 
-LineStyle(const QColor& bg, const QColor& fg, int s, int l) : background(bg), foreground(fg), start(s), length(l) {}
+  LineStyle(const QColor& bg, const QColor& fg, int s, int l)
+    : background(bg), foreground(fg), start(s), length(l) {}
+
   QBrush background;
   QPen foreground;
 
@@ -68,8 +69,7 @@ bool operator<(const TextPosition& lhs, const TextPosition& rhs) {
 
   if (lhs.row == rhs.row) {
     return lhs.column < rhs.column;
-  }
-  else {
+  } else {
     return lhs.row < rhs.row;
   }
 }
@@ -293,11 +293,11 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
       buffer_ << prompt_ + line_;
 
       auto error_text =
-        mu->withException([this]() {
+        canon->withException([this]() {
          auto lines =
-           mu->mu(line_).split('\n',
-                               QString::SplitBehavior::KeepEmptyParts,
-                               Qt::CaseSensitive);
+           canon->rep(line_).split('\n',
+                                   QString::SplitBehavior::KeepEmptyParts,
+                                   Qt::CaseSensitive);
          for (int i = 0; i < lines.size(); ++i)
            buffer_ << lines.at(i);
        });
@@ -350,14 +350,14 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
 }
 
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent, composer::Mu* mu)
+ConsoleWidget::ConsoleWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
-    mu(mu),
+    canon(new Canon),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  buffer_ << QString(";;; mu ").append(mu->version());
-  prompt_ = QString("mu> ");
+  buffer_ << QString(";;; canon ").append(canon->version());
+  prompt_ = QString(". ");
   cursor_ = QString("_");
 }
 

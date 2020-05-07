@@ -36,7 +36,6 @@
  **  ToolFrame.cpp: ToolFrame implementation
  **
  **/
-
 #include <QtWidgets>
 #include <QString>
 
@@ -44,8 +43,7 @@
 
 namespace composer {
 
-ToolFrame::ToolFrame(QWidget*)
-    : mu(new Mu()), consoleWidget(new ConsoleWidget(this, mu)) {
+ToolFrame::ToolFrame(QWidget*) : consoleWidget(new ConsoleWidget(this)) {
     
   auto hostName = QSysInfo::machineHostName();
   auto userName = qgetenv("USER");

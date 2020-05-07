@@ -17,8 +17,8 @@ HEADERS += \
            MainWindow.h      \
            StatusClock.h     \
            ToolFrame.h       \
-           logica.h          \
-           mu.h
+           canon.h           \
+           logica.h
 
 SOURCES += \
            ComposerFrame.cpp \           

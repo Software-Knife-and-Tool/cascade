@@ -50,7 +50,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "mu.h"
+#include "canon.h"
 
 class QPaintEvent;
 class QMouseEvent;
@@ -65,7 +65,7 @@ class ConsoleWidget : public QAbstractScrollArea {
  Q_OBJECT
 
  public:
-  explicit ConsoleWidget(QWidget*, Mu*);
+  explicit ConsoleWidget(QWidget*);
 
  protected:
   void paintEvent(QPaintEvent* event) override;
@@ -87,7 +87,7 @@ class ConsoleWidget : public QAbstractScrollArea {
   QString prompt_;
   QStringList buffer_;
 
-  Mu* mu;
+  Canon* canon;
   QSharedPointer<TextSelection> _selection;
 };
 

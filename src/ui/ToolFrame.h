@@ -45,7 +45,7 @@
 
 #include "ConsoleWidget.h"
 #include "MainTabBar.h"
-#include "mu.h"
+#include "canon.h"
 
 QT_BEGIN_NAMESPACE
 class QVBoxLayout;
@@ -60,7 +60,8 @@ namespace composer {
 class MainTabBar;
   
 class ToolFrame : public QFrame {
-  Q_OBJECT
+
+ Q_OBJECT
 
  public:
   ToolFrame(QWidget*);
@@ -68,7 +69,6 @@ class ToolFrame : public QFrame {
  protected:
 
  private:
-  Mu* mu;
   ConsoleWidget* consoleWidget;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
