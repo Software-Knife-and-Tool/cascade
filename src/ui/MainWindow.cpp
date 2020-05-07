@@ -80,8 +80,10 @@ MainWindow::MainWindow() {
   mainMenuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
 
-  tabBar->add(new ToolFrame(this), QString("tool"));
-  tabBar->add(new ComposerFrame(this), QString("composer"));
+  tabBar->add(new ToolFrame(this), QString("prelude"));
+  tabBar->add(new ComposerFrame(this), QString("compose"));
+  tabBar->add(new ComposerFrame(this), QString("inspect"));
+  tabBar->add(new ComposerFrame(this), QString("script"));
 
   setCentralWidget(tabBar);
 
