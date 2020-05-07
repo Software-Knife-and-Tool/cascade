@@ -36,10 +36,7 @@
  **  MainWindow.cpp: MainWindow implementation
  **
  **/
-#include <cstdlib>
-
 #include <QDateTime>
-#include <QMdiArea>
 #include <QtGui>
 #include <QtWidgets>
 
@@ -48,6 +45,7 @@
 #include "MainTabBar.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
+#include "user.h"
 
 namespace composer {
 
@@ -65,20 +63,18 @@ void MainWindow::setContextStatus(QString str) {
 }
 
 void MainWindow::createStatusBar() {
-  QString logname = tr(std::getenv("LOGNAME"));
-  QLabel *userLabel = new QLabel(tr(" ") + logname);
-  
   contextLabel = new QLabel(tr("prelude"));
 
   startTime = QDateTime::currentDateTime();
                                
   QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   statusClock = new StatusClock(statusBar(), dateLabel);
+  QLabel* userLabel = new QLabel(" " + userInfo->logname());
 
   QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
   user_sp.setHorizontalStretch(1);
   userLabel->setSizePolicy(user_sp);
-  contextLabel->setAlignment(Qt::AlignLeft);
+  userLabel->setAlignment(Qt::AlignLeft);
   
   QSizePolicy context_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
   context_sp.setHorizontalStretch(3);
@@ -95,9 +91,10 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow() :
-  menuBar(new MainMenuBar(this)),
-  tabBar(new MainTabBar(this)) {
+MainWindow::MainWindow()
+  : userInfo(new User()), /* order sensitive */
+    menuBar(new MainMenuBar(this)),
+    tabBar(new MainTabBar(this)) {
   
   setCentralWidget(tabBar);
 

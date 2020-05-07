@@ -67,8 +67,8 @@ void ComposerFrame::save() {
 
 }
 
-ComposerFrame::ComposerFrame(MainTabBar* tabBar)
-  : tabBar(tabBar),
+ComposerFrame::ComposerFrame(MainTabBar* tb)
+  : tabBar(tb),
     edit_text(new QTextEdit()),
     eval_text(new QLabel()),
     canon(new Canon()),
