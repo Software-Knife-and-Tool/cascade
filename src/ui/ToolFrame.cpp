@@ -54,8 +54,8 @@ ToolFrame::ToolFrame(QWidget*) : consoleWidget(new ConsoleWidget(this)) {
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica Composer IDE <i>0.0.1</i></h1>"
-    "        <p></p>"
+    "        <h1>Logica Composer IDE <i>0.0.2</i></h1>"
+    "        <p></p>"f.
     "        <h2>running on <i>blackloch.local</i>, an Intel Core I7 workstation</h2>"
     "        <h2>macOs Mojave 10.14.6</h2>"
     "        <p></p>"
