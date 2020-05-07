@@ -42,7 +42,7 @@
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
-#include "logica.h"
+#include "canon.h"
 
 namespace composer {
 
@@ -51,8 +51,15 @@ void ComposerFrame::compose() {
 }
 
 void ComposerFrame::eval() {
-  logica->Write(edit_text->toPlainText());
-  eval_text->setText("!" + logica->Read());
+
+  QString out;
+  
+  auto error_text =
+    canon->withException([this,&out]() {
+         out = canon->rep(edit_text->toPlainText());
+       });
+
+  eval_text->setText(out + error_text);
 }
 
 void ComposerFrame::save() {
@@ -62,7 +69,7 @@ void ComposerFrame::save() {
 ComposerFrame::ComposerFrame(QWidget*)
   : edit_text(new QTextEdit()),
     eval_text(new QLabel()),
-    logica(new Logica()),
+    canon(new Canon()),
     tool_bar(new QToolBar()) {
   
   connect(tool_bar->addAction(tr("compose")),

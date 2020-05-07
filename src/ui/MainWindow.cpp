@@ -86,7 +86,7 @@ MainWindow::MainWindow() {
   setCentralWidget(tabBar);
 
   createStatusBar();
-    
+  
   setWindowTitle(tr("Software Knife and Tool Logica Composer"));
 }
 

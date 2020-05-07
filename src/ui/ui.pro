@@ -1,6 +1,7 @@
 CONFIG += console c++14
   
 DESTDIR = ../../build
+ICON = ./flash.icns
 INCLUDEPATH += . /usr/local/logica
 LIBS += /usr/local/logica/libmu/libmu.a
 MOC_DIR = ../../build
@@ -17,8 +18,8 @@ HEADERS += \
            MainWindow.h      \
            StatusClock.h     \
            ToolFrame.h       \
-           logica.h          \
-           mu.h
+           canon.h           \
+           logica.h
 
 SOURCES += \
            ComposerFrame.cpp \           

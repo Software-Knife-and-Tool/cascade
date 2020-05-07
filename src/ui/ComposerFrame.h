@@ -36,7 +36,6 @@
  **  ComposerFrame.h: ComposerFrame class
  **
  **/
-
 #ifndef _CASCADE_SRC_UI_COMPOSERFRAME_H_
 #define _CASCADE_SRC_UI_COMPOSERFRAME_H_
 
@@ -46,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "logica.h"
+#include "canon.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -78,7 +77,7 @@ class ComposerFrame : public QFrame {
   
   QTextEdit* edit_text;
   QLabel* eval_text;
-  Logica* logica;
+  Canon* canon;
   QToolBar* tool_bar;
 };
 
