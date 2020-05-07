@@ -75,8 +75,8 @@ class Logica {
   Logica() : platform(new platform::Platform()) {
     const char* args[]{"pipe-mu", NULL};
 
-    (void)platform::Platform::OpenPipeStream(in_fifo, "");
-    (void)platform::Platform::OpenPipeStream(out_fifo, "");
+    mkfifo(in_fifo, 0755);
+    mkfifo(out_fifo,0755);
 
     logica = open(in_fifo, O_RDONLY | O_NONBLOCK);
     composer = open(out_fifo, O_WRONLY | O_NONBLOCK);
@@ -91,7 +91,8 @@ class Logica {
         dup2(0, composer);
         dup2(1, logica);
         dup2(2, logica);
-        execv("/usr/local/logica/bin/pipe-mu",const_cast<char**>(args));
+        // execv("/usr/local/logica/bin/pipe-mu", const_cast<char**>(args));
+        execv("/bin/cp", const_cast<char**>(args));
         break;
       }
       case -1: /* error when forking, parent */
