@@ -67,6 +67,8 @@ class ConsoleWidget : public QAbstractScrollArea {
  public:
   explicit ConsoleWidget(QWidget*);
 
+  void writeConsole(QString);
+
  protected:
   void paintEvent(QPaintEvent* event) override;
 

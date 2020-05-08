@@ -349,10 +349,14 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
   update();
 }
 
+void ConsoleWidget::writeConsole(QString str) {
+  buffer_ << str;;
+}
+  
 /** * constructor **/
 ConsoleWidget::ConsoleWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
-    canon(new Canon),
+    canon(new Canon()),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);

@@ -63,7 +63,7 @@ void MainWindow::setContextStatus(QString str) {
 }
 
 void MainWindow::createStatusBar() {
-  contextLabel = new QLabel(tr("prelude"));
+  contextLabel = new QLabel(tr("console"));
 
   startTime = QDateTime::currentDateTime();
                                
@@ -91,10 +91,9 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow()
-  : userInfo(new User()), /* order sensitive */
-    menuBar(new MainMenuBar(this)),
-    tabBar(new MainTabBar(this)) {
+MainWindow::MainWindow() : userInfo(new User()) {
+  menuBar = new MainMenuBar(this);
+  tabBar = new MainTabBar(this);
   
   setCentralWidget(tabBar);
 
