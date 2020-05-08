@@ -33,49 +33,45 @@
 
 /********
  **
- **  ToolFrame.h: ToolFrame class
+ **  user.h: user class
  **
  **/
-#ifndef _CASCADE_SRC_UI_TOOLFRAME_H_
-#define _CASCADE_SRC_UI_TOOLFRAME_H_
+#ifndef _CASCADE_SRC_UI_USER_H_
+#define _CASCADE_SRC_UI_USER_H_
 
-#include <QFrame>
-#include <QWidget>
+#include <QDir>
+#include <QString>
+#include <QSysInfo>
+#include <QtGui>
+#include <QtWidgets>
 
-#include "ConsoleWidget.h"
-#include "MainTabBar.h"
-#include "MainWindow.h"
-#include "canon.h"
-#include "user.h"
-
-QT_BEGIN_NAMESPACE
-class QVBoxLayout;
-class QWidget;
-class QLabel;
-QT_END_NAMESPACE
-
-class ConsoleWidget;
+#include "libmu/libmu.h"
 
 namespace composer {
-
-class MainTabBar;
   
-class ToolFrame : public QFrame {
-
- Q_OBJECT
-
+class User {
  public:
-  ToolFrame(MainTabBar*);
+  QString logname() { return userName; }
+  QString aboutHost() { return hostName; }
+  QString aboutCpu() { return cpuArch; }
+  QString aboutSystem() { return systemInfo; }
 
- protected:
+  User() {
+    userName = QString(std::getenv("LOGNAME"));
+    cpuArch = QSysInfo::buildCpuArchitecture();
+    systemInfo = QSysInfo::prettyProductName();
+    hostName = QSysInfo::machineHostName();
+    userDir = QDir::homePath();
+  }
 
  private:
-  MainTabBar* tabBar;
-  ConsoleWidget* consoleWidget;
-  QLabel* bannerLabel;
-  QVBoxLayout* layout;
+  QString userDir;
+  QString hostName;
+  QString cpuArch;
+  QString systemInfo;
+  QString userName; 
 };
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_TOOLFRAME_H_ */
+#endif /* _CASCADE_SRC_UI_USER_H_ */ 

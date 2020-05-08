@@ -53,7 +53,7 @@ void MainTabBar::setContextStatus(QString str) {
 MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  add(new ToolFrame(this), QString("prelude"));
+  add(new ToolFrame(this), QString("console"));
   add(new ComposerFrame(this), QString("compose"));
   add(new ComposerFrame(this), QString("inspect"));
   add(new ComposerFrame(this), QString("script"));

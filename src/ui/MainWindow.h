@@ -49,6 +49,7 @@
 #include "MainTabBar.h"
 #include "StatusClock.h"
 #include "mu.h"
+#include "user.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -72,8 +73,10 @@ class MainWindow : public QMainWindow {
   explicit MainWindow();
 
   void setContextStatus(QString);
+
   MainTabBar* mainTabBar() { return this->tabBar; }
   MainMenuBar* mainMenuBar() { return this->menuBar; }
+  User* user() { return this->userInfo; }
   
  protected:
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -82,6 +85,7 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
+  User* userInfo;
   QLabel *contextLabel;
   MainMenuBar* menuBar;
   MainTabBar* tabBar;

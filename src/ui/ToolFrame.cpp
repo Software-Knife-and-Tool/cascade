@@ -43,37 +43,34 @@
 
 namespace composer {
 
-ToolFrame::ToolFrame(QWidget*) : consoleWidget(new ConsoleWidget(this)) {
+ToolFrame::ToolFrame(MainTabBar* tb)
+  : tabBar(tb),
+    consoleWidget(new ConsoleWidget(this)) {
     
-  auto hostName = QSysInfo::machineHostName();
-  auto userName = qgetenv("USER");
-
   std::string html =
     "<html>"
     "  <body bgcolor=#c0c0c0>"
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica Composer IDE <i>0.0.2</i></h1>"
+    "        <h1>Logica Composer IDE <i>%1</i></h1>"
     "        <p></p>"
-    "        <h2>running on <i>blackloch.local</i>, an Intel Core I7 workstation</h2>"
-    "        <h2>macOs Mojave 10.14.6</h2>"
-    "        <p></p>"
-    "        <p>"
-    "          <h3>"
-    "            canon <i>0.0.1</i><br>"
-    "            libmu <i>0.0.1</i><br>"
-    "            mu <i>0.0.1</i>"
-    "          </h3>"
-    "        </p>"
+    "        <h2>running on <i>%2</i>, %3</h2>"
+    "        <h2>%4</h2>"
     "        <p></p>"
     "      </div>"
     "      <p></p>"
     "    </span>"
     "  </body>"
     "</html>";
-    
-  auto system_html = QString::fromStdString(html);
+
+  auto user = tabBar->mainWindow()->user();
+  
+  auto system_html =
+    QString::fromStdString(html).arg("0.0.3",
+                                     user->aboutHost(),
+                                     "an " + user->aboutCpu() + " system",
+                                     user->aboutSystem());
 
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
