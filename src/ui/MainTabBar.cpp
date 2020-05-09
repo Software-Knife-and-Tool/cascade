@@ -46,6 +46,10 @@
 
 namespace composer {
 
+void MainTabBar::log(QString msg) {
+  co->log(msg);
+}
+  
 void MainTabBar::setContextStatus(QString str) {
   mw->setContextStatus(str);
 }
@@ -54,13 +58,19 @@ User* MainTabBar::userInfo() {
   return mw->userInfo();
 }
 
-MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
+  MainTabBar::MainTabBar(MainWindow *mw)
+    : mw(mw), co(new ConsoleFrame(this)) {
+    
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  add(new ConsoleFrame(this), QString("console"));
+  add(co, QString("console"));
+  log(";;; console frame loaded");
   add(new ComposerFrame(this), QString("compose"));
+  log(";;; composer frame loaded");
   add(new ComposerFrame(this), QString("inspect"));
+  log(";;; inspector frame loaded");
   add(new ComposerFrame(this), QString("script"));
+  log(";;; script frame loaded");
 }
 
 } /* composer namespace */

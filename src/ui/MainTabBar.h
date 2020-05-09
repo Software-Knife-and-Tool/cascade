@@ -42,6 +42,7 @@
 #include <QMainWindow>
 #include <QTabWidget>
 
+#include "ConsoleFrame.h"
 #include "MainWindow.h"
 #include "user.h"
 
@@ -55,6 +56,7 @@ QT_END_NAMESPACE
 namespace composer {
 
 class MainWindow;
+class ConsoleFrame;
   
 class MainTabBar : public QTabWidget {
 
@@ -63,6 +65,7 @@ class MainTabBar : public QTabWidget {
  public:
   explicit MainTabBar(MainWindow*);
 
+  void log(QString);
   void setContextStatus(QString);
   User* userInfo();
     
@@ -74,6 +77,7 @@ class MainTabBar : public QTabWidget {
 
  private:
   MainWindow* mw;
+  ConsoleFrame* co;
 };
 
 } /* composer namespace */

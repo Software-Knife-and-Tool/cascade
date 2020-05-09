@@ -72,11 +72,12 @@ class ComposerFrame : public QFrame {
   void eval();
   void save();
 
+  void log(QString msg) { tabBar->log(msg); }
+  
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
   }
 
-  // override
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
     tabBar->setContextStatus("composer");

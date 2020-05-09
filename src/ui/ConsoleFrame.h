@@ -67,14 +67,13 @@ class ConsoleFrame : public QFrame {
  public:
   explicit ConsoleFrame(MainTabBar*);
 
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
+  void log(QString msg) {
+    ttyWidget->writeTty(msg);
   }
+  
+  void setContextStatus(QString);
 
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("console: no home directory");
-  }
+  void showEvent(QShowEvent*) override;
 
  protected:
 
