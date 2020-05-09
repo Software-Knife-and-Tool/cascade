@@ -59,7 +59,7 @@ QT_END_NAMESPACE
 namespace composer {
 
 class MainTabBar;
-  class MainWindow;
+class MainWindow;
   
 class ComposerFrame : public QFrame {
 
@@ -72,6 +72,16 @@ class ComposerFrame : public QFrame {
   void eval();
   void save();
 
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  // override
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("composer");
+  }
+  
  private:
   const char* style = "color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);";
 

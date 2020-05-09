@@ -33,10 +33,10 @@
 
 /********
  **
- **  ConsoleWidget.cpp: ConsoleWidget implementation
+ **  TtyWidget.cpp: TtyWidget implementation
  **
  **/
-#include "ConsoleWidget.h"
+#include "TtyWidget.h"
 
 #include <QDebug>
 #include <QKeyEvent>
@@ -164,7 +164,7 @@ int drawWidth(QPainter& painter, const QString& text) {
 } /* anonymous namespace */
   
 /** * draw text line **/
-void ConsoleWidget::DrawLine(int& x_offset,
+void TtyWidget::DrawLine(int& x_offset,
                              int y_offset,
                              QString line,
                              QFontMetrics m,
@@ -196,7 +196,7 @@ void ConsoleWidget::DrawLine(int& x_offset,
 }
 
 /** * class members **/
-void ConsoleWidget::paintEvent(QPaintEvent*) {
+void TtyWidget::paintEvent(QPaintEvent*) {
 
   QPainter painter(viewport());
   painter.fillRect(viewport()->rect(), Qt::white);
@@ -248,7 +248,7 @@ void ConsoleWidget::paintEvent(QPaintEvent*) {
   horizontalScrollBar()->setPageStep(viewport()->width());
 }
 
-void ConsoleWidget::DrawCursor() {
+void TtyWidget::DrawCursor() {
 
   // const int x = m.width(buffer_[current_line], _selection->cursor().column);
   // painter.setPen(QPen(Qt::red, 2));
@@ -256,7 +256,7 @@ void ConsoleWidget::DrawCursor() {
   // painter.setPen(Qt::black);
 }
 
-TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
+TextPosition TtyWidget::getTextPosition(const QPoint& pos) const {
 
   QFontMetrics m(font());
 
@@ -287,7 +287,7 @@ TextPosition ConsoleWidget::getTextPosition(const QPoint& pos) const {
 }
 
 /** * events **/
-void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
+void TtyWidget::keyPressEvent(QKeyEvent *event) {
   switch (event->key()) {
   case Qt::Key_Return: {
       buffer_ << prompt_ + line_;
@@ -319,9 +319,9 @@ void ConsoleWidget::keyPressEvent(QKeyEvent *event) {
   viewport()->update();
 }
 
-void ConsoleWidget::keyReleaseEvent(QKeyEvent *) { }
+void TtyWidget::keyReleaseEvent(QKeyEvent *) { }
 
-void ConsoleWidget::mousePressEvent(QMouseEvent*) {
+void TtyWidget::mousePressEvent(QMouseEvent*) {
 #if 0
   QAbstractScrollArea::mousePressEvent(event);
 
@@ -333,12 +333,12 @@ void ConsoleWidget::mousePressEvent(QMouseEvent*) {
 #endif
 }
 
-void ConsoleWidget::mouseReleaseEvent(QMouseEvent* event) {
+void TtyWidget::mouseReleaseEvent(QMouseEvent* event) {
 
   QAbstractScrollArea::mouseReleaseEvent(event);
 }
 
-void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
+void TtyWidget::mouseMoveEvent(QMouseEvent* event) {
   
   QAbstractScrollArea::mouseMoveEvent(event);
 
@@ -349,12 +349,12 @@ void ConsoleWidget::mouseMoveEvent(QMouseEvent* event) {
   update();
 }
 
-void ConsoleWidget::writeConsole(QString str) {
+void TtyWidget::writeTty(QString str) {
   buffer_ << str;;
 }
   
 /** * constructor **/
-ConsoleWidget::ConsoleWidget(QWidget *parent)
+TtyWidget::TtyWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
     canon(new Canon()),
     _selection(new TextSelection) {

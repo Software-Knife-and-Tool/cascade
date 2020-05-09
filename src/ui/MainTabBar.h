@@ -43,6 +43,7 @@
 #include <QTabWidget>
 
 #include "MainWindow.h"
+#include "user.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -63,11 +64,8 @@ class MainTabBar : public QTabWidget {
   explicit MainTabBar(MainWindow*);
 
   void setContextStatus(QString);
-  
-  MainWindow* mainWindow() {
-    return this->mw;
-  }
-  
+  User* userInfo();
+    
   void add(QWidget* w, QString label) {
     addTab(w, label);
   }

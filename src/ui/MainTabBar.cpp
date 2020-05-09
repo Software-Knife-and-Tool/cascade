@@ -40,9 +40,9 @@
 #include <QTabBar>
 
 #include "ComposerFrame.h"
+#include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
-#include "ToolFrame.h"
 
 namespace composer {
 
@@ -50,10 +50,14 @@ void MainTabBar::setContextStatus(QString str) {
   mw->setContextStatus(str);
 }
 
+User* MainTabBar::userInfo() {
+  return mw->userInfo();
+}
+
 MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  add(new ToolFrame(this), QString("console"));
+  add(new ConsoleFrame(this), QString("console"));
   add(new ComposerFrame(this), QString("compose"));
   add(new ComposerFrame(this), QString("inspect"));
   add(new ComposerFrame(this), QString("script"));

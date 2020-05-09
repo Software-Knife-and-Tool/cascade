@@ -56,6 +56,7 @@ class User {
   QString aboutCpu() { return cpuArch; }
   QString aboutSystem() { return systemInfo; }
 
+  
   User() {
     userName = QString(std::getenv("LOGNAME"));
     cpuArch = QSysInfo::buildCpuArchitecture();

@@ -40,10 +40,10 @@
 #include <QtGui>
 #include <QtWidgets>
 
-#include "ToolFrame.h"
 #include "ComposerFrame.h"
-#include "MainTabBar.h"
+#include "ConsoleFrame.h"
 #include "MainMenuBar.h"
+#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "user.h"
 
@@ -59,18 +59,18 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 void MainWindow::setContextStatus(QString str) {
-  contextLabel = new QLabel(str);
+  contextLabel->setText(str);
 }
 
 void MainWindow::createStatusBar() {
-  contextLabel = new QLabel(tr("console"));
+  contextLabel = new QLabel("");
+
+  auto dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
+  auto userLabel = new QLabel(" " + user->logname());
 
   startTime = QDateTime::currentDateTime();
-                               
-  QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   statusClock = new StatusClock(statusBar(), dateLabel);
-  QLabel* userLabel = new QLabel(" " + userInfo->logname());
-
+  
   QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
   user_sp.setHorizontalStretch(1);
   userLabel->setSizePolicy(user_sp);
@@ -91,14 +91,14 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow() : userInfo(new User()) {
+MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
   
   setCentralWidget(tabBar);
-
   createStatusBar();
   
+  resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
   setWindowTitle(tr("Software Knife and Tool Logica Composer"));
 }
 

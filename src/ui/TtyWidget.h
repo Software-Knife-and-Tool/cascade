@@ -33,63 +33,66 @@
 
 /********
  **
- **  ToolFrame.cpp: ToolFrame implementation
+ **  TtyWidget.h: TtyWidget class
  **
  **/
-#include <QtWidgets>
-#include <QString>
+#ifndef _CASCADE_SRC_UI_TTYWIDGET_H_
+#define _CASCADE_SRC_UI_TTYWIDGET_H_
 
-#include "ToolFrame.h"
+#include <QAbstractScrollArea>
+#include <QDebug>
+#include <QFrame>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
+#include <QScrollBar>
+#include <QSharedPointer>
+#include <QStringList>
+
+#include "canon.h"
+
+class QPaintEvent;
+class QMouseEvent;
 
 namespace composer {
-
-ToolFrame::ToolFrame(MainTabBar* tb)
-  : tabBar(tb),
-    consoleWidget(new ConsoleWidget(this)) {
-    
-  std::string html =
-    "<html>"
-    "  <body bgcolor=#c0c0c0>"
-    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
-    "      <div>"
-    "        <br>"
-    "        <h1>Logica Composer IDE <i>%1</i></h1>"
-    "        <p></p>"
-    "        <h2>running on <i>%2</i>, %3</h2>"
-    "        <h2>%4</h2>"
-    "        <p></p>"
-    "      </div>"
-    "      <p></p>"
-    "    </span>"
-    "  </body>"
-    "</html>";
-
-  auto user = tabBar->mainWindow()->user();
   
-  auto system_html =
-    QString::fromStdString(html).arg("0.0.3",
-                                     user->aboutHost(),
-                                     "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
+struct TextSelection;
+struct TextPosition;
 
-  bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  bannerLabel->setAlignment(Qt::AlignCenter);
-  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+class TtyWidget : public QAbstractScrollArea {
 
-  QSizePolicy console_policy = consoleWidget->sizePolicy();
-  console_policy.setVerticalStretch(1);
-  consoleWidget->setSizePolicy(console_policy);
+ Q_OBJECT
+
+ public:
+  explicit TtyWidget(QWidget*);
+
+  void writeTty(QString);
+
+ protected:
+  void paintEvent(QPaintEvent* event) override;
+
+  void keyPressEvent(QKeyEvent* event) override;
+  void keyReleaseEvent(QKeyEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
+
+ private:
+  void DrawCursor();
+  void DrawLine(int&, int, QString, QFontMetrics, int);
   
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  
-  layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
-  layout->addWidget(consoleWidget);
-  
-  this->setLayout(layout);
-}
+  TextPosition getTextPosition(const QPoint& pos) const;
+
+  QString cursor_;
+  QString line_;
+  QString prompt_;
+  QStringList buffer_;
+
+  Canon* canon;
+  QSharedPointer<TextSelection> _selection;
+};
 
 } /* composer namespace */
+
+#endif /* _CASCADE_SRC_UI_CONSOLEWIDGET_H_ */

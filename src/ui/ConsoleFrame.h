@@ -33,66 +33,58 @@
 
 /********
  **
- **  ConsoleWidget.h: ConsoleWidget class
+ **  ConsoleFrame.h: ConsoleFrame class
  **
  **/
-#ifndef _CASCADE_SRC_UI_CONSOLEWIDGET_H_
-#define _CASCADE_SRC_UI_CONSOLEWIDGET_H_
+#ifndef _CASCADE_SRC_UI_CONSOLEFRAME_H_
+#define _CASCADE_SRC_UI_CONSOLEFRAME_H_
 
-#include <QAbstractScrollArea>
-#include <QDebug>
 #include <QFrame>
-#include <QKeyEvent>
-#include <QMouseEvent>
-#include <QPainter>
-#include <QPen>
-#include <QScrollBar>
-#include <QSharedPointer>
-#include <QStringList>
+#include <QWidget>
 
+#include "MainTabBar.h"
+#include "MainWindow.h"
+#include "TtyWidget.h"
 #include "canon.h"
+#include "user.h"
 
-class QPaintEvent;
-class QMouseEvent;
+QT_BEGIN_NAMESPACE
+class QVBoxLayout;
+class QWidget;
+class QLabel;
+QT_END_NAMESPACE
+
+class TtyWidget;
 
 namespace composer {
-  
-struct TextSelection;
-struct TextPosition;
 
-class ConsoleWidget : public QAbstractScrollArea {
+class MainTabBar;
+  
+class ConsoleFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ConsoleWidget(QWidget*);
+  explicit ConsoleFrame(MainTabBar*);
 
-  void writeConsole(QString);
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("console: no home directory");
+  }
 
  protected:
-  void paintEvent(QPaintEvent* event) override;
-
-  void keyPressEvent(QKeyEvent* event) override;
-  void keyReleaseEvent(QKeyEvent* event) override;
-  void mouseMoveEvent(QMouseEvent* event) override;
-  void mousePressEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent* event) override;
 
  private:
-  void DrawCursor();
-  void DrawLine(int&, int, QString, QFontMetrics, int);
-  
-  TextPosition getTextPosition(const QPoint& pos) const;
-
-  QString cursor_;
-  QString line_;
-  QString prompt_;
-  QStringList buffer_;
-
-  Canon* canon;
-  QSharedPointer<TextSelection> _selection;
+  MainTabBar* tabBar;
+  TtyWidget* ttyWidget;
+  QLabel* bannerLabel;
+  QVBoxLayout* layout;
 };
 
 } /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_CONSOLEWIDGET_H_ */
+#endif  /* _CASCADE_SRC_UI_CONSOLEFRAME_H_ */

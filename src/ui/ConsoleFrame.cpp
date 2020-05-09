@@ -33,49 +33,63 @@
 
 /********
  **
- **  ToolFrame.h: ToolFrame class
+ **  ConsoleFrame.cpp: ConsoleFrame implementation
  **
  **/
-#ifndef _CASCADE_SRC_UI_TOOLFRAME_H_
-#define _CASCADE_SRC_UI_TOOLFRAME_H_
+#include <QtWidgets>
+#include <QString>
 
-#include <QFrame>
-#include <QWidget>
-
-#include "ConsoleWidget.h"
-#include "MainTabBar.h"
-#include "MainWindow.h"
-#include "canon.h"
-#include "user.h"
-
-QT_BEGIN_NAMESPACE
-class QVBoxLayout;
-class QWidget;
-class QLabel;
-QT_END_NAMESPACE
-
-class ConsoleWidget;
+#include "ConsoleFrame.h"
 
 namespace composer {
 
-class MainTabBar;
+ConsoleFrame::ConsoleFrame(MainTabBar* tb)
+  : tabBar(tb),
+    ttyWidget(new TtyWidget(this)) {
+    
+  std::string html =
+    "<html>"
+    "  <body bgcolor=#c0c0c0>"
+    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
+    "      <div>"
+    "        <br>"
+    "        <h1>Logica Composer IDE <i>%1</i></h1>"
+    "        <p></p>"
+    "        <h2>running on <i>%2</i>, %3</h2>"
+    "        <h2>%4</h2>"
+    "        <p></p>"
+    "      </div>"
+    "      <p></p>"
+    "    </span>"
+    "  </body>"
+    "</html>";
+
+  auto user = tabBar->userInfo();
   
-class ToolFrame : public QFrame {
+  auto system_html =
+    QString::fromStdString(html).arg("0.0.4",
+                                     user->aboutHost(),
+                                     "an " + user->aboutCpu() + " system",
+                                     user->aboutSystem());
 
- Q_OBJECT
+  bannerLabel = new QLabel(system_html);
+  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel->setAlignment(Qt::AlignCenter);
+  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
- public:
-  ToolFrame(MainTabBar*);
-
- protected:
-
- private:
-  MainTabBar* tabBar;
-  ConsoleWidget* consoleWidget;
-  QLabel* bannerLabel;
-  QVBoxLayout* layout;
-};
+  QSizePolicy tty_policy = ttyWidget->sizePolicy();
+  tty_policy.setVerticalStretch(1);
+  ttyWidget->setSizePolicy(tty_policy);
+  
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  
+  layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(bannerLabel);
+  layout->addWidget(ttyWidget);
+  
+  this->setLayout(layout);
+}
 
 } /* composer namespace */
-
-#endif  /* _CASCADE_SRC_UI_TOOLFRAME_H_ */
