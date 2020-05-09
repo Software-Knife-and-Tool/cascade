@@ -43,6 +43,15 @@
 
 namespace composer {
 
+void ConsoleFrame::setContextStatus(QString str) {
+  tabBar->setContextStatus(str);
+}
+
+void ConsoleFrame::showEvent(QShowEvent* event) {
+  QWidget::showEvent(event);
+  tabBar->setContextStatus("console");
+}
+
 ConsoleFrame::ConsoleFrame(MainTabBar* tb)
   : tabBar(tb),
     ttyWidget(new TtyWidget(this)) {
