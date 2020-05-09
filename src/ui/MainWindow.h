@@ -73,10 +73,10 @@ class MainWindow : public QMainWindow {
   explicit MainWindow();
 
   void setContextStatus(QString);
-
+  
   MainTabBar* mainTabBar() { return this->tabBar; }
   MainMenuBar* mainMenuBar() { return this->menuBar; }
-  User* user() { return this->userInfo; }
+  User* userInfo() { return this->user; }
   
  protected:
   void contextMenuEvent(QContextMenuEvent *event) override;
@@ -85,7 +85,7 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
-  User* userInfo;
+  User* user;
   QLabel *contextLabel;
   MainMenuBar* menuBar;
   MainTabBar* tabBar;

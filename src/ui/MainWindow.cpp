@@ -40,10 +40,10 @@
 #include <QtGui>
 #include <QtWidgets>
 
-#include "ToolFrame.h"
 #include "ComposerFrame.h"
-#include "MainTabBar.h"
+#include "ConsoleFrame.h"
 #include "MainMenuBar.h"
+#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "user.h"
 
@@ -69,7 +69,7 @@ void MainWindow::createStatusBar() {
                                
   QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   statusClock = new StatusClock(statusBar(), dateLabel);
-  QLabel* userLabel = new QLabel(" " + userInfo->logname());
+  QLabel* userLabel = new QLabel(" " + user->logname());
 
   QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
   user_sp.setHorizontalStretch(1);
@@ -91,7 +91,7 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow() : userInfo(new User()) {
+MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
   

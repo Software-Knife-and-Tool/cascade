@@ -12,23 +12,23 @@ TEMPLATE = app
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
            ComposerFrame.h   \
-           ConsoleWidget.h   \
+           ConsoleFrame.h    \
            MainMenuBar.h     \
            MainTabBar.h      \
            MainWindow.h      \
            StatusClock.h     \
-           ToolFrame.h       \
+           TtyWidget.h       \
            canon.h           \
            logica.h          \
            user.h
 
 SOURCES += \
            ComposerFrame.cpp \           
-           ConsoleWidget.cpp \           
+           ConsoleFrame.cpp  \           
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \
-           ToolFrame.cpp     \           
+           TtyWidget.cpp     \           
            main.cpp
 
 QT += core gui widgets
