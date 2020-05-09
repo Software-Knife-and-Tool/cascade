@@ -63,7 +63,7 @@ namespace composer {
 
 class MainMenuBar;
 class MainTabBar;
-class ToolFrame;
+class ConsoleFrame;
   
 class MainWindow : public QMainWindow {
 

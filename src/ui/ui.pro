@@ -18,6 +18,7 @@ HEADERS += \
            MainWindow.h      \
            StatusClock.h     \
            TtyWidget.h       \
+           UserFrame.h       \
            canon.h           \
            logica.h          \
            user.h
@@ -28,7 +29,8 @@ SOURCES += \
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \
-           TtyWidget.cpp     \           
+           TtyWidget.cpp     \
+           UserFrame.cpp     \
            main.cpp
 
 QT += core gui widgets

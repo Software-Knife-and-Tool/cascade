@@ -33,55 +33,66 @@
 
 /********
  **
- **  MainTabBar.h: MainTabBar class
+ **  UserFrame.cpp: UserFrame implementation
  **
  **/
-#ifndef _CASCADE_SRC_UI_MAINTABBAR_H_
-#define _CASCADE_SRC_UI_MAINTABBAR_H_
+#include <QtWidgets>
+#include <QString>
 
-#include <QMainWindow>
-#include <QTabWidget>
-
-#include "ConsoleFrame.h"
-#include "MainWindow.h"
 #include "UserFrame.h"
-#include "user.h"
-
-QT_BEGIN_NAMESPACE
-class QAction;
-class QActionGroup;
-class QLabel;
-class QTabWidget;
-QT_END_NAMESPACE
 
 namespace composer {
 
-class MainWindow;
-class ConsoleFrame;
-class UserFrame;
+void UserFrame::log(QString msg) {
+  tabBar->log(msg);
+}
+  
+void UserFrame::setContextStatus(QString str) {
+  tabBar->setContextStatus(str);
+}
 
-class MainTabBar : public QTabWidget {
+void UserFrame::showEvent(QShowEvent* event) {
+  QWidget::showEvent(event);
+  tabBar->setContextStatus("user");
+}
 
- Q_OBJECT
-
- public:
-  explicit MainTabBar(MainWindow*);
-
-  void log(QString);
-  void setContextStatus(QString);
-  User* userInfo();
+UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
     
-  void add(QWidget* w, QString label) {
-    addTab(w, label);
-  }
+  std::string html =
+    "<html>"
+    "  <body bgcolor=#c0c0c0>"
+    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
+    "      <div>"
+    "        <br>"
+    "        <h1>Logica Composer IDE <i>%1</i></h1>"
+    "        <p></p>"
+    "        <h2>running on <i>%2</i>, %3</h2>"
+    "        <h2>%4</h2>"
+    "        <p></p>"
+    "      </div>"
+    "      <p></p>"
+    "    </span>"
+    "  </body>"
+    "</html>";
 
- private slots:
+  auto user = tabBar->userInfo();
+  
+  auto system_html =
+    QString::fromStdString(html).arg("0.0.4",
+                                     user->aboutHost(),
+                                     "an " + user->aboutCpu() + " system",
+                                     user->aboutSystem());
 
- private:
-  MainWindow* mw;
-  ConsoleFrame* co;
-};
+  bannerLabel = new QLabel(system_html);
+  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel->setAlignment(Qt::AlignCenter);
+  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+
+  layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(bannerLabel);
+  
+  this->setLayout(layout);
+}
 
 } /* composer namespace */
-
-#endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */
