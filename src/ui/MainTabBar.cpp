@@ -71,6 +71,8 @@ User* MainTabBar::userInfo() {
   log(";;; inspector frame loaded");
   add(new ComposerFrame(this), QString("script"));
   log(";;; script frame loaded");
+  add(new UserFrame(this), "preferences");
+  log(";;; preferences frame loaded");
 }
 
 } /* composer namespace */

@@ -33,55 +33,48 @@
 
 /********
  **
- **  MainTabBar.h: MainTabBar class
+ **  UserFrame.h: UserFrame class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MAINTABBAR_H_
-#define _CASCADE_SRC_UI_MAINTABBAR_H_
+#ifndef _CASCADE_SRC_UI_USERFRAME_H_
+#define _CASCADE_SRC_UI_USERFRAME_H_
 
-#include <QMainWindow>
-#include <QTabWidget>
+#include <QFrame>
+#include <QWidget>
 
-#include "ConsoleFrame.h"
+#include "MainTabBar.h"
 #include "MainWindow.h"
-#include "UserFrame.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
-class QAction;
-class QActionGroup;
+class QVBoxLayout;
+class QWidget;
 class QLabel;
-class QTabWidget;
 QT_END_NAMESPACE
 
 namespace composer {
 
-class MainWindow;
-class ConsoleFrame;
-class UserFrame;
-
-class MainTabBar : public QTabWidget {
+class MainTabBar;
+  
+class UserFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit MainTabBar(MainWindow*);
+  explicit UserFrame(MainTabBar*);
 
   void log(QString);
   void setContextStatus(QString);
-  User* userInfo();
-    
-  void add(QWidget* w, QString label) {
-    addTab(w, label);
-  }
+  void showEvent(QShowEvent*) override;
 
- private slots:
+ protected:
 
  private:
-  MainWindow* mw;
-  ConsoleFrame* co;
+  MainTabBar* tabBar;
+  QLabel* bannerLabel;
+  QVBoxLayout* layout;
 };
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */
+#endif  /* _CASCADE_SRC_UI_USERFRAME_H_ */
