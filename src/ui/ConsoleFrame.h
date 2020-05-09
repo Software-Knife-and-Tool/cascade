@@ -71,6 +71,11 @@ class ConsoleFrame : public QFrame {
     tabBar->setContextStatus(str);
   }
 
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("console: no home directory");
+  }
+
  protected:
 
  private:

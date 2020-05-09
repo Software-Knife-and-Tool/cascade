@@ -59,18 +59,18 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 void MainWindow::setContextStatus(QString str) {
-  contextLabel = new QLabel(str);
+  contextLabel->setText(str);
 }
 
 void MainWindow::createStatusBar() {
-  contextLabel = new QLabel(tr("console"));
+  contextLabel = new QLabel("");
+
+  auto dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
+  auto userLabel = new QLabel(" " + user->logname());
 
   startTime = QDateTime::currentDateTime();
-                               
-  QLabel* dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   statusClock = new StatusClock(statusBar(), dateLabel);
-  QLabel* userLabel = new QLabel(" " + user->logname());
-
+  
   QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);
   user_sp.setHorizontalStretch(1);
   userLabel->setSizePolicy(user_sp);
@@ -96,9 +96,9 @@ MainWindow::MainWindow() : user(new User()) {
   tabBar = new MainTabBar(this);
   
   setCentralWidget(tabBar);
-
   createStatusBar();
   
+  resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
   setWindowTitle(tr("Software Knife and Tool Logica Composer"));
 }
 
