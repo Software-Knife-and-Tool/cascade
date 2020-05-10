@@ -71,6 +71,8 @@ class ComposerFrame : public QFrame {
   void clear();
   void eval();
   void load();
+  void next();
+  void prev();
   void save();
   void save_as();
 
@@ -84,18 +86,26 @@ class ComposerFrame : public QFrame {
     QWidget::showEvent(event);
     tabBar->setContextStatus("composer");
   }
+
+  struct buffer {
+    QString file_name;
+    QString text;
+  };
   
  private:
-  const char* style = "color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);";
+  const char* style = "color: rgb(0, 0, 0);"
+                      "background-color: rgb(255, 255, 255);";
 
-  QVBoxLayout* layout;
   QString loadFileName;
   QString saveFileName;
+  std::vector<buffer> buffers;
+  int bufferCursor;
+
   MainTabBar *tabBar;
+  Canon* canon;
   QTextEdit* edit_text;
   QLabel* eval_text;
-  Canon* canon;
-  QToolBar* tool_bar;
+  QToolBar* tool_bar;  
 };
 
 } /* composer namespace */

@@ -70,7 +70,7 @@ class MainTabBar : public QTabWidget {
   void log(QString);
   void setContextStatus(QString);
   User* userInfo();
-    
+  
   void add(QWidget* w, QString label) {
     addTab(w, label);
   }

@@ -55,7 +55,7 @@ class User {
   QString aboutHost() { return hostName; }
   QString aboutCpu() { return cpuArch; }
   QString aboutSystem() { return systemInfo; }
-
+  QString userdir() { return userDir; }
   
   User() {
     userName = QString(std::getenv("LOGNAME"));

@@ -51,8 +51,8 @@ void ComposerFrame::load() {
   loadFileName =
     QFileDialog::getOpenFileName(this,
                                  tr("Load File"),
-                                 "/home/putnamjm",
-                                 tr("Lisp source (*)"));
+                                 tabBar->userInfo()->userdir(),
+                                 tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -62,9 +62,21 @@ void ComposerFrame::load() {
 
   saveFileName = loadFileName;
   setContextStatus(loadFileName);
+
+  auto loadbuf = new buffer();
+  loadbuf->file_name = loadFileName;
+  loadbuf->text = edit_text->toPlainText();
 }
     
 void ComposerFrame::clear() {
+  edit_text->setText("");
+}
+
+void ComposerFrame::prev() {
+  edit_text->setText("");
+}
+
+void ComposerFrame::next() {
   edit_text->setText("");
 }
 
@@ -99,11 +111,15 @@ void ComposerFrame::save() {
 
 ComposerFrame::ComposerFrame(MainTabBar* tb)
   : tabBar(tb),
+    canon(new Canon()),
     edit_text(new QTextEdit()),
     eval_text(new QLabel()),
-    canon(new Canon()),
     tool_bar(new QToolBar()) {
 
+  connect(tool_bar->addAction(tr("[prev]")),
+          &QAction::triggered, this, &ComposerFrame::prev);
+  connect(tool_bar->addAction(tr("[next]")),
+          &QAction::triggered, this, &ComposerFrame::next);
   connect(tool_bar->addAction(tr("eval")),
           &QAction::triggered, this, &ComposerFrame::eval);
   connect(tool_bar->addAction(tr("clear")),
@@ -121,6 +137,8 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
   eval_text->setAlignment(Qt::AlignTop);
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet(style);
+
+  bufferCursor = 0;
   
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
@@ -130,7 +148,7 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
   spEval.setVerticalStretch(1);
   eval_text->setSizePolicy(spEval);
  
-  layout = new QVBoxLayout;
+  auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
   layout->addWidget(edit_text);
