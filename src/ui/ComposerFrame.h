@@ -68,9 +68,11 @@ class ComposerFrame : public QFrame {
  public:
   explicit ComposerFrame(MainTabBar*);
       
-  void compose();
+  void clear();
   void eval();
+  void load();
   void save();
+  void save_as();
 
   void log(QString msg) { tabBar->log(msg); }
   
@@ -87,7 +89,8 @@ class ComposerFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);";
 
   QVBoxLayout* layout;
-
+  QString loadFileName;
+  QString saveFileName;
   MainTabBar *tabBar;
   QTextEdit* edit_text;
   QLabel* eval_text;
