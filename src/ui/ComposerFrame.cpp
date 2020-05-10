@@ -36,6 +36,7 @@
  **  ComposerFrame.cpp: ComposerFrame implementation
  **
  **/
+#include <QFileDialog>
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
@@ -46,8 +47,25 @@
 
 namespace composer {
 
-void ComposerFrame::compose() {
+void ComposerFrame::load() {
+  loadFileName =
+    QFileDialog::getOpenFileName(this,
+                                 tr("Load File"),
+                                 "/home/putnamjm",
+                                 tr("Lisp source (*)"));
 
+  QFile f(loadFileName);
+  if (f.open(QFile::ReadOnly | QFile::Text)) {
+    QTextStream in(&f);
+    edit_text->setText(in.readAll());
+  }
+
+  saveFileName = loadFileName;
+  setContextStatus(loadFileName);
+}
+    
+void ComposerFrame::clear() {
+  edit_text->setText("");
 }
 
 void ComposerFrame::eval() {
@@ -63,8 +81,20 @@ void ComposerFrame::eval() {
   eval_text->setText(out + error_text);
 }
 
-void ComposerFrame::save() {
+void ComposerFrame::save_as() {
+  saveFileName = QFileDialog::getSaveFileName(this,
+        tr("Save As"), "",
+        tr("File (*)"));
+  save();
+}
 
+void ComposerFrame::save() {
+  QString text = edit_text->toPlainText();
+  
+  QSaveFile file(saveFileName);
+  file.open(QIODevice::WriteOnly);
+  file.write(text.toUtf8());
+  file.commit();
 }
 
 ComposerFrame::ComposerFrame(MainTabBar* tb)
@@ -73,13 +103,17 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
     eval_text(new QLabel()),
     canon(new Canon()),
     tool_bar(new QToolBar()) {
-  
-  connect(tool_bar->addAction(tr("compose")),
-          &QAction::triggered, this, &ComposerFrame::compose);
-  connect(tool_bar->addAction(tr("save")),
-          &QAction::triggered, this, &ComposerFrame::save);
+
   connect(tool_bar->addAction(tr("eval")),
           &QAction::triggered, this, &ComposerFrame::eval);
+  connect(tool_bar->addAction(tr("clear")),
+          &QAction::triggered, this, &ComposerFrame::clear);
+  connect(tool_bar->addAction(tr("load")),
+          &QAction::triggered, this, &ComposerFrame::load);
+  connect(tool_bar->addAction(tr("save")),
+          &QAction::triggered, this, &ComposerFrame::save);
+  connect(tool_bar->addAction(tr("save as")),
+          &QAction::triggered, this, &ComposerFrame::save_as);
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   edit_text->setStyleSheet(style);
