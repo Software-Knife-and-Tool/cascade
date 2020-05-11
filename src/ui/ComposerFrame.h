@@ -67,7 +67,8 @@ class ComposerFrame : public QFrame {
 
  public:
   explicit ComposerFrame(MainTabBar*);
-      
+
+  void bufferStatus();
   void clear();
   void eval();
   void load();
@@ -98,7 +99,7 @@ class ComposerFrame : public QFrame {
 
   QString loadFileName;
   QString saveFileName;
-  std::vector<buffer> buffers;
+  std::vector<buffer*> buffers;
   int bufferCursor;
 
   MainTabBar *tabBar;

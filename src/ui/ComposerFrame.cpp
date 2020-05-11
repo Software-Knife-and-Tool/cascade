@@ -40,12 +40,25 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
+#include <QString>
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
 #include "canon.h"
 
 namespace composer {
+
+void ComposerFrame::bufferStatus() {
+  auto fn = buffers[bufferCursor]->file_name;
+  auto stat = QString("%1 %2").arg(fn.size() == 0 ? "unsaved" : fn,
+                                   edit_text->toPlainText().size() == 0 ?
+                                   "empty" : "modified");                                   
+  auto msg =
+    QString("buffer %1: %2").arg(QString("%1").arg(bufferCursor),
+                                 stat);
+                                 // buffers[bufferCursor]->file_name);
+  setContextStatus(msg);
+}
 
 void ComposerFrame::load() {
   loadFileName =
@@ -73,11 +86,11 @@ void ComposerFrame::clear() {
 }
 
 void ComposerFrame::prev() {
-  edit_text->setText("");
+  bufferStatus();
 }
 
 void ComposerFrame::next() {
-  edit_text->setText("");
+  bufferStatus();
 }
 
 void ComposerFrame::eval() {
@@ -138,8 +151,6 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet(style);
 
-  bufferCursor = 0;
-  
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   edit_text->setSizePolicy(spEdit);
@@ -157,6 +168,12 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  bufferCursor = 0;
+  auto buf = new buffer();
+  buf->file_name = "";
+  buf->text = "";
+  buffers.push_back(buf);
 }
 
 } /* composer namespace */
