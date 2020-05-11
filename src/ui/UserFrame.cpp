@@ -58,7 +58,7 @@ void UserFrame::showEvent(QShowEvent* event) {
 
 UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
     
-  std::string html =
+  const char* html =
     "<html>"
     "  <body bgcolor=#c0c0c0>"
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
@@ -78,10 +78,10 @@ UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
   auto user = tabBar->userInfo();
   
   auto system_html =
-    QString::fromStdString(html).arg("0.0.4",
-                                     user->aboutHost(),
-                                     "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
+    QString(html).arg("0.0.4",
+                      user->aboutHost(),
+                      "an " + user->aboutCpu() + " system",
+                      user->aboutSystem());
 
   bannerLabel = new QLabel(system_html);
   bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
