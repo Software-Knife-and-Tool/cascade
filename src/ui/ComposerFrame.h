@@ -72,10 +72,12 @@ class ComposerFrame : public QFrame {
   void clear();
   void eval();
   void load();
+  void new_buffer();
   void next();
   void prev();
   void save();
   void save_as();
+  void switchBuffer();
 
   void log(QString msg) { tabBar->log(msg); }
   

@@ -48,19 +48,24 @@
 
 namespace composer {
 
+void ComposerFrame::switchBuffer() {
+  if (buffers[bufferCursor]->text.compare(edit_text->toPlainText()) != 0)
+      buffers[bufferCursor]->text = edit_text->toPlainText();
+}
+
 void ComposerFrame::bufferStatus() {
   auto fn = buffers[bufferCursor]->file_name;
   auto stat = QString("%1 %2").arg(fn.size() == 0 ? "unsaved" : fn,
                                    edit_text->toPlainText().size() == 0 ?
                                    "empty" : "modified");                                   
   auto msg =
-    QString("buffer %1: %2").arg(QString("%1").arg(bufferCursor),
-                                 stat);
-                                 // buffers[bufferCursor]->file_name);
+    QString("buffer %1: %2").arg(QString("%1").arg(bufferCursor), stat);
+  
   setContextStatus(msg);
 }
 
 void ComposerFrame::load() {
+  switchBuffer();
   loadFileName =
     QFileDialog::getOpenFileName(this,
                                  tr("Load File"),
@@ -74,11 +79,14 @@ void ComposerFrame::load() {
   }
 
   saveFileName = loadFileName;
-  setContextStatus(loadFileName);
 
   auto loadbuf = new buffer();
   loadbuf->file_name = loadFileName;
   loadbuf->text = edit_text->toPlainText();
+
+  buffers.push_back(loadbuf);
+  bufferCursor++;
+  bufferStatus();
 }
     
 void ComposerFrame::clear() {
@@ -86,13 +94,33 @@ void ComposerFrame::clear() {
 }
 
 void ComposerFrame::prev() {
+  switchBuffer();
+  bufferCursor = bufferCursor == 0 ? buffers.size() - 1 : bufferCursor - 1;
+  edit_text->setText(buffers[bufferCursor]->text);
   bufferStatus();
 }
 
 void ComposerFrame::next() {
+  switchBuffer();
+  bufferCursor = bufferCursor == buffers.size() - 1 ? 0 : bufferCursor + 1;
+  edit_text->setText(buffers[bufferCursor]->text);
   bufferStatus();
 }
 
+void ComposerFrame::new_buffer() {
+  switchBuffer();
+    
+  auto buf = new buffer();
+  buf->file_name = "";
+  buf->text = "";
+  buffers.push_back(buf);
+  clear();
+  
+  bufferCursor++;
+  
+  bufferStatus();
+}
+  
 void ComposerFrame::eval() {
   QString out;
 
@@ -133,12 +161,12 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
           &QAction::triggered, this, &ComposerFrame::prev);
   connect(tool_bar->addAction(tr("[next]")),
           &QAction::triggered, this, &ComposerFrame::next);
-  connect(tool_bar->addAction(tr("eval")),
-          &QAction::triggered, this, &ComposerFrame::eval);
-  connect(tool_bar->addAction(tr("clear")),
-          &QAction::triggered, this, &ComposerFrame::clear);
   connect(tool_bar->addAction(tr("load")),
           &QAction::triggered, this, &ComposerFrame::load);
+  connect(tool_bar->addAction(tr("new")),
+          &QAction::triggered, this, &ComposerFrame::new_buffer);
+  connect(tool_bar->addAction(tr("eval")),
+          &QAction::triggered, this, &ComposerFrame::eval);
   connect(tool_bar->addAction(tr("save")),
           &QAction::triggered, this, &ComposerFrame::save);
   connect(tool_bar->addAction(tr("save as")),
