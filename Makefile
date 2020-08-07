@@ -9,11 +9,14 @@ help:
 	@echo clean - clean build
 	@echo run - run build
 
-clean:
-	(cd src/ui ; make clean)
+src/ui/Makefile: src/ui/ui.pro
+	(cd src/ui ; qmake)
 
-build:
-	(cd src/ui ; qmake ; make)
+clean: src/ui/Makefile
+	make -C src/ui clean
+
+build: src/ui/Makefile
+	make -C src/ui
 
 run:
 	open build/logicaide.app
