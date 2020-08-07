@@ -58,7 +58,7 @@ User* MainTabBar::userInfo() {
   return mw->userInfo();
 }
 
-  MainTabBar::MainTabBar(MainWindow *mw)
+MainTabBar::MainTabBar(MainWindow *mw)
     : mw(mw), co(new ConsoleFrame(this)) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

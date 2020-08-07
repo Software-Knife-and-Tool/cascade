@@ -127,7 +127,7 @@ void ComposerFrame::eval() {
   tabBar->setContextStatus(tr("eval"));
   
   auto error_text =
-    canon->withException([this,&out]() {
+    canon->withException([this, &out]() {
          out = canon->rep(edit_text->toPlainText());
        });
 
@@ -150,6 +150,19 @@ void ComposerFrame::save() {
   file.commit();
 }
 
+bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
+  if ( /* watched == textEdit && */ event->type() == QEvent::KeyPress) {
+        QKeyEvent *e = static_cast < QKeyEvent * >(event);
+        if (e->key() == Qt::Key_Return &&
+            e->modifiers() & Qt::ShiftModifier) {
+            eval();
+            return true;
+        }
+    }
+    
+  return tabBar->get_mw()->eventFilter(watched, event);
+}
+  
 ComposerFrame::ComposerFrame(MainTabBar* tb)
   : tabBar(tb),
     canon(new Canon()),
@@ -174,7 +187,8 @@ ComposerFrame::ComposerFrame(MainTabBar* tb)
 
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   edit_text->setStyleSheet(style);
-
+  edit_text->installEventFilter(this);
+  
   eval_text->setAlignment(Qt::AlignTop);
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet(style);

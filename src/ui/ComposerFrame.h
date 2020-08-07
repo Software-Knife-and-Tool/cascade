@@ -99,6 +99,7 @@ class ComposerFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
+  bool eventFilter(QObject*, QEvent*) override;
   QString loadFileName;
   QString saveFileName;
   std::vector<buffer*> buffers;

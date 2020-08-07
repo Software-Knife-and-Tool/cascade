@@ -75,6 +75,10 @@ class MainTabBar : public QTabWidget {
     addTab(w, label);
   }
 
+  MainWindow* get_mw() {
+    return this->mw;
+  }
+
  private slots:
 
  private:
