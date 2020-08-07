@@ -36,8 +36,8 @@
  **  Canon.h: Canon class
  **
  **/
-#ifndef _CASCADE_SRC_UI_CANON_H_
-#define _CASCADE_SRC_UI_CANON_H_
+#ifndef _LOGICAIDE_SRC_UI_CANON_H_
+#define _LOGICAIDE_SRC_UI_CANON_H_
 
 #include <QString>
 
@@ -70,11 +70,11 @@ class Canon {
   }
   
   Canon() : platform(new platform::Platform()) {
-    stdout = platform::Platform::OpenOutputString();
-    stderr = platform::Platform::OpenOutputString();
+    stdout = platform::Platform::OpenOutputString("");
+    stderr = platform::Platform::OpenOutputString("");
     libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
 
-    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
+    libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\")"));
     libmu->eval(libmu->read("(:defcon lib-base \"/usr/local/logica\")"));
     libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
   }
@@ -88,4 +88,4 @@ class Canon {
 
 } /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_CANON_H_ */ 
+#endif /* _LOGICAIDE_SRC_UI_CANON_H_ */ 

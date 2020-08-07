@@ -36,8 +36,8 @@
  **  MainWindow.h: MainWindow class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MAINWINDOW_H_
-#define _CASCADE_SRC_UI_MAINWINDOW_H_
+#ifndef _LOGICAIDE_SRC_UI_MAINWINDOW_H_
+#define _LOGICAIDE_SRC_UI_MAINWINDOW_H_
 
 #include <QDateTime>
 #include <QMainWindow>
@@ -95,4 +95,4 @@ class MainWindow : public QMainWindow {
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_MAINWINDOW_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_MAINWINDOW_H_ */

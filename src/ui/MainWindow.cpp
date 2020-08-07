@@ -99,7 +99,7 @@ MainWindow::MainWindow() : user(new User()) {
   createStatusBar();
   
   resize(QDesktopWidget().availableGeometry(this).size() * 0.7);
-  setWindowTitle(tr("Software Knife and Tool Logica Composer"));
+  setWindowTitle(tr("Software Knife and Tool Logica IDE"));
 }
 
 } /* composer namespace */

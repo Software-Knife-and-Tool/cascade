@@ -6,7 +6,7 @@ INCLUDEPATH += . /usr/local/logica
 LIBS += /usr/local/logica/libmu/libmu.a
 MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
-TARGET = composer
+TARGET = logicaide
 TEMPLATE = app
 
 HEADERS += \

@@ -36,8 +36,8 @@
  **  StatusClock.h: StatusClock class
  **
  **/ 
-#ifndef _CASCADE_SRC_UI_STATUSCLOCK_H_
-#define _CASCADE_SRC_UI_STATUSCLOCK_H_
+#ifndef _LOGICAIDE_SRC_UI_STATUSCLOCK_H_
+#define _LOGICAIDE_SRC_UI_STATUSCLOCK_H_
 
 #include <QDateTime>
 #include <QLabel>
@@ -81,4 +81,4 @@ class StatusClock : public QObject {
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_STATUSCLOCK_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_STATUSCLOCK_H_ */

@@ -33,11 +33,11 @@
 
 /********
  **
- **  Mu.h: Mu class
+ **  mu.h: Mu class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MU_H_
-#define _CASCADE_SRC_UI_MU_H_
+#ifndef _LOGICAIDE_SRC_UI_MU_H_
+#define _LOGICAIDE_SRC_UI_MU_H_
 
 #include <QString>
 
@@ -70,8 +70,8 @@ class Mu {
   }
   
   Mu() : platform(new platform::Platform()) {
-    stdout = platform::Platform::OpenOutputString();
-    stderr = platform::Platform::OpenOutputString();
+    stdout = platform::Platform::OpenOutputString("");
+    stderr = platform::Platform::OpenOutputString("");
     libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
 
     libmu->eval(libmu->read("(load \"/usr/local/logica/mu/mu.l\" :nil)"));
@@ -88,4 +88,4 @@ class Mu {
 
 } /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_MU_H_ */ 
+#endif /* _LOGICAIDE_SRC_UI_MU_H_ */ 

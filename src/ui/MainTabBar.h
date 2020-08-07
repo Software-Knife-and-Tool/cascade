@@ -36,8 +36,8 @@
  **  MainTabBar.h: MainTabBar class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MAINTABBAR_H_
-#define _CASCADE_SRC_UI_MAINTABBAR_H_
+#ifndef _LOGICAIDE_SRC_UI_MAINTABBAR_H_
+#define _LOGICAIDE_SRC_UI_MAINTABBAR_H_
 
 #include <QMainWindow>
 #include <QTabWidget>
@@ -84,4 +84,4 @@ class MainTabBar : public QTabWidget {
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_MAINTABBAR_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_MAINTABBAR_H_ */

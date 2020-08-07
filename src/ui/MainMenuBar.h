@@ -36,8 +36,8 @@
  **  MainMenuBar.h: MainMenuBar class
  **
  **/
-#ifndef _CASCADE_SRC_UI_MAINMENUBAR_H_
-#define _CASCADE_SRC_UI_MAINMENUBAR_H_
+#ifndef _LOGICAIDE_SRC_UI_MAINMENUBAR_H_
+#define _LOGICAIDE_SRC_UI_MAINMENUBAR_H_
 
 #include <QMainWindow>
 #include <QMenu>
@@ -121,4 +121,4 @@ class MainMenuBar : public QMenu {
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_MAINMENUBAR_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_MAINMENUBAR_H_ */

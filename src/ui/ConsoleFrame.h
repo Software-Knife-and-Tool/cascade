@@ -36,8 +36,8 @@
  **  ConsoleFrame.h: ConsoleFrame class
  **
  **/
-#ifndef _CASCADE_SRC_UI_CONSOLEFRAME_H_
-#define _CASCADE_SRC_UI_CONSOLEFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_
+#define _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -86,4 +86,4 @@ class ConsoleFrame : public QFrame {
 
 } /* composer namespace */
 
-#endif  /* _CASCADE_SRC_UI_CONSOLEFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_ */
