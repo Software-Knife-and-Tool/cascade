@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
+           CanonFrame.h      \
            ComposerFrame.h   \
            ConsoleFrame.h    \
            MainMenuBar.h     \
@@ -24,7 +25,8 @@ HEADERS += \
            user.h
 
 SOURCES += \
-           ComposerFrame.cpp \           
+           CanonFrame.cpp    \
+           ComposerFrame.cpp \
            ConsoleFrame.cpp  \           
            MainMenuBar.cpp   \
            MainTabBar.cpp    \

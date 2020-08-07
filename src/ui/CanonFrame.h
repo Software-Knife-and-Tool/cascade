@@ -33,49 +33,64 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  CanonFrame.h: CanonFrame class
  **
  **/
-#include <QtWidgets>
-#include <QTabBar>
+#ifndef _LOGICAIDE_SRC_UI_CANONFRAME_H_
+#define _LOGICAIDE_SRC_UI_CANONFRAME_H_
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "ConsoleFrame.h"
+#include <QFrame>
+#include <QLabel>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QWidget>
+
+#include "canon.h"
 #include "MainTabBar.h"
-#include "MainWindow.h"
+
+QT_BEGIN_NAMESPACE
+class QLabel;
+class QTextEdit;
+class QToolBar;
+class QVBoxLayout;
+class QWidget;
+QT_END_NAMESPACE
 
 namespace composer {
 
-void MainTabBar::log(QString msg) {
-  co->log(msg);
-}
+class MainTabBar;
+class MainWindow;
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+class CanonFrame : public QFrame {
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+ Q_OBJECT
 
-MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw), co(new ConsoleFrame(this)) {
-    
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+ public:
+  explicit CanonFrame(MainTabBar*);
 
-  add(co, QString("console"));
-  log(";;; console frame loaded");
-  add(new ComposerFrame(this), QString("compose"));
-  log(";;; composer frame loaded");
-  add(new ComposerFrame(this), QString("inspect"));
-  log(";;; inspector frame loaded");
-  add(new CanonFrame(this), QString("canon"));
-  log(";;; canon frame loaded");
-  add(new ComposerFrame(this), QString("script"));
-  log(";;; script frame loaded");
-  add(new UserFrame(this), "preferences");
-  log(";;; preferences frame loaded");
-}
+  void clear();
+  void eval(QString);
+  void log(QString msg) { tabBar->log(msg); }
+  
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("logicaide");
+  }
+
+ private:
+  const char* style = "color: rgb(0, 0, 0);"
+                      "background-color: rgb(255, 255, 255);";
+
+  MainTabBar *tabBar;
+  Canon* canon;
+  QLabel* status_text;
+  QToolBar* tool_bar;  
+};
 
 } /* composer namespace */
+
+#endif  /* _LOGICAIDE_SRC_UI_CANONFRAME_H_ */

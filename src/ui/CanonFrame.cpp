@@ -33,49 +33,60 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  CanonFrame.cpp: CanonFrame implementation
  **
  **/
+#include <QFileDialog>
+#include <QLabel>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QString>
 #include <QtWidgets>
-#include <QTabBar>
 
 #include "CanonFrame.h"
 #include "ComposerFrame.h"
-#include "ConsoleFrame.h"
-#include "MainTabBar.h"
-#include "MainWindow.h"
+#include "canon.h"
 
 namespace composer {
 
-void MainTabBar::log(QString msg) {
-  co->log(msg);
+void CanonFrame::clear() {
+  status_text->setText("");
 }
+
+void CanonFrame::eval(QString form) {
+  QString out;
+
+  tabBar->setContextStatus(tr("eval"));
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
+  auto error_text =
+    canon->withException([this, form, &out]() {
+      out = canon->rep(form.toStdString().c_str());
+    });
+
+  status_text->setText(out + error_text);
 }
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+CanonFrame::CanonFrame(MainTabBar* tb)
+  : tabBar(tb),
+    canon(new Canon()),
+    status_text(new QLabel()) {
 
-MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw), co(new ConsoleFrame(this)) {
-    
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  status_text->setAlignment(Qt::AlignTop);
+  status_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  status_text->setStyleSheet(style);
 
-  add(co, QString("console"));
-  log(";;; console frame loaded");
-  add(new ComposerFrame(this), QString("compose"));
-  log(";;; composer frame loaded");
-  add(new ComposerFrame(this), QString("inspect"));
-  log(";;; inspector frame loaded");
-  add(new CanonFrame(this), QString("canon"));
-  log(";;; canon frame loaded");
-  add(new ComposerFrame(this), QString("script"));
-  log(";;; script frame loaded");
-  add(new UserFrame(this), "preferences");
-  log(";;; preferences frame loaded");
+  QSizePolicy spStatus(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spStatus.setVerticalStretch(1);
+  status_text->setSizePolicy(spStatus);
+
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(status_text);
+  
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* composer namespace */
