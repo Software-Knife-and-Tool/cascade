@@ -271,16 +271,17 @@ TextPosition TtyWidget::getTextPosition(const QPoint& pos) const {
 
   int current_column = 0;
 
-  while (tp.row >= 0 &&
-        m.horizontalAdvance(buffer_[tp.row],
-                            current_column) <
-                            pos.x() + horizontalScrollBar()->value()) {
+  if (tp.row < buffer_.size() - 1) {
+    while (tp.row >= 0 &&
+           m.horizontalAdvance(buffer_[tp.row], current_column) <
+           pos.x() + horizontalScrollBar()->value()) {
 
-    if (++current_column >= buffer_[tp.row].size()) {
-      break;
+      if (++current_column >= buffer_[tp.row].size()) {
+        break;
+      }
     }
   }
-
+  
   tp.column = current_column;
 
   return tp;
@@ -326,7 +327,9 @@ void TtyWidget::mousePressEvent(QMouseEvent*) {
   QAbstractScrollArea::mousePressEvent(event);
 
   if (event->buttons().testFlag(Qt::LeftButton)) {
-    _selection->start(getTextPosition(event->pos()));
+    TextPosition tp = getTextPosition(event->pos());
+    if (tp.row < buffer_.size())
+      _selection->start(tp);
   }
   
   this->viewport()->update();
@@ -339,14 +342,17 @@ void TtyWidget::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void TtyWidget::mouseMoveEvent(QMouseEvent* event) {
-  
+#if 0
   QAbstractScrollArea::mouseMoveEvent(event);
 
   if(event->buttons().testFlag(Qt::LeftButton)) {
-    _selection->end(getTextPosition(event->pos()));
+    TextPosition tp = getTextPosition(event->pos());
+    if (tp.row < buffer_.size())
+      _selection->end(tp);
   }
 
   update();
+#endif
 }
 
 void TtyWidget::writeTty(QString str) {
