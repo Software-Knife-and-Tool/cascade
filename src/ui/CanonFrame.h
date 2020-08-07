@@ -45,6 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "ComposerFrame.h"
 #include "canon.h"
 #include "MainTabBar.h"
 
@@ -57,7 +58,8 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace composer {
-
+  
+class ComposerFrame;
 class MainTabBar;
 class MainWindow;
   
@@ -66,7 +68,7 @@ class CanonFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit CanonFrame(MainTabBar*);
+  explicit CanonFrame(MainTabBar*, Canon*);
 
   void clear();
   void eval(QString);

@@ -66,7 +66,7 @@ class ComposerFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(MainTabBar*);
+  explicit ComposerFrame(MainTabBar*, Canon*);
 
   void bufferStatus();
   void clear();
@@ -89,7 +89,7 @@ class ComposerFrame : public QFrame {
     QWidget::showEvent(event);
     tabBar->setContextStatus("composer");
   }
-
+  
   struct buffer {
     QString file_name;
     QString text;
@@ -107,6 +107,7 @@ class ComposerFrame : public QFrame {
 
   MainTabBar *tabBar;
   Canon* canon;
+  
   QTextEdit* edit_text;
   QLabel* eval_text;
   QToolBar* tool_bar;  

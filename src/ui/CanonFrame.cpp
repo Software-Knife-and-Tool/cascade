@@ -66,9 +66,9 @@ void CanonFrame::eval(QString form) {
   status_text->setText(out + error_text);
 }
 
-CanonFrame::CanonFrame(MainTabBar* tb)
+CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
   : tabBar(tb),
-    canon(new Canon()),
+    canon(cn),
     status_text(new QLabel()) {
 
   status_text->setAlignment(Qt::AlignTop);
@@ -81,7 +81,6 @@ CanonFrame::CanonFrame(MainTabBar* tb)
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
   layout->addWidget(status_text);
   
   this->setLayout(layout);

@@ -60,21 +60,27 @@ User* MainTabBar::userInfo() {
 }
 
 MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw), co(new ConsoleFrame(this)) {
+    : mw(mw),
+      co(new ConsoleFrame(this)) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+  auto canon = new Canon();
+  auto composef = new ComposerFrame(this, canon);
+  auto canonf = new CanonFrame(this, canon);
+  auto userf = new UserFrame(this);
+  
   add(co, QString("console"));
   log(";;; console frame loaded");
-  add(new ComposerFrame(this), QString("compose"));
+  add(composef, QString("compose"));
   log(";;; composer frame loaded");
-  add(new ComposerFrame(this), QString("inspect"));
+  add(new ComposerFrame(this, canon), QString("inspect"));
   log(";;; inspector frame loaded");
-  add(new CanonFrame(this), QString("canon"));
+  add(canonf, QString("canon"));
   log(";;; canon frame loaded");
-  add(new ComposerFrame(this), QString("script"));
+  add(new ComposerFrame(this, canon), QString("script"));
   log(";;; script frame loaded");
-  add(new UserFrame(this), "preferences");
+  add(userf, "preferences");
   log(";;; preferences frame loaded");
 }
 
