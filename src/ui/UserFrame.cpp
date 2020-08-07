@@ -64,7 +64,7 @@ UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica Composer IDE <i>%1</i></h1>"
+    "        <h1>Logica IDE <i>%1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
@@ -78,7 +78,7 @@ UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
   auto user = tabBar->userInfo();
   
   auto system_html =
-    QString(html).arg("0.0.4",
+    QString(html).arg("0.0.5",
                       user->aboutHost(),
                       "an " + user->aboutCpu() + " system",
                       user->aboutSystem());
