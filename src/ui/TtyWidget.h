@@ -36,8 +36,8 @@
  **  TtyWidget.h: TtyWidget class
  **
  **/
-#ifndef _CASCADE_SRC_UI_TTYWIDGET_H_
-#define _CASCADE_SRC_UI_TTYWIDGET_H_
+#ifndef _LOGICAIDE_SRC_UI_TTYWIDGET_H_
+#define _LOGICAIDE_SRC_UI_TTYWIDGET_H_
 
 #include <QAbstractScrollArea>
 #include <QDebug>
@@ -95,4 +95,4 @@ class TtyWidget : public QAbstractScrollArea {
 
 } /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_CONSOLEWIDGET_H_ */
+#endif /* _LOGICAIDE_SRC_UI_CONSOLEWIDGET_H_ */

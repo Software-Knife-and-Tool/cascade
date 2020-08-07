@@ -1,13 +1,20 @@
 #
 #
 #
-.PHONEY: help install release clean clobber
+.PHONY: help build clean run
 
 help:
 	@echo help - this message
-	@echo install - install Qt and dependencies
-	@echo release - build locus release
-	@echo clean - clean locus build
-	@echo clobber - everything, prepare to reinstall
+	@echo build - build release
+	@echo clean - clean build
+	@echo run - run build
 
+clean:
+	(cd src/ui ; make clean)
+
+build:
+	(cd src/ui ; qmake ; make)
+
+run:
+	open build/logicaide.app
 

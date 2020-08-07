@@ -1,7 +1,7 @@
 moc_*.cpp
 moc_*.h
-build/composer*
-composer.app/
+build/*
+logicaide.app/*
 .qmake.stash
 .DS_Store
 *.o

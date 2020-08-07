@@ -36,8 +36,8 @@
  **  user.h: user class
  **
  **/
-#ifndef _CASCADE_SRC_UI_USER_H_
-#define _CASCADE_SRC_UI_USER_H_
+#ifndef _LOGICAIDE_SRC_UI_USER_H_
+#define _LOGICAIDE_SRC_UI_USER_H_
 
 #include <QDir>
 #include <QString>
@@ -75,4 +75,4 @@ class User {
 
 } /* composer namespace */
 
-#endif /* _CASCADE_SRC_UI_USER_H_ */ 
+#endif /* _LOGICAIDE_SRC_UI_USER_H_ */ 
