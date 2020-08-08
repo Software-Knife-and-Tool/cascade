@@ -54,7 +54,7 @@ class Canon {
 
   QString rep(QString form) {
     auto rval = libmu->eval(libmu->read(form.toStdString()));
-    
+
     return
       QString::fromStdString(
         platform::Platform::GetStdString(stdout) +
@@ -79,6 +79,12 @@ class Canon {
     libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
   }
 
+  public slots:
+    void evalSlot() { emit evalSignal(); }
+
+  signals:
+    void evalSignal();
+  
  private:
   platform::Platform* platform;
   platform::Platform::StreamId stdout;

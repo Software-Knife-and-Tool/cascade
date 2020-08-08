@@ -94,7 +94,7 @@ class ComposerFrame : public QFrame {
     QString file_name;
     QString text;
   };
-  
+
  private:
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";

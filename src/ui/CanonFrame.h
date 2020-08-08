@@ -83,6 +83,9 @@ class CanonFrame : public QFrame {
     tabBar->setContextStatus("logicaide");
   }
 
+ public slots:
+  void evalSlot() { }
+
  private:
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";

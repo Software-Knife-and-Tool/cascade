@@ -69,6 +69,11 @@ MainTabBar::MainTabBar(MainWindow *mw)
   auto composef = new ComposerFrame(this, canon);
   auto canonf = new CanonFrame(this, canon);
   auto userf = new UserFrame(this);
+
+#if 0
+  QObject::connect(composef, &ComposerFrame::eval,
+                   canonf, &CanonFrame::eval);
+#endif
   
   add(co, QString("console"));
   log(";;; console frame loaded");
