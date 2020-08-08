@@ -76,7 +76,7 @@ ConsoleFrame::ConsoleFrame(MainTabBar* tb)
   auto user = tabBar->userInfo();
   
   auto system_html =
-    QString::fromStdString(html).arg("0.0.4",
+    QString::fromStdString(html).arg("0.0.5",
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
                                      user->aboutSystem());

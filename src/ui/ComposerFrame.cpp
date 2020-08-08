@@ -132,6 +132,8 @@ void ComposerFrame::eval() {
        });
 
   eval_text->setText(out + error_text);
+
+  emit evalHappened(edit_text->toPlainText());
 }
 
 void ComposerFrame::save_as() {

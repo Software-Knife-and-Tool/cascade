@@ -13,11 +13,12 @@ src/ui/Makefile: src/ui/ui.pro
 	(cd src/ui ; qmake)
 
 clean: src/ui/Makefile
-	make -C src/ui clean
+	@make -C src/ui clean
+	@rm -f src/ui/Makefile
 
 build: src/ui/Makefile
-	make -C src/ui
+	@make -C src/ui
 
 run:
-	open build/logicaide.app
+	@open build/logicaide.app
 

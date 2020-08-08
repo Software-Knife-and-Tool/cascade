@@ -79,12 +79,6 @@ class Canon {
     libmu->eval(libmu->read("(load-once logica/library \"/canon/lib.l\")"));
   }
 
-  public slots:
-    void evalSlot() { emit evalSignal(); }
-
-  signals:
-    void evalSignal();
-  
  private:
   platform::Platform* platform;
   platform::Platform::StreamId stdout;

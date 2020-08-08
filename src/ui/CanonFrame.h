@@ -84,7 +84,7 @@ class CanonFrame : public QFrame {
   }
 
  public slots:
-  void evalSlot() { }
+  void runStatus(QString);
 
  private:
   const char* style = "color: rgb(0, 0, 0);"

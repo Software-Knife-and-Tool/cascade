@@ -53,6 +53,10 @@ void CanonFrame::clear() {
   status_text->setText("");
 }
 
+void CanonFrame::runStatus(QString form) {
+  status_text->setText(form + "\n" +  canon->rep("(room :nil)"));
+}
+
 void CanonFrame::eval(QString form) {
   QString out;
 
