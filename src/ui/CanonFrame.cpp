@@ -86,6 +86,15 @@ CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  QString out;
+
+  auto error_text =
+    canon->withException([this, &out]() {
+         out = canon->rep("(room :t)");
+       });
+
+  status_text->setText(out + error_text);
 }
 
 } /* composer namespace */
