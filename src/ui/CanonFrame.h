@@ -46,12 +46,13 @@
 #include <QWidget>
 
 #include "ComposerFrame.h"
-#include "canon.h"
 #include "MainTabBar.h"
+#include "canon.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;
 class QLabel;
+class QScrollArea;
 class QTextEdit;
 class QToolBar;
 class QVBoxLayout;
@@ -71,9 +72,12 @@ class CanonFrame : public QFrame {
  public:
   explicit CanonFrame(MainTabBar*, Canon*);
 
-  void clear();
   void log(QString msg) { tabBar->log(msg); }
-  
+
+  void clear() {
+    statusText->setText("");
+  }
+
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
   }
@@ -90,11 +94,12 @@ class CanonFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
-  MainTabBar *tabBar;
   Canon* canon;
-  QDateTime eval_date;
-  QLabel* status_text;
-  QToolBar* tool_bar;  
+  QScrollArea *scrollArea;
+  QLabel* statusText;
+  MainTabBar *tabBar;
+  QDateTime evalDate;
+  QToolBar* toolBar;  
 };
 
 } /* composer namespace */
