@@ -33,11 +33,11 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  CanonFrame.h: CanonFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_CANONFRAME_H_
+#define _LOGICAIDE_SRC_UI_CANONFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -45,10 +45,12 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "ComposerFrame.h"
 #include "canon.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
+class QDate;
 class QLabel;
 class QTextEdit;
 class QToolBar;
@@ -57,28 +59,19 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace composer {
-
+  
+class ComposerFrame;
 class MainTabBar;
 class MainWindow;
   
-class ComposerFrame : public QFrame {
+class CanonFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(MainTabBar*, Canon*);
+  explicit CanonFrame(MainTabBar*, Canon*);
 
-  void bufferStatus();
   void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
-
   void log(QString msg) { tabBar->log(msg); }
   
   void setContextStatus(QString str) {
@@ -87,36 +80,23 @@ class ComposerFrame : public QFrame {
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
+    tabBar->setContextStatus("logicaide");
   }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
 
-  signals:
-     void evalHappened(QString);
+ public slots:
+  void runStatus(QString);
 
  private:
-  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  int bufferCursor;
-
   MainTabBar *tabBar;
   Canon* canon;
-  
-  QTextEdit* edit_text;
-  QLabel* eval_text;
+  QDateTime eval_date;
+  QLabel* status_text;
   QToolBar* tool_bar;  
 };
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_CANONFRAME_H_ */

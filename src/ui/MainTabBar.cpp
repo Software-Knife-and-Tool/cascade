@@ -39,6 +39,7 @@
 #include <QtWidgets>
 #include <QTabBar>
 
+#include "CanonFrame.h"
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
 #include "MainTabBar.h"
@@ -59,19 +60,33 @@ User* MainTabBar::userInfo() {
 }
 
 MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw), co(new ConsoleFrame(this)) {
+    : mw(mw),
+      co(new ConsoleFrame(this)) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+  auto canon = new Canon();
+  auto composef = new ComposerFrame(this, canon);
+  auto canonf = new CanonFrame(this, canon);
+  auto userf = new UserFrame(this);
+
+  auto success = QObject::connect(composef, &ComposerFrame::evalHappened,
+                                  canonf, &CanonFrame::runStatus);
+
+  if (!success)
+    exit(0);
+  
   add(co, QString("console"));
   log(";;; console frame loaded");
-  add(new ComposerFrame(this), QString("compose"));
+  add(composef, QString("compose"));
   log(";;; composer frame loaded");
-  add(new ComposerFrame(this), QString("inspect"));
+  add(new ComposerFrame(this, canon), QString("inspect"));
   log(";;; inspector frame loaded");
-  add(new ComposerFrame(this), QString("script"));
+  add(canonf, QString("canon"));
+  log(";;; canon frame loaded");
+  add(new ComposerFrame(this, canon), QString("script"));
   log(";;; script frame loaded");
-  add(new UserFrame(this), "preferences");
+  add(userf, "preferences");
   log(";;; preferences frame loaded");
 }
 

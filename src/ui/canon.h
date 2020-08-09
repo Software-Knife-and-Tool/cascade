@@ -54,7 +54,7 @@ class Canon {
 
   QString rep(QString form) {
     auto rval = libmu->eval(libmu->read(form.toStdString()));
-    
+
     return
       QString::fromStdString(
         platform::Platform::GetStdString(stdout) +

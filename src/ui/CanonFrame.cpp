@@ -33,90 +33,67 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  CanonFrame.cpp: CanonFrame implementation
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-
-#include <QFrame>
+#include <QDate>
+#include <QFileDialog>
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QWidget>
+#include <QString>
+#include <QtWidgets>
 
+#include "CanonFrame.h"
+#include "ComposerFrame.h"
 #include "canon.h"
-#include "MainTabBar.h"
-
-QT_BEGIN_NAMESPACE
-class QLabel;
-class QTextEdit;
-class QToolBar;
-class QVBoxLayout;
-class QWidget;
-QT_END_NAMESPACE
 
 namespace composer {
 
-class MainTabBar;
-class MainWindow;
+void CanonFrame::clear() {
+  status_text->setText("");
+}
+
+void CanonFrame::runStatus(QString form) {
+  auto date = new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
+  status_text->setText(status_text->text() +
+                       "\n;;;\n;;; " +
+                       form +
+                       " evaluated at " +
+                       date +
+                       "\n;;;\n" +
+                       canon->rep("(room :nil)"));
+}
+
+CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
+  : tabBar(tb),
+    canon(cn),
+    status_text(new QLabel()) {
+
+  status_text->setAlignment(Qt::AlignTop);
+  status_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  status_text->setStyleSheet(style);
+
+  QSizePolicy spStatus(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spStatus.setVerticalStretch(1);
+  status_text->setSizePolicy(spStatus);
+
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(status_text);
   
-class ComposerFrame : public QFrame {
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
- Q_OBJECT
+  QString out;
 
- public:
-  explicit ComposerFrame(MainTabBar*, Canon*);
+  auto error_text =
+    canon->withException([this, &out]() {
+         out = canon->rep("(room :default)");
+       });
 
-  void bufferStatus();
-  void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
-
-  void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
-
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
-  }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
- private:
-  
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  int bufferCursor;
-
-  MainTabBar *tabBar;
-  Canon* canon;
-  
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;  
-};
+  status_text->setText(out + error_text);
+}
 
 } /* composer namespace */
-
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */

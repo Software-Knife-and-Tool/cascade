@@ -132,6 +132,8 @@ void ComposerFrame::eval() {
        });
 
   eval_text->setText(out + error_text);
+
+  emit evalHappened(edit_text->toPlainText());
 }
 
 void ComposerFrame::save_as() {
@@ -152,20 +154,20 @@ void ComposerFrame::save() {
 
 bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
   if ( /* watched == textEdit && */ event->type() == QEvent::KeyPress) {
-        QKeyEvent *e = static_cast < QKeyEvent * >(event);
-        if (e->key() == Qt::Key_Return &&
-            e->modifiers() & Qt::ShiftModifier) {
-            eval();
-            return true;
-        }
+    QKeyEvent *e = static_cast < QKeyEvent * >(event);
+    if (e->key() == Qt::Key_Return &&
+        e->modifiers() & Qt::ShiftModifier) {
+      eval();
+      return true;
     }
+  }
     
   return tabBar->get_mw()->eventFilter(watched, event);
 }
   
-ComposerFrame::ComposerFrame(MainTabBar* tb)
+ComposerFrame::ComposerFrame(MainTabBar* tb, Canon* cn)
   : tabBar(tb),
-    canon(new Canon()),
+    canon(cn),
     edit_text(new QTextEdit()),
     eval_text(new QLabel()),
     tool_bar(new QToolBar()) {
