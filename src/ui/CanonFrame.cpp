@@ -36,6 +36,7 @@
  **  CanonFrame.cpp: CanonFrame implementation
  **
  **/
+#include <QDate>
 #include <QFileDialog>
 #include <QLabel>
 #include <QTextEdit>
@@ -54,20 +55,14 @@ void CanonFrame::clear() {
 }
 
 void CanonFrame::runStatus(QString form) {
-  status_text->setText(form + "\n" +  canon->rep("(room :nil)"));
-}
-
-void CanonFrame::eval(QString form) {
-  QString out;
-
-  tabBar->setContextStatus(tr("eval"));
-  
-  auto error_text =
-    canon->withException([this, form, &out]() {
-      out = canon->rep(form.toStdString().c_str());
-    });
-
-  status_text->setText(out + error_text);
+  auto date = new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
+  status_text->setText(status_text->text() +
+                       "\n;;;\n;;; " +
+                       form +
+                       " evaluated at " +
+                       date +
+                       "\n;;;\n" +
+                       canon->rep("(room :nil)"));
 }
 
 CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
@@ -95,7 +90,7 @@ CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
 
   auto error_text =
     canon->withException([this, &out]() {
-         out = canon->rep("(room :t)");
+         out = canon->rep("(room :default)");
        });
 
   status_text->setText(out + error_text);

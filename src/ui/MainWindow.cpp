@@ -63,12 +63,12 @@ void MainWindow::setContextStatus(QString str) {
 }
 
 void MainWindow::createStatusBar() {
-  contextLabel = new QLabel("");
-
+  startTime = QDateTime::currentDateTime();
+    
   auto dateLabel = new QLabel(startTime.toString("ddd MMMM d yy h:m ap"));
   auto userLabel = new QLabel(" " + user->logname());
-
-  startTime = QDateTime::currentDateTime();
+  
+  contextLabel = new QLabel("");
   statusClock = new StatusClock(statusBar(), dateLabel);
   
   QSizePolicy user_sp(QSizePolicy::Preferred, QSizePolicy::Preferred);

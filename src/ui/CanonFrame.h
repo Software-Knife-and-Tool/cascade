@@ -50,6 +50,7 @@
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
+class QDate;
 class QLabel;
 class QTextEdit;
 class QToolBar;
@@ -71,7 +72,6 @@ class CanonFrame : public QFrame {
   explicit CanonFrame(MainTabBar*, Canon*);
 
   void clear();
-  void eval(QString);
   void log(QString msg) { tabBar->log(msg); }
   
   void setContextStatus(QString str) {
@@ -92,6 +92,7 @@ class CanonFrame : public QFrame {
 
   MainTabBar *tabBar;
   Canon* canon;
+  QDateTime eval_date;
   QLabel* status_text;
   QToolBar* tool_bar;  
 };
