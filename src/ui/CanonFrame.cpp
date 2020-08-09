@@ -39,9 +39,10 @@
 #include <QDate>
 #include <QFileDialog>
 #include <QLabel>
+#include <QScrollArea>
+#include <QString>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QString>
 #include <QtWidgets>
 
 #include "CanonFrame.h"
@@ -50,38 +51,41 @@
 
 namespace composer {
 
-void CanonFrame::clear() {
-  status_text->setText("");
-}
-
 void CanonFrame::runStatus(QString form) {
-  auto date = new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
-  status_text->setText(status_text->text() +
-                       "\n;;;\n;;; " +
-                       form +
-                       " evaluated at " +
-                       date +
-                       "\n;;;\n" +
-                       canon->rep("(room :nil)"));
+  auto date =
+    new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
+
+  statusText->setText(statusText->text() +
+                      "\n;;;\n;;; " +
+                      form +
+                      " evaluated at " +
+                      date +
+                      "\n;;;\n" +
+                      canon->rep("(room :nil)"));
 }
 
 CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    status_text(new QLabel()) {
+  : canon(cn),
+    scrollArea(new QScrollArea()),
+    statusText(new QLabel()),
+    tabBar(tb) {
 
-  status_text->setAlignment(Qt::AlignTop);
-  status_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  status_text->setStyleSheet(style);
+  statusText->setAlignment(Qt::AlignTop);
+  statusText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  statusText->setStyleSheet(style);
+
+  scrollArea->setWidget(statusText);
+  scrollArea->setWidgetResizable(true);
+  scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
   QSizePolicy spStatus(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spStatus.setVerticalStretch(1);
-  status_text->setSizePolicy(spStatus);
-
+  statusText->setSizePolicy(spStatus);
+  
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(status_text);
-  
+  layout->addWidget(scrollArea);
+    
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -93,7 +97,7 @@ CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
          out = canon->rep("(room :default)");
        });
 
-  status_text->setText(out + error_text);
+  statusText->setText(out + error_text);
 }
 
 } /* composer namespace */
