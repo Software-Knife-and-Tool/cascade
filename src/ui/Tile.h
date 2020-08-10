@@ -33,11 +33,11 @@
 
 /********
  **
- **  TiledFrame.h: TiledFrame class
+ **  TileFrame.h: TileFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TILEDFRAME_H_
-#define _LOGICAIDE_SRC_UI_TILEDFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_TILEFRAME_H_
+#define _LOGICAIDE_SRC_UI_TILEFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -61,24 +61,24 @@ namespace composer {
 class MainTabBar;
 class MainWindow;
   
-class TiledFrame : public QFrame {
+class TileFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit TiledFrame(MainTabBar*, Canon*);
-
-  void tile();
-  void splitv();
-  void splith();
+  explicit TileFrame(MainTabBar*, Canon*);
 
   void log(QString msg) { tabBar->log(msg); }
-
-  void showEvent(QShowEvent* event) {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("tiled frame");
+  
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
   }
 
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("composer");
+  }
+  
   struct buffer {
     QString file_name;
     QString text;
@@ -91,9 +91,7 @@ class TiledFrame : public QFrame {
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
-  const char* gray_style =
-                      "border: dotted;"
-                      "color: rgb(0, 0, 0);"
+  const char* gray_style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
@@ -105,4 +103,4 @@ class TiledFrame : public QFrame {
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_TILEDFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_TILEFRAME_H_ */
