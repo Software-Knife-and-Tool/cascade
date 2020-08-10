@@ -33,64 +33,82 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  TiledFrame.h: TiledFrame class
  **
  **/
-#include <QtWidgets>
-#include <QTabBar>
+#ifndef _LOGICAIDE_SRC_UI_TILEDFRAME_H_
+#define _LOGICAIDE_SRC_UI_TILEDFRAME_H_
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "ConsoleFrame.h"
+#include <QFrame>
+#include <QLabel>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QWidget>
+
+#include "canon.h"
 #include "MainTabBar.h"
-#include "MainWindow.h"
-#include "TiledFrame.h"
+
+QT_BEGIN_NAMESPACE
+class QLabel;
+class QTextEdit;
+class QToolBar;
+class QVBoxLayout;
+class QWidget;
+QT_END_NAMESPACE
 
 namespace composer {
 
-void MainTabBar::log(QString msg) {
-  co->log(msg);
-}
+class MainTabBar;
+class MainWindow;
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+class TiledFrame : public QFrame {
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+ Q_OBJECT
 
-MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw),
-      co(new ConsoleFrame(this)) {
-    
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+ public:
+  explicit TiledFrame(MainTabBar*, Canon*);
 
-  auto canon = new Canon();
-  auto composef = new ComposerFrame(this, canon);
-  auto canonf = new CanonFrame(this, canon);
-  auto userf = new UserFrame(this);
+  void tile();
+  void splitv();
+  void splith();
 
-  auto success = QObject::connect(composef, &ComposerFrame::evalHappened,
-                                  canonf, &CanonFrame::runStatus);
-
-  if (!success)
-    exit(0);
+  void log(QString msg) { tabBar->log(msg); }
   
-  add(co, QString("console"));
-  log(";;; console frame loaded");
-  add(composef, QString("compose"));
-  log(";;; composer frame loaded");
-  add(new ComposerFrame(this, canon), QString("inspect"));
-  log(";;; inspector frame loaded");
-  add(new TiledFrame(this, canon), QString("tiled"));
-  log(";;; tiled frame loaded");
-  add(canonf, QString("canon"));
-  log(";;; canon frame loaded");
-  add(new ComposerFrame(this, canon), QString("script"));
-  log(";;; script frame loaded");
-  add(userf, "preferences");
-  log(";;; preferences frame loaded");
-}
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus("composer");
+  }
+  
+  struct buffer {
+    QString file_name;
+    QString text;
+  };
+
+  signals:
+     void evalHappened(QString);
+
+ private:
+  
+  const char* style = "color: rgb(0, 0, 0);"
+                      "background-color: rgb(255, 255, 255);";
+
+  QString loadFileName;
+  QString saveFileName;
+  std::vector<buffer*> buffers;
+  int bufferCursor;
+
+  MainTabBar *tabBar;
+  Canon* canon;
+  
+  QTextEdit* edit_text;
+  QLabel* eval_text;
+  QToolBar* tool_bar;  
+};
 
 } /* composer namespace */
+
+#endif  /* _LOGICAIDE_SRC_UI_TILEDFRAME_H_ */

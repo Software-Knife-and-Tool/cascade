@@ -33,64 +33,73 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  TiledFrame.cpp: TiledFrame implementation
  **
  **/
+#include <QFileDialog>
+#include <QLabel>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QString>
 #include <QtWidgets>
-#include <QTabBar>
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "ConsoleFrame.h"
-#include "MainTabBar.h"
-#include "MainWindow.h"
 #include "TiledFrame.h"
+#include "canon.h"
 
 namespace composer {
 
-void MainTabBar::log(QString msg) {
-  co->log(msg);
+void TiledFrame::splitv() {
+
+}
+
+void TiledFrame::splith() {
+
 }
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
+void TiledFrame::tile() {
+  saveFileName = QFileDialog::getSaveFileName(this,
+        tr("Save As"), "",
+        tr("File (*)"));
 }
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
+  : tabBar(tb),
+    canon(cn),
+    edit_text(new QTextEdit()),
+    eval_text(new QLabel()),
+    tool_bar(new QToolBar()) {
 
-MainTabBar::MainTabBar(MainWindow *mw)
-    : mw(mw),
-      co(new ConsoleFrame(this)) {
-    
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  connect(tool_bar->addAction(tr("split-v")),
+          &QAction::triggered, this, &TiledFrame::splitv);
+  connect(tool_bar->addAction(tr("split-h")),
+          &QAction::triggered, this, &TiledFrame::splith);
+  connect(tool_bar->addAction(tr("new")),
+          &QAction::triggered, this, &TiledFrame::tile);
 
-  auto canon = new Canon();
-  auto composef = new ComposerFrame(this, canon);
-  auto canonf = new CanonFrame(this, canon);
-  auto userf = new UserFrame(this);
-
-  auto success = QObject::connect(composef, &ComposerFrame::evalHappened,
-                                  canonf, &CanonFrame::runStatus);
-
-  if (!success)
-    exit(0);
+  edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  edit_text->setStyleSheet(style);
   
-  add(co, QString("console"));
-  log(";;; console frame loaded");
-  add(composef, QString("compose"));
-  log(";;; composer frame loaded");
-  add(new ComposerFrame(this, canon), QString("inspect"));
-  log(";;; inspector frame loaded");
-  add(new TiledFrame(this, canon), QString("tiled"));
-  log(";;; tiled frame loaded");
-  add(canonf, QString("canon"));
-  log(";;; canon frame loaded");
-  add(new ComposerFrame(this, canon), QString("script"));
-  log(";;; script frame loaded");
-  add(userf, "preferences");
-  log(";;; preferences frame loaded");
+  eval_text->setAlignment(Qt::AlignTop);
+  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  eval_text->setStyleSheet(style);
+
+  QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spEdit.setVerticalStretch(1);
+  edit_text->setSizePolicy(spEdit);
+
+  QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spEval.setVerticalStretch(1);
+  eval_text->setSizePolicy(spEval);
+ 
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(edit_text);
+  layout->addWidget(eval_text);
+  
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* composer namespace */
