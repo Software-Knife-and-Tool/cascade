@@ -40,6 +40,7 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
+#include <QSplitter>
 #include <QString>
 #include <QtWidgets>
 
@@ -50,56 +51,95 @@ namespace composer {
 
 void TiledFrame::splitv() {
 
+  auto label = new QLabel("top panel");
+
+  QSizePolicy spNew(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spNew.setVerticalStretch(1);
+  label->setSizePolicy(spNew);
+
+  auto hsplitter = new QSplitter(Qt::Vertical, this);
+  hsplitter->addWidget(label);
+  hsplitter->addWidget(base_text);
+  hsplitter->setStretchFactor(1, 1);
+ 
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(hsplitter);
+  
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void TiledFrame::splith() {
 
+  auto hsplitter = new QSplitter(Qt::Horizontal, this);
+  hsplitter->addWidget(base_text);
+  hsplitter->addWidget(base_text);
+  hsplitter->setStretchFactor(1, 1);
+ 
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(hsplitter);
+  
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
   
-void TiledFrame::tile() {
-  saveFileName = QFileDialog::getSaveFileName(this,
-        tr("Save As"), "",
-        tr("File (*)"));
-}
-
 TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
-    edit_text(new QTextEdit()),
-    eval_text(new QLabel()),
+    base_text(new QTextEdit()),
     tool_bar(new QToolBar()) {
 
   connect(tool_bar->addAction(tr("split-v")),
           &QAction::triggered, this, &TiledFrame::splitv);
   connect(tool_bar->addAction(tr("split-h")),
           &QAction::triggered, this, &TiledFrame::splith);
-  connect(tool_bar->addAction(tr("new")),
-          &QAction::triggered, this, &TiledFrame::tile);
-
-  edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  edit_text->setStyleSheet(style);
   
-  eval_text->setAlignment(Qt::AlignTop);
-  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  eval_text->setStyleSheet(style);
+  base_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  base_text->setStyleSheet(style);
+  
+  QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spBase.setVerticalStretch(1);
+  base_text->setSizePolicy(spBase);
 
-  QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spEdit.setVerticalStretch(1);
-  edit_text->setSizePolicy(spEdit);
-
-  QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spEval.setVerticalStretch(1);
-  eval_text->setSizePolicy(spEval);
- 
+#if 0
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
-  layout->addWidget(edit_text);
-  layout->addWidget(eval_text);
+  layout->addWidget(base_text);
   
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+#endif
+  
+  //  auto panel = new QFrame("top panel");
+  auto panel = new QFrame();
+  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  panel->setStyleSheet(gray_style);
+  
+  QSizePolicy spTop(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spTop.setVerticalStretch(1);
+  panel->setSizePolicy(spTop);
+
+  auto hsplitter = new QSplitter(Qt::Vertical, this);
+  hsplitter->addWidget(base_text);
+  hsplitter->addWidget(panel);
+  hsplitter->setStretchFactor(1, 1);
+ 
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(hsplitter);
+  
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
 } /* composer namespace */

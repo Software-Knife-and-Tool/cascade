@@ -95,17 +95,13 @@ class TiledFrame : public QFrame {
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
-
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  int bufferCursor;
+  const char* gray_style = "color: rgb(0, 0, 0);"
+                      "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
   Canon* canon;
   
-  QTextEdit* edit_text;
-  QLabel* eval_text;
+  QTextEdit* base_text;
   QToolBar* tool_bar;  
 };
 

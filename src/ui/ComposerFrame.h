@@ -107,7 +107,7 @@ class ComposerFrame : public QFrame {
   QString loadFileName;
   QString saveFileName;
   std::vector<buffer*> buffers;
-  int bufferCursor;
+  unsigned long bufferCursor;
 
   MainTabBar *tabBar;
   Canon* canon;
