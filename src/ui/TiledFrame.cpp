@@ -118,10 +118,9 @@ TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 #endif
   
-  //  auto panel = new QFrame("top panel");
   auto panel = new QFrame();
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  panel->setStyleSheet(gray_style);
+  panel->setStyleSheet(selected);
   
   QSizePolicy spTop(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spTop.setVerticalStretch(1);

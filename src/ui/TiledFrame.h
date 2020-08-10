@@ -91,8 +91,10 @@ class TiledFrame : public QFrame {
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
-  const char* gray_style =
-                      "border: dotted;"
+  const char* selected =
+                      "border-style: solid;"
+                      "border-width: 1px;"
+                      "border-color: black;"
                       "color: rgb(0, 0, 0);"
                       "background-color: rgb(192, 192, 192);";
 
