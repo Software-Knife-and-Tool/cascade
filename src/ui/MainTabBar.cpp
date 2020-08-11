@@ -62,34 +62,31 @@ User* MainTabBar::userInfo() {
 
 MainTabBar::MainTabBar(MainWindow *mw)
     : mw(mw),
-      co(new ConsoleFrame(this)) {
+      co(new ConsoleFrame("console", this)) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   auto canon = new Canon();
-  auto composef = new ComposerFrame(this, canon);
-  auto canonf = new CanonFrame(this, canon);
-  auto userf = new UserFrame(this);
 
-  auto success = QObject::connect(composef, &ComposerFrame::evalHappened,
-                                  canonf, &CanonFrame::runStatus);
-
-  if (!success)
+#if 0
+  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
+                        canonf, &CanonFrame::runStatus))
     exit(0);
+#endif
   
   add(co, QString("console"));
   log(";;; console frame loaded");
-  add(composef, QString("compose"));
-  log(";;; composer frame loaded");
-  add(new ComposerFrame(this, canon), QString("inspect"));
-  log(";;; inspector frame loaded");
-  add(new TiledFrame(this, canon), QString("tiled"));
-  log(";;; tiled frame loaded");
-  add(canonf, QString("canon"));
+
+  add(new TiledFrame("main", this, canon), "main");
+  log(";;; main frame loaded");
+
+  add(new CanonFrame("canon", this, canon), "canon");
   log(";;; canon frame loaded");
-  add(new ComposerFrame(this, canon), QString("script"));
+
+  add(new ComposerFrame("script", this, canon), "script");
   log(";;; script frame loaded");
-  add(userf, "preferences");
+
+  add(new UserFrame("preferences", this), "preferences");
   log(";;; preferences frame loaded");
 }
 

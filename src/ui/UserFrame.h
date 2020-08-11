@@ -61,7 +61,7 @@ class UserFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit UserFrame(MainTabBar*);
+  explicit UserFrame(QString, MainTabBar*);
 
   void log(QString);
   void setContextStatus(QString);
@@ -71,6 +71,7 @@ class UserFrame : public QFrame {
 
  private:
   MainTabBar* tabBar;
+  QString name;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };

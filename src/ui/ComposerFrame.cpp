@@ -165,9 +165,10 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
   return tabBar->get_mw()->eventFilter(watched, event);
 }
   
-ComposerFrame::ComposerFrame(MainTabBar* tb, Canon* cn)
+ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
+    name(name),
     edit_text(new QTextEdit()),
     eval_text(new QLabel()),
     tool_bar(new QToolBar()) {

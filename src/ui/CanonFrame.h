@@ -70,7 +70,7 @@ class CanonFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit CanonFrame(MainTabBar*, Canon*);
+  explicit CanonFrame(QString, MainTabBar*, Canon*);
 
   void log(QString msg) { tabBar->log(msg); }
 
@@ -84,7 +84,7 @@ class CanonFrame : public QFrame {
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus("canon");
+    tabBar->setContextStatus(name);
   }
 
  public slots:
@@ -95,6 +95,7 @@ class CanonFrame : public QFrame {
                       "background-color: rgb(255, 255, 255);";
 
   Canon* canon;
+  QString name;
   QScrollArea *scrollArea;
   QLabel* statusText;
   MainTabBar *tabBar;

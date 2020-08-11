@@ -50,12 +50,13 @@
 
 namespace composer {
 
-TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
+TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
+    name(name),
     base_text(new QTextEdit()),
     tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, new ComposerFrame(tb, cn))) {
+    root_tile(new Tile(tb, new ComposerFrame("", tb, cn))) {
 
   connect(tool_bar->addAction(tr("split-v")),
           &QAction::triggered, this, &TiledFrame::splitv);
