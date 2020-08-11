@@ -33,7 +33,7 @@
 
 /********
  **
- **  main.cpp: Composer Ui main
+ **  main.cpp: LogicaIde Ui main
  **
  **/
 #include <QApplication>
@@ -48,6 +48,6 @@ int main(int argc, char **argv) {
   composer::MainWindow mainWindow;
   mainWindow.show();
   
-  mainWindow.setFixedSize(1024, 768);
+  // mainWindow.setFixedSize(1280, 1024);
   return app.exec();
 }
