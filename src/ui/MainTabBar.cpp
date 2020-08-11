@@ -44,6 +44,7 @@
 #include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
+#include "TiledFrame.h"
 
 namespace composer {
 
@@ -82,6 +83,8 @@ MainTabBar::MainTabBar(MainWindow *mw)
   log(";;; composer frame loaded");
   add(new ComposerFrame(this, canon), QString("inspect"));
   log(";;; inspector frame loaded");
+  add(new TiledFrame(this, canon), QString("tiled"));
+  log(";;; tiled frame loaded");
   add(canonf, QString("canon"));
   log(";;; canon frame loaded");
   add(new ComposerFrame(this, canon), QString("script"));

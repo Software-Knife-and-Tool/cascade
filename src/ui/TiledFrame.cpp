@@ -33,90 +33,43 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  TiledFrame.cpp: TiledFrame implementation
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-
-#include <QFrame>
+#include <QFileDialog>
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QWidget>
+#include <QSplitter>
+#include <QString>
+#include <QtWidgets>
 
+#include "Tile.h"
+#include "TiledFrame.h"
 #include "canon.h"
-#include "MainTabBar.h"
-
-QT_BEGIN_NAMESPACE
-class QLabel;
-class QTextEdit;
-class QToolBar;
-class QVBoxLayout;
-class QWidget;
-QT_END_NAMESPACE
 
 namespace composer {
 
-class MainTabBar;
-class MainWindow;
+TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
+  : tabBar(tb),
+    canon(cn),
+    base_text(new QTextEdit()),
+    tool_bar(new QToolBar()),
+    root_tile(new Tile(tb, new ComposerFrame(tb, cn))) {
+
+  connect(tool_bar->addAction(tr("split-v")),
+          &QAction::triggered, this, &TiledFrame::splitv);
+  connect(tool_bar->addAction(tr("split-h")),
+          &QAction::triggered, this, &TiledFrame::splith);
+
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(root_tile);
   
-class ComposerFrame : public QFrame {
-
- Q_OBJECT
-
- public:
-  explicit ComposerFrame(MainTabBar*, Canon*);
-
-  void bufferStatus();
-  void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
-
-  void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
-
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
-  }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
- private:
-  
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
-
-  MainTabBar *tabBar;
-  Canon* canon;
-  
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;  
-};
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
+}
 
 } /* composer namespace */
-
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */

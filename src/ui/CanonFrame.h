@@ -84,7 +84,7 @@ class CanonFrame : public QFrame {
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus("logicaide");
+    tabBar->setContextStatus("canon");
   }
 
  public slots:

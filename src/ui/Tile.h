@@ -33,11 +33,11 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  Tile.h: Tile class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_TILE_H_
+#define _LOGICAIDE_SRC_UI_TILE_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -46,6 +46,7 @@
 #include <QWidget>
 
 #include "canon.h"
+#include "ComposerFrame.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -61,62 +62,36 @@ namespace composer {
 class MainTabBar;
 class MainWindow;
   
-class ComposerFrame : public QFrame {
+class Tile : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(MainTabBar*, Canon*);
+  explicit Tile(MainTabBar*, ComposerFrame*);
 
-  void bufferStatus();
-  void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
+  void splitv();
+  void splith();
 
   void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
 
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
-  }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
- private:
-  
+ private:  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
+  const char* selected =
+                      "border-style: solid;"
+                      "border-width: 1px;"
+                      "border-color: black;"
+                      "color: rgb(0, 0, 0);"
+                      "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
   Canon* canon;
   
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;  
+  QFrame* base_frame;
+  Tile* split_tile;
 };
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_TILE_H_ */

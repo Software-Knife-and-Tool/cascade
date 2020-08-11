@@ -33,11 +33,11 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  TiledFrame.h: TiledFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_TILEDFRAME_H_
+#define _LOGICAIDE_SRC_UI_TILEDFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -47,6 +47,7 @@
 
 #include "canon.h"
 #include "MainTabBar.h"
+#include "Tile.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -61,62 +62,44 @@ namespace composer {
 class MainTabBar;
 class MainWindow;
   
-class ComposerFrame : public QFrame {
+class TiledFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(MainTabBar*, Canon*);
+  explicit TiledFrame(MainTabBar*, Canon*);
 
-  void bufferStatus();
-  void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
+  void tile();
+  void splitv() { root_tile->splitv(); };
+  void splith() { root_tile->splith(); };
 
   void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
 
-  void showEvent(QShowEvent* event) override {
+  void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
+    tabBar->setContextStatus("tiled frame");
   }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
 
  private:
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
+  const char* selected =
+                      "border-style: solid;"
+                      "border-width: 1px;"
+                      "border-color: black;"
+                      "color: rgb(0, 0, 0);"
+                      "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
   Canon* canon;
   
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;  
+  QTextEdit* base_text;
+  QToolBar* tool_bar;
+  Tile* root_tile;
 };
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_TILEDFRAME_H_ */
