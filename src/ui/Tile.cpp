@@ -68,10 +68,12 @@ void scrub_layout(QLayout* layout) {
 } /* anynonymous namespace */
 
 void Tile::splitv() {
-
+  auto size = this->frameSize();
+  
   auto panel = new QFrame();
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   panel->setStyleSheet(selected);
+  panel->setMinimumHeight(size.height() / 2);
   
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spPanel.setVerticalStretch(1);
@@ -94,7 +96,31 @@ void Tile::splitv() {
 }
 
 void Tile::splith() {
+  auto size = this->frameSize();
+  
+  auto panel = new QFrame();
+  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  panel->setStyleSheet(selected);
+  panel->setMinimumWidth(size.width() / 2);
+  
+  QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spPanel.setHorizontalStretch(1);
+  panel->setSizePolicy(spPanel);
 
+  auto hs = new QSplitter(Qt::Horizontal, this);
+  hs->addWidget(base_frame);
+  hs->addWidget(panel);
+  hs->setStretchFactor(1, 1);
+
+  auto layout = new QVBoxLayout();
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(hs);
+  layout->setSizeConstraint(QLayout::SetMinimumSize);
+
+  scrub_layout(this->layout());
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 Tile::Tile(MainTabBar* tb, ComposerFrame* cf)
