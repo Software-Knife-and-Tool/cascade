@@ -44,11 +44,6 @@
 
 namespace composer {
 
-MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
-  createActions();
-  createMenus();
-}
-
 void MainMenuBar::newFile() {
   mw->setContextStatus("Invoked <b>File|New</b>");
 }
@@ -86,11 +81,11 @@ void MainMenuBar::paste() {
 }
 
 void MainMenuBar::bold() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Bold</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Bold</b>");
 }
 
 void MainMenuBar::italic() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Italic</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Italic</b>");
 }
 
 void MainMenuBar::leftAlign() {
@@ -114,11 +109,10 @@ void MainMenuBar::setLineSpacing() {
 }
 
 void MainMenuBar::setParagraphSpacing() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Set Paragraph Spacing</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Set Paragraph Spacing</b>");
 }
 
 void MainMenuBar::about() {
-
   mw->setContextStatus("Invoked <b>Help|About</b>");
   QMessageBox::about(this, tr("About Menu"),
                      tr("The <b>Menu</b> example shows how to create "
@@ -289,4 +283,18 @@ void MainMenuBar::createMenus() {
   helpMenu->addAction(prefsAct);  
 }
 
+MainMenuBar::MainMenuBar(MainWindow *mw)
+  : mw(mw) {
+  
+  createActions();
+  createMenus();
+
+  mb = new QMenuBar(this);
+  mb->addMenu(fileMenu);
+  mb->addMenu(editMenu);
+  mb->addMenu(formatMenu);
+  mb->addMenu(helpMenu);
+}
+  
 } /* composer namespace */
+

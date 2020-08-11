@@ -62,6 +62,10 @@ class MainMenuBar : public QMenu {
  public:
   MainMenuBar(MainWindow*);
 
+  QMenuBar* menu_bar() {
+    return mb;
+  }
+
   QAction *cutAct;
   QAction *copyAct;
   QAction *pasteAct;
@@ -117,6 +121,7 @@ class MainMenuBar : public QMenu {
 
  private:
   MainWindow* mw;
+  QMenuBar* mb;
 };
 
 } /* composer namespace */

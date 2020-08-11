@@ -94,7 +94,8 @@ void MainWindow::createStatusBar() {
 MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
   tabBar = new MainTabBar(this);
-  
+
+  setMenuBar(menuBar->menu_bar());
   setCentralWidget(tabBar);
   createStatusBar();
   

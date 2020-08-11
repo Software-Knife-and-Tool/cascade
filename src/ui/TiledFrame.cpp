@@ -50,6 +50,28 @@
 
 namespace composer {
 
+QMenu* TiledFrame::toolMenu() {
+  auto tm = new QMenu(tool_bar);
+
+  auto consAct = new QAction(tr("&console"), this);
+  connect(consAct, &QAction::triggered, this, [this] () { });
+  tm->addAction(consAct);
+
+  auto shAct = new QAction(tr("&shell"), this);
+  connect(shAct, &QAction::triggered, this, [this] () { });
+  tm->addAction(shAct);
+
+  auto comAct = new QAction(tr("&composer"), this);
+  connect(comAct, &QAction::triggered, this, [this] () { });
+  tm->addAction(comAct);
+
+  connect(tm->addAction(tr("tools")),
+          &QAction::triggered, this,
+          [this] () { });
+  
+  return tm;
+}
+
 TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
@@ -58,10 +80,19 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
     tool_bar(new QToolBar()),
     root_tile(new Tile(tb, new ComposerFrame("", tb, cn))) {
 
-  connect(tool_bar->addAction(tr("split-v")),
-          &QAction::triggered, this, &TiledFrame::splitv);
-  connect(tool_bar->addAction(tr("split-h")),
-          &QAction::triggered, this, &TiledFrame::splith);
+  tm = toolMenu();
+  
+  connect(tool_bar->addAction(tr("vsplit")),
+          &QAction::triggered, this,
+          [this] () { this->root_tile->splitv(); });
+  connect(tool_bar->addAction(tr("hsplit")),
+          &QAction::triggered, this,
+          [this] () { this->root_tile->splith(); });
+  connect(tool_bar->addAction(tr("tools")),
+          &QAction::triggered, this,
+          [this] () { });
+  connect(tool_bar->addAction(tr("del")),
+          &QAction::triggered, this, [this] () { });
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);

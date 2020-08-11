@@ -69,9 +69,7 @@ class TiledFrame : public QFrame {
  public:
   explicit TiledFrame(QString, MainTabBar*, Canon*);
 
-  void tile();
-  void splitv() { root_tile->splitv(); };
-  void splith() { root_tile->splith(); };
+  QMenu* toolMenu();
 
   void log(QString msg) { tabBar->log(msg); }
 
@@ -97,6 +95,7 @@ class TiledFrame : public QFrame {
   QString name;
   QTextEdit* base_text;
   QToolBar* tool_bar;
+  QMenu* tm;
   Tile* root_tile;
 };
 
