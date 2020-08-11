@@ -44,6 +44,7 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "ComposerFrame.h"
 #include "Tile.h"
 #include "canon.h"
 
@@ -92,14 +93,15 @@ void Tile::splith() {
 Tile::Tile(MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
-    base_text(new QTextEdit()) {
+    base_frame(new ComposerFrame(tb, cn)),
+    child_tile(nullptr) {
 
-  base_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  base_text->setStyleSheet(style);
+  base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  base_frame->setStyleSheet(style);
   
   QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spBase.setVerticalStretch(1);
-  base_text->setSizePolicy(spBase);
+  base_frame->setSizePolicy(spBase);
 
   auto panel = new QFrame();
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
@@ -110,7 +112,7 @@ Tile::Tile(MainTabBar* tb, Canon* cn)
   panel->setSizePolicy(spTop);
 
   auto hsplitter = new QSplitter(Qt::Vertical, this);
-  hsplitter->addWidget(base_text);
+  hsplitter->addWidget(base_frame);
   hsplitter->addWidget(panel);
   hsplitter->setStretchFactor(1, 1);
  

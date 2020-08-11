@@ -104,7 +104,7 @@ class TiledFrame : public QFrame {
   
   QTextEdit* base_text;
   QToolBar* tool_bar;
-  Tile* base_tile;
+  Tile* root_tile;
 };
 
 } /* composer namespace */

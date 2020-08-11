@@ -46,6 +46,7 @@
 #include <QWidget>
 
 #include "canon.h"
+#include "ComposerFrame.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -86,7 +87,8 @@ class Tile : public QFrame {
   MainTabBar *tabBar;
   Canon* canon;
   
-  QTextEdit* base_text;
+  QFrame* base_frame;
+  Tile* child_tile;
 };
 
 } /* composer namespace */

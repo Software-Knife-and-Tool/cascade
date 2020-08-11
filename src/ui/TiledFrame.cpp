@@ -95,7 +95,7 @@ TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
     canon(cn),
     base_text(new QTextEdit()),
     tool_bar(new QToolBar()),
-    base_tile(new Tile(tb, cn)) {
+    root_tile(new Tile(tb, cn)) {
 
   connect(tool_bar->addAction(tr("split-v")),
           &QAction::triggered, this, &TiledFrame::splitv);
@@ -105,7 +105,7 @@ TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
-  layout->addWidget(base_tile);
+  layout->addWidget(root_tile);
   
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
