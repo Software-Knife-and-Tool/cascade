@@ -65,7 +65,7 @@ class ConsoleFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ConsoleFrame(MainTabBar*);
+  explicit ConsoleFrame(QString, MainTabBar*);
 
   void log(QString msg) {
     ttyWidget->writeTty(msg);
@@ -79,6 +79,7 @@ class ConsoleFrame : public QFrame {
 
  private:
   MainTabBar* tabBar;
+  QString name;
   TtyWidget* ttyWidget;
   QLabel* bannerLabel;
   QVBoxLayout* layout;

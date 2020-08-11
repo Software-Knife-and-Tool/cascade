@@ -64,8 +64,9 @@ void CanonFrame::runStatus(QString form) {
                       canon->rep("(room :nil)"));
 }
 
-CanonFrame::CanonFrame(MainTabBar* tb, Canon* cn)
+  CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
   : canon(cn),
+    name(name),
     scrollArea(new QScrollArea()),
     statusText(new QLabel()),
     tabBar(tb) {

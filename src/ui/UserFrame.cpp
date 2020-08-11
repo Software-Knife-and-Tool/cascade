@@ -53,10 +53,10 @@ void UserFrame::setContextStatus(QString str) {
 
 void UserFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus("user");
+  tabBar->setContextStatus(name);
 }
 
-UserFrame::UserFrame(MainTabBar* tb) : tabBar(tb) {
+UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
     
   const char* html =
     "<html>"

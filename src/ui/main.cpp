@@ -48,6 +48,5 @@ int main(int argc, char **argv) {
   composer::MainWindow mainWindow;
   mainWindow.show();
   
-  // mainWindow.setFixedSize(1280, 1024);
   return app.exec();
 }

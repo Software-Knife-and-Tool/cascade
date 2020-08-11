@@ -49,11 +49,12 @@ void ConsoleFrame::setContextStatus(QString str) {
 
 void ConsoleFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus("console");
+  tabBar->setContextStatus(name);
 }
 
-ConsoleFrame::ConsoleFrame(MainTabBar* tb)
+  ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   : tabBar(tb),
+    name(name),
     ttyWidget(new TtyWidget(this)) {
     
   std::string html =
@@ -62,7 +63,7 @@ ConsoleFrame::ConsoleFrame(MainTabBar* tb)
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica Composer IDE <i>%1</i></h1>"
+    "        <h1>Logica IDE <i>%1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"

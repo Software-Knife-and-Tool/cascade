@@ -67,7 +67,7 @@ class TiledFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit TiledFrame(MainTabBar*, Canon*);
+  explicit TiledFrame(QString, MainTabBar*, Canon*);
 
   void tile();
   void splitv() { root_tile->splitv(); };
@@ -77,7 +77,7 @@ class TiledFrame : public QFrame {
 
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
-    tabBar->setContextStatus("tiled frame");
+    tabBar->setContextStatus(name);
   }
 
  private:
@@ -94,7 +94,7 @@ class TiledFrame : public QFrame {
 
   MainTabBar *tabBar;
   Canon* canon;
-  
+  QString name;
   QTextEdit* base_text;
   QToolBar* tool_bar;
   Tile* root_tile;

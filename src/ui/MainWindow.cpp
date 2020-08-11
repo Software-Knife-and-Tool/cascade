@@ -98,7 +98,7 @@ MainWindow::MainWindow() : user(new User()) {
   setCentralWidget(tabBar);
   createStatusBar();
   
-  resize(QDesktopWidget().availableGeometry(this).size()); // * 0.7);
+  resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
   setWindowTitle(tr("Software Knife and Tool Logica IDE"));
 }
 
