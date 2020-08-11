@@ -18,6 +18,7 @@ HEADERS += \
            MainTabBar.h      \
            MainWindow.h      \
            StatusClock.h     \
+           Tile.h            \
            TiledFrame.h      \
            TtyWidget.h       \
            UserFrame.h       \
@@ -32,6 +33,7 @@ SOURCES += \
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \
+           Tile.cpp          \
            TiledFrame.cpp    \
            TtyWidget.cpp     \
            UserFrame.cpp     \

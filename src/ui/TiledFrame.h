@@ -47,6 +47,7 @@
 
 #include "canon.h"
 #include "MainTabBar.h"
+#include "Tile.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -102,7 +103,8 @@ class TiledFrame : public QFrame {
   Canon* canon;
   
   QTextEdit* base_text;
-  QToolBar* tool_bar;  
+  QToolBar* tool_bar;
+  Tile* base_tile;
 };
 
 } /* composer namespace */

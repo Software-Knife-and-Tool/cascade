@@ -33,11 +33,11 @@
 
 /********
  **
- **  TileFrame.h: TileFrame class
+ **  Tile.h: Tile class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TILEFRAME_H_
-#define _LOGICAIDE_SRC_UI_TILEFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_TILE_H_
+#define _LOGICAIDE_SRC_UI_TILE_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -61,46 +61,34 @@ namespace composer {
 class MainTabBar;
 class MainWindow;
   
-class TileFrame : public QFrame {
+class Tile : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit TileFrame(MainTabBar*, Canon*);
+  explicit Tile(MainTabBar*, Canon*);
+
+  void splitv();
+  void splith();
 
   void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
 
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus("composer");
-  }
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
- private:
-  
+ private:  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
-  const char* gray_style = "color: rgb(0, 0, 0);"
+  const char* selected =
+                      "border-style: solid;"
+                      "border-width: 1px;"
+                      "border-color: black;"
+                      "color: rgb(0, 0, 0);"
                       "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
   Canon* canon;
   
   QTextEdit* base_text;
-  QToolBar* tool_bar;  
 };
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_TILEFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_TILE_H_ */
