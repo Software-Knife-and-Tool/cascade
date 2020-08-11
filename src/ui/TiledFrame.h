@@ -70,8 +70,8 @@ class TiledFrame : public QFrame {
   explicit TiledFrame(MainTabBar*, Canon*);
 
   void tile();
-  void splitv();
-  void splith();
+  void splitv() { root_tile->splitv(); };
+  void splith() { root_tile->splith(); };
 
   void log(QString msg) { tabBar->log(msg); }
 
@@ -80,18 +80,11 @@ class TiledFrame : public QFrame {
     tabBar->setContextStatus("tiled frame");
   }
 
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
  private:
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
+
   const char* selected =
                       "border-style: solid;"
                       "border-width: 1px;"

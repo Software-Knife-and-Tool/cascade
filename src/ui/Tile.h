@@ -67,7 +67,7 @@ class Tile : public QFrame {
  Q_OBJECT
 
  public:
-  explicit Tile(MainTabBar*, Canon*);
+  explicit Tile(MainTabBar*, ComposerFrame*);
 
   void splitv();
   void splith();
@@ -77,6 +77,7 @@ class Tile : public QFrame {
  private:  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
+
   const char* selected =
                       "border-style: solid;"
                       "border-width: 1px;"
@@ -88,7 +89,7 @@ class Tile : public QFrame {
   Canon* canon;
   
   QFrame* base_frame;
-  Tile* child_tile;
+  Tile* split_tile;
 };
 
 } /* composer namespace */

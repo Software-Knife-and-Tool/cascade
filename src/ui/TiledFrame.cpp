@@ -50,52 +50,12 @@
 
 namespace composer {
 
-void TiledFrame::splitv() {
-
-  auto label = new QLabel("top panel");
-
-  QSizePolicy spNew(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spNew.setVerticalStretch(1);
-  label->setSizePolicy(spNew);
-
-  auto hsplitter = new QSplitter(Qt::Vertical, this);
-  hsplitter->addWidget(label);
-  hsplitter->addWidget(base_text);
-  hsplitter->setStretchFactor(1, 1);
- 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(hsplitter);
-  
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
-
-void TiledFrame::splith() {
-
-  auto hsplitter = new QSplitter(Qt::Horizontal, this);
-  hsplitter->addWidget(base_text);
-  hsplitter->addWidget(base_text);
-  hsplitter->setStretchFactor(1, 1);
- 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(hsplitter);
-  
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-}
-  
 TiledFrame::TiledFrame(MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
     base_text(new QTextEdit()),
     tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, cn)) {
+    root_tile(new Tile(tb, new ComposerFrame(tb, cn))) {
 
   connect(tool_bar->addAction(tr("split-v")),
           &QAction::triggered, this, &TiledFrame::splitv);

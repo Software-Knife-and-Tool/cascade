@@ -49,24 +49,45 @@
 #include "canon.h"
 
 namespace composer {
+
+namespace {
+
+void scrub_layout(QLayout* layout) {
+  QLayoutItem * item;
+  QLayout * sublayout;
+  QWidget * widget;
+  while ((item = layout->takeAt(0))) {
+    if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+    else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+    else {delete item;}
+  }
   
+  delete layout;
+}
+  
+} /* anynonymous namespace */
+
 void Tile::splitv() {
 
-  auto label = new QLabel("top panel");
-
-  QSizePolicy spNew(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spNew.setVerticalStretch(1);
-  label->setSizePolicy(spNew);
-
-  auto vsplitter = new QSplitter(Qt::Vertical, this);
-  vsplitter->addWidget(label);
-  vsplitter->addWidget(this);
-  vsplitter->setStretchFactor(1, 1);
- 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(vsplitter);
+  auto panel = new QFrame();
+  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  panel->setStyleSheet(selected);
   
+  QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spPanel.setVerticalStretch(1);
+  panel->setSizePolicy(spPanel);
+
+  auto vs = new QSplitter(Qt::Vertical, this);
+  vs->addWidget(base_frame);
+  vs->addWidget(panel);
+  vs->setStretchFactor(1, 1);
+
+  auto layout = new QVBoxLayout();
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(vs);
+  layout->setSizeConstraint(QLayout::SetMinimumSize);
+
+  scrub_layout(this->layout());
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -74,27 +95,12 @@ void Tile::splitv() {
 
 void Tile::splith() {
 
-  auto label = new QLabel("top panel");
-
-  auto hsplitter = new QSplitter(Qt::Horizontal, this);
-  hsplitter->addWidget(label);
-  hsplitter->addWidget(this);
-  hsplitter->setStretchFactor(1, 1);
- 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(hsplitter);
-  
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-Tile::Tile(MainTabBar* tb, Canon* cn)
+Tile::Tile(MainTabBar* tb, ComposerFrame* cf)
   : tabBar(tb),
-    canon(cn),
-    base_frame(new ComposerFrame(tb, cn)),
-    child_tile(nullptr) {
+    base_frame(cf),
+    split_tile(nullptr) {
 
   base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   base_frame->setStyleSheet(style);
@@ -111,6 +117,7 @@ Tile::Tile(MainTabBar* tb, Canon* cn)
   spTop.setVerticalStretch(1);
   panel->setSizePolicy(spTop);
 
+#if 0
   auto hsplitter = new QSplitter(Qt::Vertical, this);
   hsplitter->addWidget(base_frame);
   hsplitter->addWidget(panel);
@@ -119,7 +126,12 @@ Tile::Tile(MainTabBar* tb, Canon* cn)
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(hsplitter);
-  
+#endif
+
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(base_frame);
+
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
