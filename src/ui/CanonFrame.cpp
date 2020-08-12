@@ -49,7 +49,7 @@
 #include "ComposerFrame.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 void CanonFrame::runStatus(QString form) {
   auto date =
@@ -101,4 +101,4 @@ CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
   statusText->setText(out + error_text);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

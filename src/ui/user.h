@@ -47,7 +47,7 @@
 
 #include "libmu/libmu.h"
 
-namespace composer {
+namespace logicaide {
   
 class User {
  public:
@@ -73,6 +73,6 @@ class User {
   QString userName; 
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_USER_H_ */ 

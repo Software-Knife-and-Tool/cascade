@@ -43,7 +43,7 @@
 
 #include "libmu/libmu.h"
 
-namespace composer {
+namespace logicaide {
   
 class Canon {
  public:
@@ -86,6 +86,6 @@ class Canon {
   std::unique_ptr<libmu::LibMu> libmu;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_CANON_H_ */ 

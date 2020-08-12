@@ -58,7 +58,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainTabBar;
 class MainWindow;
@@ -123,6 +123,6 @@ class ComposerFrame : public QFrame {
   QScrollArea* eval_scroll;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */

@@ -52,7 +52,7 @@ class QStatusBar;
 class QDateTime;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainWindow;
   
@@ -79,6 +79,6 @@ class StatusClock : public QObject {
   }
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_STATUSCLOCK_H_ */

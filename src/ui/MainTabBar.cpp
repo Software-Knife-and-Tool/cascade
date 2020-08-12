@@ -47,7 +47,7 @@
 #include "ScratchpadFrame.h"
 #include "TiledFrame.h"
 
-namespace composer {
+namespace logicaide {
 
 void MainTabBar::log(QString msg) {
   co->log(msg);
@@ -94,4 +94,4 @@ MainTabBar::MainTabBar(MainWindow *mw)
   log(";;; preferences frame loaded");
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

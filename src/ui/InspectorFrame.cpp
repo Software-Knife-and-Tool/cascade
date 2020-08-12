@@ -47,7 +47,7 @@
 #include "InspectorFrame.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 void InspectorFrame::clear() {
   //  edit_text->setText("");
@@ -74,4 +74,4 @@ InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

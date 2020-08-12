@@ -46,7 +46,7 @@
 #include "ComposerFrame.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 void ComposerFrame::switchBuffer() {
   if (buffers[bufferCursor]->text.compare(edit_text->toPlainText()) != 0)
@@ -235,4 +235,4 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   buffers.push_back(buf);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

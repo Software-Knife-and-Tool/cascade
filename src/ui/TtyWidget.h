@@ -55,7 +55,7 @@
 class QPaintEvent;
 class QMouseEvent;
 
-namespace composer {
+namespace logicaide {
   
 struct TextSelection;
 struct TextPosition;
@@ -93,6 +93,6 @@ class TtyWidget : public QAbstractScrollArea {
   QSharedPointer<TextSelection> _selection;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_CONSOLEWIDGET_H_ */

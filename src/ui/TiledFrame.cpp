@@ -49,7 +49,7 @@
 #include "TiledFrame.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 QToolButton* TiledFrame::toolMenu() {
   auto tb = new QToolButton(tool_bar);
@@ -97,4 +97,4 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

@@ -51,7 +51,7 @@ class QLabel;
 class QMenu;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainWindow;
   
@@ -124,6 +124,6 @@ class MainMenuBar : public QMenu {
   QMenuBar* mb;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_MAINMENUBAR_H_ */

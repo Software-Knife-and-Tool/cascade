@@ -41,7 +41,7 @@
 
 #include "UserFrame.h"
 
-namespace composer {
+namespace logicaide {
 
 void UserFrame::log(QString msg) {
   tabBar->log(msg);
@@ -95,4 +95,4 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   this->setLayout(layout);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

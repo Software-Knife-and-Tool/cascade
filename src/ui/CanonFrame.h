@@ -59,7 +59,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
   
 class ComposerFrame;
 class MainTabBar;
@@ -103,6 +103,6 @@ class CanonFrame : public QFrame {
   QToolBar* toolBar;  
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_CANONFRAME_H_ */
