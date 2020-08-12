@@ -49,9 +49,9 @@
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
+class QLabel;
 class QVBoxLayout;
 class QWidget;
-class QLabel;
 QT_END_NAMESPACE
 
 class TtyWidget;

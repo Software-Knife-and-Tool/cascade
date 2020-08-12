@@ -41,6 +41,7 @@
 
 #include <QFrame>
 #include <QLabel>
+#include <QScrollArea>
 #include <QTextEdit>
 #include <QToolBar>
 #include <QWidget>
@@ -50,6 +51,7 @@
 
 QT_BEGIN_NAMESPACE
 class QLabel;
+class QScroll;
 class QTextEdit;
 class QToolBar;
 class QVBoxLayout;
@@ -117,6 +119,8 @@ class ComposerFrame : public QFrame {
   QTextEdit* edit_text;
   QLabel* eval_text;
   QToolBar* tool_bar;  
+  QScrollArea* edit_scroll;
+  QScrollArea* eval_scroll;
 };
 
 } /* composer namespace */

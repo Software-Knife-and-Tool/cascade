@@ -171,7 +171,9 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
     name(name),
     edit_text(new QTextEdit()),
     eval_text(new QLabel()),
-    tool_bar(new QToolBar()) {
+    tool_bar(new QToolBar()),
+    edit_scroll(new QScrollArea()),
+    eval_scroll(new QScrollArea()) {
 
   connect(tool_bar->addAction(tr("[prev]")),
           &QAction::triggered, this, &ComposerFrame::prev);
@@ -191,11 +193,23 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   edit_text->setStyleSheet(style);
   edit_text->installEventFilter(this);
+
+#if 0
+  edit_scroll->setWidget(edit_text);
+  edit_scroll->setWidgetResizable(true);
+  edit_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+#endif
   
   eval_text->setAlignment(Qt::AlignTop);
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet(style);
 
+#if 0
+  eval_scroll->setWidget(eval_text);
+  eval_scroll->setWidgetResizable(true);
+  eval_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+#endif
+  
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   edit_text->setSizePolicy(spEdit);

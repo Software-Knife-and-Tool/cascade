@@ -123,7 +123,7 @@ void Tile::splith() {
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-Tile::Tile(MainTabBar* tb, ComposerFrame* cf)
+Tile::Tile(MainTabBar* tb, QFrame* cf)
   : tabBar(tb),
     base_frame(cf),
     split_tile(nullptr) {
@@ -142,17 +142,6 @@ Tile::Tile(MainTabBar* tb, ComposerFrame* cf)
   QSizePolicy spTop(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spTop.setVerticalStretch(1);
   panel->setSizePolicy(spTop);
-
-#if 0
-  auto hsplitter = new QSplitter(Qt::Vertical, this);
-  hsplitter->addWidget(base_frame);
-  hsplitter->addWidget(panel);
-  hsplitter->setStretchFactor(1, 1);
- 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(hsplitter);
-#endif
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);

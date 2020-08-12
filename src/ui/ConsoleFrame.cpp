@@ -52,7 +52,7 @@ void ConsoleFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-  ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
+ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   : tabBar(tb),
     name(name),
     ttyWidget(new TtyWidget(this)) {
