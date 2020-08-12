@@ -14,6 +14,7 @@ HEADERS += \
            CanonFrame.h      \
            ComposerFrame.h   \
            ConsoleFrame.h    \
+           InspectorFrame.h  \
            MainMenuBar.h     \
            MainTabBar.h      \
            MainWindow.h      \
@@ -29,7 +30,8 @@ HEADERS += \
 SOURCES += \
            CanonFrame.cpp    \
            ComposerFrame.cpp \
-           ConsoleFrame.cpp  \           
+           ConsoleFrame.cpp  \
+           InspectorFrame.cpp\
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \

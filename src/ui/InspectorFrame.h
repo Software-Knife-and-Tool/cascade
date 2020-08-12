@@ -33,11 +33,11 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  InspectorFrame.h: InspectorFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_
+#define _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -45,6 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "ComposerFrame.h"
 #include "canon.h"
 #include "MainTabBar.h"
 
@@ -61,23 +62,15 @@ namespace composer {
 class MainTabBar;
 class MainWindow;
   
-class ComposerFrame : public QFrame {
+class InspectorFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(QString, MainTabBar*, Canon*);
+  explicit InspectorFrame(QString, MainTabBar*, Canon*);
 
-  void bufferStatus();
   void clear();
   void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
 
   void log(QString msg) { tabBar->log(msg); }
   
@@ -85,40 +78,21 @@ class ComposerFrame : public QFrame {
     tabBar->setContextStatus(str);
   }
 
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
-  }
-  
-  bool eventFilter(QObject, QEvent*);
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
  private:
-  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
   bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
 
   MainTabBar *tabBar;
   Canon* canon;
   QString name;
-  QTextEdit* edit_text;
-  QLabel* eval_text;
+  ComposerFrame* composer_frame;;
+  QLabel* view_label;
+  QLabel* time_label;
   QToolBar* tool_bar;  
 };
 
 } /* composer namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_ */

@@ -33,92 +33,45 @@
 
 /********
  **
- **  ComposerFrame.h: ComposerFrame class
+ **  InspectorFrame.cpp: InspectorFrame implementation
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-#define _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_
-
-#include <QFrame>
+#include <QFileDialog>
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QWidget>
+#include <QString>
+#include <QtWidgets>
 
+#include "ComposerFrame.h"
+#include "InspectorFrame.h"
 #include "canon.h"
-#include "MainTabBar.h"
-
-QT_BEGIN_NAMESPACE
-class QLabel;
-class QTextEdit;
-class QToolBar;
-class QVBoxLayout;
-class QWidget;
-QT_END_NAMESPACE
 
 namespace composer {
 
-class MainTabBar;
-class MainWindow;
+void InspectorFrame::clear() {
+  //  edit_text->setText("");
+}
+
+InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
+  : tabBar(tb),
+    canon(cn),
+    name(name),
+    composer_frame(new ComposerFrame("inspector", tb, cn)),
+    time_label(new QLabel("time info")),
+    view_label(new QLabel("view info")),
+    tool_bar(new QToolBar()) {
+
+  auto layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(tool_bar);
+  layout->addWidget(composer_frame);
+  layout->addWidget(time_label);
+  layout->addWidget(view_label);
   
-class ComposerFrame : public QFrame {
-
- Q_OBJECT
-
- public:
-  explicit ComposerFrame(QString, MainTabBar*, Canon*);
-
-  void bufferStatus();
-  void clear();
-  void eval();
-  void load();
-  void new_buffer();
-  void next();
-  void prev();
-  void save();
-  void save_as();
-  void switchBuffer();
-
-  void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
-
-  void showEvent(QShowEvent* event) override {
-    QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
-  }
-  
-  bool eventFilter(QObject, QEvent*);
-  
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
-  signals:
-     void evalHappened(QString);
-
- private:
-  
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  bool eventFilter(QObject*, QEvent*) override;
-  QString loadFileName;
-  QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
-
-  MainTabBar *tabBar;
-  Canon* canon;
-  QString name;
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;  
-};
+  this->setLayout(layout);
+  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
 
 } /* composer namespace */
-
-#endif  /* _LOGICAIDE_SRC_UI_COMPOSERFRAME_H_ */
