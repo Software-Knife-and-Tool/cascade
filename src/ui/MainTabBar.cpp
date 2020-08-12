@@ -44,6 +44,7 @@
 #include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
+#include "ScratchpadFrame.h"
 #include "TiledFrame.h"
 
 namespace composer {
@@ -82,6 +83,9 @@ MainTabBar::MainTabBar(MainWindow *mw)
 
   add(new CanonFrame("canon", this, canon), "canon");
   log(";;; canon frame loaded");
+
+  add(new ScratchpadFrame("scratch", this), "scratch");
+  log(";;; scratchpad frame loaded");
 
   add(new ComposerFrame("script", this, canon), "script");
   log(";;; script frame loaded");

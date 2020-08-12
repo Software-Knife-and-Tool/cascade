@@ -18,6 +18,7 @@ HEADERS += \
            MainMenuBar.h     \
            MainTabBar.h      \
            MainWindow.h      \
+           ScratchpadFrame.h \
            StatusClock.h     \
            Tile.h            \
            TiledFrame.h      \
@@ -35,6 +36,7 @@ SOURCES += \
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
            MainWindow.cpp    \
+           ScratchpadFrame.cpp \
            Tile.cpp          \
            TiledFrame.cpp    \
            TtyWidget.cpp     \
