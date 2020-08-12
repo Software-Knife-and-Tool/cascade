@@ -74,7 +74,6 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
     name(name),
-    //    base_text(new QTextEdit()),
     tool_bar(new QToolBar()),
     root_tile(new Tile(tb, new ScratchpadFrame("scratch-0", tb))) {
 
