@@ -69,8 +69,6 @@ class TiledFrame : public QFrame {
  public:
   explicit TiledFrame(QString, MainTabBar*, Canon*);
 
-  QMenu* toolMenu();
-
   void log(QString msg) { tabBar->log(msg); }
 
   void showEvent(QShowEvent* event) {
@@ -79,6 +77,7 @@ class TiledFrame : public QFrame {
   }
 
  private:
+  QToolButton* toolMenu();
   
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";

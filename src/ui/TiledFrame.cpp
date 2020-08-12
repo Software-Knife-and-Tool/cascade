@@ -50,22 +50,23 @@
 
 namespace composer {
 
-QMenu* TiledFrame::toolMenu() {
-  auto tm = new QMenu(tool_bar);
+QToolButton* TiledFrame::toolMenu() {
+  auto tb = new QToolButton(tool_bar);
+  tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
+  tb->setText("tools");
+  tb->setPopupMode(QToolButton::MenuButtonPopup);
+  
+  auto tm = new QMenu(tb);
+  tb->setMenu(tm);
+  tb->setStyleSheet(style);
+  
+  tm->addAction(new QAction(tr("&composer"), this));
+  tm->addAction(new QAction(tr("&console"), this));
+  tm->addAction(new QAction(tr("&inspector"), this));
+  tm->addAction(new QAction(tr("&shell"), this));
+  tm->addAction(new QAction(tr("&scratch"), this));
 
-  auto consAct = new QAction(tr("&console"), this);
-  connect(consAct, &QAction::triggered, this, [this] () { });
-  tm->addAction(consAct);
-
-  auto shAct = new QAction(tr("&shell"), this);
-  connect(shAct, &QAction::triggered, this, [this] () { });
-  tm->addAction(shAct);
-
-  auto comAct = new QAction(tr("&composer"), this);
-  connect(comAct, &QAction::triggered, this, [this] () { });
-  tm->addAction(comAct);
-
-  return tm;
+  return tb;
 }
 
 TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
@@ -82,9 +83,7 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
   connect(tool_bar->addAction(tr("hsplit")),
           &QAction::triggered, this,
           [this] () { this->root_tile->splith(); });
-  connect(tool_bar->addAction(tr("tools")),
-          &QAction::triggered, toolMenu(),
-          [this] () { });
+  tool_bar->addWidget(toolMenu());
   connect(tool_bar->addAction(tr("del")),
           &QAction::triggered, this, [this] () { });
 
