@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
   QApplication app(argc, argv);
   
-  composer::MainWindow mainWindow;
+  logicaide::MainWindow mainWindow;
   mainWindow.show();
   
   return app.exec();

@@ -52,7 +52,7 @@ class QWidget;
 class QLabel;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainTabBar;
   
@@ -76,6 +76,6 @@ class UserFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_USERFRAME_H_ */

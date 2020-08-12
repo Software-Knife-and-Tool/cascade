@@ -43,7 +43,7 @@
 
 #include "libmu/libmu.h"
 
-namespace composer {
+namespace logicaide {
   
 class Mu {
  public:
@@ -86,6 +86,6 @@ class Mu {
   std::unique_ptr<libmu::LibMu> libmu;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_MU_H_ */ 

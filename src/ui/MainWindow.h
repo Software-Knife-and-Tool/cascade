@@ -59,7 +59,7 @@ class QLabel;
 class QStatusBar;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainMenuBar;
 class MainTabBar;
@@ -93,6 +93,6 @@ class MainWindow : public QMainWindow {
   StatusClock* statusClock;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_MAINWINDOW_H_ */

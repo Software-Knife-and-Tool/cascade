@@ -49,7 +49,7 @@
 #include "libmu/libmu.h"
 #include "ComposerFrame.h"
 
-namespace composer {
+namespace logicaide {
 
 class ComposerFrame;
   
@@ -115,6 +115,6 @@ class Logica {
   int logica;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_LOGICA_H_ */ 

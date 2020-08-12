@@ -42,7 +42,7 @@
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
-namespace composer {
+namespace logicaide {
 
 void MainMenuBar::newFile() {
   mw->setContextStatus("Invoked <b>File|New</b>");
@@ -296,5 +296,5 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
   mb->addMenu(helpMenu);
 }
   
-} /* composer namespace */
+} /* logicaide namespace */
 

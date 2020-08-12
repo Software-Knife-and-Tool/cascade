@@ -54,7 +54,7 @@ class QLabel;
 class QTabWidget;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainWindow;
 class ConsoleFrame;
@@ -86,6 +86,6 @@ class MainTabBar : public QTabWidget {
   ConsoleFrame* co;
 };
 
-} /* composer namespace */
+} /* loigicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_MAINTABBAR_H_ */

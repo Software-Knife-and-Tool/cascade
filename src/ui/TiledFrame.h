@@ -57,7 +57,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace composer {
+namespace logicaide {
 
 class MainTabBar;
 class MainWindow;
@@ -97,6 +97,6 @@ class TiledFrame : public QFrame {
   Tile* root_tile;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_TILEDFRAME_H_ */

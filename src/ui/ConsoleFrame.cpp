@@ -41,7 +41,7 @@
 
 #include "ConsoleFrame.h"
 
-namespace composer {
+namespace logicaide {
 
 void ConsoleFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -102,4 +102,4 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   this->setLayout(layout);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

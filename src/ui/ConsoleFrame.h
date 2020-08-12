@@ -56,7 +56,7 @@ QT_END_NAMESPACE
 
 class TtyWidget;
 
-namespace composer {
+namespace logicaide {
 
 class MainTabBar;
   
@@ -85,6 +85,6 @@ class ConsoleFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* composer namespace */
+} /* logicaide namespace */
 
 #endif  /* _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_ */

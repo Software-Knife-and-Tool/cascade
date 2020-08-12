@@ -49,7 +49,7 @@
 #include "ComposerFrame.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   : name(name),
@@ -78,4 +78,4 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* composer namespace */
+} /* logicaide namespace */

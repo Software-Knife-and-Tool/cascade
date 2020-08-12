@@ -48,7 +48,7 @@
 #include "Tile.h"
 #include "canon.h"
 
-namespace composer {
+namespace logicaide {
 
 namespace {
 
@@ -152,4 +152,4 @@ Tile::Tile(MainTabBar* tb, QFrame* cf)
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
-} /* composer namespace */
+} /* logicaide namespace */
