@@ -65,10 +65,6 @@ QMenu* TiledFrame::toolMenu() {
   connect(comAct, &QAction::triggered, this, [this] () { });
   tm->addAction(comAct);
 
-  connect(tm->addAction(tr("tools")),
-          &QAction::triggered, this,
-          [this] () { });
-  
   return tm;
 }
 
@@ -80,8 +76,6 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
     tool_bar(new QToolBar()),
     root_tile(new Tile(tb, new ComposerFrame("", tb, cn))) {
 
-  tm = toolMenu();
-  
   connect(tool_bar->addAction(tr("vsplit")),
           &QAction::triggered, this,
           [this] () { this->root_tile->splitv(); });
@@ -89,7 +83,7 @@ TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
           &QAction::triggered, this,
           [this] () { this->root_tile->splith(); });
   connect(tool_bar->addAction(tr("tools")),
-          &QAction::triggered, this,
+          &QAction::triggered, toolMenu(),
           [this] () { });
   connect(tool_bar->addAction(tr("del")),
           &QAction::triggered, this, [this] () { });
