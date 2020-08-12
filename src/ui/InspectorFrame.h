@@ -82,7 +82,7 @@ class InspectorFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
-  bool eventFilter(QObject*, QEvent*) override;
+  // bool eventFilter(QObject*, QEvent*) override;
 
   MainTabBar *tabBar;
   Canon* canon;
