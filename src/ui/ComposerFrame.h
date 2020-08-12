@@ -70,16 +70,11 @@ class ComposerFrame : public QFrame {
  public:
   explicit ComposerFrame(QString, MainTabBar*, Canon*);
 
-  void bufferStatus();
   void clear();
   void eval();
   void load();
-  void new_buffer();
-  void next();
-  void prev();
   void save();
   void save_as();
-  void switchBuffer();
 
   void log(QString msg) { tabBar->log(msg); }
   
@@ -94,11 +89,6 @@ class ComposerFrame : public QFrame {
   
   bool eventFilter(QObject, QEvent*);
   
-  struct buffer {
-    QString file_name;
-    QString text;
-  };
-
   signals:
      void evalHappened(QString);
 
@@ -110,8 +100,6 @@ class ComposerFrame : public QFrame {
   bool eventFilter(QObject*, QEvent*) override;
   QString loadFileName;
   QString saveFileName;
-  std::vector<buffer*> buffers;
-  unsigned long bufferCursor;
 
   MainTabBar *tabBar;
   Canon* canon;
