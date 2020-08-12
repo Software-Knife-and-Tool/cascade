@@ -65,6 +65,7 @@ void ComposerFrame::load() {
   if (f.open(QFile::ReadOnly | QFile::Text)) {
     QTextStream in(&f);
     edit_text->setText(in.readAll());
+    f.close();
   }
 
   saveFileName = loadFileName;
@@ -124,7 +125,7 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
     edit_scroll(new QScrollArea()),
     eval_scroll(new QScrollArea()) {
 
-    connect(tool_bar->addAction(tr("clear")),
+  connect(tool_bar->addAction(tr("clear")),
           &QAction::triggered, this, &ComposerFrame::clear);
   connect(tool_bar->addAction(tr("load")),
           &QAction::triggered, this, &ComposerFrame::load);
