@@ -106,7 +106,7 @@ class ComposerFrame : public QFrame {
   QString name;
   QTextEdit* edit_text;
   QLabel* eval_text;
-  QToolBar* tool_bar;  
+  QToolBar* tool_bar;
   QScrollArea* edit_scroll;
   QScrollArea* eval_scroll;
 };

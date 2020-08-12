@@ -72,11 +72,13 @@ class ScratchpadFrame : public QFrame {
  public:
   explicit ScratchpadFrame(QString, MainTabBar*);
 
-  void log(QString msg) { tabBar->log(msg); }
+  void clear();
+  void load();
+  void append();
+  void save();
+  void save_as();
 
-  void clear() {
-    scratchText->setText("");
-  }
+  void log(QString msg) { tabBar->log(msg); }
 
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
@@ -91,11 +93,14 @@ class ScratchpadFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
+  QString loadFileName;
+  QString saveFileName;
+
   QString name;
   QScrollArea *scrollArea;
   QTextEdit* scratchText;
-  MainTabBar *tabBar;
   QToolBar* toolBar;  
+  MainTabBar *tabBar;
 };
 
 } /* logicaide namespace */
