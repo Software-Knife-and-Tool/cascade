@@ -67,7 +67,7 @@ class Tile : public QFrame {
  Q_OBJECT
 
  public:
-  explicit Tile(MainTabBar*, ComposerFrame*);
+  explicit Tile(MainTabBar*, QFrame*);
 
   void splitv();
   void splith();
