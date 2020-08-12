@@ -33,68 +33,49 @@
 
 /********
  **
- **  TiledFrame.cpp: TiledFrame implementation
+ **  ScratchpadFrame.cpp: ScratchpadFrame implementation
  **
  **/
+#include <QDate>
 #include <QFileDialog>
 #include <QLabel>
+#include <QScrollArea>
+#include <QString>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QSplitter>
-#include <QString>
 #include <QtWidgets>
 
 #include "ScratchpadFrame.h"
-#include "Tile.h"
-#include "TiledFrame.h"
+#include "ComposerFrame.h"
 #include "canon.h"
 
 namespace composer {
 
-QToolButton* TiledFrame::toolMenu() {
-  auto tb = new QToolButton(tool_bar);
-  tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
-  tb->setText("tools");
-  tb->setPopupMode(QToolButton::MenuButtonPopup);
+ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
+  : name(name),
+    scrollArea(new QScrollArea()),
+    scratchText(new QTextEdit()),
+    tabBar(tb) {
+
+  scratchText->setAlignment(Qt::AlignTop);
+  scratchText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  scratchText->setStyleSheet(style);
+
+  scrollArea->setWidget(scratchText);
+  scrollArea->setWidgetResizable(true);
+  scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
+  QSizePolicy spScratch(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spScratch.setVerticalStretch(1);
+  scratchText->setSizePolicy(spScratch);
   
-  auto tm = new QMenu(tb);
-  tb->setMenu(tm);
-  tb->setStyleSheet(style);
-  
-  tm->addAction(new QAction(tr("&composer"), this));
-  tm->addAction(new QAction(tr("&console"), this));
-  tm->addAction(new QAction(tr("&inspector"), this));
-  tm->addAction(new QAction(tr("&shell"), this));
-  tm->addAction(new QAction(tr("&scratch"), this));
-
-  return tb;
-}
-
-TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    name(name),
-    tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, new ScratchpadFrame("scratch-0", tb))) {
-
-  connect(tool_bar->addAction(tr("vsplit")),
-          &QAction::triggered, this,
-          [this] () { this->root_tile->splitv(); });
-  connect(tool_bar->addAction(tr("hsplit")),
-          &QAction::triggered, this,
-          [this] () { this->root_tile->splith(); });
-  tool_bar->addWidget(toolMenu());
-  connect(tool_bar->addAction(tr("del")),
-          &QAction::triggered, this, [this] () { });
-
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(root_tile);
-  
+  layout->addWidget(scrollArea);
+    
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
+  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* composer namespace */

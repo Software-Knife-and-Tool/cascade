@@ -92,7 +92,6 @@ class TiledFrame : public QFrame {
   MainTabBar *tabBar;
   Canon* canon;
   QString name;
-  QTextEdit* base_text;
   QToolBar* tool_bar;
   QMenu* tm;
   Tile* root_tile;

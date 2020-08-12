@@ -33,68 +33,71 @@
 
 /********
  **
- **  TiledFrame.cpp: TiledFrame implementation
+ **  ScratchpadFrame.h: ScratchpadFrame class
  **
  **/
-#include <QFileDialog>
+#ifndef _LOGICAIDE_SRC_UI_SCRATCHPADFRAME_H_
+#define _LOGICAIDE_SRC_UI_SCRATCHPADFRAME_H_
+
+#include <QFrame>
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QSplitter>
-#include <QString>
-#include <QtWidgets>
+#include <QWidget>
 
-#include "ScratchpadFrame.h"
-#include "Tile.h"
-#include "TiledFrame.h"
+#include "ComposerFrame.h"
+#include "MainTabBar.h"
 #include "canon.h"
 
+QT_BEGIN_NAMESPACE
+class QDate;
+class QLabel;
+class QScrollArea;
+class QTextEdit;
+class QToolBar;
+class QVBoxLayout;
+class QWidget;
+QT_END_NAMESPACE
+
 namespace composer {
-
-QToolButton* TiledFrame::toolMenu() {
-  auto tb = new QToolButton(tool_bar);
-  tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
-  tb->setText("tools");
-  tb->setPopupMode(QToolButton::MenuButtonPopup);
   
-  auto tm = new QMenu(tb);
-  tb->setMenu(tm);
-  tb->setStyleSheet(style);
+class ComposerFrame;
+class MainTabBar;
+class MainWindow;
   
-  tm->addAction(new QAction(tr("&composer"), this));
-  tm->addAction(new QAction(tr("&console"), this));
-  tm->addAction(new QAction(tr("&inspector"), this));
-  tm->addAction(new QAction(tr("&shell"), this));
-  tm->addAction(new QAction(tr("&scratch"), this));
+class ScratchpadFrame : public QFrame {
 
-  return tb;
-}
+ Q_OBJECT
 
-TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    name(name),
-    tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, new ScratchpadFrame("scratch-0", tb))) {
+ public:
+  explicit ScratchpadFrame(QString, MainTabBar*);
 
-  connect(tool_bar->addAction(tr("vsplit")),
-          &QAction::triggered, this,
-          [this] () { this->root_tile->splitv(); });
-  connect(tool_bar->addAction(tr("hsplit")),
-          &QAction::triggered, this,
-          [this] () { this->root_tile->splith(); });
-  tool_bar->addWidget(toolMenu());
-  connect(tool_bar->addAction(tr("del")),
-          &QAction::triggered, this, [this] () { });
+  void log(QString msg) { tabBar->log(msg); }
 
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(root_tile);
-  
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
-}
+  void clear() {
+    scratchText->setText("");
+  }
+
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus(name);
+  }
+
+ private:
+  const char* style = "color: rgb(0, 0, 0);"
+                      "background-color: rgb(255, 255, 255);";
+
+  QString name;
+  QScrollArea *scrollArea;
+  QTextEdit* scratchText;
+  MainTabBar *tabBar;
+  QToolBar* toolBar;  
+};
 
 } /* composer namespace */
+
+#endif  /* _LOGICAIDE_SRC_UI_SCRATCHPADFRAME_H_ */
