@@ -90,8 +90,10 @@ class TiledFrame : public QFrame {
                       "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
+  bool init;
   Canon* canon;
   QString name;
+  QLayout* layout;
   QToolBar* tool_bar;
   QMenu* tm;
   Tile* root_tile;

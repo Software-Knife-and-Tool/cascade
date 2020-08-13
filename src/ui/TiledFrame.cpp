@@ -80,31 +80,35 @@ QToolButton* TiledFrame::toolMenu() {
   return tb;
 }
 
-TiledFrame::TiledFrame(QString name, MainTabBar* tb, Canon* cn)
+TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
+    init(true),    
     canon(cn),
-    name(name),
+    name(nm),
+    layout(new QVBoxLayout()),
     tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, new ScratchpadFrame("scratch-0", tb))) {
+    root_tile(new Tile(tb, new QFrame())) {
 
   connect(tool_bar->addAction(tr("vsplit")),
           &QAction::triggered, this,
           [this] () { this->root_tile->splitv(); });
+
   connect(tool_bar->addAction(tr("hsplit")),
           &QAction::triggered, this,
           [this] () { this->root_tile->splith(); });
+  
   tool_bar->addWidget(toolMenu());
+
   connect(tool_bar->addAction(tr("del")),
           &QAction::triggered, this, [this] () { });
 
-  auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
   layout->addWidget(root_tile);
   
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
 } /* logicaide namespace */
