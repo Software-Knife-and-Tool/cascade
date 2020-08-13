@@ -61,10 +61,17 @@ QToolButton* TiledFrame::toolMenu() {
   tb->setMenu(tm);
   tb->setStyleSheet(style);
   
-  tm->addAction(new QAction(tr("&composer"), this));
-  tm->addAction(new QAction(tr("&console"), this));
-  tm->addAction(new QAction(tr("&inspector"), this));
-  tm->addAction(new QAction(tr("&shell"), this));
+  tm->addAction(tr("&composer"),
+                [this] () {
+                  root_tile->split(new ComposerFrame("split-composer", this->tabBar, canon));
+                });
+  tm->addAction(tr("&console"),
+              [this] () {
+                  root_tile->split(new ConsoleFrame("split-console", this->tabBar));
+                });
+  
+  // tm->addAction(new QAction(tr("&inspector"), this));
+  // tm->addAction(new QAction(tr("&shell"), this));
   
   tm->addAction(tr("&scratch"),                
                 [this] () {
