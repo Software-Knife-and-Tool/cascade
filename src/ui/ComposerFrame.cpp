@@ -86,6 +86,10 @@ void ComposerFrame::eval() {
   emit evalHappened(edit_text->toPlainText());
 }
 
+void ComposerFrame::reset() {
+  canon = new Canon();
+}
+
 void ComposerFrame::save_as() {
   saveFileName = QFileDialog::getSaveFileName(this,
         tr("Save As"), "",
@@ -131,6 +135,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
           &QAction::triggered, this, &ComposerFrame::load);
   connect(tool_bar->addAction(tr("eval")),
           &QAction::triggered, this, &ComposerFrame::eval);
+  connect(tool_bar->addAction(tr("reset")),
+          &QAction::triggered, this, &ComposerFrame::reset);
   connect(tool_bar->addAction(tr("save")),
           &QAction::triggered, this, &ComposerFrame::save);
   connect(tool_bar->addAction(tr("save as")),

@@ -73,6 +73,7 @@ class ComposerFrame : public QFrame {
   void clear();
   void eval();
   void load();
+  void reset();
   void save();
   void save_as();
 
