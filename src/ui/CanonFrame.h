@@ -94,6 +94,8 @@ class CanonFrame : public QFrame {
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
+  void del();
+  
   Canon* canon;
   QString name;
   QScrollArea *scrollArea;

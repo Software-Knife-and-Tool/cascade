@@ -43,6 +43,7 @@
 #include <QTabWidget>
 
 #include "ConsoleFrame.h"
+#include "IdeFrame.h"
 #include "MainWindow.h"
 #include "UserFrame.h"
 #include "user.h"
@@ -59,7 +60,8 @@ namespace logicaide {
 class MainWindow;
 class ConsoleFrame;
 class UserFrame;
-
+  class IdeFrame;
+  
 class MainTabBar : public QTabWidget {
 
  Q_OBJECT
@@ -83,7 +85,7 @@ class MainTabBar : public QTabWidget {
 
  private:
   MainWindow* mw;
-  ConsoleFrame* co;
+  IdeFrame* ide;
 };
 
 } /* loigicaide namespace */

@@ -77,6 +77,7 @@ class ScratchpadFrame : public QFrame {
   void append();
   void save();
   void save_as();
+  void del();
 
   void log(QString msg) { tabBar->log(msg); }
 

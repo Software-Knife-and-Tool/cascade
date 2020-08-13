@@ -33,56 +33,56 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  IdeFrame.h: IdeFrame class
  **
  **/
-#include <QtWidgets>
-#include <QTabBar>
+#ifndef _LOGICAIDE_SRC_UI_IDEFRAME_H_
+#define _LOGICAIDE_SRC_UI_IDEFRAME_H_
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "ConsoleFrame.h"
+#include <QFrame>
+#include <QWidget>
+
 #include "MainTabBar.h"
 #include "MainWindow.h"
-#include "ScratchpadFrame.h"
-#include "TiledFrame.h"
+#include "TtyWidget.h"
+#include "canon.h"
+#include "user.h"
+
+QT_BEGIN_NAMESPACE
+class QLabel;
+class QVBoxLayout;
+class QWidget;
+QT_END_NAMESPACE
 
 namespace logicaide {
 
-void MainTabBar::log(QString msg) {
-  ide->log(msg);
-}
+class MainTabBar;
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+class IdeFrame : public QFrame {
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+ Q_OBJECT
 
-MainTabBar::MainTabBar(MainWindow *mw)
-  : mw(mw),
-    ide(new IdeFrame("ide", this)) {
-    
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+ public:
+  explicit IdeFrame(QString, MainTabBar*);
 
-  auto canon = new Canon();
-
-#if 0
-  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &CanonFrame::runStatus))
-    exit(0);
-#endif
+  void log(QString msg) {
+    // ttyWidget->writeTty(msg);
+  }
   
-  add(ide, QString("IDE"));
-  log(";;; IDE frame loaded");
+  void setContextStatus(QString);
 
-  add(new TiledFrame("tools", this, canon), "tools");
-  log(";;; tool frame loaded");
+  void showEvent(QShowEvent*) override;
 
-  add(new UserFrame("user", this), "user");
-  log(";;; preferences frame loaded");
-}
+ protected:
+
+ private:
+  MainTabBar* tabBar;
+  QString name;
+  ConsoleFrame* console;
+  QLabel* bannerLabel;
+  QVBoxLayout* layout;
+};
 
 } /* logicaide namespace */
+
+#endif  /* _LOGICAIDE_SRC_UI_IDEFRAME_H_ */
