@@ -51,6 +51,22 @@
 
 namespace logicaide {
 
+namespace {
+
+void scrub_layout(QLayout* layout) {
+  QLayoutItem * item;
+  QLayout * sublayout;
+  QWidget * widget;
+  while ((item = layout->takeAt(0))) {
+    if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+    else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+    else {delete item;}
+  }
+  
+  delete layout;
+}
+}
+  
 QToolButton* TiledFrame::toolMenu() {
   auto tb = new QToolButton(tool_bar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
@@ -63,8 +79,46 @@ QToolButton* TiledFrame::toolMenu() {
   
   tm->addAction(tr("&composer"),
                 [this] () {
-                  root_tile->split(new ComposerFrame("split-composer", this->tabBar, canon));
+                  if (init) {
+                    scrub_layout(layout);
+                    
+                    root_tile = new Tile(tabBar,
+                                         new ComposerFrame("init-composer",
+                                                           tabBar,
+                                                           canon));
+
+                    tool_bar = new QToolBar();
+                    
+                    connect(tool_bar->addAction(tr("vsplit")),
+                            &QAction::triggered, this,
+                            [this] () { root_tile->splitv(); });
+
+                    connect(tool_bar->addAction(tr("hsplit")),
+                            &QAction::triggered, this,
+                            [this] () { root_tile->splith(); });
+  
+                    tool_bar->addWidget(toolMenu());
+
+                    connect(tool_bar->addAction(tr("del")),
+                            &QAction::triggered, this, [this] () { });
+
+                    layout = new QVBoxLayout();
+                    layout->setContentsMargins(5, 5, 5, 5);
+                    layout->addWidget(tool_bar);
+                    layout->addWidget(root_tile);
+  
+                    setLayout(layout);
+                    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+                    setSizePolicy(QSizePolicy::Expanding,
+                                  QSizePolicy::Expanding);
+                  } else {
+                    root_tile->split(new ComposerFrame("split-composer",
+                                                       tabBar,
+                                                       canon));
+                  }
+                  init = false;
                 });
+  
   tm->addAction(tr("&console"),
               [this] () {
                   root_tile->split(new ConsoleFrame("split-console", this->tabBar));

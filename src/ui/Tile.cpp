@@ -67,7 +67,6 @@ void scrub_layout(QLayout* layout) {
 } /* anynonymous namespace */
 
 void Tile::split(QFrame* fr) {
-
   switch (tile_split) {
   case unsplit:
     break;
@@ -107,9 +106,9 @@ void Tile::splitv() {
   layout->setSizeConstraint(QLayout::SetMinimumSize);
 
   scrub_layout(this->layout());
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void Tile::splith() {
@@ -137,9 +136,9 @@ void Tile::splith() {
   layout->setSizeConstraint(QLayout::SetMinimumSize);
 
   scrub_layout(this->layout());
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 Tile::Tile(MainTabBar* tb, QFrame* cf)
