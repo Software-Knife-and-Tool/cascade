@@ -79,29 +79,38 @@ QToolButton* TiledFrame::toolMenu() {
   
   tm->addAction(tr("&composer"),
                 [this] () {
-                  if (init) {
+                  if (init)
                     root_tile->rebase(new ComposerFrame("rebase-composer",
                                                        tabBar,
                                                        canon));
-                  } else {
+                  else
                     root_tile->split(new ComposerFrame("split-composer",
                                                        tabBar,
                                                        canon));
-                  }
                   init = false;
                 });
   
   tm->addAction(tr("&console"),
-              [this] () {
-                  root_tile->split(new ConsoleFrame("split-console", this->tabBar));
+                  if (init)
+                    root_tile->rebase(new ConsoleFrame("rebase-console",
+                                                       tabBar));
+                  else
+                    root_tile->split(new ConsoleFrame("split-console",
+                                                       tabBar));
+                  init = false;
                 });
   
   // tm->addAction(new QAction(tr("&inspector"), this));
   // tm->addAction(new QAction(tr("&shell"), this));
   
   tm->addAction(tr("&scratch"),                
-                [this] () {
-                  root_tile->split(new ScratchpadFrame("split-scratch", this->tabBar));
+                  if (init)
+                    root_tile->rebase(new ScratchpadFrameFrame("rebase-scratch",
+                                                               tabBar));
+                  else
+                    root_tile->split(new ScratchpadFrame("split-scratch",
+                                                         tabBar));
+                  init = false;
                 });
   return tb;
 }
