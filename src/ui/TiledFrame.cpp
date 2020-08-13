@@ -181,11 +181,11 @@ TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
 
   connect(tool_bar->addAction(tr("vsplit")),
           &QAction::triggered, this,
-          [this] () { this->root_tile->splitv(); });
+          [this] () { init = false; this->root_tile->splitv(); });
 
   connect(tool_bar->addAction(tr("hsplit")),
           &QAction::triggered, this,
-          [this] () { this->root_tile->splith(); });
+          [this] () { init = false; this->root_tile->splith(); });
   
   tool_bar->addWidget(toolMenu());
 
