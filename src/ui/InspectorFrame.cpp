@@ -58,8 +58,8 @@ InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
     canon(cn),
     name(name),
     composer_frame(new ComposerFrame("inspector", tb, cn)),
-    time_label(new QLabel("time info")),
     view_label(new QLabel("view info")),
+    time_label(new QLabel("time info")),
     tool_bar(new QToolBar()) {
 
   auto layout = new QVBoxLayout;
