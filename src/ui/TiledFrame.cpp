@@ -67,41 +67,6 @@ void scrub_layout(QLayout* layout) {
 }
 }
 
-void TiledFrame::relayout() {
-    
-  scrub_layout(layout);
-                    
-  root_tile = new Tile(tabBar,
-                       new ComposerFrame("init-composer",
-                                         tabBar,
-                                         canon));
-
-  tool_bar = new QToolBar();
-  
-  connect(tool_bar->addAction(tr("vsplit")),
-          &QAction::triggered, this,
-          [this] () { root_tile->splitv(); });
-
-  connect(tool_bar->addAction(tr("hsplit")),
-          &QAction::triggered, this,
-          [this] () { root_tile->splith(); });
-  
-  tool_bar->addWidget(toolMenu());
-
-  connect(tool_bar->addAction(tr("del")),
-          &QAction::triggered, this, [this] () { });
-
-  layout = new QVBoxLayout();
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(root_tile);
-  
-  setLayout(layout);
-  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  setSizePolicy(QSizePolicy::Expanding,
-                QSizePolicy::Expanding);
-}
-
 QToolButton* TiledFrame::toolMenu() {
   auto tb = new QToolButton(tool_bar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
@@ -115,38 +80,9 @@ QToolButton* TiledFrame::toolMenu() {
   tm->addAction(tr("&composer"),
                 [this] () {
                   if (init) {
-                    scrub_layout(layout);
-                    
-                    root_tile = new Tile(tabBar,
-                                         new ComposerFrame("init-composer",
-                                                           tabBar,
-                                                           canon));
-
-                    tool_bar = new QToolBar();
-                    
-                    connect(tool_bar->addAction(tr("vsplit")),
-                            &QAction::triggered, this,
-                            [this] () { root_tile->splitv(); });
-
-                    connect(tool_bar->addAction(tr("hsplit")),
-                            &QAction::triggered, this,
-                            [this] () { root_tile->splith(); });
-  
-                    tool_bar->addWidget(toolMenu());
-
-                    connect(tool_bar->addAction(tr("del")),
-                            &QAction::triggered, this, [this] () { });
-
-                    layout = new QVBoxLayout();
-                    layout->setContentsMargins(5, 5, 5, 5);
-                    layout->addWidget(tool_bar);
-                    layout->addWidget(root_tile);
-  
-                    setLayout(layout);
-                    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-                    setSizePolicy(QSizePolicy::Expanding,
-                                  QSizePolicy::Expanding);
-                    
+                    root_tile->rebase(new ComposerFrame("rebase-composer",
+                                                       tabBar,
+                                                       canon));
                   } else {
                     root_tile->split(new ComposerFrame("split-composer",
                                                        tabBar,

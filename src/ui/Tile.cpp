@@ -81,6 +81,30 @@ void Tile::split(QFrame* fr) {
   }
 }
 
+void Tile::rebase(QFrame* base) {
+  auto size = this->frameSize();
+
+  base_frame = base;
+  base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  base_frame->setStyleSheet(selected);
+  base_frame->setMinimumHeight(size.height() / 2);
+  
+  QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spBase.setVerticalStretch(1);
+  base_frame->setSizePolicy(spBase);
+
+  auto layout = new QVBoxLayout();
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(base_frame);
+  layout->setSizeConstraint(QLayout::SetMinimumSize);
+
+  scrub_layout(this->layout());
+  setLayout(layout);
+  
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
 void Tile::splitv() {
   auto size = this->frameSize();
 

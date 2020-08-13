@@ -72,6 +72,7 @@ class Tile : public QFrame {
   void splith();
 
   void split(QFrame*);
+  void rebase(QFrame*);
   
  private:
   enum split_type { unsplit, horizontal, vertical };
