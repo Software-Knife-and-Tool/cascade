@@ -91,6 +91,7 @@ QToolButton* TiledFrame::toolMenu() {
                 });
   
   tm->addAction(tr("&console"),
+                [this] () {
                   if (init)
                     root_tile->rebase(new ConsoleFrame("rebase-console",
                                                        tabBar));
@@ -103,9 +104,10 @@ QToolButton* TiledFrame::toolMenu() {
   // tm->addAction(new QAction(tr("&inspector"), this));
   // tm->addAction(new QAction(tr("&shell"), this));
   
-  tm->addAction(tr("&scratch"),                
+  tm->addAction(tr("&scratch"),
+                [this] () {
                   if (init)
-                    root_tile->rebase(new ScratchpadFrameFrame("rebase-scratch",
+                    root_tile->rebase(new ScratchpadFrame("rebase-scratch",
                                                                tabBar));
                   else
                     root_tile->split(new ScratchpadFrame("split-scratch",
