@@ -142,26 +142,19 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   connect(tool_bar->addAction(tr("save as")),
           &QAction::triggered, this, &ComposerFrame::save_as);
 
-  edit_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  edit_text->setStyleSheet(style);
-  edit_text->installEventFilter(this);
-
-#if 0
   edit_scroll->setWidget(edit_text);
   edit_scroll->setWidgetResizable(true);
   edit_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-#endif
+  edit_scroll->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  edit_scroll->setStyleSheet(style);
+  edit_scroll->installEventFilter(this);
   
-  eval_text->setAlignment(Qt::AlignTop);
-  eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  eval_text->setStyleSheet(style);
-  eval_text->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    
-#if 0
   eval_scroll->setWidget(eval_text);
   eval_scroll->setWidgetResizable(true);
   eval_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-#endif
+  eval_scroll->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  eval_scroll->setStyleSheet(style);
+  eval_scroll->installEventFilter(this);
   
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
@@ -174,8 +167,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
-  layout->addWidget(edit_text);
-  layout->addWidget(eval_text);
+  layout->addWidget(edit_scroll);
+  layout->addWidget(eval_scroll);
   
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
