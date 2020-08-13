@@ -91,6 +91,9 @@ void ComposerFrame::reset() {
   canon = new Canon();
 }
 
+void ComposerFrame::del() {
+}
+
 void ComposerFrame::save_as() {
   saveFileName = QFileDialog::getSaveFileName(this,
         tr("Save As"), "",
@@ -144,6 +147,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
           &QAction::triggered, this, &ComposerFrame::save);
   connect(tool_bar->addAction(tr("save as")),
           &QAction::triggered, this, &ComposerFrame::save_as);
+  connect(tool_bar->addAction(tr("del")),
+          &QAction::triggered, this, &ComposerFrame::del);
 
   edit_scroll->setWidget(edit_text);
   edit_scroll->setWidgetResizable(true);

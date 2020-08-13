@@ -33,79 +33,73 @@
 
 /********
  **
- **  CanonFrame.cpp: CanonFrame implementation
+ **  ConsoleFrame.cpp: ConsoleFrame implementation
  **
  **/
-#include <QDate>
-#include <QFileDialog>
-#include <QLabel>
-#include <QScrollArea>
-#include <QString>
-#include <QTextEdit>
-#include <QToolBar>
 #include <QtWidgets>
+#include <QString>
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "canon.h"
+#include "ConsoleFrame.h"
 
 namespace logicaide {
 
-void CanonFrame::del() { };
-
-void CanonFrame::runStatus(QString form) {
-  auto date =
-    new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
-
-  statusText->setText(statusText->text() +
-                      "\n;;;\n;;; " +
-                      form +
-                      " evaluated at " +
-                      date +
-                      "\n;;;\n" +
-                      canon->rep("(room :nil)"));
+void ConsoleFrame::setContextStatus(QString str) {
+  tabBar->setContextStatus(str);
 }
 
-CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
-  : canon(cn),
+void ConsoleFrame::showEvent(QShowEvent* event) {
+  QWidget::showEvent(event);
+  tabBar->setContextStatus(name);
+}
+
+ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
+  : tabBar(tb),
     name(name),
-    scrollArea(new QScrollArea()),
-    statusText(new QLabel()),
-    toolBar(new QToolBar()),
-    tabBar(tb) {
-
-  connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &CanonFrame::del);
-
-  statusText->setAlignment(Qt::AlignTop);
-  statusText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  statusText->setStyleSheet(style);
-
-  scrollArea->setWidget(statusText);
-  scrollArea->setWidgetResizable(true);
-  scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-
-  QSizePolicy spStatus(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spStatus.setVerticalStretch(1);
-  statusText->setSizePolicy(spStatus);
-  
-  auto layout = new QVBoxLayout;
-  layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(toolBar);
-  layout->addWidget(scrollArea);
+    ttyWidget(new TtyWidget(this)) {
     
-  this->setLayout(layout);
+  std::string html =
+    "<html>"
+    "  <body bgcolor=#c0c0c0>"
+    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
+    "      <div>"
+    "        <br>"
+    "        <h1>Logica IDE <i>%1</i></h1>"
+    "        <p></p>"
+    "        <h2>running on <i>%2</i>, %3</h2>"
+    "        <h2>%4</h2>"
+    "        <p></p>"
+    "      </div>"
+    "      <p></p>"
+    "    </span>"
+    "  </body>"
+    "</html>";
+
+  auto user = tabBar->userInfo();
+  
+  auto system_html =
+    QString::fromStdString(html).arg("0.0.5",
+                                     user->aboutHost(),
+                                     "an " + user->aboutCpu() + " system",
+                                     user->aboutSystem());
+
+  bannerLabel = new QLabel(system_html);
+  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel->setAlignment(Qt::AlignCenter);
+  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+
+  QSizePolicy tty_policy = ttyWidget->sizePolicy();
+  tty_policy.setVerticalStretch(1);
+  ttyWidget->setSizePolicy(tty_policy);
+  
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  QString out;
-
-  auto error_text =
-    canon->withException([this, &out]() {
-         out = canon->rep("(room :default)");
-       });
-
-  statusText->setText(out + error_text);
+  
+  layout = new QVBoxLayout;
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(bannerLabel);
+  layout->addWidget(ttyWidget);
+  
+  this->setLayout(layout);
 }
 
 } /* logicaide namespace */

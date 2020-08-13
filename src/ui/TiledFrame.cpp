@@ -136,9 +136,6 @@ TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
   
   tool_bar->addWidget(toolMenu());
 
-  connect(tool_bar->addAction(tr("del")),
-          &QAction::triggered, this, [this] () { });
-
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
   layout->addWidget(root_tile);

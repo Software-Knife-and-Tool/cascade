@@ -55,6 +55,9 @@ void ScratchpadFrame::clear() {
   scratchText->setText("");
 }
 
+void ScratchpadFrame::del() {
+}
+
 void ScratchpadFrame::load() {
   loadFileName =
     QFileDialog::getOpenFileName(this,
@@ -121,7 +124,9 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
           &QAction::triggered, this, &ScratchpadFrame::save);
   connect(toolBar->addAction(tr("save as")),
           &QAction::triggered, this, &ScratchpadFrame::save_as);
-
+  connect(toolBar->addAction(tr("del")),
+          &QAction::triggered, this, &ScratchpadFrame::del);
+  
   scratchText->setAlignment(Qt::AlignTop);
   scratchText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   scratchText->setStyleSheet(style);

@@ -76,7 +76,8 @@ class ComposerFrame : public QFrame {
   void reset();
   void save();
   void save_as();
-
+  void del();
+  
   void log(QString msg) { tabBar->log(msg); }
   
   void setContextStatus(QString str) {

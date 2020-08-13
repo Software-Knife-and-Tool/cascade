@@ -57,36 +57,6 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
     name(name),
     ttyWidget(new TtyWidget(this)) {
     
-  std::string html =
-    "<html>"
-    "  <body bgcolor=#c0c0c0>"
-    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
-    "      <div>"
-    "        <br>"
-    "        <h1>Logica IDE <i>%1</i></h1>"
-    "        <p></p>"
-    "        <h2>running on <i>%2</i>, %3</h2>"
-    "        <h2>%4</h2>"
-    "        <p></p>"
-    "      </div>"
-    "      <p></p>"
-    "    </span>"
-    "  </body>"
-    "</html>";
-
-  auto user = tabBar->userInfo();
-  
-  auto system_html =
-    QString::fromStdString(html).arg("0.0.5",
-                                     user->aboutHost(),
-                                     "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
-
-  bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  bannerLabel->setAlignment(Qt::AlignCenter);
-  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
-
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
   tty_policy.setVerticalStretch(1);
   ttyWidget->setSizePolicy(tty_policy);
@@ -96,7 +66,6 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
   layout->addWidget(ttyWidget);
   
   this->setLayout(layout);
