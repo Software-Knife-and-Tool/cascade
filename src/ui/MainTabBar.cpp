@@ -81,14 +81,8 @@ MainTabBar::MainTabBar(MainWindow *mw)
   add(new TiledFrame("main", this, canon), "main");
   log(";;; main frame loaded");
 
-  add(new ComposerFrame("composer", this, canon), "composer");
-  log(";;; script frame loaded");
-
   add(new CanonFrame("canon", this, canon), "canon");
   log(";;; canon frame loaded");
-
-  add(new ScratchpadFrame("scratch", this), "scratch");
-  log(";;; scratchpad frame loaded");
 
   add(new UserFrame("preferences", this), "preferences");
   log(";;; preferences frame loaded");

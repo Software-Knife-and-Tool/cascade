@@ -38,6 +38,7 @@
  **/
 #include <QFileDialog>
 #include <QLabel>
+#include <QSplitter>
 #include <QTextEdit>
 #include <QToolBar>
 #include <QString>
@@ -129,6 +130,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
     edit_scroll(new QScrollArea()),
     eval_scroll(new QScrollArea()) {
 
+  auto size = this->frameSize();
+
   connect(tool_bar->addAction(tr("clear")),
           &QAction::triggered, this, &ComposerFrame::clear);
   connect(tool_bar->addAction(tr("load")),
@@ -155,6 +158,7 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   eval_scroll->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_scroll->setStyleSheet(style);
   eval_scroll->installEventFilter(this);
+  eval_scroll->setMinimumHeight(size.height() / 2);
   
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
@@ -163,12 +167,15 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEval.setVerticalStretch(1);
   eval_text->setSizePolicy(spEval);
- 
+
+  auto vs = new QSplitter(Qt::Vertical, this);
+  vs->addWidget(edit_scroll);
+  vs->addWidget(eval_scroll);
+
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(tool_bar);
-  layout->addWidget(edit_scroll);
-  layout->addWidget(eval_scroll);
+  layout->addWidget(vs);
   
   this->setLayout(layout);
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
