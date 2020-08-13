@@ -65,8 +65,11 @@ QToolButton* TiledFrame::toolMenu() {
   tm->addAction(new QAction(tr("&console"), this));
   tm->addAction(new QAction(tr("&inspector"), this));
   tm->addAction(new QAction(tr("&shell"), this));
-  tm->addAction(new QAction(tr("&scratch"), this));
-
+  
+  tm->addAction(tr("&scratch"),                
+                [this] () {
+                  root_tile->split(new ScratchpadFrame("split-scratch", this->tabBar));
+                });
   return tb;
 }
 

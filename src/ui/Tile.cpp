@@ -44,7 +44,6 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "ComposerFrame.h"
 #include "Tile.h"
 #include "canon.h"
 
@@ -67,10 +66,28 @@ void scrub_layout(QLayout* layout) {
   
 } /* anynonymous namespace */
 
+void Tile::split(QFrame* fr) {
+
+  switch (tile_split) {
+  case unsplit:
+    break;
+  case horizontal:
+    split_tile = new Tile(tabBar, fr);
+    splith();
+    break;
+  case vertical:
+    split_tile = new Tile(tabBar, fr);
+    splitv();
+    break;
+  }
+}
+
 void Tile::splitv() {
   auto size = this->frameSize();
+
+  tile_split = horizontal;
   
-  auto panel = new QFrame();
+  auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   panel->setStyleSheet(selected);
   panel->setMinimumHeight(size.height() / 2);
@@ -98,7 +115,9 @@ void Tile::splitv() {
 void Tile::splith() {
   auto size = this->frameSize();
   
-  auto panel = new QFrame();
+  tile_split = vertical;
+
+  auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   panel->setStyleSheet(selected);
   panel->setMinimumWidth(size.width() / 2);
@@ -125,6 +144,7 @@ void Tile::splith() {
 
 Tile::Tile(MainTabBar* tb, QFrame* cf)
   : tabBar(tb),
+    tile_split(unsplit),
     base_frame(cf),
     split_tile(nullptr) {
 

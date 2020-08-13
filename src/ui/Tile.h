@@ -46,7 +46,6 @@
 #include <QWidget>
 
 #include "canon.h"
-#include "ComposerFrame.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -72,9 +71,13 @@ class Tile : public QFrame {
   void splitv();
   void splith();
 
-  void log(QString msg) { tabBar->log(msg); }
+  void split(QFrame*);
+  
+ private:
+  enum split_type { unsplit, horizontal, vertical };
+  
+  void log(QString msg) { tabBar->log(msg); }  
 
- private:  
   const char* style = "color: rgb(0, 0, 0);"
                       "background-color: rgb(255, 255, 255);";
 
@@ -87,7 +90,7 @@ class Tile : public QFrame {
 
   MainTabBar *tabBar;
   Canon* canon;
-  
+  split_type tile_split;
   QFrame* base_frame;
   Tile* split_tile;
 };
