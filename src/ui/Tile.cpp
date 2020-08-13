@@ -85,7 +85,7 @@ void Tile::split(QFrame* fr) {
 void Tile::splitv() {
   auto size = this->frameSize();
 
-  tile_split = horizontal;
+  tile_split = vertical;
   
   auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
@@ -115,7 +115,7 @@ void Tile::splitv() {
 void Tile::splith() {
   auto size = this->frameSize();
   
-  tile_split = vertical;
+  tile_split = horizontal;
 
   auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
