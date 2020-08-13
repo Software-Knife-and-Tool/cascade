@@ -155,7 +155,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   eval_text->setAlignment(Qt::AlignTop);
   eval_text->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   eval_text->setStyleSheet(style);
-
+  eval_text->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    
 #if 0
   eval_scroll->setWidget(eval_text);
   eval_scroll->setWidgetResizable(true);
