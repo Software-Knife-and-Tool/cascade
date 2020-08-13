@@ -77,6 +77,7 @@ class TiledFrame : public QFrame {
   }
 
  private:
+  void relayout();
   QToolButton* toolMenu();
   
   const char* style = "color: rgb(0, 0, 0);"

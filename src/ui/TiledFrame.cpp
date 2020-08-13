@@ -51,6 +51,22 @@
 
 namespace logicaide {
 
+namespace {
+
+void scrub_layout(QLayout* layout) {
+  QLayoutItem * item;
+  QLayout * sublayout;
+  QWidget * widget;
+  while ((item = layout->takeAt(0))) {
+    if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+    else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+    else {delete item;}
+  }
+  
+  delete layout;
+}
+}
+
 QToolButton* TiledFrame::toolMenu() {
   auto tb = new QToolButton(tool_bar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
@@ -63,19 +79,40 @@ QToolButton* TiledFrame::toolMenu() {
   
   tm->addAction(tr("&composer"),
                 [this] () {
-                  root_tile->split(new ComposerFrame("split-composer", this->tabBar, canon));
+                  if (init)
+                    root_tile->rebase(new ComposerFrame("rebase-composer",
+                                                       tabBar,
+                                                       canon));
+                  else
+                    root_tile->split(new ComposerFrame("split-composer",
+                                                       tabBar,
+                                                       canon));
+                  init = false;
                 });
+  
   tm->addAction(tr("&console"),
-              [this] () {
-                  root_tile->split(new ConsoleFrame("split-console", this->tabBar));
+                [this] () {
+                  if (init)
+                    root_tile->rebase(new ConsoleFrame("rebase-console",
+                                                       tabBar));
+                  else
+                    root_tile->split(new ConsoleFrame("split-console",
+                                                       tabBar));
+                  init = false;
                 });
   
   // tm->addAction(new QAction(tr("&inspector"), this));
   // tm->addAction(new QAction(tr("&shell"), this));
   
-  tm->addAction(tr("&scratch"),                
+  tm->addAction(tr("&scratch"),
                 [this] () {
-                  root_tile->split(new ScratchpadFrame("split-scratch", this->tabBar));
+                  if (init)
+                    root_tile->rebase(new ScratchpadFrame("rebase-scratch",
+                                                               tabBar));
+                  else
+                    root_tile->split(new ScratchpadFrame("split-scratch",
+                                                         tabBar));
+                  init = false;
                 });
   return tb;
 }
@@ -91,11 +128,11 @@ TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
 
   connect(tool_bar->addAction(tr("vsplit")),
           &QAction::triggered, this,
-          [this] () { this->root_tile->splitv(); });
+          [this] () { init = false; this->root_tile->splitv(); });
 
   connect(tool_bar->addAction(tr("hsplit")),
           &QAction::triggered, this,
-          [this] () { this->root_tile->splith(); });
+          [this] () { init = false; this->root_tile->splith(); });
   
   tool_bar->addWidget(toolMenu());
 

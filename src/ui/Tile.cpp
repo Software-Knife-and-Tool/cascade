@@ -67,7 +67,6 @@ void scrub_layout(QLayout* layout) {
 } /* anynonymous namespace */
 
 void Tile::split(QFrame* fr) {
-
   switch (tile_split) {
   case unsplit:
     break;
@@ -80,6 +79,30 @@ void Tile::split(QFrame* fr) {
     splitv();
     break;
   }
+}
+
+void Tile::rebase(QFrame* base) {
+  auto size = this->frameSize();
+
+  base_frame = base;
+  base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  base_frame->setStyleSheet(selected);
+  base_frame->setMinimumHeight(size.height() / 2);
+  
+  QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  spBase.setVerticalStretch(1);
+  base_frame->setSizePolicy(spBase);
+
+  auto layout = new QVBoxLayout();
+  layout->setContentsMargins(5, 5, 5, 5);
+  layout->addWidget(base_frame);
+  layout->setSizeConstraint(QLayout::SetMinimumSize);
+
+  scrub_layout(this->layout());
+  setLayout(layout);
+  
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void Tile::splitv() {
@@ -107,9 +130,9 @@ void Tile::splitv() {
   layout->setSizeConstraint(QLayout::SetMinimumSize);
 
   scrub_layout(this->layout());
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void Tile::splith() {
@@ -137,9 +160,9 @@ void Tile::splith() {
   layout->setSizeConstraint(QLayout::SetMinimumSize);
 
   scrub_layout(this->layout());
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 Tile::Tile(MainTabBar* tb, QFrame* cf)
