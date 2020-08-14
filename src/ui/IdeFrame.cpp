@@ -40,9 +40,12 @@
 #include <QString>
 
 #include "IdeFrame.h"
+#include "MainTabBar.h"
 
 namespace logicaide {
 
+void IdeFrame::log(QString msg) { console->log(msg); }
+  
 void IdeFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
 }
@@ -76,30 +79,25 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
 
   auto user = tabBar->userInfo();
   
-  auto system_html =
+  auto syshtml =
     QString::fromStdString(html).arg("0.0.5",
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
                                      user->aboutSystem());
 
-  bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel = new QLabel(syshtml);
   bannerLabel->setAlignment(Qt::AlignCenter);
-  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
-  QSizePolicy cons_policy = console->sizePolicy();
-  cons_policy.setVerticalStretch(1);
-  console->setSizePolicy(cons_policy);
-  
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  QSizePolicy policy = console->sizePolicy();
+  policy.setVerticalStretch(1);
+  console->setSizePolicy(policy);
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(bannerLabel);
   layout->addWidget(console);
   
-  this->setLayout(layout);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

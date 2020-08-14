@@ -69,35 +69,25 @@ class TiledFrame : public QFrame {
  public:
   explicit TiledFrame(QString, MainTabBar*, Canon*);
 
-  void log(QString msg) { tabBar->log(msg); }
+ private:
 
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
     tabBar->setContextStatus(name);
   }
 
- private:
-  void relayout();
+  void log(QString msg) { tabBar->log(msg); }
+  
   QToolButton* toolMenu();
   
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  const char* selected =
-                      "border-style: solid;"
-                      "border-width: 1px;"
-                      "border-color: black;"
-                      "color: rgb(0, 0, 0);"
-                      "background-color: rgb(192, 192, 192);";
-
   MainTabBar *tabBar;
   bool init;
   Canon* canon;
   QString name;
   QLayout* layout;
-  QToolBar* tool_bar;
+  QToolBar* toolBar;
   QMenu* tm;
-  Tile* root_tile;
+  Tile* rootTile;
 };
 
 } /* logicaide namespace */

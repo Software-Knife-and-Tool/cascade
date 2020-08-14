@@ -84,7 +84,6 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
                       user->aboutSystem());
 
   bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
   bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
@@ -92,7 +91,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(bannerLabel);
   
-  this->setLayout(layout);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

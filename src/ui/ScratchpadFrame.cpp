@@ -128,8 +128,6 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
           &QAction::triggered, this, &ScratchpadFrame::del);
   
   scratchText->setAlignment(Qt::AlignTop);
-  scratchText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  scratchText->setStyleSheet(style);
 
   scrollArea->setWidget(scratchText);
   scrollArea->setWidgetResizable(true);
@@ -145,8 +143,6 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   layout->addWidget(scrollArea);
     
   this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 } /* logicaide namespace */

@@ -83,9 +83,9 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
                                      user->aboutSystem());
 
   bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  // bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   bannerLabel->setAlignment(Qt::AlignCenter);
-  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
+  // bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
   tty_policy.setVerticalStretch(1);

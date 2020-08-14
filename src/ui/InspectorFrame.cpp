@@ -57,21 +57,19 @@ InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb),
     canon(cn),
     name(name),
-    composer_frame(new ComposerFrame("inspector", tb, cn)),
-    view_label(new QLabel("view info")),
-    time_label(new QLabel("time info")),
-    tool_bar(new QToolBar()) {
+    composerFrame(new ComposerFrame("inspector", tb, cn)),
+    viewLabel(new QLabel("view info")),
+    timeLabel(new QLabel("time info")),
+    toolBar(new QToolBar()) {
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(composer_frame);
-  layout->addWidget(time_label);
-  layout->addWidget(view_label);
+  layout->addWidget(toolBar);
+  layout->addWidget(composerFrame);
+  layout->addWidget(timeLabel);
+  layout->addWidget(viewLabel);
   
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

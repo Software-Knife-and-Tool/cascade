@@ -60,7 +60,7 @@ namespace logicaide {
 class MainWindow;
 class ConsoleFrame;
 class UserFrame;
-  class IdeFrame;
+class IdeFrame;
   
 class MainTabBar : public QTabWidget {
 
@@ -85,7 +85,7 @@ class MainTabBar : public QTabWidget {
 
  private:
   MainWindow* mw;
-  IdeFrame* ide;
+  IdeFrame* ideFrame;
 };
 
 } /* loigicaide namespace */

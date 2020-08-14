@@ -67,17 +67,12 @@ class ConsoleFrame : public QFrame {
  public:
   explicit ConsoleFrame(QString, MainTabBar*);
 
-  void log(QString msg) {
-    ttyWidget->writeTty(msg);
-  }
+  void log(QString msg) { ttyWidget->writeTty(msg); }
   
-  void setContextStatus(QString);
-
-  void showEvent(QShowEvent*) override;
-
- protected:
-
  private:
+  void setContextStatus(QString);
+  void showEvent(QShowEvent*);
+
   MainTabBar* tabBar;
   QString name;
   TtyWidget* ttyWidget;

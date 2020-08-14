@@ -61,14 +61,11 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   tty_policy.setVerticalStretch(1);
   ttyWidget->setSizePolicy(tty_policy);
   
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(ttyWidget);
   
-  this->setLayout(layout);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

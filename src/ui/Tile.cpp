@@ -52,9 +52,10 @@ namespace logicaide {
 namespace {
 
 void scrub_layout(QLayout* layout) {
-  QLayoutItem * item;
-  QLayout * sublayout;
-  QWidget * widget;
+  QLayoutItem* item;
+  QLayout* sublayout;
+  QWidget* widget;
+
   while ((item = layout->takeAt(0))) {
     if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
     else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
@@ -67,15 +68,15 @@ void scrub_layout(QLayout* layout) {
 } /* anynonymous namespace */
 
 void Tile::split(QFrame* fr) {
-  switch (tile_split) {
-  case unsplit:
+  switch (splitState) {
+  case UNSPLIT:
     break;
-  case horizontal:
-    split_tile = new Tile(tabBar, fr);
+  case HORIZONTAL:
+    splitTile = new Tile(tabBar, fr);
     splith();
     break;
-  case vertical:
-    split_tile = new Tile(tabBar, fr);
+  case VERTICAL:
+    splitTile = new Tile(tabBar, fr);
     splitv();
     break;
   }
@@ -84,18 +85,16 @@ void Tile::split(QFrame* fr) {
 void Tile::rebase(QFrame* base) {
   auto size = this->frameSize();
 
-  base_frame = base;
-  base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  base_frame->setStyleSheet(selected);
-  base_frame->setMinimumHeight(size.height() / 2);
+  baseFrame = base;
+  baseFrame->setMinimumHeight(size.height() / 2);
   
   QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spBase.setVerticalStretch(1);
-  base_frame->setSizePolicy(spBase);
+  baseFrame->setSizePolicy(spBase);
 
   auto layout = new QVBoxLayout();
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(base_frame);
+  layout->addWidget(baseFrame);
   layout->setSizeConstraint(QLayout::SetMinimumSize);
 
   scrub_layout(this->layout());
@@ -108,11 +107,9 @@ void Tile::rebase(QFrame* base) {
 void Tile::splitv() {
   auto size = this->frameSize();
 
-  tile_split = vertical;
+  splitState = VERTICAL;
   
-  auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
-  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  panel->setStyleSheet(selected);
+  auto panel = (splitTile == nullptr) ? new QFrame() : splitTile;
   panel->setMinimumHeight(size.height() / 2);
   
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -120,7 +117,7 @@ void Tile::splitv() {
   panel->setSizePolicy(spPanel);
 
   auto vs = new QSplitter(Qt::Vertical, this);
-  vs->addWidget(base_frame);
+  vs->addWidget(baseFrame);
   vs->addWidget(panel);
   vs->setStretchFactor(1, 1);
 
@@ -131,18 +128,16 @@ void Tile::splitv() {
 
   scrub_layout(this->layout());
   setLayout(layout);
-  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void Tile::splith() {
   auto size = this->frameSize();
   
-  tile_split = horizontal;
+  splitState = HORIZONTAL;
 
-  auto panel = (split_tile == nullptr) ? new QFrame() : split_tile;
+  auto panel = (splitTile == nullptr) ? new QFrame() : splitTile;
   panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  panel->setStyleSheet(selected);
   panel->setMinimumWidth(size.width() / 2);
   
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -150,7 +145,7 @@ void Tile::splith() {
   panel->setSizePolicy(spPanel);
 
   auto hs = new QSplitter(Qt::Horizontal, this);
-  hs->addWidget(base_frame);
+  hs->addWidget(baseFrame);
   hs->addWidget(panel);
   hs->setStretchFactor(1, 1);
 
@@ -161,38 +156,27 @@ void Tile::splith() {
 
   scrub_layout(this->layout());
   setLayout(layout);
-  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 Tile::Tile(MainTabBar* tb, QFrame* cf)
   : tabBar(tb),
-    tile_split(unsplit),
-    base_frame(cf),
-    split_tile(nullptr) {
+    splitState(UNSPLIT),
+    baseFrame(cf),
+    splitTile(nullptr) {
 
-  base_frame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  base_frame->setStyleSheet(style);
+  baseFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   
   QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spBase.setVerticalStretch(1);
-  base_frame->setSizePolicy(spBase);
-
-  auto panel = new QFrame();
-  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  panel->setStyleSheet(selected);
-  
-  QSizePolicy spTop(QSizePolicy::Preferred, QSizePolicy::Preferred);
-  spTop.setVerticalStretch(1);
-  panel->setSizePolicy(spTop);
+  baseFrame->setSizePolicy(spBase);
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(base_frame);
+  layout->addWidget(baseFrame);
 
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
+  setLayout(layout);
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
 } /* logicaide namespace */
