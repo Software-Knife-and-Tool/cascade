@@ -56,10 +56,8 @@ void IdeFrame::showEvent(QShowEvent* event) {
 }
 
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)
-  : tabBar(tb),
-    name(name),
-    console(new ConsoleFrame("ide-console", tb)) {
-    
+  : tabBar(tb), name(name) {
+  
   std::string html =
     "<html>"
     "  <body bgcolor=#c0c0c0>"
@@ -88,16 +86,27 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   bannerLabel = new QLabel(syshtml);
   bannerLabel->setAlignment(Qt::AlignCenter);
 
+  auto top = new QFrame();
+  
+  auto tlayout = new QVBoxLayout;
+  tlayout->setContentsMargins(5, 5, 5, 5);
+  tlayout->addWidget(bannerLabel);
+  
+  top->setLayout(tlayout);
+  top->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  
+  console = new ConsoleFrame("ide-console", tb);
   QSizePolicy policy = console->sizePolicy();
   policy.setVerticalStretch(1);
   console->setSizePolicy(policy);
-  
+
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
+  layout->addWidget(top);
   layout->addWidget(console);
   
   setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
 } /* logicaide namespace */

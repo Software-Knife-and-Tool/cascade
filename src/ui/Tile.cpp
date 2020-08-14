@@ -137,7 +137,6 @@ void Tile::splith() {
   splitState = HORIZONTAL;
 
   auto panel = (splitTile == nullptr) ? new QFrame() : splitTile;
-  panel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   panel->setMinimumWidth(size.width() / 2);
   
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -160,10 +159,10 @@ void Tile::splith() {
 }
 
 Tile::Tile(MainTabBar* tb, QFrame* cf)
-  : tabBar(tb),
-    splitState(UNSPLIT),
-    baseFrame(cf),
-    splitTile(nullptr) {
+  : tabBar(tb), baseFrame(cf) {
+  
+  splitState = UNSPLIT;
+  splitTile = nullptr;
 
   baseFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   

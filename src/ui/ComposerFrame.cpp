@@ -123,17 +123,11 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
 }
   
 ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    name(name),
-    editText(new QTextEdit()),
-    evalText(new QLabel()),
-    toolBar(new QToolBar()),
-    editScroll(new QScrollArea()),
-    evalScroll(new QScrollArea()) {
-
+  : tabBar(tb), canon(cn), name(name) {
+  
   auto size = this->frameSize();
 
+  toolBar = new QToolBar();
   connect(toolBar->addAction(tr("clear")),
           &QAction::triggered, this, &ComposerFrame::clear);
   connect(toolBar->addAction(tr("load")),
@@ -149,11 +143,15 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   connect(toolBar->addAction(tr("del")),
           &QAction::triggered, this, &ComposerFrame::del);
 
+  editText = new QTextEdit();
+  editScroll = new QScrollArea();
   editScroll->setWidget(editText);
   editScroll->setWidgetResizable(true);
   editScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   editScroll->installEventFilter(this);
-  
+
+  evalText = new QLabel();
+  evalScroll = new QScrollArea();
   evalScroll->setWidget(evalText);
   evalScroll->setWidgetResizable(true);
   evalScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);

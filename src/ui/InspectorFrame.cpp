@@ -54,13 +54,12 @@ void InspectorFrame::clear() {
 }
 
 InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    name(name),
-    composerFrame(new ComposerFrame("inspector", tb, cn)),
-    viewLabel(new QLabel("view info")),
-    timeLabel(new QLabel("time info")),
-    toolBar(new QToolBar()) {
+  : tabBar(tb),  canon(cn),  name(name) {
+  
+  composerFrame = new ComposerFrame("inspector", tb, cn);
+  viewLabel = new QLabel("view info");
+  timeLabel = new QLabel("time info");
+  toolBar = new QToolBar();
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);

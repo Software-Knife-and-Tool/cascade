@@ -108,11 +108,9 @@ void ScratchpadFrame::save() {
 }
 
 ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
-  : name(name),
-    scrollArea(new QScrollArea()),
-    scratchText(new QTextEdit()),
-    toolBar(new QToolBar()),
-    tabBar(tb) {
+  : name(name), tabBar(tb) {
+  
+  toolBar = new QToolBar();
 
   connect(toolBar->addAction(tr("clear")),
           &QAction::triggered, this, &ScratchpadFrame::clear);
@@ -127,8 +125,10 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   connect(toolBar->addAction(tr("del")),
           &QAction::triggered, this, &ScratchpadFrame::del);
   
+  scratchText = new QTextEdit();
   scratchText->setAlignment(Qt::AlignTop);
 
+  scrollArea = new QScrollArea();
   scrollArea->setWidget(scratchText);
   scrollArea->setWidgetResizable(true);
   scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);

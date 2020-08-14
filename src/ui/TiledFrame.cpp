@@ -101,14 +101,12 @@ QToolButton* TiledFrame::toolMenu() {
 }
 
 TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    init(true),    
-    canon(cn),
-    name(nm),
-    layout(new QVBoxLayout()),
-    toolBar(new QToolBar()),
-    rootTile(new Tile(tb, new QFrame())) {
+  : tabBar(tb), canon(cn), name(nm) {
 
+  init = true;
+
+  toolBar = new QToolBar();
+    
   connect(toolBar->addAction(tr("vsplit")),
           &QAction::triggered, this,
           [this] () { init = false;
@@ -123,6 +121,9 @@ TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
   
   toolBar->addWidget(toolMenu());
 
+  rootTile = new Tile(tb, new QFrame());
+    
+  layout = new QVBoxLayout();
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(toolBar);
   layout->addWidget(rootTile);

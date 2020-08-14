@@ -54,8 +54,9 @@ void ConsoleFrame::showEvent(QShowEvent* event) {
 
 ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   : tabBar(tb),
-    name(name),
-    ttyWidget(new TtyWidget(this)) {
+    name(name) {
+  
+  ttyWidget = new TtyWidget(this);
     
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
   tty_policy.setVerticalStretch(1);

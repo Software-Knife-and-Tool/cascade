@@ -65,16 +65,14 @@ void CanonFrame::runStatus(QString form) {
 }
 
 CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
-  : canon(cn),
-    name(name),
-    scrollArea(new QScrollArea()),
-    statusText(new QLabel()),
-    tabBar(tb),
-    toolBar(new QToolBar()) {
-
+  : canon(cn), name(name), tabBar(tb) {
+  
+  toolBar = new QToolBar();
   connect(toolBar->addAction(tr("del")),
           &QAction::triggered, this, &CanonFrame::del);
 
+  statusText = new QLabel();
+  scrollArea = new QScrollArea();
   scrollArea->setWidget(statusText);
   scrollArea->setWidgetResizable(true);
   scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
