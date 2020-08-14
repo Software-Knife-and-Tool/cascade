@@ -45,7 +45,7 @@
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "ScratchpadFrame.h"
-#include "TiledFrame.h"
+#include "ToolFrame.h"
 
 namespace logicaide {
 
@@ -78,7 +78,7 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   add(ideFrame, QString("IDE"));
   log(";;; IDE frame loaded");
 
-  add(new TiledFrame("tools", this, canon), "tools");
+  add(new ToolFrame("tools", this, canon), "tools");
   log(";;; tools frame loaded");
 
   add(new UserFrame("user", this), "user");

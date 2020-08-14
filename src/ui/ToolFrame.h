@@ -33,11 +33,11 @@
 
 /********
  **
- **  TiledFrame.h: TiledFrame class
+ **  ToolFrame.h: ToolFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TILEDFRAME_H_
-#define _LOGICAIDE_SRC_UI_TILEDFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_TOOLFRAME_H_
+#define _LOGICAIDE_SRC_UI_TOOLFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -62,12 +62,12 @@ namespace logicaide {
 class MainTabBar;
 class MainWindow;
   
-class TiledFrame : public QFrame {
+class ToolFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit TiledFrame(QString, MainTabBar*, Canon*);
+  explicit ToolFrame(QString, MainTabBar*, Canon*);
 
  private:
 
@@ -86,10 +86,12 @@ class TiledFrame : public QFrame {
   QString name;
   QLayout* layout;
   QToolBar* toolBar;
+  QAction* vsplitAction;
+  QAction* hsplitAction;
   QMenu* tm;
   Tile* rootTile;
 };
 
 } /* logicaide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_TILEDFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_TOOLFRAME_H_ */
