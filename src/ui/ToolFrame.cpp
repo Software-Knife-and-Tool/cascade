@@ -33,7 +33,7 @@
 
 /********
  **
- **  TiledFrame.cpp: TiledFrame implementation
+ **  ToolFrame.cpp: ToolFrame implementation
  **
  **/
 #include <QFileDialog>
@@ -46,12 +46,12 @@
 
 #include "ScratchpadFrame.h"
 #include "Tile.h"
-#include "TiledFrame.h"
+#include "ToolFrame.h"
 #include "canon.h"
 
 namespace logicaide {
 
-QToolButton* TiledFrame::toolMenu() {
+QToolButton* ToolFrame::toolMenu() {
   auto tb = new QToolButton(toolBar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
   tb->setText("tools");
@@ -68,20 +68,24 @@ QToolButton* TiledFrame::toolMenu() {
                                                        canon));
                   else
                     rootTile->split(new ComposerFrame("split-composer",
-                                                       tabBar,
-                                                       canon));
+                                                      tabBar,
+                                                      canon));
                   init = false;
+                  vsplitAction->setEnabled(true);
+                  hsplitAction->setEnabled(true);
                 });
   
   tm->addAction(tr("&console"),
                 [this] () {
                   if (init)
                     rootTile->rebase(new ConsoleFrame("rebase-console",
-                                                       tabBar));
+                                                      tabBar));
                   else
                     rootTile->split(new ConsoleFrame("split-console",
-                                                       tabBar));
+                                                     tabBar));
                   init = false;
+                  vsplitAction->setEnabled(true);
+                  hsplitAction->setEnabled(true);
                 });
   
   // tm->addAction(new QAction(tr("&inspector"), this));
@@ -91,33 +95,37 @@ QToolButton* TiledFrame::toolMenu() {
                 [this] () {
                   if (init)
                     rootTile->rebase(new ScratchpadFrame("rebase-scratch",
-                                                               tabBar));
+                                                         tabBar));
                   else
                     rootTile->split(new ScratchpadFrame("split-scratch",
                                                          tabBar));
                   init = false;
+                  vsplitAction->setEnabled(true);
+                  hsplitAction->setEnabled(true);
                 });
   return tb;
 }
 
-TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
+ToolFrame::ToolFrame(QString nm, MainTabBar* tb, Canon* cn)
   : tabBar(tb), canon(cn), name(nm) {
 
   init = true;
 
   toolBar = new QToolBar();
-    
-  connect(toolBar->addAction(tr("vsplit")),
-          &QAction::triggered, this,
-          [this] () { init = false;
-                      rootTile->splitv();
-          });
 
-  connect(toolBar->addAction(tr("hsplit")),
+  vsplitAction = toolBar->addAction(tr("vsplit"));
+  vsplitAction->setEnabled(false);
+
+  connect(vsplitAction,
           &QAction::triggered, this,
-          [this] () { init = false;
-                      rootTile->splith();
-          });
+          [this] () { rootTile->splitv(); });
+
+  hsplitAction = toolBar->addAction(tr("hsplit"));
+  hsplitAction->setEnabled(false);
+
+  connect(hsplitAction,
+          &QAction::triggered, this,
+          [this] () {  rootTile->splith(); });
   
   toolBar->addWidget(toolMenu());
 

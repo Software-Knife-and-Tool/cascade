@@ -22,7 +22,7 @@ HEADERS += \
            ScratchpadFrame.h \
            StatusClock.h     \
            Tile.h            \
-           TiledFrame.h      \
+           ToolFrame.h       \
            TtyWidget.h       \
            UserFrame.h       \
            canon.h           \
@@ -40,7 +40,7 @@ SOURCES += \
            MainWindow.cpp    \
            ScratchpadFrame.cpp \
            Tile.cpp          \
-           TiledFrame.cpp    \
+           ToolFrame.cpp     \
            TtyWidget.cpp     \
            UserFrame.cpp     \
            main.cpp
