@@ -68,32 +68,21 @@ class Tile : public QFrame {
  public:
   explicit Tile(MainTabBar*, QFrame*);
 
-  void splitv();
-  void splith();
-
-  void split(QFrame*);
   void rebase(QFrame*);
-  
+  void split(QFrame*);
+  void splith();
+  void splitv();
+
  private:
-  enum split_type { unsplit, horizontal, vertical };
-  
+  enum STATE { UNSPLIT, HORIZONTAL, VERTICAL };
+
   void log(QString msg) { tabBar->log(msg); }  
-
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  const char* selected =
-                      "border-style: solid;"
-                      "border-width: 1px;"
-                      "border-color: black;"
-                      "color: rgb(0, 0, 0);"
-                      "background-color: rgb(192, 192, 192);";
 
   MainTabBar *tabBar;
   Canon* canon;
-  split_type tile_split;
-  QFrame* base_frame;
-  Tile* split_tile;
+  STATE splitState;
+  QFrame* baseFrame;
+  Tile* splitTile;
 };
 
 } /* logicaide namespace */

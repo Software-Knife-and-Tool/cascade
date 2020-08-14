@@ -51,8 +51,6 @@
 
 namespace logicaide {
 
-void CanonFrame::del() { };
-
 void CanonFrame::runStatus(QString form) {
   auto date =
     new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
@@ -67,20 +65,14 @@ void CanonFrame::runStatus(QString form) {
 }
 
 CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
-  : canon(cn),
-    name(name),
-    scrollArea(new QScrollArea()),
-    statusText(new QLabel()),
-    toolBar(new QToolBar()),
-    tabBar(tb) {
-
+  : canon(cn), name(name), tabBar(tb) {
+  
+  toolBar = new QToolBar();
   connect(toolBar->addAction(tr("del")),
           &QAction::triggered, this, &CanonFrame::del);
 
-  statusText->setAlignment(Qt::AlignTop);
-  statusText->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  statusText->setStyleSheet(style);
-
+  statusText = new QLabel();
+  scrollArea = new QScrollArea();
   scrollArea->setWidget(statusText);
   scrollArea->setWidgetResizable(true);
   scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -94,9 +86,7 @@ CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
   layout->addWidget(toolBar);
   layout->addWidget(scrollArea);
     
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
 
   QString out;
 

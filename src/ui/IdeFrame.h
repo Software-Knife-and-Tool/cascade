@@ -65,17 +65,12 @@ class IdeFrame : public QFrame {
  public:
   explicit IdeFrame(QString, MainTabBar*);
 
-  void log(QString msg) {
-    // ttyWidget->writeTty(msg);
-  }
+  void log(QString);
   
+ private:
   void setContextStatus(QString);
-
   void showEvent(QShowEvent*) override;
 
- protected:
-
- private:
   MainTabBar* tabBar;
   QString name;
   ConsoleFrame* console;

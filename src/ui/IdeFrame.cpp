@@ -40,9 +40,12 @@
 #include <QString>
 
 #include "IdeFrame.h"
+#include "MainTabBar.h"
 
 namespace logicaide {
 
+void IdeFrame::log(QString msg) { console->log(msg); }
+  
 void IdeFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
 }
@@ -53,10 +56,8 @@ void IdeFrame::showEvent(QShowEvent* event) {
 }
 
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)
-  : tabBar(tb),
-    name(name),
-    console(new ConsoleFrame("ide-console", tb)) {
-    
+  : tabBar(tb), name(name) {
+  
   std::string html =
     "<html>"
     "  <body bgcolor=#c0c0c0>"
@@ -76,30 +77,36 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
 
   auto user = tabBar->userInfo();
   
-  auto system_html =
+  auto syshtml =
     QString::fromStdString(html).arg("0.0.5",
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
                                      user->aboutSystem());
 
-  bannerLabel = new QLabel(system_html);
-  bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  bannerLabel = new QLabel(syshtml);
   bannerLabel->setAlignment(Qt::AlignCenter);
-  bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
 
-  QSizePolicy cons_policy = console->sizePolicy();
-  cons_policy.setVerticalStretch(1);
-  console->setSizePolicy(cons_policy);
+  auto top = new QFrame();
   
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  auto tlayout = new QVBoxLayout;
+  tlayout->setContentsMargins(5, 5, 5, 5);
+  tlayout->addWidget(bannerLabel);
   
+  top->setLayout(tlayout);
+  top->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+  
+  console = new ConsoleFrame("ide-console", tb);
+  QSizePolicy policy = console->sizePolicy();
+  policy.setVerticalStretch(1);
+  console->setSizePolicy(policy);
+
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
+  layout->addWidget(top);
   layout->addWidget(console);
   
-  this->setLayout(layout);
+  setLayout(layout);
+  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
 } /* logicaide namespace */

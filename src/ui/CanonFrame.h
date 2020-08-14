@@ -72,11 +72,13 @@ class CanonFrame : public QFrame {
  public:
   explicit CanonFrame(QString, MainTabBar*, Canon*);
 
-  void log(QString msg) { tabBar->log(msg); }
+ public slots:
+  void runStatus(QString);
 
-  void clear() {
-    statusText->setText("");
-  }
+ private:
+  void del() { }
+  void log(QString msg) { tabBar->log(msg); }
+  void clear() { statusText->setText(""); }
 
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
@@ -87,20 +89,11 @@ class CanonFrame : public QFrame {
     tabBar->setContextStatus(name);
   }
 
- public slots:
-  void runStatus(QString);
-
- private:
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
-  void del();
-  
   Canon* canon;
   QString name;
-  QScrollArea *scrollArea;
+  QScrollArea* scrollArea;
   QLabel* statusText;
-  MainTabBar *tabBar;
+  MainTabBar* tabBar;
   QDateTime evalDate;
   QToolBar* toolBar;  
 };

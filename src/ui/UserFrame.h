@@ -63,13 +63,11 @@ class UserFrame : public QFrame {
  public:
   explicit UserFrame(QString, MainTabBar*);
 
+ private:
   void log(QString);
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
-
- protected:
-
- private:
+  
   MainTabBar* tabBar;
   QString name;
   QLabel* bannerLabel;

@@ -50,7 +50,7 @@
 namespace logicaide {
 
 void MainTabBar::log(QString msg) {
-  ide->log(msg);
+  ideFrame->log(msg);
 }
   
 void MainTabBar::setContextStatus(QString str) {
@@ -61,9 +61,9 @@ User* MainTabBar::userInfo() {
   return mw->userInfo();
 }
 
-MainTabBar::MainTabBar(MainWindow *mw)
-  : mw(mw),
-    ide(new IdeFrame("ide", this)) {
+MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
+  
+  ideFrame = new IdeFrame("ide", this);
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -75,11 +75,11 @@ MainTabBar::MainTabBar(MainWindow *mw)
     exit(0);
 #endif
   
-  add(ide, QString("IDE"));
+  add(ideFrame, QString("IDE"));
   log(";;; IDE frame loaded");
 
   add(new TiledFrame("tools", this, canon), "tools");
-  log(";;; tool frame loaded");
+  log(";;; tools frame loaded");
 
   add(new UserFrame("user", this), "user");
   log(";;; preferences frame loaded");

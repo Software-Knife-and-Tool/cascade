@@ -51,40 +51,23 @@
 
 namespace logicaide {
 
-namespace {
-
-void scrub_layout(QLayout* layout) {
-  QLayoutItem * item;
-  QLayout * sublayout;
-  QWidget * widget;
-  while ((item = layout->takeAt(0))) {
-    if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
-    else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
-    else {delete item;}
-  }
-  
-  delete layout;
-}
-}
-
 QToolButton* TiledFrame::toolMenu() {
-  auto tb = new QToolButton(tool_bar);
+  auto tb = new QToolButton(toolBar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
   tb->setText("tools");
   tb->setPopupMode(QToolButton::MenuButtonPopup);
   
   auto tm = new QMenu(tb);
   tb->setMenu(tm);
-  tb->setStyleSheet(style);
   
   tm->addAction(tr("&composer"),
                 [this] () {
                   if (init)
-                    root_tile->rebase(new ComposerFrame("rebase-composer",
+                    rootTile->rebase(new ComposerFrame("rebase-composer",
                                                        tabBar,
                                                        canon));
                   else
-                    root_tile->split(new ComposerFrame("split-composer",
+                    rootTile->split(new ComposerFrame("split-composer",
                                                        tabBar,
                                                        canon));
                   init = false;
@@ -93,10 +76,10 @@ QToolButton* TiledFrame::toolMenu() {
   tm->addAction(tr("&console"),
                 [this] () {
                   if (init)
-                    root_tile->rebase(new ConsoleFrame("rebase-console",
+                    rootTile->rebase(new ConsoleFrame("rebase-console",
                                                        tabBar));
                   else
-                    root_tile->split(new ConsoleFrame("split-console",
+                    rootTile->split(new ConsoleFrame("split-console",
                                                        tabBar));
                   init = false;
                 });
@@ -107,10 +90,10 @@ QToolButton* TiledFrame::toolMenu() {
   tm->addAction(tr("&scratch"),
                 [this] () {
                   if (init)
-                    root_tile->rebase(new ScratchpadFrame("rebase-scratch",
+                    rootTile->rebase(new ScratchpadFrame("rebase-scratch",
                                                                tabBar));
                   else
-                    root_tile->split(new ScratchpadFrame("split-scratch",
+                    rootTile->split(new ScratchpadFrame("split-scratch",
                                                          tabBar));
                   init = false;
                 });
@@ -118,31 +101,34 @@ QToolButton* TiledFrame::toolMenu() {
 }
 
 TiledFrame::TiledFrame(QString nm, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    init(true),    
-    canon(cn),
-    name(nm),
-    layout(new QVBoxLayout()),
-    tool_bar(new QToolBar()),
-    root_tile(new Tile(tb, new QFrame())) {
+  : tabBar(tb), canon(cn), name(nm) {
 
-  connect(tool_bar->addAction(tr("vsplit")),
-          &QAction::triggered, this,
-          [this] () { init = false; this->root_tile->splitv(); });
+  init = true;
 
-  connect(tool_bar->addAction(tr("hsplit")),
+  toolBar = new QToolBar();
+    
+  connect(toolBar->addAction(tr("vsplit")),
           &QAction::triggered, this,
-          [this] () { init = false; this->root_tile->splith(); });
+          [this] () { init = false;
+                      rootTile->splitv();
+          });
+
+  connect(toolBar->addAction(tr("hsplit")),
+          &QAction::triggered, this,
+          [this] () { init = false;
+                      rootTile->splith();
+          });
   
-  tool_bar->addWidget(toolMenu());
+  toolBar->addWidget(toolMenu());
 
+  rootTile = new Tile(tb, new QFrame());
+    
+  layout = new QVBoxLayout();
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
-  layout->addWidget(root_tile);
+  layout->addWidget(toolBar);
+  layout->addWidget(rootTile);
   
   setLayout(layout);
-  setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
 } /* logicaide namespace */

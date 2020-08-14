@@ -57,13 +57,10 @@ namespace logicaide {
 class MainWindow;
   
 class StatusClock : public QObject {
- Q_OBJECT
+
+  Q_OBJECT
     
  public:
-  QStatusBar *statusBar;
-  QTimer *timer;
-  QLabel *dateLabel;
-    
   StatusClock(QStatusBar *sb, QLabel *dl)
     : statusBar(sb), timer(new QTimer(this)), dateLabel(dl) {
     
@@ -73,10 +70,14 @@ class StatusClock : public QObject {
 
  public slots:
   void statusClock() {
-    
     QDateTime now = QDateTime::currentDateTime();
     dateLabel->setText(now.toString("ddd MMMM d yy h:m ap "));
   }
+
+ private:
+  QStatusBar *statusBar;
+  QTimer *timer;
+  QLabel *dateLabel;
 };
 
 } /* logicaide namespace */

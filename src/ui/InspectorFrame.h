@@ -69,6 +69,7 @@ class InspectorFrame : public QFrame {
  public:
   explicit InspectorFrame(QString, MainTabBar*, Canon*);
 
+ private:
   void clear();
   void eval();
 
@@ -78,17 +79,13 @@ class InspectorFrame : public QFrame {
     tabBar->setContextStatus(str);
   }
 
- private:
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
-
   MainTabBar *tabBar;
   Canon* canon;
   QString name;
-  ComposerFrame* composer_frame;;
-  QLabel* view_label;
-  QLabel* time_label;
-  QToolBar* tool_bar;  
+  ComposerFrame* composerFrame;;
+  QLabel* viewLabel;
+  QLabel* timeLabel;
+  QToolBar* toolBar;  
 };
 
 } /* logicaide namespace */

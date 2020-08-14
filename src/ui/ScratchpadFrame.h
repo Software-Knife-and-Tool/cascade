@@ -72,6 +72,7 @@ class ScratchpadFrame : public QFrame {
  public:
   explicit ScratchpadFrame(QString, MainTabBar*);
 
+ private:
   void clear();
   void load();
   void append();
@@ -89,10 +90,6 @@ class ScratchpadFrame : public QFrame {
     QWidget::showEvent(event);
     tabBar->setContextStatus(name);
   }
-
- private:
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
 
   QString loadFileName;
   QString saveFileName;

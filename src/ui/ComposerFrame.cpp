@@ -50,12 +50,11 @@
 namespace logicaide {
 
 void ComposerFrame::clear() {
-  edit_text->setText("");
-  eval_text->setText("");
+  editText->setText("");
+  evalText->setText("");
 }
 
 void ComposerFrame::load() {
-
   loadFileName =
     QFileDialog::getOpenFileName(this,
                                  tr("Load File"),
@@ -65,7 +64,7 @@ void ComposerFrame::load() {
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
     QTextStream in(&f);
-    edit_text->setText(in.readAll());
+    editText->setText(in.readAll());
     f.close();
   }
 
@@ -77,14 +76,14 @@ void ComposerFrame::eval() {
 
   tabBar->setContextStatus(tr("eval"));
   
-  auto error_text =
+  auto error =
     canon->withException([this, &out]() {
-         out = canon->rep(edit_text->toPlainText());
+         out = canon->rep(editText->toPlainText());
        });
 
-  eval_text->setText(out + error_text);
+  evalText->setText(out + error);
 
-  emit evalHappened(edit_text->toPlainText());
+  emit evalHappened(editText->toPlainText());
 }
 
 void ComposerFrame::reset() {
@@ -102,7 +101,7 @@ void ComposerFrame::save_as() {
 }
 
 void ComposerFrame::save() {
-  QString text = edit_text->toPlainText();
+  QString text = editText->toPlainText();
   
   QSaveFile file(saveFileName);
   file.open(QIODevice::WriteOnly);
@@ -124,67 +123,59 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
 }
   
 ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),
-    canon(cn),
-    name(name),
-    edit_text(new QTextEdit()),
-    eval_text(new QLabel()),
-    tool_bar(new QToolBar()),
-    edit_scroll(new QScrollArea()),
-    eval_scroll(new QScrollArea()) {
-
+  : tabBar(tb), canon(cn), name(name) {
+  
   auto size = this->frameSize();
 
-  connect(tool_bar->addAction(tr("clear")),
+  toolBar = new QToolBar();
+  connect(toolBar->addAction(tr("clear")),
           &QAction::triggered, this, &ComposerFrame::clear);
-  connect(tool_bar->addAction(tr("load")),
+  connect(toolBar->addAction(tr("load")),
           &QAction::triggered, this, &ComposerFrame::load);
-  connect(tool_bar->addAction(tr("eval")),
+  connect(toolBar->addAction(tr("eval")),
           &QAction::triggered, this, &ComposerFrame::eval);
-  connect(tool_bar->addAction(tr("reset")),
+  connect(toolBar->addAction(tr("reset")),
           &QAction::triggered, this, &ComposerFrame::reset);
-  connect(tool_bar->addAction(tr("save")),
+  connect(toolBar->addAction(tr("save")),
           &QAction::triggered, this, &ComposerFrame::save);
-  connect(tool_bar->addAction(tr("save as")),
+  connect(toolBar->addAction(tr("save as")),
           &QAction::triggered, this, &ComposerFrame::save_as);
-  connect(tool_bar->addAction(tr("del")),
+  connect(toolBar->addAction(tr("del")),
           &QAction::triggered, this, &ComposerFrame::del);
 
-  edit_scroll->setWidget(edit_text);
-  edit_scroll->setWidgetResizable(true);
-  edit_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-  edit_scroll->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  edit_scroll->setStyleSheet(style);
-  edit_scroll->installEventFilter(this);
-  
-  eval_scroll->setWidget(eval_text);
-  eval_scroll->setWidgetResizable(true);
-  eval_scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-  eval_scroll->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  eval_scroll->setStyleSheet(style);
-  eval_scroll->installEventFilter(this);
-  eval_scroll->setMinimumHeight(size.height() / 2);
+  editText = new QTextEdit();
+  editScroll = new QScrollArea();
+  editScroll->setWidget(editText);
+  editScroll->setWidgetResizable(true);
+  editScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+  editScroll->installEventFilter(this);
+
+  evalText = new QLabel();
+  evalScroll = new QScrollArea();
+  evalScroll->setWidget(evalText);
+  evalScroll->setWidgetResizable(true);
+  evalScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+  evalScroll->installEventFilter(this);
+  evalScroll->setMinimumHeight(size.height() / 2);
   
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
-  edit_text->setSizePolicy(spEdit);
+  editText->setSizePolicy(spEdit);
 
   QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEval.setVerticalStretch(1);
-  eval_text->setSizePolicy(spEval);
+  evalText->setSizePolicy(spEval);
 
   auto vs = new QSplitter(Qt::Vertical, this);
-  vs->addWidget(edit_scroll);
-  vs->addWidget(eval_scroll);
+  vs->addWidget(editScroll);
+  vs->addWidget(evalScroll);
 
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(tool_bar);
+  layout->addWidget(toolBar);
   layout->addWidget(vs);
   
-  this->setLayout(layout);
-  this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

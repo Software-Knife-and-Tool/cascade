@@ -70,6 +70,10 @@ class ComposerFrame : public QFrame {
  public:
   explicit ComposerFrame(QString, MainTabBar*, Canon*);
 
+  signals:
+    void evalHappened(QString);
+
+ private:
   void clear();
   void eval();
   void load();
@@ -77,8 +81,6 @@ class ComposerFrame : public QFrame {
   void save();
   void save_as();
   void del();
-  
-  void log(QString msg) { tabBar->log(msg); }
   
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
@@ -90,27 +92,21 @@ class ComposerFrame : public QFrame {
   }
   
   bool eventFilter(QObject, QEvent*);
-  
-  signals:
-     void evalHappened(QString);
-
- private:
-  
-  const char* style = "color: rgb(0, 0, 0);"
-                      "background-color: rgb(255, 255, 255);";
+    void log(QString msg) { tabBar->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
+
   QString loadFileName;
   QString saveFileName;
 
   MainTabBar *tabBar;
   Canon* canon;
   QString name;
-  QTextEdit* edit_text;
-  QLabel* eval_text;
-  QToolBar* tool_bar;
-  QScrollArea* edit_scroll;
-  QScrollArea* eval_scroll;
+  QTextEdit* editText;
+  QLabel* evalText;
+  QToolBar* toolBar;
+  QScrollArea* editScroll;
+  QScrollArea* evalScroll;
 };
 
 } /* logicaide namespace */
