@@ -33,60 +33,30 @@
 
 /********
  **
- **  ConsoleFrame.cpp: ConsoleFrame implementation
+ **  ShellFrame.cpp: ShellFrame implementation
  **
  **/
 #include <QtWidgets>
 #include <QString>
 
-#include "ConsoleFrame.h"
+#include "ShellFrame.h"
 
 namespace logicaide {
 
-void ConsoleFrame::setContextStatus(QString str) {
+void ShellFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
 }
 
-void ConsoleFrame::showEvent(QShowEvent* event) {
+void ShellFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
   tabBar->setContextStatus(name);
 }
 
-ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
-  : tabBar(tb),
-    name(name),
-    ttyWidget(new TtyWidget(this)) {
-    
-  std::string html =
-    "<html>"
-    "  <body bgcolor=#c0c0c0>"
-    "    <span style=\"text-align: center; font-family:Eaglefeather\">"
-    "      <div>"
-    "        <br>"
-    "        <h1>Logica IDE <i>%1</i></h1>"
-    "        <p></p>"
-    "        <h2>running on <i>%2</i>, %3</h2>"
-    "        <h2>%4</h2>"
-    "        <p></p>"
-    "      </div>"
-    "      <p></p>"
-    "    </span>"
-    "  </body>"
-    "</html>";
-
-  auto user = tabBar->userInfo();
+ShellFrame::ShellFrame(QString name, MainTabBar* tb)
+  : tabBar(tb), name(name) {
   
-  auto system_html =
-    QString::fromStdString(html).arg("0.0.5",
-                                     user->aboutHost(),
-                                     "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
-
-  bannerLabel = new QLabel(system_html);
-  // bannerLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  bannerLabel->setAlignment(Qt::AlignCenter);
-  // bannerLabel->setStyleSheet("color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);");
-
+  ttyWidget = new TtyWidget(this);
+    
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
   tty_policy.setVerticalStretch(1);
   ttyWidget->setSizePolicy(tty_policy);
@@ -96,10 +66,9 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
-  layout->addWidget(bannerLabel);
   layout->addWidget(ttyWidget);
   
-  this->setLayout(layout);
+  setLayout(layout);
 }
 
 } /* logicaide namespace */

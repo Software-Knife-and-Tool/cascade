@@ -33,11 +33,11 @@
 
 /********
  **
- **  ConsoleFrame.h: ConsoleFrame class
+ **  ShellFrame.h: ShellFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_
-#define _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_SHELLFRAME_H_
+#define _LOGICAIDE_SRC_UI_SHELLFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -60,12 +60,12 @@ namespace logicaide {
 
 class MainTabBar;
   
-class ConsoleFrame : public QFrame {
+class ShellFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ConsoleFrame(QString, MainTabBar*);
+  explicit ShellFrame(QString, MainTabBar*);
 
   void log(QString msg) {
     ttyWidget->writeTty(msg);
@@ -81,10 +81,9 @@ class ConsoleFrame : public QFrame {
   MainTabBar* tabBar;
   QString name;
   TtyWidget* ttyWidget;
-  QLabel* bannerLabel;
   QVBoxLayout* layout;
 };
 
 } /* logicaide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_CONSOLEFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_SHELLFRAME_H_ */
