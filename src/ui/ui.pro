@@ -21,6 +21,7 @@ HEADERS += \
            MainWindow.h      \
            ShellFrame.h      \
            ScratchpadFrame.h \
+           ScriptFrame.h     \
            StatusClock.h     \
            Tile.h            \
            ToolFrame.h       \
@@ -40,6 +41,7 @@ SOURCES += \
            MainTabBar.cpp    \
            MainWindow.cpp    \
            ScratchpadFrame.cpp \
+           ScriptFrame.cpp   \
            ShellFrame.cpp    \
            Tile.cpp          \
            ToolFrame.cpp     \

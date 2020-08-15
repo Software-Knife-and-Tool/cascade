@@ -33,60 +33,90 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  ScriptFrame.h: ScriptFrame class
  **
  **/
-#include <QtWidgets>
-#include <QTabBar>
+#ifndef _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
+#define _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
 
-#include "CanonFrame.h"
-#include "ComposerFrame.h"
-#include "ConsoleFrame.h"
+#include <QFrame>
+#include <QLabel>
+#include <QScrollArea>
+#include <QTextEdit>
+#include <QToolBar>
+#include <QWidget>
+
+#include "canon.h"
 #include "MainTabBar.h"
-#include "MainWindow.h"
-#include "ScratchpadFrame.h"
-#include "ScriptFrame.h"
-#include "ToolFrame.h"
+
+QT_BEGIN_NAMESPACE
+class QLabel;
+class QScroll;
+class QTextEdit;
+class QToolBar;
+class QVBoxLayout;
+class QWidget;
+QT_END_NAMESPACE
 
 namespace logicaide {
 
-void MainTabBar::log(QString msg) {
-  ideFrame->log(msg);
-}
+class MainTabBar;
+class MainWindow;
   
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+class ScriptFrame : public QFrame {
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+ Q_OBJECT
 
-MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
+ public:
+  explicit ScriptFrame(QString, MainTabBar*, Canon*);
+
+  signals:
+    void evalHappened(QString);
+
+ private:
+  void clear();
+  void eval();
+  QString evalf(QString);
+  void load();
+  void reset();
+  void save();
+  void save_as();
+  void del();
+
+  void setContextStatus(QString str) {
+    tabBar->setContextStatus(str);
+  }
+
+  void showEvent(QShowEvent* event) override {
+    QWidget::showEvent(event);
+    tabBar->setContextStatus(name);
+  }
   
-  ideFrame = new IdeFrame("ide", this);
+  void log(QString msg) { tabBar->log(msg); }
+
+  bool eventFilter(QObject*, QEvent*) override;
+
+  static std::string script(std::string);
+  static constexpr unsigned int hash(const char* str, int h = 0) {
+    return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
+  }
+
+  QString IdOf(std::string (*)(std::string));
+  QString Invoke(std::string(*)(std::string), QString);
     
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  QString loadFileName;
+  QString saveFileName;
 
-  auto canon = new Canon();
-
-#if 0
-  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &CanonFrame::runStatus))
-    exit(0);
-#endif
-  
-  add(ideFrame, QString("IDE"));
-  log(";;; IDE frame loaded");
-
-  add(new ToolFrame("tools", this, canon), "tools");
-  log(";;; tools frame loaded");
-
-  add(new ScriptFrame("scripting", this, canon), "scripts");
-  log(";;; scripts frame loaded");
-
-  add(new UserFrame("user", this), "user");
-  log(";;; preferences frame loaded");
-}
+  MainTabBar *tabBar;
+  Canon* canon;
+  QString name;
+  QTextEdit* editText;
+  QLabel* evalText;
+  QToolBar* toolBar;
+  QScrollArea* editScroll;
+  QScrollArea* evalScroll;
+};
 
 } /* logicaide namespace */
+
+#endif  /* _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_ */

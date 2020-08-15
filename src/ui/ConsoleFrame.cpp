@@ -43,14 +43,6 @@
 
 namespace logicaide {
 
-namespace {
-  
-std::string identity(std::string arg) {
-  return arg;
-}
-  
-} /* anonymous namespace */
-
 void ConsoleFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
 }
@@ -58,30 +50,6 @@ void ConsoleFrame::setContextStatus(QString str) {
 void ConsoleFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
   tabBar->setContextStatus(name);
-}
-
-QString ConsoleFrame::callext(
-                     std::string(* fn)(std::string),
-                     QString arg) {
-  
-  auto fnp = reinterpret_cast<uint64_t>(fn);
-  auto canon = ttyWidget->get_canon();
-  auto expr = QString("(%callext %1 \"%2\")").arg(fnp).arg(arg);
-    
-  QString buffer;
-  auto error_text =
-    canon->withException([canon, &buffer, expr]() {
-      auto lines =
-        canon->rep(expr).split('\n', // version for princ/prin1?
-                               QString::SplitBehavior::KeepEmptyParts,
-                               Qt::CaseSensitive);
-      buffer.append(lines.join("\n"));
-    });
-      
-  if (error_text.size() > 1)
-    buffer.append(error_text);
-
-  return buffer.remove("\"");
 }
 
 ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
@@ -99,8 +67,6 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   layout->addWidget(ttyWidget);
   
   setLayout(layout);
-
-  log(callext(&identity, ";;; script framework connected"));
 }
 
 } /* logicaide namespace */

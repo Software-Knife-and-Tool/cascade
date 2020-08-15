@@ -33,7 +33,7 @@
 
 /********
  **
- **  ComposerFrame.cpp: ComposerFrame implementation
+ **  ScriptFrame.cpp: ScriptFrame implementation
  **
  **/
 #include <QFileDialog>
@@ -44,17 +44,17 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "ComposerFrame.h"
+#include "ScriptFrame.h"
 #include "canon.h"
 
 namespace logicaide {
 
-void ComposerFrame::clear() {
+void ScriptFrame::clear() {
   editText->setText("");
   evalText->setText("");
 }
 
-void ComposerFrame::load() {
+void ScriptFrame::load() {
   loadFileName =
     QFileDialog::getOpenFileName(this,
                                  tr("Load File"),
@@ -71,36 +71,43 @@ void ComposerFrame::load() {
   saveFileName = loadFileName;
 }
     
-void ComposerFrame::eval() {
+void ScriptFrame::eval() {
   QString out;
 
-  tabBar->setContextStatus(tr("eval"));
-  
   auto error =
     canon->withException([this, &out]() {
          out = canon->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
-
-  emit evalHappened(editText->toPlainText());
 }
 
-void ComposerFrame::reset() {
+QString ScriptFrame::evalf(QString expr) {
+  QString out;
+
+  auto error =
+    canon->withException([this, expr, &out]() {
+         out = canon->rep(expr);
+       });
+  
+  return out + error;
+}
+
+void ScriptFrame::reset() {
   canon = new Canon();
 }
 
-void ComposerFrame::del() {
+void ScriptFrame::del() {
 }
 
-void ComposerFrame::save_as() {
+void ScriptFrame::save_as() {
   saveFileName = QFileDialog::getSaveFileName(this,
         tr("Save As"), "",
         tr("File (*)"));
   save();
 }
 
-void ComposerFrame::save() {
+void ScriptFrame::save() {
   QString text = editText->toPlainText();
   
   QSaveFile file(saveFileName);
@@ -109,7 +116,7 @@ void ComposerFrame::save() {
   file.commit();
 }
 
-bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
+bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
   if ( /* watched == textEdit && */ event->type() == QEvent::KeyPress) {
     QKeyEvent *e = static_cast < QKeyEvent * >(event);
     if (e->key() == Qt::Key_Return &&
@@ -121,27 +128,74 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
     
   return tabBar->get_mw()->eventFilter(watched, event);
 }
+
+std::string ScriptFrame::script(std::string arg) {
+  auto args = QString::fromStdString(arg);
+  auto argv =
+    args.remove('(')
+        .remove(')')
+        .split(' ',
+               QString::SplitBehavior::KeepEmptyParts,
+               Qt::CaseSensitive);
   
-ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
+  switch (hash(argv.at(0).toStdString().c_str())) {
+  case hash("identity"):
+    return argv[1].toStdString();
+  default:
+    return argv.join(' ').toStdString();;
+  }
+}
+
+QString ScriptFrame::IdOf(std::string (* fn)(std::string)) {
+  auto fnp = reinterpret_cast<uint64_t>(fn);
+  auto id = QString("%1").arg(fnp);
+
+  return id;
+}
+  
+QString ScriptFrame::Invoke(
+                     std::string(* fn)(std::string),
+                     QString arg) {
+  
+  auto fnp = reinterpret_cast<uint64_t>(fn);
+  auto expr = QString("(invoke %1 \"%2\")").arg(fnp).arg(arg);
+    
+  QString buffer;
+  auto error_text =
+    canon->withException([this, &buffer, expr]() {
+      auto lines =
+        this->canon->rep(expr).split('\n', // version for princ/prin1?
+                                     QString::SplitBehavior::KeepEmptyParts,
+                                     Qt::CaseSensitive);
+      buffer.append(lines.join("\n"));
+    });
+      
+  if (error_text.size() > 1)
+    buffer.append(error_text);
+
+  return buffer.remove("\"");
+}
+
+ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb), canon(cn), name(name) {
   
   auto size = this->frameSize();
 
   toolBar = new QToolBar();
   connect(toolBar->addAction(tr("clear")),
-          &QAction::triggered, this, &ComposerFrame::clear);
+          &QAction::triggered, this, &ScriptFrame::clear);
   connect(toolBar->addAction(tr("load")),
-          &QAction::triggered, this, &ComposerFrame::load);
+          &QAction::triggered, this, &ScriptFrame::load);
   connect(toolBar->addAction(tr("eval")),
-          &QAction::triggered, this, &ComposerFrame::eval);
+          &QAction::triggered, this, &ScriptFrame::eval);
   connect(toolBar->addAction(tr("reset")),
-          &QAction::triggered, this, &ComposerFrame::reset);
+          &QAction::triggered, this, &ScriptFrame::reset);
   connect(toolBar->addAction(tr("save")),
-          &QAction::triggered, this, &ComposerFrame::save);
+          &QAction::triggered, this, &ScriptFrame::save);
   connect(toolBar->addAction(tr("save as")),
-          &QAction::triggered, this, &ComposerFrame::save_as);
+          &QAction::triggered, this, &ScriptFrame::save_as);
   connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &ComposerFrame::del);
+          &QAction::triggered, this, &ScriptFrame::del);
 
   editText = new QTextEdit();
   editScroll = new QScrollArea();
@@ -161,12 +215,10 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   editText->setSizePolicy(spEdit);
-  editText->setMouseTracking(true);
-  
+
   QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEval.setVerticalStretch(1);
   evalText->setSizePolicy(spEval);
-  evalText->setMouseTracking(true);
 
   auto vs = new QSplitter(Qt::Vertical, this);
   vs->addWidget(editScroll);
@@ -176,7 +228,11 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(toolBar);
   layout->addWidget(vs);
-  
+
+  // log(Invoke([](std::string arg) { return arg; },
+  //           ";;; script framework connected"));
+  evalf("(:defcon script-fn-id " + IdOf(script) + ")");
+  // log(evalf("(invoke " + IdOf(script) + " \"(identity whoooo)\")"));
   setLayout(layout);
 }
 
