@@ -81,7 +81,7 @@ class ScriptFrame : public QFrame {
   void save();
   void save_as();
   void del();
-  
+
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
   }
@@ -94,6 +94,11 @@ class ScriptFrame : public QFrame {
   void log(QString msg) { tabBar->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
+
+  static std::string script(std::string);
+  static constexpr unsigned int hash(const char* str, int h = 0) {
+    return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
+  }
 
   QString invoke(std::string(*)(std::string),
                  QString);

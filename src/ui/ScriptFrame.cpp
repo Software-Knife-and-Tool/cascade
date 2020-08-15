@@ -48,13 +48,6 @@
 #include "canon.h"
 
 namespace logicaide {
-namespace {
-  
-std::string identity(std::string arg) {
-  return arg;
-}
-  
-} /* anonymous namespace */
 
 void ScriptFrame::clear() {
   editText->setText("");
@@ -127,6 +120,23 @@ bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
   }
     
   return tabBar->get_mw()->eventFilter(watched, event);
+}
+
+std::string ScriptFrame::script(std::string arg) {
+  auto args = QString::fromStdString(arg);
+  auto argv =
+    args.remove('(')
+        .remove(')')
+        .split(' ',
+               QString::SplitBehavior::KeepEmptyParts,
+               Qt::CaseSensitive);
+  
+  switch (hash(argv.at(0).toStdString().c_str())) {
+  case hash("identity"):
+    return argv[1].toStdString();
+  default:
+    return argv.join(' ').toStdString();;
+  }
 }
 
 QString ScriptFrame::invoke(
@@ -205,8 +215,9 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
   layout->addWidget(toolBar);
   layout->addWidget(vs);
 
-  log(invoke(&identity, ";;; script framework connected"));
-  
+  log(invoke([](std::string arg) { return arg; },
+             ";;; script framework connected"));
+  log(invoke(script, "(identity fuzzbutt)"));
   setLayout(layout);
 }
 
