@@ -60,13 +60,13 @@ void ConsoleFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-QString ConsoleFrame::callext(
+QString ConsoleFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
   
   auto fnp = reinterpret_cast<uint64_t>(fn);
   auto canon = ttyWidget->get_canon();
-  auto expr = QString("(%callext %1 \"%2\")").arg(fnp).arg(arg);
+  auto expr = QString("(invoke %1 \"%2\")").arg(fnp).arg(arg);
     
   QString buffer;
   auto error_text =
@@ -100,7 +100,7 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   
   setLayout(layout);
 
-  log(callext(&identity, ";;; script framework connected"));
+  log(invoke(&identity, ";;; script framework connected"));
 }
 
 } /* logicaide namespace */
