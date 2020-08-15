@@ -68,10 +68,8 @@ class ConsoleFrame : public QFrame {
   explicit ConsoleFrame(QString, MainTabBar*);
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
-  QString invoke(std::string(*)(std::string),
-                 QString);
-    
- private:
+
+private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*);
 

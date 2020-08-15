@@ -48,6 +48,13 @@
 #include "canon.h"
 
 namespace logicaide {
+namespace {
+  
+std::string identity(std::string arg) {
+  return arg;
+}
+  
+} /* anonymous namespace */
 
 void ScriptFrame::clear() {
   editText->setText("");
@@ -121,7 +128,30 @@ bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
     
   return tabBar->get_mw()->eventFilter(watched, event);
 }
+
+QString ScriptFrame::invoke(
+                     std::string(* fn)(std::string),
+                     QString arg) {
   
+  auto fnp = reinterpret_cast<uint64_t>(fn);
+  auto expr = QString("(invoke %1 \"%2\")").arg(fnp).arg(arg);
+    
+  QString buffer;
+  auto error_text =
+    canon->withException([this, &buffer, expr]() {
+      auto lines =
+        this->canon->rep(expr).split('\n', // version for princ/prin1?
+                                     QString::SplitBehavior::KeepEmptyParts,
+                                     Qt::CaseSensitive);
+      buffer.append(lines.join("\n"));
+    });
+      
+  if (error_text.size() > 1)
+    buffer.append(error_text);
+
+  return buffer.remove("\"");
+}
+
 ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
   : tabBar(tb), canon(cn), name(name) {
   
@@ -174,6 +204,8 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(toolBar);
   layout->addWidget(vs);
+
+  log(invoke(&identity, ";;; script framework connected"));
   
   setLayout(layout);
 }

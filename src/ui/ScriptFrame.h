@@ -91,11 +91,13 @@ class ScriptFrame : public QFrame {
     tabBar->setContextStatus(name);
   }
   
-  bool eventFilter(QObject, QEvent*);
-    void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { tabBar->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
+  QString invoke(std::string(*)(std::string),
+                 QString);
+    
   QString loadFileName;
   QString saveFileName;
 
