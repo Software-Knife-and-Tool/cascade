@@ -76,6 +76,7 @@ class ScriptFrame : public QFrame {
  private:
   void clear();
   void eval();
+  QString evalf(QString);
   void load();
   void reset();
   void save();
@@ -100,8 +101,8 @@ class ScriptFrame : public QFrame {
     return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
   }
 
-  QString invoke(std::string(*)(std::string),
-                 QString);
+  QString IdOf(std::string (*)(std::string));
+  QString Invoke(std::string(*)(std::string), QString);
     
   QString loadFileName;
   QString saveFileName;

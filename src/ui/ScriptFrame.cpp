@@ -74,16 +74,23 @@ void ScriptFrame::load() {
 void ScriptFrame::eval() {
   QString out;
 
-  tabBar->setContextStatus(tr("eval"));
-  
   auto error =
     canon->withException([this, &out]() {
          out = canon->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
+}
 
-  emit evalHappened(editText->toPlainText());
+QString ScriptFrame::evalf(QString expr) {
+  QString out;
+
+  auto error =
+    canon->withException([this, expr, &out]() {
+         out = canon->rep(expr);
+       });
+  
+  return out + error;
 }
 
 void ScriptFrame::reset() {
@@ -139,7 +146,14 @@ std::string ScriptFrame::script(std::string arg) {
   }
 }
 
-QString ScriptFrame::invoke(
+QString ScriptFrame::IdOf(std::string (* fn)(std::string)) {
+  auto fnp = reinterpret_cast<uint64_t>(fn);
+  auto id = QString("%1").arg(fnp);
+
+  return id;
+}
+  
+QString ScriptFrame::Invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
   
@@ -215,9 +229,10 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
   layout->addWidget(toolBar);
   layout->addWidget(vs);
 
-  log(invoke([](std::string arg) { return arg; },
-             ";;; script framework connected"));
-  log(invoke(script, "(identity fuzzbutt)"));
+  // log(Invoke([](std::string arg) { return arg; },
+  //           ";;; script framework connected"));
+  evalf("(:defcon script-fn-id " + IdOf(script) + ")");
+  // log(evalf("(invoke " + IdOf(script) + " \"(identity whoooo)\")"));
   setLayout(layout);
 }
 
