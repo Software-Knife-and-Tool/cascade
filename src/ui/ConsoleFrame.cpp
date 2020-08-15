@@ -66,7 +66,7 @@ QString ConsoleFrame::callext(
   
   auto fnp = reinterpret_cast<uint64_t>(fn);
   auto canon = ttyWidget->get_canon();
-  auto expr = QString("(%callext %1 \"%2\")").arg(fnp).arg(arg);
+  auto expr = QString("(invoke %1 \"%2\")").arg(fnp).arg(arg);
     
   QString buffer;
   auto error_text =
