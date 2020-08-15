@@ -66,7 +66,7 @@ class IdeFrame : public QFrame {
   explicit IdeFrame(QString, MainTabBar*);
 
   void log(QString);
-  
+
  private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;

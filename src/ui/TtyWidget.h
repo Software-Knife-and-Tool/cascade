@@ -69,6 +69,8 @@ class TtyWidget : public QAbstractScrollArea {
 
   void writeTty(QString);
 
+  Canon* get_canon() { return canon; }
+  
  protected:
   void paintEvent(QPaintEvent* event) override;
 
