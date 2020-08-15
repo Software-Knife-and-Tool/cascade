@@ -78,7 +78,7 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   auto user = tabBar->userInfo();
   
   auto syshtml =
-    QString::fromStdString(html).arg("0.0.5",
+    QString::fromStdString(html).arg("0.0.6",
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
                                      user->aboutSystem());

@@ -78,7 +78,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   auto user = tabBar->userInfo();
   
   auto system_html =
-    QString(html).arg("0.0.5",
+    QString(html).arg("0.0.6",
                       user->aboutHost(),
                       "an " + user->aboutCpu() + " system",
                       user->aboutSystem());

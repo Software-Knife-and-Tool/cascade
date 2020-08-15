@@ -161,10 +161,12 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   editText->setSizePolicy(spEdit);
-
+  editText->setMouseTracking(true);
+  
   QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEval.setVerticalStretch(1);
   evalText->setSizePolicy(spEval);
+  evalText->setMouseTracking(true);
 
   auto vs = new QSplitter(Qt::Vertical, this);
   vs->addWidget(editScroll);

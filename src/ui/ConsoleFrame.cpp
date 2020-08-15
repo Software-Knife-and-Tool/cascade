@@ -60,7 +60,7 @@ void ConsoleFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-QString ConsoleFrame::callext(
+QString ConsoleFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
   
@@ -100,7 +100,7 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   
   setLayout(layout);
 
-  log(callext(&identity, ";;; script framework connected"));
+  log(invoke(&identity, ";;; script framework connected"));
 }
 
 } /* logicaide namespace */
