@@ -49,6 +49,8 @@
 
 namespace logicaide {
 
+const std::string ScriptFrame::configFile = "~/.logica-ide";
+  
 void ScriptFrame::clear() {
   editText->setText("");
   evalText->setText("");
@@ -146,14 +148,23 @@ std::string ScriptFrame::script(std::string arg) {
   }
 }
 
-QString ScriptFrame::IdOf(std::string (* fn)(std::string)) {
+QString ScriptFrame::idOf(std::string (* fn)(std::string)) {
   auto fnp = reinterpret_cast<uint64_t>(fn);
   auto id = QString("%1").arg(fnp);
 
   return id;
 }
+
+void ScriptFrame::loadConfigFile() {
+  auto home = getenv("HOME");
+  auto path = QString::fromStdString(configFile);
+
+  auto npath = home + path.remove(0, 1);
+  log(";;; config path " + npath);
+  evalf("(load \"" + npath + "\")");
+}
   
-QString ScriptFrame::Invoke(
+QString ScriptFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
   
@@ -231,8 +242,10 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
 
   // log(Invoke([](std::string arg) { return arg; },
   //           ";;; script framework connected"));
-  evalf("(:defcon script-fn-id " + IdOf(script) + ")");
-  // log(evalf("(invoke " + IdOf(script) + " \"(identity whoooo)\")"));
+
+  evalf("(in-ns (ns \"logica-ide\" (ns-current)))");
+  evalf("(:defcon script-fn-id " + idOf(script) + ")");
+  loadConfigFile();
   setLayout(layout);
 }
 

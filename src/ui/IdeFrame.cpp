@@ -41,6 +41,7 @@
 
 #include "IdeFrame.h"
 #include "MainTabBar.h"
+#include "ScriptFrame.h"
 
 namespace logicaide {
 
@@ -68,6 +69,7 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
+    "        <h2>configuration file: " + ScriptFrame::configFile + "</h2>"
     "        <p></p>"
     "      </div>"
     "      <p></p>"

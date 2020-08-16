@@ -69,10 +69,8 @@ class ScriptFrame : public QFrame {
 
  public:
   explicit ScriptFrame(QString, MainTabBar*, Canon*);
-
-  signals:
-    void evalHappened(QString);
-
+  static const std::string configFile;
+  
  private:
   void clear();
   void eval();
@@ -83,6 +81,8 @@ class ScriptFrame : public QFrame {
   void save_as();
   void del();
 
+  void loadConfigFile();
+  
   void setContextStatus(QString str) {
     tabBar->setContextStatus(str);
   }
@@ -101,9 +101,9 @@ class ScriptFrame : public QFrame {
     return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
   }
 
-  QString IdOf(std::string (*)(std::string));
-  QString Invoke(std::string(*)(std::string), QString);
-    
+  QString idOf(std::string (*)(std::string));
+  QString invoke(std::string(*)(std::string), QString);
+
   QString loadFileName;
   QString saveFileName;
 
