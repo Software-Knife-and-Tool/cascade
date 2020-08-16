@@ -91,7 +91,7 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   log(";;; scripts frame loaded");
 
   add(new InspectorFrame("inspect", this, canon), "inspector");
-  log(";;; scripts frame loaded");
+  log(";;; inspector frame loaded");
 
   add(new UserFrame("user", this), "user");
   log(";;; preferences frame loaded");

@@ -66,7 +66,9 @@ class IdeFrame : public QFrame {
 
  public:
   explicit IdeFrame(QString, MainTabBar*);
-
+  static const char* configFile;
+  static const char* version;
+  
   void log(QString);
 
   Canon* get_canon();

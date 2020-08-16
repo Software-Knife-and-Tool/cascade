@@ -69,7 +69,6 @@ class ScriptFrame : public QFrame {
 
  public:
   explicit ScriptFrame(QString, MainTabBar*, Canon*, Canon*);
-  static const std::string configFile;
   
  private:
   void clear();

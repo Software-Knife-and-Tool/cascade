@@ -48,8 +48,6 @@
 #include "canon.h"
 
 namespace logicaide {
-
-const std::string ScriptFrame::configFile = "~/.logica-ide";
   
 void ScriptFrame::clear() {
   editText->setText("");
@@ -157,10 +155,10 @@ QString ScriptFrame::idOf(std::string (* fn)(std::string)) {
 
 void ScriptFrame::loadConfigFile() {
   auto home = getenv("HOME");
-  auto path = QString::fromStdString(configFile);
+  auto path = QString::fromStdString(IdeFrame::configFile);
 
   auto npath = home + path.remove(0, 1);
-  log(";;; config path " + npath);
+  log(";;; config file " + npath + " loaded");
   evalf("(load \"" + npath + "\")");
 }
   
@@ -190,8 +188,8 @@ QString ScriptFrame::invoke(
 ScriptFrame::ScriptFrame(QString name,
                          MainTabBar* tb,
                          Canon* cn,
-                         Canon* cf)
-  : tabBar(tb), canon(cn), name(name), console(cf) {
+                         Canon* co)
+  : tabBar(tb), canon(cn), console(co), name(name) {
   
   auto size = this->frameSize();
 

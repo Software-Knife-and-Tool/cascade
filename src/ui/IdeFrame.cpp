@@ -47,6 +47,8 @@
 namespace logicaide {
 
 void IdeFrame::log(QString msg) { console->log(msg); }
+const char* IdeFrame::configFile = "~/.logica-ide";
+const char* IdeFrame::version = "0.0.7";
   
 void IdeFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -74,7 +76,7 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
-    "        <h2>configuration file: " + ScriptFrame::configFile + "</h2>"
+    "        <h2>configuration file: %5</h2>"
     "        <p></p>"
     "      </div>"
     "      <p></p>"
@@ -85,10 +87,11 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   auto user = tabBar->userInfo();
   
   auto syshtml =
-    QString::fromStdString(html).arg("0.0.6",
+    QString::fromStdString(html).arg(version,
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
+                                     user->aboutSystem(),
+                                     configFile);
 
   bannerLabel = new QLabel(syshtml);
   bannerLabel->setAlignment(Qt::AlignCenter);
