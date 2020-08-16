@@ -72,8 +72,8 @@ class ScriptFrame : public QFrame {
   
  private:
   void clear();
-  void eval();
-  QString evalf(QString);
+  void evalFrame(CanonEnv*);
+  QString evalString(QString, CanonEnv*);
   void load();
   void reset();
   void save();
