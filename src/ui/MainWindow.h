@@ -63,7 +63,6 @@ namespace logicaide {
 
 class MainMenuBar;
 class MainTabBar;
-class ConsoleFrame;
   
 class MainWindow : public QMainWindow {
 

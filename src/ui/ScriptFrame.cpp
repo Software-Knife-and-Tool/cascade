@@ -77,8 +77,8 @@ void ScriptFrame::eval() {
   QString out;
 
   auto error =
-    canon->withException([this, &out]() {
-         out = canon->rep(editText->toPlainText());
+    console->withException([this, &out]() {
+         out = console->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
@@ -88,15 +88,15 @@ QString ScriptFrame::evalf(QString expr) {
   QString out;
 
   auto error =
-    canon->withException([this, expr, &out]() {
-         out = canon->rep(expr);
+    console->withException([this, expr, &out]() {
+         out = console->rep(expr);
        });
   
   return out + error;
 }
 
 void ScriptFrame::reset() {
-  canon = new Canon();
+  console = new Canon();
 }
 
 void ScriptFrame::del() {
@@ -173,9 +173,9 @@ QString ScriptFrame::invoke(
     
   QString buffer;
   auto error_text =
-    canon->withException([this, &buffer, expr]() {
+    console->withException([this, &buffer, expr]() {
       auto lines =
-        this->canon->rep(expr).split('\n', // version for princ/prin1?
+        this->console->rep(expr).split('\n', // version for princ/prin1?
                                      QString::SplitBehavior::KeepEmptyParts,
                                      Qt::CaseSensitive);
       buffer.append(lines.join("\n"));
@@ -187,8 +187,11 @@ QString ScriptFrame::invoke(
   return buffer.remove("\"");
 }
 
-ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb), canon(cn), name(name) {
+ScriptFrame::ScriptFrame(QString name,
+                         MainTabBar* tb,
+                         Canon* cn,
+                         Canon* cf)
+  : tabBar(tb), canon(cn), name(name), console(cf) {
   
   auto size = this->frameSize();
 

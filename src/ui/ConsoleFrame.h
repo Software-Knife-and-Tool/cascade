@@ -69,6 +69,8 @@ class ConsoleFrame : public QFrame {
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
+  Canon* get_canon() { return ttyWidget->get_canon(); }
+  
 private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*);

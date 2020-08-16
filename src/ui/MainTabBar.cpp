@@ -42,6 +42,7 @@
 #include "CanonFrame.h"
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
+#include "InspectorFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "ScratchpadFrame.h"
@@ -82,7 +83,14 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   add(new ToolFrame("tools", this, canon), "tools");
   log(";;; tools frame loaded");
 
-  add(new ScriptFrame("scripting", this, canon), "scripts");
+  add(new ScriptFrame("script",
+                      this,
+                      canon,
+                      ideFrame->get_canon()),
+      "scripts");
+  log(";;; scripts frame loaded");
+
+  add(new InspectorFrame("inspect", this, canon), "inspector");
   log(";;; scripts frame loaded");
 
   add(new UserFrame("user", this), "user");

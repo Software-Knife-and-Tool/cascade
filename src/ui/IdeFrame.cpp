@@ -39,6 +39,7 @@
 #include <QtWidgets>
 #include <QString>
 
+#include "ConsoleFrame.h"
 #include "IdeFrame.h"
 #include "MainTabBar.h"
 #include "ScriptFrame.h"
@@ -56,6 +57,10 @@ void IdeFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
+Canon* IdeFrame::get_canon() {
+  return console->get_canon();
+}
+  
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   : tabBar(tb), name(name) {
   

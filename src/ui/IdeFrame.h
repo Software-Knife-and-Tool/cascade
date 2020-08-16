@@ -42,6 +42,7 @@
 #include <QFrame>
 #include <QWidget>
 
+#include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
@@ -57,6 +58,7 @@ QT_END_NAMESPACE
 namespace logicaide {
 
 class MainTabBar;
+class ConsoleFrame;
   
 class IdeFrame : public QFrame {
 
@@ -67,6 +69,8 @@ class IdeFrame : public QFrame {
 
   void log(QString);
 
+  Canon* get_canon();
+    
  private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;

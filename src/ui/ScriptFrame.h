@@ -68,7 +68,7 @@ class ScriptFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ScriptFrame(QString, MainTabBar*, Canon*);
+  explicit ScriptFrame(QString, MainTabBar*, Canon*, Canon*);
   static const std::string configFile;
   
  private:
@@ -109,6 +109,7 @@ class ScriptFrame : public QFrame {
 
   MainTabBar *tabBar;
   Canon* canon;
+  Canon* console;
   QString name;
   QTextEdit* editText;
   QLabel* evalText;
