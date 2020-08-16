@@ -44,10 +44,10 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "ScratchpadFrame.h"
 #include "Tile.h"
 #include "ToolFrame.h"
-#include "canon.h"
 
 namespace logicaide {
 
@@ -65,11 +65,11 @@ QToolButton* ToolFrame::toolMenu() {
                   if (init)
                     rootTile->rebase(new ComposerFrame("rebase-composer",
                                                        tabBar,
-                                                       canon));
+                                                       devEnv));
                   else
                     rootTile->split(new ComposerFrame("split-composer",
                                                       tabBar,
-                                                      canon));
+                                                      devEnv));
                   init = false;
                   vsplitAction->setEnabled(true);
                   hsplitAction->setEnabled(true);
@@ -106,8 +106,8 @@ QToolButton* ToolFrame::toolMenu() {
   return tb;
 }
 
-ToolFrame::ToolFrame(QString nm, MainTabBar* tb, Canon* cn)
-  : tabBar(tb), canon(cn), name(nm) {
+ToolFrame::ToolFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
+  : tabBar(tb), devEnv(dev), name(nm) {
 
   init = true;
 

@@ -39,12 +39,16 @@
 #include <QtWidgets>
 #include <QString>
 
+#include "ConsoleFrame.h"
 #include "IdeFrame.h"
 #include "MainTabBar.h"
+#include "ScriptFrame.h"
 
 namespace logicaide {
 
 void IdeFrame::log(QString msg) { console->log(msg); }
+const char* IdeFrame::configFile = "~/.logica-ide";
+const char* IdeFrame::version = "0.0.7";
   
 void IdeFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -55,6 +59,10 @@ void IdeFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
+CanonEnv* IdeFrame::get_canon() {
+  return console->get_canon();
+}
+  
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   : tabBar(tb), name(name) {
   
@@ -68,6 +76,7 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
+    "        <h2>configuration file: %5</h2>"
     "        <p></p>"
     "      </div>"
     "      <p></p>"
@@ -78,10 +87,11 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   auto user = tabBar->userInfo();
   
   auto syshtml =
-    QString::fromStdString(html).arg("0.0.6",
+    QString::fromStdString(html).arg(version,
                                      user->aboutHost(),
                                      "an " + user->aboutCpu() + " system",
-                                     user->aboutSystem());
+                                     user->aboutSystem(),
+                                     configFile);
 
   bannerLabel = new QLabel(syshtml);
   bannerLabel->setAlignment(Qt::AlignCenter);

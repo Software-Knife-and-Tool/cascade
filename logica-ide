@@ -1,0 +1,2 @@
+;;; logic-ide config
+(in-ns (ns "logica-ide" (ns-current)))

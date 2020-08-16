@@ -45,9 +45,9 @@
 #include <QToolBar>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "CanonFrame.h"
 #include "ComposerFrame.h"
-#include "canon.h"
 
 namespace logicaide {
 
@@ -61,11 +61,11 @@ void CanonFrame::runStatus(QString form) {
                       " evaluated at " +
                       date +
                       "\n;;;\n" +
-                      canon->rep("(room :nil)"));
+                      devEnv->rep("(room :nil)"));
 }
 
-CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
-  : canon(cn), name(name), tabBar(tb) {
+CanonFrame::CanonFrame(QString name, MainTabBar* tb, CanonEnv* cn)
+  : devEnv(cn), name(name), tabBar(tb) {
   
   toolBar = new QToolBar();
   connect(toolBar->addAction(tr("del")),
@@ -91,8 +91,8 @@ CanonFrame::CanonFrame(QString name, MainTabBar* tb, Canon* cn)
   QString out;
 
   auto error_text =
-    canon->withException([this, &out]() {
-         out = canon->rep("(room :default)");
+    devEnv->withException([this, &out]() {
+         out = devEnv->rep("(room :default)");
        });
 
   statusText->setText(out + error_text);

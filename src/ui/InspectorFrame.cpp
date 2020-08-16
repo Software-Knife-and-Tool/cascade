@@ -43,9 +43,9 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
 #include "InspectorFrame.h"
-#include "canon.h"
 
 namespace logicaide {
 
@@ -53,10 +53,13 @@ void InspectorFrame::clear() {
   //  edit_text->setText("");
 }
 
-InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb),  canon(cn),  name(name) {
+InspectorFrame::InspectorFrame(QString name,
+                               MainTabBar* tb,
+                               CanonEnv* ide,
+                               CanonEnv* dev )
+  : tabBar(tb),  ideEnv(ide), devEnv(dev), name(name) {
   
-  composerFrame = new ComposerFrame("inspector", tb, cn);
+  composerFrame = new ComposerFrame("inspector", tb, dev);
   viewLabel = new QLabel("view info");
   timeLabel = new QLabel("time info");
   toolBar = new QToolBar();

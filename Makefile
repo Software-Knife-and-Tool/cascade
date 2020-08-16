@@ -1,7 +1,7 @@
 #
 #
 #
-.PHONY: help build clean run
+.PHONY: help build clean run install
 
 help:
 	@echo help - this message
@@ -21,4 +21,7 @@ build: src/ui/Makefile
 
 run:
 	@open build/logicaide.app
+
+install:
+	@cp logica-ide ~/.logica-ide
 

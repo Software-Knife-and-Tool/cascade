@@ -39,6 +39,7 @@
 #include <QtWidgets>
 #include <QString>
 
+#include "IdeFrame.h"
 #include "UserFrame.h"
 
 namespace logicaide {
@@ -78,7 +79,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   auto user = tabBar->userInfo();
   
   auto system_html =
-    QString(html).arg("0.0.6",
+    QString(html).arg(IdeFrame::version,
                       user->aboutHost(),
                       "an " + user->aboutCpu() + " system",
                       user->aboutSystem());

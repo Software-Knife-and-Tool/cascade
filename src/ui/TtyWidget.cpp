@@ -294,11 +294,11 @@ void TtyWidget::keyPressEvent(QKeyEvent *event) {
       buffer_ << prompt_ + line_;
 
       auto error_text =
-        canon->withException([this]() {
+        ideEnv->withException([this]() {
          auto lines =
-           canon->rep(line_).split('\n',
-                                   QString::SplitBehavior::KeepEmptyParts,
-                                   Qt::CaseSensitive);
+           ideEnv->rep(line_).split('\n',
+                                    QString::SplitBehavior::KeepEmptyParts,
+                                    Qt::CaseSensitive);
          for (int i = 0; i < lines.size(); ++i)
            buffer_ << lines.at(i);
        });
@@ -362,11 +362,11 @@ void TtyWidget::writeTty(QString str) {
 /** * constructor **/
 TtyWidget::TtyWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
-    canon(new Canon()),
+    ideEnv(new CanonEnv()),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  buffer_ << QString(";;; canon ").append(canon->version());
+  buffer_ << QString(";;; canon ").append(ideEnv->version());
   prompt_ = QString(". ");
   cursor_ = QString("_");
 }

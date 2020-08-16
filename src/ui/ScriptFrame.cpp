@@ -44,11 +44,11 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "ScriptFrame.h"
-#include "canon.h"
 
 namespace logicaide {
-
+  
 void ScriptFrame::clear() {
   editText->setText("");
   evalText->setText("");
@@ -75,8 +75,8 @@ void ScriptFrame::eval() {
   QString out;
 
   auto error =
-    canon->withException([this, &out]() {
-         out = canon->rep(editText->toPlainText());
+    ideEnv->withException([this, &out]() {
+         out = ideEnv->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
@@ -86,15 +86,15 @@ QString ScriptFrame::evalf(QString expr) {
   QString out;
 
   auto error =
-    canon->withException([this, expr, &out]() {
-         out = canon->rep(expr);
+    ideEnv->withException([this, expr, &out]() {
+         out = ideEnv->rep(expr);
        });
   
   return out + error;
 }
 
 void ScriptFrame::reset() {
-  canon = new Canon();
+  ideEnv = new CanonEnv();
 }
 
 void ScriptFrame::del() {
@@ -146,14 +146,23 @@ std::string ScriptFrame::script(std::string arg) {
   }
 }
 
-QString ScriptFrame::IdOf(std::string (* fn)(std::string)) {
+QString ScriptFrame::idOf(std::string (* fn)(std::string)) {
   auto fnp = reinterpret_cast<uint64_t>(fn);
   auto id = QString("%1").arg(fnp);
 
   return id;
 }
+
+void ScriptFrame::loadConfigFile() {
+  auto home = getenv("HOME");
+  auto path = QString::fromStdString(IdeFrame::configFile);
+
+  auto npath = home + path.remove(0, 1);
+  log(";;; config file " + npath + " loaded");
+  evalf("(load \"" + npath + "\")");
+}
   
-QString ScriptFrame::Invoke(
+QString ScriptFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
   
@@ -162,11 +171,11 @@ QString ScriptFrame::Invoke(
     
   QString buffer;
   auto error_text =
-    canon->withException([this, &buffer, expr]() {
+    ideEnv->withException([this, &buffer, expr]() {
       auto lines =
-        this->canon->rep(expr).split('\n', // version for princ/prin1?
-                                     QString::SplitBehavior::KeepEmptyParts,
-                                     Qt::CaseSensitive);
+        this->ideEnv->rep(expr).split('\n', // version for princ/prin1?
+                                      QString::SplitBehavior::KeepEmptyParts,
+                                      Qt::CaseSensitive);
       buffer.append(lines.join("\n"));
     });
       
@@ -176,8 +185,11 @@ QString ScriptFrame::Invoke(
   return buffer.remove("\"");
 }
 
-ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb), canon(cn), name(name) {
+ScriptFrame::ScriptFrame(QString name,
+                         MainTabBar* tb,
+                         CanonEnv* dev,
+                         CanonEnv* ide)
+  : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
   
   auto size = this->frameSize();
 
@@ -231,8 +243,10 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, Canon* cn)
 
   // log(Invoke([](std::string arg) { return arg; },
   //           ";;; script framework connected"));
-  evalf("(:defcon script-fn-id " + IdOf(script) + ")");
-  // log(evalf("(invoke " + IdOf(script) + " \"(identity whoooo)\")"));
+
+  evalf("(in-ns (ns \"logica-ide\" (ns-current)))");
+  evalf("(:defcon script-fn-id " + idOf(script) + ")");
+  loadConfigFile();
   setLayout(layout);
 }
 

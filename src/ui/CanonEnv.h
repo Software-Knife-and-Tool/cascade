@@ -33,11 +33,11 @@
 
 /********
  **
- **  Canon.h: Canon class
+ **  CanonEnv.h: Canon environment class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_CANON_H_
-#define _LOGICAIDE_SRC_UI_CANON_H_
+#ifndef _LOGICAIDE_SRC_UI_CANONENV_H_
+#define _LOGICAIDE_SRC_UI_CANONENV_H_
 
 #include <QString>
 
@@ -45,7 +45,7 @@
 
 namespace logicaide {
   
-class Canon {
+class CanonEnv {
  public:
   QString version() {
 
@@ -69,7 +69,7 @@ class Canon {
         platform::Platform::GetStdString(stderr));
   }
   
-  Canon() : platform(new platform::Platform()) {
+  CanonEnv() : platform(new platform::Platform()) {
     stdout = platform::Platform::OpenOutputString("");
     stderr = platform::Platform::OpenOutputString("");
     libmu = std::make_unique<libmu::LibMu>(platform, stdout, stdout, stderr);
@@ -88,4 +88,4 @@ class Canon {
 
 } /* logicaide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_CANON_H_ */ 
+#endif /* _LOGICAIDE_SRC_UI_CANONENV_H_ */ 

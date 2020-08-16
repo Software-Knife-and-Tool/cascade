@@ -42,10 +42,10 @@
 #include <QFrame>
 #include <QWidget>
 
+#include "CanonEnv.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
-#include "canon.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE

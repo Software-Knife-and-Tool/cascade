@@ -42,10 +42,11 @@
 #include <QFrame>
 #include <QWidget>
 
+#include "CanonEnv.h"
+#include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
-#include "canon.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -57,6 +58,7 @@ QT_END_NAMESPACE
 namespace logicaide {
 
 class MainTabBar;
+class ConsoleFrame;
   
 class IdeFrame : public QFrame {
 
@@ -64,9 +66,13 @@ class IdeFrame : public QFrame {
 
  public:
   explicit IdeFrame(QString, MainTabBar*);
-
+  static const char* configFile;
+  static const char* version;
+  
   void log(QString);
 
+  CanonEnv* get_canon();
+    
  private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;

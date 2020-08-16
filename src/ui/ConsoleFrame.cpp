@@ -53,8 +53,7 @@ void ConsoleFrame::showEvent(QShowEvent* event) {
 }
 
 ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
-  : tabBar(tb),
-    name(name) {
+  : tabBar(tb), name(name) {
   
   ttyWidget = new TtyWidget(this);
     

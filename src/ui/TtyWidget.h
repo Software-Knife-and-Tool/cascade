@@ -50,7 +50,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "canon.h"
+#include "CanonEnv.h"
 
 class QPaintEvent;
 class QMouseEvent;
@@ -69,7 +69,7 @@ class TtyWidget : public QAbstractScrollArea {
 
   void writeTty(QString);
 
-  Canon* get_canon() { return canon; }
+  CanonEnv* get_canon() { return ideEnv; }
   
  protected:
   void paintEvent(QPaintEvent* event) override;
@@ -91,7 +91,7 @@ class TtyWidget : public QAbstractScrollArea {
   QString prompt_;
   QStringList buffer_;
 
-  Canon* canon;
+  CanonEnv* ideEnv;
   QSharedPointer<TextSelection> _selection;
 };
 
