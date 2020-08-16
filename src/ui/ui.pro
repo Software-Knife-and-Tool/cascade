@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
            /usr/local/logica/libmu/libmu.h \
+           CanonEnv.h        \
            CanonFrame.h      \
            ComposerFrame.h   \
            ConsoleFrame.h    \
@@ -19,15 +20,14 @@ HEADERS += \
            MainMenuBar.h     \
            MainTabBar.h      \
            MainWindow.h      \
-           ShellFrame.h      \
            ScratchpadFrame.h \
            ScriptFrame.h     \
+           ShellFrame.h      \
            StatusClock.h     \
            Tile.h            \
            ToolFrame.h       \
            TtyWidget.h       \
            UserFrame.h       \
-           canon.h           \
            logica.h          \
            user.h
 

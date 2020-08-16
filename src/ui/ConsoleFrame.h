@@ -42,10 +42,10 @@
 #include <QFrame>
 #include <QWidget>
 
+#include "CanonEnv.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
-#include "canon.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -69,7 +69,7 @@ class ConsoleFrame : public QFrame {
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
-  Canon* get_canon() { return ttyWidget->get_canon(); }
+  CanonEnv* get_canon() { return ttyWidget->get_canon(); }
   
 private:
   void setContextStatus(QString);

@@ -44,8 +44,8 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "ScriptFrame.h"
-#include "canon.h"
 
 namespace logicaide {
   
@@ -75,8 +75,8 @@ void ScriptFrame::eval() {
   QString out;
 
   auto error =
-    console->withException([this, &out]() {
-         out = console->rep(editText->toPlainText());
+    ideEnv->withException([this, &out]() {
+         out = ideEnv->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
@@ -86,15 +86,15 @@ QString ScriptFrame::evalf(QString expr) {
   QString out;
 
   auto error =
-    console->withException([this, expr, &out]() {
-         out = console->rep(expr);
+    ideEnv->withException([this, expr, &out]() {
+         out = ideEnv->rep(expr);
        });
   
   return out + error;
 }
 
 void ScriptFrame::reset() {
-  console = new Canon();
+  ideEnv = new CanonEnv();
 }
 
 void ScriptFrame::del() {
@@ -171,11 +171,11 @@ QString ScriptFrame::invoke(
     
   QString buffer;
   auto error_text =
-    console->withException([this, &buffer, expr]() {
+    ideEnv->withException([this, &buffer, expr]() {
       auto lines =
-        this->console->rep(expr).split('\n', // version for princ/prin1?
-                                     QString::SplitBehavior::KeepEmptyParts,
-                                     Qt::CaseSensitive);
+        this->ideEnv->rep(expr).split('\n', // version for princ/prin1?
+                                      QString::SplitBehavior::KeepEmptyParts,
+                                      Qt::CaseSensitive);
       buffer.append(lines.join("\n"));
     });
       
@@ -187,9 +187,9 @@ QString ScriptFrame::invoke(
 
 ScriptFrame::ScriptFrame(QString name,
                          MainTabBar* tb,
-                         Canon* cn,
-                         Canon* co)
-  : tabBar(tb), canon(cn), console(co), name(name) {
+                         CanonEnv* dev,
+                         CanonEnv* ide)
+  : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
   
   auto size = this->frameSize();
 

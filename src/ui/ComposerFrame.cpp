@@ -44,8 +44,8 @@
 #include <QString>
 #include <QtWidgets>
 
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
-#include "canon.h"
 
 namespace logicaide {
 
@@ -77,8 +77,8 @@ void ComposerFrame::eval() {
   tabBar->setContextStatus(tr("eval"));
   
   auto error =
-    canon->withException([this, &out]() {
-         out = canon->rep(editText->toPlainText());
+    devEnv->withException([this, &out]() {
+         out = devEnv->rep(editText->toPlainText());
        });
 
   evalText->setText(out + error);
@@ -87,7 +87,7 @@ void ComposerFrame::eval() {
 }
 
 void ComposerFrame::reset() {
-  canon = new Canon();
+  devEnv = new CanonEnv();
 }
 
 void ComposerFrame::del() {
@@ -122,8 +122,8 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
   return tabBar->get_mw()->eventFilter(watched, event);
 }
   
-ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, Canon* cn)
-  : tabBar(tb), canon(cn), name(name) {
+ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
+  : tabBar(tb), devEnv(cn), name(name) {
   
   auto size = this->frameSize();
 

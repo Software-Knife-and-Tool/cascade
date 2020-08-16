@@ -69,7 +69,8 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  auto canon = new Canon();
+  auto devEnv = new CanonEnv();
+  auto ideDev = ideFrame->get_canon();
 
 #if 0
   if (!QObject::connect(composef, &ComposerFrame::evalHappened,
@@ -80,17 +81,13 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   add(ideFrame, QString("IDE"));
   log(";;; IDE frame loaded");
 
-  add(new ToolFrame("tools", this, canon), "tools");
+  add(new ToolFrame("tools", this, devEnv), "tools");
   log(";;; tools frame loaded");
 
-  add(new ScriptFrame("script",
-                      this,
-                      canon,
-                      ideFrame->get_canon()),
-      "scripts");
+  add(new ScriptFrame("script", this, devEnv, ideDev), "scripts");
   log(";;; scripts frame loaded");
 
-  add(new InspectorFrame("inspect", this, canon), "inspector");
+  add(new InspectorFrame("inspect", this, devEnv, ideDev), "inspector");
   log(";;; inspector frame loaded");
 
   add(new UserFrame("user", this), "user");

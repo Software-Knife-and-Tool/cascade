@@ -45,9 +45,9 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
-#include "canon.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;

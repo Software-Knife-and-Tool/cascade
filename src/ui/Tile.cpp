@@ -45,7 +45,6 @@
 #include <QtWidgets>
 
 #include "Tile.h"
-#include "canon.h"
 
 namespace logicaide {
 

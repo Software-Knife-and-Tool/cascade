@@ -46,7 +46,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "canon.h"
+#include "CanonEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -68,7 +68,7 @@ class ScriptFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ScriptFrame(QString, MainTabBar*, Canon*, Canon*);
+  explicit ScriptFrame(QString, MainTabBar*, CanonEnv*, CanonEnv*);
   
  private:
   void clear();
@@ -107,8 +107,8 @@ class ScriptFrame : public QFrame {
   QString saveFileName;
 
   MainTabBar *tabBar;
-  Canon* canon;
-  Canon* console;
+  CanonEnv* devEnv;
+  CanonEnv* ideEnv;
   QString name;
   QTextEdit* editText;
   QLabel* evalText;

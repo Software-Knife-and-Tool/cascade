@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "canon.h"
+#include "CanonEnv.h"
 #include "MainTabBar.h"
 #include "Tile.h"
 
@@ -67,7 +67,7 @@ class ToolFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ToolFrame(QString, MainTabBar*, Canon*);
+  explicit ToolFrame(QString, MainTabBar*, CanonEnv*);
 
  private:
 
@@ -82,7 +82,7 @@ class ToolFrame : public QFrame {
   
   MainTabBar *tabBar;
   bool init;
-  Canon* canon;
+  CanonEnv* devEnv;
   QString name;
   QLayout* layout;
   QToolBar* toolBar;

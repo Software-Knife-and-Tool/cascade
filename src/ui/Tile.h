@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "canon.h"
+#include "CanonEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -79,7 +79,6 @@ class Tile : public QFrame {
   void log(QString msg) { tabBar->log(msg); }  
 
   MainTabBar *tabBar;
-  Canon* canon;
   STATE splitState;
   QFrame* baseFrame;
   Tile* splitTile;

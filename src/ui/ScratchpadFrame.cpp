@@ -45,9 +45,9 @@
 #include <QToolBar>
 #include <QtWidgets>
 
-#include "ScratchpadFrame.h"
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
-#include "canon.h"
+#include "ScratchpadFrame.h"
 
 namespace logicaide {
 

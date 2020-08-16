@@ -45,9 +45,9 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
-#include "canon.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;
@@ -70,7 +70,7 @@ class CanonFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit CanonFrame(QString, MainTabBar*, Canon*);
+  explicit CanonFrame(QString, MainTabBar*, CanonEnv*);
 
  public slots:
   void runStatus(QString);
@@ -89,7 +89,7 @@ class CanonFrame : public QFrame {
     tabBar->setContextStatus(name);
   }
 
-  Canon* canon;
+  CanonEnv* devEnv;
   QString name;
   QScrollArea* scrollArea;
   QLabel* statusText;

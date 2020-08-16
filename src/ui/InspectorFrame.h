@@ -45,8 +45,8 @@
 #include <QToolBar>
 #include <QWidget>
 
+#include "CanonEnv.h"
 #include "ComposerFrame.h"
-#include "canon.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -67,7 +67,7 @@ class InspectorFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit InspectorFrame(QString, MainTabBar*, Canon*);
+  explicit InspectorFrame(QString, MainTabBar*, CanonEnv*, CanonEnv*);
 
  private:
   void clear();
@@ -80,7 +80,8 @@ class InspectorFrame : public QFrame {
   }
 
   MainTabBar *tabBar;
-  Canon* canon;
+  CanonEnv* ideEnv;
+  CanonEnv* devEnv;
   QString name;
   ComposerFrame* composerFrame;;
   QLabel* viewLabel;
