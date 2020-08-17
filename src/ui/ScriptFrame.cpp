@@ -166,12 +166,6 @@ std::string ScriptFrame::script(std::string arg) {
   }
 }
 
-QString ScriptFrame::idOf(std::string (* fn)(std::string)) {
-  auto fnp = reinterpret_cast<uint64_t>(fn);
-
-  return QString("%1").arg(fnp);
-}
-
 void ScriptFrame::loadConfigFile() {
   auto home = getenv("HOME");
   auto path = QString::fromStdString(IdeFrame::configFile);
@@ -261,7 +255,8 @@ ScriptFrame::ScriptFrame(QString name,
   layout->addWidget(vs);
 
   evalString("(in-ns (ns \"logica-ide\" (ns-current)))", ideEnv);
-  evalString("(:defcon ide-fn-id " + idOf(script) + ")", ideEnv);
+  evalString("(:defcon ide-fn-id " + scriptIdOf(script) + ")", ideEnv);
+  evalString("(:defcon ide-ctx-id " + contextIdOf() + ")", ideEnv);
   log(QString::fromStdString(script("(foo a b \"c d\" 1)")));
   loadConfigFile();
   setLayout(layout);

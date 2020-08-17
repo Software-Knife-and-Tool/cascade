@@ -107,11 +107,19 @@ class ScriptFrame : public QFrame {
  
     return hash;
   }
+
+  enum TYPE { FIXNUM, FLOAT, SYMBOL, STRING, LIST };
+
+  struct tag {
+    TYPE type;
+    QString value;
+  };
   
  private:
-  void clear();
   void evalFrame(CanonEnv*);
   QString evalString(QString, CanonEnv*);
+
+  void clear();
   void load();
   void reset();
   void save();
@@ -134,12 +142,23 @@ class ScriptFrame : public QFrame {
   bool eventFilter(QObject*, QEvent*) override;
 
   static std::string script(std::string);
+  QString invoke(std::string(*)(std::string), QString);
+  
   static constexpr unsigned int hash(const char* str, int h = 0) {
     return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
   }
 
-  QString idOf(std::string (*)(std::string));
-  QString invoke(std::string(*)(std::string), QString);
+  QString scriptIdOf(std::string (* fn)(std::string)) {
+    auto fnp = reinterpret_cast<uint64_t>(fn);
+
+    return QString("%1").arg(fnp);
+  }
+  
+  QString contextIdOf() {
+    auto ctxp = reinterpret_cast<uint64_t>(this);
+
+    return QString("%1").arg(ctxp);
+  }
 
   QString loadFileName;
   QString saveFileName;
