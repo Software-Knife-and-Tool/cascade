@@ -1,2 +1,17 @@
 ;;; logic-ide config
 (in-ns (ns "logica-ide" (ns-current)))
+
+(:defcon genkey
+  (let ((genkey-counter (make-output-string "0")))
+    (closure (:lambda ()
+      (let ((ctr (read (make-input-string (get-output-string-stream genkey-counter))))
+            (name (make-output-string "")))
+        (princ (fixnum+ 1 ctr) genkey-counter)
+        (princ "%" name)
+        (princ ctr name)
+        (keyword (get-output-string-stream name)))))))
+
+(:defcon script (:lambda (verb :rest args)
+  (let ((id (genkey)))
+    (invoke script-fn-id (fmt :nil "~A" (list* verb args)))
+    id)))

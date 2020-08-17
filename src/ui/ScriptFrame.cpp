@@ -139,10 +139,30 @@ std::string ScriptFrame::script(std::string arg) {
                Qt::CaseSensitive);
   
   switch (hash(argv.at(0).toStdString().c_str())) {
-  case hash("identity"):
-    return argv[1].toStdString();
-  default:
-    return argv.join(' ').toStdString();;
+    case hash("identity"):
+      return argv[1].toStdString();
+    case hash(":make"): {
+      switch (hash(argv[1].toStdString().c_str())) {
+        case hash("QMessageBox"): {
+          QMessageBox msg;
+          msg.setText("This is your final warning");
+          msg.exec();
+          return "";
+        }
+        default:
+          break;
+      }
+      break;
+    }
+    case hash(":show"): {
+      break;
+    }
+    case hash(":hide"):
+      break;
+    case hash(":delete"):
+      break;
+    default:
+      return argv.join(' ').toStdString();;
   }
 }
 
