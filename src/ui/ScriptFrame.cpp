@@ -138,15 +138,17 @@ std::string ScriptFrame::script(std::string arg) {
     args.remove('(')
         .remove(')')
         .split(rx);
-
-  switch (hash(argv.at(0).toStdString().c_str())) {
+  
+  auto ctx = reinterpret_cast<ScriptFrame*>(argv.at(0).toULongLong());
+  
+  switch (hash(argv.at(1).toStdString().c_str())) {
     case hash("identity"):
-      return argv[1].toStdString();
+      return argv[2].toStdString();
     case hash(":make"): {
-      switch (hash(argv[1].toStdString().c_str())) {
+      switch (hash(argv[2].toStdString().c_str())) {
         case hash("QMessageBox"): {
           QMessageBox msg;
-          msg.setText(argv[2].toStdString().c_str());
+          msg.setText(argv[3].toStdString().c_str());
           msg.exec();
           return "";
         }
@@ -162,7 +164,8 @@ std::string ScriptFrame::script(std::string arg) {
     case hash(":delete"):
       break;
     case hash(":log"):
-      
+      //      ctx->log(QString::fromStdString("wat"));
+      return argv.join(',').toStdString();
       break;
     default:
       return argv.join(',').toStdString();
@@ -264,7 +267,12 @@ ScriptFrame::ScriptFrame(QString name,
              + scriptIdOf(script)
              + " "
              + contextIdOf() + "))", ideEnv);
-  log(QString::fromStdString(script("(foo a b \"c d\" 1)")));
+
+  log("(:defcon ide-context (cons "
+      + scriptIdOf(script)
+      + " "
+      + contextIdOf() + "))");
+  
   loadConfigFile();
   setLayout(layout);
 }
