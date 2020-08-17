@@ -82,12 +82,12 @@ void ScriptFrame::evalFrame(CanonEnv* env) {
   evalText->setText(out + error);
 }
 
-  QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
+QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
   QString out;
 
   auto error =
-    ideEnv->withException([this, expr, &out]() {
-         out = ideEnv->rep(expr);
+    env->withException([this, env, expr, &out]() {
+         out = env->rep(expr);
        });
   
   return out + error;
@@ -150,7 +150,7 @@ std::string ScriptFrame::script(std::string arg) {
           QMessageBox msg;
           msg.setText(argv[3].toStdString().c_str());
           msg.exec();
-          return "";
+          return argv[3].toStdString();
         }
         default:
           break;
@@ -164,12 +164,13 @@ std::string ScriptFrame::script(std::string arg) {
     case hash(":delete"):
       break;
     case hash(":log"):
-      //      ctx->log(QString::fromStdString("wat"));
-      return argv.join(',').toStdString();
-      break;
+      ctx->log(argv[2].toStdString().c_str());
+      return argv[2].toStdString();
     default:
-      return argv.join(',').toStdString();
+      break;
   }
+  
+  return "unimplemented-damnit";
 }
 
 void ScriptFrame::loadConfigFile() {
@@ -268,11 +269,6 @@ ScriptFrame::ScriptFrame(QString name,
              + " "
              + contextIdOf() + "))", ideEnv);
 
-  log("(:defcon ide-context (cons "
-      + scriptIdOf(script)
-      + " "
-      + contextIdOf() + "))");
-  
   loadConfigFile();
   setLayout(layout);
 }
