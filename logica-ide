@@ -11,7 +11,7 @@
         (princ ctr name)
         (keyword (get-output-string-stream name)))))))
 
-(:defcon with-ide (:lambda (verb :rest args)
-  (let ((id (genkey)))
-    (invoke ide-fn-id (fmt :nil "~S" (list* verb args)))
-    id)))
+(:defcon with-ide (:lambda (context verb :rest args)
+  (let ((ide-fn-id (car context))
+        (ide-ctx-id (cdr context)))
+    (invoke ide-fn-id (fmt :nil "~S" (list* verb args))))))

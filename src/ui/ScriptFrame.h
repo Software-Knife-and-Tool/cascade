@@ -142,7 +142,10 @@ class ScriptFrame : public QFrame {
   bool eventFilter(QObject*, QEvent*) override;
 
   static std::string script(std::string);
+
+#if 0
   QString invoke(std::string(*)(std::string), QString);
+#endif
   
   static constexpr unsigned int hash(const char* str, int h = 0) {
     return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];

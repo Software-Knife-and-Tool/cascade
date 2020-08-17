@@ -138,7 +138,7 @@ std::string ScriptFrame::script(std::string arg) {
     args.remove('(')
         .remove(')')
         .split(rx);
-  
+
   switch (hash(argv.at(0).toStdString().c_str())) {
     case hash("identity"):
       return argv[1].toStdString();
@@ -161,6 +161,9 @@ std::string ScriptFrame::script(std::string arg) {
       break;
     case hash(":delete"):
       break;
+    case hash(":log"):
+      
+      break;
     default:
       return argv.join(',').toStdString();
   }
@@ -174,7 +177,8 @@ void ScriptFrame::loadConfigFile() {
   log(";;; config file " + npath + " loaded");
   evalString("(load \"" + npath + "\")", ideEnv);
 }
-  
+
+#if 0
 QString ScriptFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
@@ -197,6 +201,7 @@ QString ScriptFrame::invoke(
 
   return buffer.remove("\"");
 }
+#endif
 
 ScriptFrame::ScriptFrame(QString name,
                          MainTabBar* tb,
@@ -255,8 +260,10 @@ ScriptFrame::ScriptFrame(QString name,
   layout->addWidget(vs);
 
   evalString("(in-ns (ns \"logica-ide\" (ns-current)))", ideEnv);
-  evalString("(:defcon ide-fn-id " + scriptIdOf(script) + ")", ideEnv);
-  evalString("(:defcon ide-ctx-id " + contextIdOf() + ")", ideEnv);
+  evalString("(:defcon ide-context (cons "
+             + scriptIdOf(script)
+             + " "
+             + contextIdOf() + "))", ideEnv);
   log(QString::fromStdString(script("(foo a b \"c d\" 1)")));
   loadConfigFile();
   setLayout(layout);
