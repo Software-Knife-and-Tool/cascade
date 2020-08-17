@@ -71,7 +71,7 @@ void ScriptFrame::load() {
   saveFileName = loadFileName;
 }
     
-void ScriptFrame::eval() {
+void ScriptFrame::evalFrame(CanonEnv* env) {
   QString out;
 
   auto error =
@@ -82,7 +82,7 @@ void ScriptFrame::eval() {
   evalText->setText(out + error);
 }
 
-QString ScriptFrame::evalf(QString expr) {
+  QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
   QString out;
 
   auto error =
@@ -121,7 +121,7 @@ bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
     QKeyEvent *e = static_cast < QKeyEvent * >(event);
     if (e->key() == Qt::Key_Return &&
         e->modifiers() & Qt::ShiftModifier) {
-      eval();
+      evalFrame(devEnv);
       return true;
     }
   }
@@ -139,10 +139,30 @@ std::string ScriptFrame::script(std::string arg) {
                Qt::CaseSensitive);
   
   switch (hash(argv.at(0).toStdString().c_str())) {
-  case hash("identity"):
-    return argv[1].toStdString();
-  default:
-    return argv.join(' ').toStdString();;
+    case hash("identity"):
+      return argv[1].toStdString();
+    case hash(":make"): {
+      switch (hash(argv[1].toStdString().c_str())) {
+        case hash("QMessageBox"): {
+          QMessageBox msg;
+          msg.setText("This is your final warning");
+          msg.exec();
+          return "";
+        }
+        default:
+          break;
+      }
+      break;
+    }
+    case hash(":show"): {
+      break;
+    }
+    case hash(":hide"):
+      break;
+    case hash(":delete"):
+      break;
+    default:
+      return argv.join(' ').toStdString();;
   }
 }
 
@@ -159,7 +179,7 @@ void ScriptFrame::loadConfigFile() {
 
   auto npath = home + path.remove(0, 1);
   log(";;; config file " + npath + " loaded");
-  evalf("(load \"" + npath + "\")");
+  evalString("(load \"" + npath + "\")", ideEnv);
 }
   
 QString ScriptFrame::invoke(
@@ -199,7 +219,7 @@ ScriptFrame::ScriptFrame(QString name,
   connect(toolBar->addAction(tr("load")),
           &QAction::triggered, this, &ScriptFrame::load);
   connect(toolBar->addAction(tr("eval")),
-          &QAction::triggered, this, &ScriptFrame::eval);
+          &QAction::triggered, this, [this]() { evalFrame(devEnv); });
   connect(toolBar->addAction(tr("reset")),
           &QAction::triggered, this, &ScriptFrame::reset);
   connect(toolBar->addAction(tr("save")),
@@ -244,8 +264,8 @@ ScriptFrame::ScriptFrame(QString name,
   // log(Invoke([](std::string arg) { return arg; },
   //           ";;; script framework connected"));
 
-  evalf("(in-ns (ns \"logica-ide\" (ns-current)))");
-  evalf("(:defcon script-fn-id " + idOf(script) + ")");
+  evalString("(in-ns (ns \"logica-ide\" (ns-current)))", ideEnv);
+  evalString("(:defcon script-fn-id " + idOf(script) + ")", ideEnv);
   loadConfigFile();
   setLayout(layout);
 }

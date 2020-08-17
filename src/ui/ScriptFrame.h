@@ -39,6 +39,12 @@
 #ifndef _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
 #define _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
 
+#include <algorithm>
+#include <cassert>
+#include <iostream>
+#include <unordered_map>
+#include <utility>
+ 
 #include <QFrame>
 #include <QLabel>
 #include <QScrollArea>
@@ -71,9 +77,41 @@ class ScriptFrame : public QFrame {
   explicit ScriptFrame(QString, MainTabBar*, CanonEnv*, CanonEnv*);
   
  private:
+  static const size_t FNV_prime = 16777619;
+  static const uint64_t OFFSET_BASIS = 2166136261UL;
+ 
+  typedef std::unordered_map<uint32_t, QObject*> object_map;
+  typedef object_map::const_iterator object_iter;
+ 
+  static object_iter find(const std::shared_ptr<object_map>& map, QString key) {
+    return map->find(hash_id(key));
+  }
+ 
+  static bool isFound(const std::shared_ptr<object_map>& map, object_iter el) {
+    return el != map->end();
+  }
+ 
+  static QObject* Insert(const std::shared_ptr<object_map>& map, QString key,
+                       QObject* object) {
+    (*map.get())[hash_id(key)] = object;
+    return object;
+  }
+ 
+  static uint64_t hash_id(QString str) {
+    uint64_t hash = OFFSET_BASIS;
+
+    for (auto ch : str) {
+      hash ^= ch.toLatin1();
+      hash *= FNV_prime;
+    }
+ 
+    return hash;
+  }
+  
+ private:
   void clear();
-  void eval();
-  QString evalf(QString);
+  void evalFrame(CanonEnv*);
+  QString evalString(QString, CanonEnv*);
   void load();
   void reset();
   void save();
