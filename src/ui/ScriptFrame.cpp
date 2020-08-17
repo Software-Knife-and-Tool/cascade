@@ -82,12 +82,12 @@ void ScriptFrame::evalFrame(CanonEnv* env) {
   evalText->setText(out + error);
 }
 
-  QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
+QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
   QString out;
 
   auto error =
-    ideEnv->withException([this, expr, &out]() {
-         out = ideEnv->rep(expr);
+    env->withException([this, env, expr, &out]() {
+         out = env->rep(expr);
        });
   
   return out + error;
@@ -130,47 +130,47 @@ bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
 }
 
 std::string ScriptFrame::script(std::string arg) {
+
+  QRegExp rx("( |\".*\")");
   auto args = QString::fromStdString(arg);
+
   auto argv =
     args.remove('(')
         .remove(')')
-        .split(' ',
-               QString::SplitBehavior::KeepEmptyParts,
-               Qt::CaseSensitive);
+        .split(rx);
   
-  switch (hash(argv.at(0).toStdString().c_str())) {
+  auto ctx = reinterpret_cast<ScriptFrame*>(argv.at(0).toULongLong());
+  
+  switch (hash(argv.at(1).toStdString().c_str())) {
     case hash("identity"):
-      return argv[1].toStdString();
+      return argv[2].toStdString();
     case hash(":make"): {
-      switch (hash(argv[1].toStdString().c_str())) {
+      switch (hash(argv[2].toStdString().c_str())) {
         case hash("QMessageBox"): {
           QMessageBox msg;
-          msg.setText("This is your final warning");
+          msg.setText(argv[3].toStdString().c_str());
           msg.exec();
-          return "";
+          return argv[3].toStdString();
         }
         default:
           break;
       }
       break;
     }
-    case hash(":show"): {
+    case hash(":show"):
       break;
-    }
     case hash(":hide"):
       break;
     case hash(":delete"):
       break;
+    case hash(":log"):
+      ctx->log(argv[2].toStdString().c_str());
+      return argv[2].toStdString();
     default:
-      return argv.join(' ').toStdString();;
+      break;
   }
-}
-
-QString ScriptFrame::idOf(std::string (* fn)(std::string)) {
-  auto fnp = reinterpret_cast<uint64_t>(fn);
-  auto id = QString("%1").arg(fnp);
-
-  return id;
+  
+  return "unimplemented-damnit";
 }
 
 void ScriptFrame::loadConfigFile() {
@@ -181,7 +181,8 @@ void ScriptFrame::loadConfigFile() {
   log(";;; config file " + npath + " loaded");
   evalString("(load \"" + npath + "\")", ideEnv);
 }
-  
+
+#if 0
 QString ScriptFrame::invoke(
                      std::string(* fn)(std::string),
                      QString arg) {
@@ -204,6 +205,7 @@ QString ScriptFrame::invoke(
 
   return buffer.remove("\"");
 }
+#endif
 
 ScriptFrame::ScriptFrame(QString name,
                          MainTabBar* tb,
@@ -261,11 +263,12 @@ ScriptFrame::ScriptFrame(QString name,
   layout->addWidget(toolBar);
   layout->addWidget(vs);
 
-  // log(Invoke([](std::string arg) { return arg; },
-  //           ";;; script framework connected"));
-
   evalString("(in-ns (ns \"logica-ide\" (ns-current)))", ideEnv);
-  evalString("(:defcon script-fn-id " + idOf(script) + ")", ideEnv);
+  evalString("(:defcon ide-context (cons "
+             + scriptIdOf(script)
+             + " "
+             + contextIdOf() + "))", ideEnv);
+
   loadConfigFile();
   setLayout(layout);
 }
