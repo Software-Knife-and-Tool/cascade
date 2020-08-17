@@ -23,5 +23,5 @@ run:
 	@open build/logicaide.app
 
 install:
-	@cp logica-ide ~/.logica-ide
+	@cp logica-ide.l ~/.logica-ide
 
