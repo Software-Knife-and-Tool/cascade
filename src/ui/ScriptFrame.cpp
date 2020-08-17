@@ -261,11 +261,8 @@ ScriptFrame::ScriptFrame(QString name,
   layout->addWidget(toolBar);
   layout->addWidget(vs);
 
-  // log(Invoke([](std::string arg) { return arg; },
-  //           ";;; script framework connected"));
-
   evalString("(in-ns (ns \"logica-ide\" (ns-current)))", ideEnv);
-  evalString("(:defcon script-fn-id " + idOf(script) + ")", ideEnv);
+  evalString("(:defcon ide-fn-id " + idOf(script) + ")", ideEnv);
   loadConfigFile();
   setLayout(layout);
 }
