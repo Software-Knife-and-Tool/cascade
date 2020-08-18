@@ -144,6 +144,7 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
           &QAction::triggered, this, &ComposerFrame::del);
 
   editText = new QTextEdit();
+  editText->setMouseTracking(true);
   editScroll = new QScrollArea();
   editScroll->setWidget(editText);
   editScroll->setWidgetResizable(true);
@@ -151,6 +152,9 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
   editScroll->installEventFilter(this);
 
   evalText = new QLabel();
+  evalText->setMargin(3);
+  evalText->setAlignment(Qt::AlignTop);
+  evalText->setMouseTracking(true);
   evalScroll = new QScrollArea();
   evalScroll->setWidget(evalText);
   evalScroll->setWidgetResizable(true);

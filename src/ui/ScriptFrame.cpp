@@ -232,6 +232,7 @@ ScriptFrame::ScriptFrame(QString name,
           &QAction::triggered, this, &ScriptFrame::del);
 
   editText = new QTextEdit();
+  editText->setMouseTracking(true);
   editScroll = new QScrollArea();
   editScroll->setWidget(editText);
   editScroll->setWidgetResizable(true);
@@ -239,6 +240,9 @@ ScriptFrame::ScriptFrame(QString name,
   editScroll->installEventFilter(this);
 
   evalText = new QLabel();
+  editText->setMouseTracking(true);
+  evalText->setAlignment(Qt::AlignTop);
+  evalText->setMargin(3);
   evalScroll = new QScrollArea();
   evalScroll->setWidget(evalText);
   evalScroll->setWidgetResizable(true);
