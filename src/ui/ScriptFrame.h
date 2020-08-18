@@ -108,6 +108,8 @@ class ScriptFrame : public QFrame {
     return hash;
   }
 
+ private:
+  /** * parser **/
   enum TYPE { FIXNUM, FLOAT, SYMBOL, STRING, LIST };
 
   struct tag {
@@ -115,7 +117,8 @@ class ScriptFrame : public QFrame {
     QString value;
   };
   
- private:
+  std::vector<struct tag> parse(QString);  
+ 
   void evalFrame(CanonEnv*);
   QString evalString(QString, CanonEnv*);
 

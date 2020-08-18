@@ -155,6 +155,7 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
   evalText->setMargin(3);
   evalText->setAlignment(Qt::AlignTop);
   evalText->setMouseTracking(true);
+  evalText->setTextInteractionFlags(Qt::TextSelectableByMouse);
   evalScroll = new QScrollArea();
   evalScroll->setWidget(evalText);
   evalScroll->setWidgetResizable(true);

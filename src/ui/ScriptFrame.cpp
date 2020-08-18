@@ -48,6 +48,12 @@
 #include "ScriptFrame.h"
 
 namespace logicaide {
+
+std::vector<struct tag> ScriptFrame::parse(QString src) {
+  std::vector<struct tag> stack;
+
+  return stack;
+}
   
 void ScriptFrame::clear() {
   editText->setText("");
@@ -86,7 +92,7 @@ QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
   QString out;
 
   auto error =
-    env->withException([this, env, expr, &out]() {
+    env->withException([env, expr, &out]() {
          out = env->rep(expr);
        });
   
@@ -240,9 +246,10 @@ ScriptFrame::ScriptFrame(QString name,
   editScroll->installEventFilter(this);
 
   evalText = new QLabel();
-  editText->setMouseTracking(true);
+  evalText->setMouseTracking(true);
   evalText->setAlignment(Qt::AlignTop);
   evalText->setMargin(3);
+  evalText->setTextInteractionFlags(Qt::TextSelectableByMouse);
   evalScroll = new QScrollArea();
   evalScroll->setWidget(evalText);
   evalScroll->setWidgetResizable(true);
