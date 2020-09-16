@@ -49,11 +49,13 @@
 
 namespace logicaide {
 
+#if 0
 std::vector<struct tag> ScriptFrame::parse(QString src) {
   std::vector<struct tag> stack;
 
   return stack;
 }
+#endif
   
 void ScriptFrame::clear() {
   editText->setText("");
