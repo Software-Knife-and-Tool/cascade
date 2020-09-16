@@ -9,14 +9,15 @@ help:
 	@echo clean - clean build
 	@echo run - run build
 
-src/ui/Makefile: src/ui/ui.pro
+src/ui/Makefile:
 	(cd src/ui ; qmake)
 
-clean: src/ui/Makefile
+clean:
 	@make -C src/ui clean
 	@rm -f src/ui/Makefile
 
-build: src/ui/Makefile
+build:
+	(cd src/ui ; qmake)
 	@make -C src/ui
 
 run:
