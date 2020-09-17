@@ -86,6 +86,36 @@ void ComposerFrame::eval() {
   emit evalHappened(editText->toPlainText());
 }
 
+void ComposerFrame::macroexpand() {
+  QString out;
+
+  tabBar->setContextStatus(tr("macroexpand"));
+
+  auto error =
+    devEnv->withException([this, &out]() {
+      auto mex = "(macroexpand (:quote " + editText->toPlainText() + "))";
+
+      out = devEnv->rep(mex);
+    });
+
+  evalText->setText(out + error);
+}
+
+void ComposerFrame::describe() {
+  QString out;
+
+  tabBar->setContextStatus(tr("describe"));
+
+  auto error =
+    devEnv->withException([this, &out]() {
+      auto mex = "(describe (:quote " + editText->toPlainText() + "))";
+
+      out = devEnv->rep(mex);
+    });
+
+  evalText->setText(out + error);
+}
+
 void ComposerFrame::reset() {
   devEnv = new CanonEnv();
 }
@@ -134,6 +164,10 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
           &QAction::triggered, this, &ComposerFrame::load);
   connect(toolBar->addAction(tr("eval")),
           &QAction::triggered, this, &ComposerFrame::eval);
+  connect(toolBar->addAction(tr("describe")),
+          &QAction::triggered, this, &ComposerFrame::describe);
+  connect(toolBar->addAction(tr("macroexpand")),
+          &QAction::triggered, this, &ComposerFrame::macroexpand);
   connect(toolBar->addAction(tr("reset")),
           &QAction::triggered, this, &ComposerFrame::reset);
   connect(toolBar->addAction(tr("save")),

@@ -75,7 +75,9 @@ class ComposerFrame : public QFrame {
 
  private:
   void clear();
+  void describe();
   void eval();
+  void macroexpand();
   void load();
   void reset();
   void save();
