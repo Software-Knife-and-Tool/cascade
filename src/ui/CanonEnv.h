@@ -49,21 +49,21 @@ class CanonEnv {
  public:
   QString version() {
 
-    return QString(libmu_version().c_str());  
+    return QString(libmu_version());  
   }
 
   QString rep(QString form) {
-    auto rval = libmu_eval(env, libmu_read(env, form.toStdString()));
+    auto rval = libmu_eval(env, libmu_read_string(env, form.toStdString()));
 
     return
       QString::fromStdString(
         platform::Platform::GetStdString(stdout) +
-        libmu_printToString(env, rval, true));
+        libmu_print_cstr(env, rval, true));
   }
 
   QString withException(std::function<void()> fn) {
-    libmu->withException(libmu.get(),
-                         [fn](void*) { (void)fn(); });
+    libmu_withException(env,
+                        [fn](void*) { (void)fn(); });
     return
       QString::fromStdString(
         platform::Platform::GetStdString(stderr));
@@ -72,11 +72,18 @@ class CanonEnv {
   CanonEnv() : platform(new platform::Platform()) {
     stdout = platform::Platform::OpenOutputString("");
     stderr = platform::Platform::OpenOutputString("");
-    env = libmu_env_default(platformm stdout, stdout, stderr);
+    
+    env = libmu_env(platform, stdout, stdout, stderr);
 
-    libmu_eval(env, libmu_read(env, "(load \"/usr/local/logica/mu/mu.l\")"));
-    libmu_eval(env, libmu_read(env, "(:defcon lib-base \"/usr/local/logica\")"));
-    libmu_eval(env, libmu_read(env, "(load-once logica/library \"/canon/lib.l\")"));
+    libmu_eval(env,
+               libmu_read_string(env,
+                                 "(load \"/usr/local/logica/mu/mu.l\")"));
+    libmu_eval(env,
+               libmu_read_string(env,
+                                 "(:defcon lib-base \"/usr/local/logica\")"));
+    libmu_eval(env,
+               libmu_read_string(env,
+                                 "(load-once logica/library \"/canon/lib.l\")"));
   }
 
  private:
