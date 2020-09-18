@@ -55,10 +55,9 @@ class CanonEnv {
   QString rep(QString form) {
     auto rval = libmu_eval(env, libmu_read_string(env, form.toStdString()));
 
+    auto str = std::string(libmu_print_cstr(env, rval, true));
     return
-      QString::fromStdString(
-        platform::Platform::GetStdString(stdout) +
-        libmu_print_cstr(env, rval, true));
+      QString::fromStdString(platform::Platform::GetStdString(stdout) + str);
   }
 
   QString withException(std::function<void()> fn) {
