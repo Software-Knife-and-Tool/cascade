@@ -2,15 +2,15 @@ CONFIG += console c++14
   
 DESTDIR = ../../build
 ICON = ./tesseract.icns
-INCLUDEPATH += . /usr/local/logica
-LIBS += /usr/local/logica/libmu/libmu.a /usr/local/logica/platform/libplatform.a
+INCLUDEPATH += . /usr/local/logica/materia
+LIBS += /usr/local/logica/materia/libmu/libmu.a /usr/local/logica/materia/platform/libplatform.a
 MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
 TARGET = logicaide
 TEMPLATE = app
 
 HEADERS += \
-           /usr/local/logica/libmu/libmu.h \
+           /usr/local/logica/materia/libmu/libmu.h \
            CanonEnv.h        \
            CanonFrame.h      \
            ComposerFrame.h   \
