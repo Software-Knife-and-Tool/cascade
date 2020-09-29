@@ -55,10 +55,9 @@ class CanonEnv {
   QString rep(QString form) {
     auto rval = libmu_eval(env, libmu_read_string(env, form.toStdString()));
 
+    auto str = std::string(libmu_print_cstr(env, rval, true));
     return
-      QString::fromStdString(
-        platform::Platform::GetStdString(stdout) +
-        libmu_print_cstr(env, rval, true));
+      QString::fromStdString(platform::Platform::GetStdString(stdout) + str);
   }
 
   QString withException(std::function<void()> fn) {
@@ -77,13 +76,13 @@ class CanonEnv {
 
     libmu_eval(env,
                libmu_read_string(env,
-                                 "(load \"/usr/local/logica/mu/mu.l\")"));
+                                 "(load \"/usr/local/logica/materia/mu/mu.l\")"));
     libmu_eval(env,
                libmu_read_string(env,
                                  "(:defcon lib-base \"/usr/local/logica\")"));
     libmu_eval(env,
                libmu_read_string(env,
-                                 "(load-once logica/library \"/canon/lib.l\")"));
+                                 "(load-once logica/library \"/materia/canon/lib.l\")"));
   }
 
  private:
