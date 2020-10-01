@@ -33,11 +33,11 @@
 
 /********
  **
- **  ToolFrame.h: ToolFrame class
+ **  PanelFrame.h: PanelFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TOOLFRAME_H_
-#define _LOGICAIDE_SRC_UI_TOOLFRAME_H_
+#ifndef _LOGICAIDE_SRC_UI_PANELFRAME_H_
+#define _LOGICAIDE_SRC_UI_PANELFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -62,12 +62,12 @@ namespace logicaide {
 class MainTabBar;
 class MainWindow;
   
-class ToolFrame : public QFrame {
+class PanelFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit ToolFrame(QString, MainTabBar*, CanonEnv*);
+  explicit PanelFrame(QString, MainTabBar*, CanonEnv*);
 
  private:
 
@@ -94,4 +94,4 @@ class ToolFrame : public QFrame {
 
 } /* logicaide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_TOOLFRAME_H_ */
+#endif  /* _LOGICAIDE_SRC_UI_PANELFRAME_H_ */

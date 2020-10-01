@@ -33,7 +33,7 @@
 
 /********
  **
- **  ToolFrame.cpp: ToolFrame implementation
+ **  PanelFrame.cpp: PanelFrame implementation
  **
  **/
 #include <QFileDialog>
@@ -45,13 +45,13 @@
 #include <QtWidgets>
 
 #include "CanonEnv.h"
+#include "PanelFrame.h"
 #include "ScratchpadFrame.h"
 #include "Tile.h"
-#include "ToolFrame.h"
 
 namespace logicaide {
 
-QToolButton* ToolFrame::toolMenu() {
+QToolButton* PanelFrame::toolMenu() {
   auto tb = new QToolButton(toolBar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
   tb->setText("tools");
@@ -106,7 +106,7 @@ QToolButton* ToolFrame::toolMenu() {
   return tb;
 }
 
-ToolFrame::ToolFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
+PanelFrame::PanelFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
   : tabBar(tb), devEnv(dev), name(nm) {
 
   init = true;

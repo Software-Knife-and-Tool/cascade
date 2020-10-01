@@ -45,9 +45,9 @@
 #include "InspectorFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
+#include "PanelFrame.h"
 #include "ScratchpadFrame.h"
 #include "ScriptFrame.h"
-#include "ToolFrame.h"
 
 namespace logicaide {
 
@@ -81,14 +81,11 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   add(ideFrame, QString("IDE"));
   log(";;; IDE frame loaded");
 
-  add(new ToolFrame("tools", this, devEnv), "tools");
+  add(new PanelFrame("panels", this, devEnv), "panels");
   log(";;; tools frame loaded");
 
   add(new ScriptFrame("script", this, devEnv, ideDev), "scripts");
   log(";;; scripts frame loaded");
-
-  add(new InspectorFrame("inspect", this, devEnv, ideDev), "inspector");
-  log(";;; inspector frame loaded");
 
   add(new UserFrame("user", this), "user");
   log(";;; preferences frame loaded");
