@@ -33,7 +33,7 @@
 
 /********
  **
- **  ToolFrame.cpp: ToolFrame implementation
+ **  PanelFrame.cpp: PanelFrame implementation
  **
  **/
 #include <QFileDialog>
@@ -45,13 +45,14 @@
 #include <QtWidgets>
 
 #include "CanonEnv.h"
+#include "InspectorFrame.h"
+#include "PanelFrame.h"
 #include "ScratchpadFrame.h"
 #include "Tile.h"
-#include "ToolFrame.h"
 
 namespace logicaide {
 
-QToolButton* ToolFrame::toolMenu() {
+QToolButton* PanelFrame::toolMenu() {
   auto tb = new QToolButton(toolBar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
   tb->setText("tools");
@@ -88,8 +89,33 @@ QToolButton* ToolFrame::toolMenu() {
                   hsplitAction->setEnabled(true);
                 });
   
-  // tm->addAction(new QAction(tr("&inspector"), this));
-  // tm->addAction(new QAction(tr("&shell"), this));
+  tm->addAction(tr("&inspector"),
+              [this] () {
+                  if (init)
+                    rootTile->rebase(new InspectorFrame("rebase-inspector",
+                                                        tabBar,
+                                                        devEnv));
+                  else
+                    rootTile->split(new InspectorFrame("split-inspector",
+                                                       tabBar,
+                                                       devEnv));
+                  init = false;
+                  vsplitAction->setEnabled(true);
+                  hsplitAction->setEnabled(true);
+                });
+
+  tm->addAction(tr("&shell"),
+              [this] () {
+                if (init)
+                  rootTile->rebase(new ScratchpadFrame("rebase-shell",
+                                                       tabBar));
+                else
+                  rootTile->split(new ScratchpadFrame("split-shell",
+                                                      tabBar));
+                init = false;
+                vsplitAction->setEnabled(true);
+                hsplitAction->setEnabled(true);
+              });
   
   tm->addAction(tr("&scratch"),
                 [this] () {
@@ -106,7 +132,7 @@ QToolButton* ToolFrame::toolMenu() {
   return tb;
 }
 
-ToolFrame::ToolFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
+PanelFrame::PanelFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
   : tabBar(tb), devEnv(dev), name(nm) {
 
   init = true;

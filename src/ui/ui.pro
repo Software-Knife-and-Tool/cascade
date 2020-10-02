@@ -25,7 +25,7 @@ HEADERS += \
            ShellFrame.h      \
            StatusClock.h     \
            Tile.h            \
-           ToolFrame.h       \
+           PanelFrame.h      \
            TtyWidget.h       \
            UserFrame.h       \
            logica.h          \
@@ -44,7 +44,7 @@ SOURCES += \
            ScriptFrame.cpp   \
            ShellFrame.cpp    \
            Tile.cpp          \
-           ToolFrame.cpp     \
+           PanelFrame.cpp    \
            TtyWidget.cpp     \
            UserFrame.cpp     \
            main.cpp

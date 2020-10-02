@@ -55,11 +55,10 @@ void InspectorFrame::clear() {
 
 InspectorFrame::InspectorFrame(QString name,
                                MainTabBar* tb,
-                               CanonEnv* ide,
-                               CanonEnv* dev )
-  : tabBar(tb),  ideEnv(ide), devEnv(dev), name(name) {
+                               CanonEnv* env)
+  : tabBar(tb), devEnv(env), name(name) {
   
-  composerFrame = new ComposerFrame("inspector", tb, dev);
+  composerFrame = new ComposerFrame("inspector", tb, env);
   viewLabel = new QLabel("view info");
   timeLabel = new QLabel("time info");
   toolBar = new QToolBar();
