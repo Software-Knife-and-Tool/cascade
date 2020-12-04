@@ -67,7 +67,7 @@ class InspectorFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit InspectorFrame(QString, MainTabBar*, CanonEnv*, CanonEnv*);
+  explicit InspectorFrame(QString, MainTabBar*, CanonEnv*);
 
  private:
   void clear();
@@ -80,7 +80,6 @@ class InspectorFrame : public QFrame {
   }
 
   MainTabBar *tabBar;
-  CanonEnv* ideEnv;
   CanonEnv* devEnv;
   QString name;
   ComposerFrame* composerFrame;;
