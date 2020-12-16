@@ -1,2 +1,2 @@
-# Logica IDE
-logica code development GUI
+#  Gyre IDE
+gyre code development GUI
