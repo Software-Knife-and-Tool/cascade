@@ -36,8 +36,8 @@
  **  GyreFrame.h: GyreFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_CANONFRAME_H_
-#define _LOGICAIDE_SRC_UI_CANONFRAME_H_
+#ifndef _GYREIDE_SRC_UI_CANONFRAME_H_
+#define _GYREIDE_SRC_UI_CANONFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -59,7 +59,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
   
 class ComposerFrame;
 class MainTabBar;
@@ -98,6 +98,6 @@ class GyreFrame : public QFrame {
   QToolBar* toolBar;  
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_CANONFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_CANONFRAME_H_ */

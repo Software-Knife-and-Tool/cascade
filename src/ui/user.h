@@ -36,8 +36,8 @@
  **  user.h: user class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_USER_H_
-#define _LOGICAIDE_SRC_UI_USER_H_
+#ifndef _GYREIDE_SRC_UI_USER_H_
+#define _GYREIDE_SRC_UI_USER_H_
 
 #include <QDir>
 #include <QString>
@@ -47,7 +47,7 @@
 
 #include "libmu/libmu.h"
 
-namespace logicaide {
+namespace gyreide {
   
 class User {
  public:
@@ -73,6 +73,6 @@ class User {
   QString userName; 
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_USER_H_ */ 
+#endif /* _GYREIDE_SRC_UI_USER_H_ */ 

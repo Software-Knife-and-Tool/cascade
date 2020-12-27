@@ -33,7 +33,7 @@
 
 /********
  **
- **  main.cpp: LogicaIde Ui main
+ **  main.cpp: Gyreide Ui main
  **
  **/
 #include <QApplication>
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
   QApplication app(argc, argv);
   
-  logicaide::MainWindow mainWindow;
+  gyreide::MainWindow mainWindow;
   mainWindow.show();
   
   return app.exec();

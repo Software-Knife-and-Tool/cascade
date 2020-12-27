@@ -36,8 +36,8 @@
  **  ShellFrame.h: ShellFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_SHELLFRAME_H_
-#define _LOGICAIDE_SRC_UI_SHELLFRAME_H_
+#ifndef _GYREIDE_SRC_UI_SHELLFRAME_H_
+#define _GYREIDE_SRC_UI_SHELLFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -56,7 +56,7 @@ QT_END_NAMESPACE
 
 class TtyWidget;
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
   
@@ -84,6 +84,6 @@ class ShellFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_SHELLFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_SHELLFRAME_H_ */

@@ -36,8 +36,8 @@
  **  ScriptFrame.h: ScriptFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
-#define _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_
+#ifndef _GYREIDE_SRC_UI_SCRIPTFRAME_H_
+#define _GYREIDE_SRC_UI_SCRIPTFRAME_H_
 
 #include <algorithm>
 #include <cassert>
@@ -64,7 +64,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
@@ -180,6 +180,6 @@ class ScriptFrame : public QFrame {
   QScrollArea* evalScroll;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_SCRIPTFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_SCRIPTFRAME_H_ */

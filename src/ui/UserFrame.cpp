@@ -42,7 +42,7 @@
 #include "IdeFrame.h"
 #include "UserFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void UserFrame::log(QString msg) {
   tabBar->log(msg);
@@ -95,4 +95,4 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

@@ -47,7 +47,7 @@
 #include "GyreEnv.h"
 #include "ComposerFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void ComposerFrame::clear() {
   editText->setText("");
@@ -219,4 +219,4 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

@@ -44,7 +44,7 @@
 #include <QPainter>
 #include <QScrollBar>
 
-namespace logicaide {
+namespace gyreide {
   
 struct LineStyle {
 
@@ -371,4 +371,4 @@ TtyWidget::TtyWidget(QWidget *parent)
   cursor_ = QString("_");
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

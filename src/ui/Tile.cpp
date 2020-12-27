@@ -46,7 +46,7 @@
 
 #include "Tile.h"
 
-namespace logicaide {
+namespace gyreide {
 
 namespace {
 
@@ -177,4 +177,4 @@ Tile::Tile(MainTabBar* tb, QFrame* cf)
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

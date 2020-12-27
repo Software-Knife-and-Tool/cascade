@@ -50,7 +50,7 @@
 #include "ScratchpadFrame.h"
 #include "Tile.h"
 
-namespace logicaide {
+namespace gyreide {
 
 QToolButton* PanelFrame::toolMenu() {
   auto tb = new QToolButton(toolBar);
@@ -165,4 +165,4 @@ PanelFrame::PanelFrame(QString nm, MainTabBar* tb, GyreEnv* dev)
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

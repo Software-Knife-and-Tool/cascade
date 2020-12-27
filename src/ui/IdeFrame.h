@@ -36,8 +36,8 @@
  **  IdeFrame.h: IdeFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_IDEFRAME_H_
-#define _LOGICAIDE_SRC_UI_IDEFRAME_H_
+#ifndef _GYREIDE_SRC_UI_IDEFRAME_H_
+#define _GYREIDE_SRC_UI_IDEFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -55,7 +55,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
 class ConsoleFrame;
@@ -84,6 +84,6 @@ class IdeFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_IDEFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_IDEFRAME_H_ */

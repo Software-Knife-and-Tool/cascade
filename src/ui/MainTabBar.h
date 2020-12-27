@@ -36,8 +36,8 @@
  **  MainTabBar.h: MainTabBar class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_MAINTABBAR_H_
-#define _LOGICAIDE_SRC_UI_MAINTABBAR_H_
+#ifndef _GYREIDE_SRC_UI_MAINTABBAR_H_
+#define _GYREIDE_SRC_UI_MAINTABBAR_H_
 
 #include <QMainWindow>
 #include <QTabWidget>
@@ -55,7 +55,7 @@ class QLabel;
 class QTabWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainWindow;
 class ConsoleFrame;
@@ -90,4 +90,4 @@ class MainTabBar : public QTabWidget {
 
 } /* loigicaide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_MAINTABBAR_H_ */
+#endif  /* _GYREIDE_SRC_UI_MAINTABBAR_H_ */

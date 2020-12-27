@@ -49,7 +49,7 @@
 #include "ScratchpadFrame.h"
 #include "ScriptFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void MainTabBar::log(QString msg) {
   ideFrame->log(msg);
@@ -91,4 +91,4 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   log(";;; preferences frame loaded");
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

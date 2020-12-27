@@ -36,14 +36,14 @@
  **  mu.h: Mu class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_MU_H_
-#define _LOGICAIDE_SRC_UI_MU_H_
+#ifndef _GYREIDE_SRC_UI_MU_H_
+#define _GYREIDE_SRC_UI_MU_H_
 
 #include <QString>
 
 #include "libmu/libmu.h"
 
-namespace logicaide {
+namespace gyreide {
   
 class Mu {
  public:
@@ -92,6 +92,6 @@ class Mu {
   void* env;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_MU_H_ */ 
+#endif /* _GYREIDE_SRC_UI_MU_H_ */ 

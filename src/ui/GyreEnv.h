@@ -94,4 +94,4 @@ class GyreEnv {
 
 } /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_CANONENV_H_ */ 
+#endif /* _GYREIDE_SRC_UI_CANONENV_H_ */ 

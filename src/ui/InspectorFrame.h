@@ -36,8 +36,8 @@
  **  InspectorFrame.h: InspectorFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_
-#define _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_
+#ifndef _GYREIDE_SRC_UI_INSPECTORFRAME_H_
+#define _GYREIDE_SRC_UI_INSPECTORFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -57,7 +57,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
@@ -88,6 +88,6 @@ class InspectorFrame : public QFrame {
   QToolBar* toolBar;  
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_INSPECTORFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_INSPECTORFRAME_H_ */

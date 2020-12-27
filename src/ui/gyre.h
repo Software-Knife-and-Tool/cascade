@@ -36,8 +36,8 @@
  **  logica.h: logica class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_LOGICA_H_
-#define _LOGICAIDE_SRC_UI_LOGICA_H_
+#ifndef _GYREIDE_SRC_UI_LOGICA_H_
+#define _GYREIDE_SRC_UI_LOGICA_H_
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -49,7 +49,7 @@
 #include "libmu/libmu.h"
 #include "ComposerFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 class ComposerFrame;
   
@@ -115,6 +115,6 @@ class Logica {
   int logica;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_LOGICA_H_ */ 
+#endif /* _GYREIDE_SRC_UI_LOGICA_H_ */ 

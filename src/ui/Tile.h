@@ -36,8 +36,8 @@
  **  Tile.h: Tile class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TILE_H_
-#define _LOGICAIDE_SRC_UI_TILE_H_
+#ifndef _GYREIDE_SRC_UI_TILE_H_
+#define _GYREIDE_SRC_UI_TILE_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -56,7 +56,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
@@ -84,6 +84,6 @@ class Tile : public QFrame {
   Tile* splitTile;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_TILE_H_ */
+#endif  /* _GYREIDE_SRC_UI_TILE_H_ */

@@ -41,7 +41,7 @@
 
 #include "ConsoleFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void ConsoleFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -68,4 +68,4 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

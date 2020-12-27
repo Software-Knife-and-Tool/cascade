@@ -47,7 +47,7 @@
 #include "MainWindow.h"
 #include "user.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
@@ -103,4 +103,4 @@ MainWindow::MainWindow() : user(new User()) {
   setWindowTitle(tr("Software Knife and Tool Logica IDE"));
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

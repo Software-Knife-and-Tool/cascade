@@ -49,7 +49,7 @@
 #include "GyreFrame.h"
 #include "ComposerFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void GyreFrame::runStatus(QString form) {
   auto date =
@@ -98,4 +98,4 @@ GyreFrame::GyreFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   statusText->setText(out + error_text);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

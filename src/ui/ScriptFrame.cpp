@@ -47,7 +47,7 @@
 #include "GyreEnv.h"
 #include "ScriptFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 #if 0
 std::vector<struct tag> ScriptFrame::parse(QString src) {
@@ -286,4 +286,4 @@ ScriptFrame::ScriptFrame(QString name,
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

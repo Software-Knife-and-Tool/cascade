@@ -49,7 +49,7 @@
 #include "ComposerFrame.h"
 #include "ScratchpadFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void ScratchpadFrame::clear() {
   scratchText->setText("");
@@ -145,4 +145,4 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   this->setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

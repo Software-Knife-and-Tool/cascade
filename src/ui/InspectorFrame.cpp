@@ -47,7 +47,7 @@
 #include "ComposerFrame.h"
 #include "InspectorFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void InspectorFrame::clear() {
   //  edit_text->setText("");
@@ -73,4 +73,4 @@ InspectorFrame::InspectorFrame(QString name,
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

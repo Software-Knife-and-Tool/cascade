@@ -44,7 +44,7 @@
 #include "MainTabBar.h"
 #include "ScriptFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void IdeFrame::log(QString msg) { console->log(msg); }
 const char* IdeFrame::configFile = "~/.logica-ide";
@@ -119,4 +119,4 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */
