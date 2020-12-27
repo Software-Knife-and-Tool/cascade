@@ -14,25 +14,25 @@
 #ifndef _GYREIDE_SRC_UI_GYRE_H_
 #define _GYREIDE_SRC_UI_GYRE_H_
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include <QString>
 
-#include "libmu/libmu.h"
 #include "ComposerFrame.h"
+#include "libmu/libmu.h"
 
 namespace gyreide {
 
 class ComposerFrame;
-  
+
 class Gyre {
  public:
   void Write(QString str) {
     QByteArray ba = str.toLocal8Bit();
-    const char *c_str = ba.data();
+    const char* c_str = ba.data();
 
     write(logica, c_str, strlen(c_str));
   }
@@ -41,9 +41,8 @@ class Gyre {
     int ch;
     QString out;
 
-    while (read(composer, &ch, 1) >= 0)
-      out.push_back((char)ch);
-    
+    while (read(composer, &ch, 1) >= 0) out.push_back((char)ch);
+
     return out;
   }
 
@@ -51,15 +50,15 @@ class Gyre {
     const char* args[]{"pipe-mu", NULL};
 
     mkfifo(in_fifo, 0755);
-    mkfifo(out_fifo,0755);
+    mkfifo(out_fifo, 0755);
 
     logica = open(in_fifo, O_RDONLY | O_NONBLOCK);
     composer = open(out_fifo, O_WRONLY | O_NONBLOCK);
 
     int pid;
-    
+
     switch (pid = fork()) {
-      case 0: {   /* child */
+      case 0: { /* child */
         int composer = open(out_fifo, O_RDONLY | O_NONBLOCK);
         int logica = open(in_fifo, O_WRONLY | O_NONBLOCK);
 
@@ -83,13 +82,13 @@ class Gyre {
  private:
   const char* in_fifo = "/tmp/from-logica";
   const char* out_fifo = "/tmp/to-logica";
-  
+
   platform::Platform* platform;
 
   int composer;
   int gyre;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif /* _GYREIDE_SRC_UI_GYRE_H_ */ 
+#endif /* _GYREIDE_SRC_UI_GYRE_H_ */

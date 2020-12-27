@@ -23,7 +23,7 @@
 #include "libmu/libmu.h"
 
 namespace gyreide {
-  
+
 class User {
  public:
   QString logname() { return userName; }
@@ -31,7 +31,7 @@ class User {
   QString aboutCpu() { return cpuArch; }
   QString aboutSystem() { return systemInfo; }
   QString userdir() { return userDir; }
-  
+
   User() {
     userName = QString(std::getenv("LOGNAME"));
     cpuArch = QSysInfo::buildCpuArchitecture();
@@ -45,9 +45,9 @@ class User {
   QString hostName;
   QString cpuArch;
   QString systemInfo;
-  QString userName; 
+  QString userName;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif /* _GYREIDE_SRC_UI_USER_H_ */ 
+#endif /* _GYREIDE_SRC_UI_USER_H_ */

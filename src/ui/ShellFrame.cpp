@@ -11,8 +11,8 @@
  **  ShellFrame.cpp: ShellFrame implementation
  **
  **/
-#include <QtWidgets>
 #include <QString>
+#include <QtWidgets>
 
 #include "ShellFrame.h"
 
@@ -27,23 +27,21 @@ void ShellFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-ShellFrame::ShellFrame(QString name, MainTabBar* tb)
-  : tabBar(tb), name(name) {
-  
+ShellFrame::ShellFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   ttyWidget = new TtyWidget(this);
-    
+
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
   tty_policy.setVerticalStretch(1);
   ttyWidget->setSizePolicy(tty_policy);
-  
+
   this->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  
+
   layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(ttyWidget);
-  
+
   setLayout(layout);
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

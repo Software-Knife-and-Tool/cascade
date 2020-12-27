@@ -14,9 +14,9 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QSplitter>
+#include <QString>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QString>
 #include <QtWidgets>
 
 #include "GyreEnv.h"
@@ -31,18 +31,15 @@ std::vector<struct tag> ScriptFrame::parse(QString src) {
   return stack;
 }
 #endif
-  
+
 void ScriptFrame::clear() {
   editText->setText("");
   evalText->setText("");
 }
 
 void ScriptFrame::load() {
-  loadFileName =
-    QFileDialog::getOpenFileName(this,
-                                 tr("Load File"),
-                                 tabBar->userInfo()->userdir(),
-                                 tr("File (*)"));
+  loadFileName = QFileDialog::getOpenFileName(
+      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -53,14 +50,12 @@ void ScriptFrame::load() {
 
   saveFileName = loadFileName;
 }
-    
+
 void ScriptFrame::evalFrame(GyreEnv*) {
   QString out;
 
-  auto error =
-    ideEnv->withException([this, &out]() {
-         out = ideEnv->rep(editText->toPlainText());
-       });
+  auto error = ideEnv->withException(
+      [this, &out]() { out = ideEnv->rep(editText->toPlainText()); });
 
   evalText->setText(out + error);
 }
@@ -69,61 +64,50 @@ QString ScriptFrame::evalString(QString expr, GyreEnv* env) {
   QString out;
 
   auto error =
-    env->withException([env, expr, &out]() {
-         out = env->rep(expr);
-       });
-  
+      env->withException([env, expr, &out]() { out = env->rep(expr); });
+
   return out + error;
 }
 
-void ScriptFrame::reset() {
-  ideEnv = new GyreEnv();
-}
+void ScriptFrame::reset() { ideEnv = new GyreEnv(); }
 
-void ScriptFrame::del() {
-}
+void ScriptFrame::del() {}
 
 void ScriptFrame::save_as() {
-  saveFileName = QFileDialog::getSaveFileName(this,
-        tr("Save As"), "",
-        tr("File (*)"));
+  saveFileName =
+      QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("File (*)"));
   save();
 }
 
 void ScriptFrame::save() {
   QString text = editText->toPlainText();
-  
+
   QSaveFile file(saveFileName);
   file.open(QIODevice::WriteOnly);
   file.write(text.toUtf8());
   file.commit();
 }
 
-bool ScriptFrame::eventFilter(QObject *watched, QEvent *event) {
-  if ( /* watched == textEdit && */ event->type() == QEvent::KeyPress) {
-    QKeyEvent *e = static_cast < QKeyEvent * >(event);
-    if (e->key() == Qt::Key_Return &&
-        e->modifiers() & Qt::ShiftModifier) {
+bool ScriptFrame::eventFilter(QObject* watched, QEvent* event) {
+  if (/* watched == textEdit && */ event->type() == QEvent::KeyPress) {
+    QKeyEvent* e = static_cast<QKeyEvent*>(event);
+    if (e->key() == Qt::Key_Return && e->modifiers() & Qt::ShiftModifier) {
       evalFrame(devEnv);
       return true;
     }
   }
-    
+
   return tabBar->get_mw()->eventFilter(watched, event);
 }
 
 std::string ScriptFrame::script(std::string arg) {
-
   QRegExp rx("( |\".*\")");
   auto args = QString::fromStdString(arg);
 
-  auto argv =
-    args.remove('(')
-        .remove(')')
-        .split(rx);
-  
+  auto argv = args.remove('(').remove(')').split(rx);
+
   auto ctx = reinterpret_cast<ScriptFrame*>(argv.at(0).toULongLong());
-  
+
   switch (hash(argv.at(1).toStdString().c_str())) {
     case hash("identity"):
       return argv[2].toStdString();
@@ -152,7 +136,7 @@ std::string ScriptFrame::script(std::string arg) {
     default:
       break;
   }
-  
+
   return "unimplemented-damnit";
 }
 
@@ -190,29 +174,26 @@ QString ScriptFrame::invoke(
 }
 #endif
 
-ScriptFrame::ScriptFrame(QString name,
-                         MainTabBar* tb,
-                         GyreEnv* dev,
+ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, GyreEnv* dev,
                          GyreEnv* ide)
-  : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
-  
+    : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
   auto size = this->frameSize();
 
   toolBar = new QToolBar();
-  connect(toolBar->addAction(tr("clear")),
-          &QAction::triggered, this, &ScriptFrame::clear);
-  connect(toolBar->addAction(tr("load")),
-          &QAction::triggered, this, &ScriptFrame::load);
-  connect(toolBar->addAction(tr("eval")),
-          &QAction::triggered, this, [this]() { evalFrame(devEnv); });
-  connect(toolBar->addAction(tr("reset")),
-          &QAction::triggered, this, &ScriptFrame::reset);
-  connect(toolBar->addAction(tr("save")),
-          &QAction::triggered, this, &ScriptFrame::save);
-  connect(toolBar->addAction(tr("save as")),
-          &QAction::triggered, this, &ScriptFrame::save_as);
-  connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &ScriptFrame::del);
+  connect(toolBar->addAction(tr("clear")), &QAction::triggered, this,
+          &ScriptFrame::clear);
+  connect(toolBar->addAction(tr("load")), &QAction::triggered, this,
+          &ScriptFrame::load);
+  connect(toolBar->addAction(tr("eval")), &QAction::triggered, this,
+          [this]() { evalFrame(devEnv); });
+  connect(toolBar->addAction(tr("reset")), &QAction::triggered, this,
+          &ScriptFrame::reset);
+  connect(toolBar->addAction(tr("save")), &QAction::triggered, this,
+          &ScriptFrame::save);
+  connect(toolBar->addAction(tr("save as")), &QAction::triggered, this,
+          &ScriptFrame::save_as);
+  connect(toolBar->addAction(tr("del")), &QAction::triggered, this,
+          &ScriptFrame::del);
 
   editText = new QTextEdit();
   editText->setMouseTracking(true);
@@ -233,7 +214,7 @@ ScriptFrame::ScriptFrame(QString name,
   evalScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   evalScroll->installEventFilter(this);
   evalScroll->setMinimumHeight(size.height() / 2);
-  
+
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   editText->setSizePolicy(spEdit);
@@ -251,13 +232,12 @@ ScriptFrame::ScriptFrame(QString name,
   layout->addWidget(toolBar);
   layout->addWidget(vs);
 
-  evalString("(:defsym ide-context (cons "
-             + scriptIdOf(script)
-             + " "
-             + contextIdOf() + "))", ideEnv);
+  evalString("(:defsym ide-context (cons " + scriptIdOf(script) + " " +
+                 contextIdOf() + "))",
+             ideEnv);
 
   loadConfigFile();
   setLayout(layout);
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

@@ -11,12 +11,12 @@
  **  MainTabBar.cpp: MainTabBar class
  **
  **/
-#include <QtWidgets>
 #include <QTabBar>
+#include <QtWidgets>
 
-#include "GyreFrame.h"
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
+#include "GyreFrame.h"
 #include "InspectorFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
@@ -26,22 +26,15 @@
 
 namespace gyreide {
 
-void MainTabBar::log(QString msg) {
-  ideFrame->log(msg);
-}
-  
-void MainTabBar::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+void MainTabBar::log(QString msg) { ideFrame->log(msg); }
 
-User* MainTabBar::userInfo() {
-  return mw->userInfo();
-}
+void MainTabBar::setContextStatus(QString str) { mw->setContextStatus(str); }
 
-MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
-  
+User* MainTabBar::userInfo() { return mw->userInfo(); }
+
+MainTabBar::MainTabBar(MainWindow* mw) : mw(mw) {
   ideFrame = new IdeFrame("ide", this);
-    
+
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   auto devEnv = new GyreEnv();
@@ -52,7 +45,7 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
                         canonf, &GyreFrame::runStatus))
     exit(0);
 #endif
-  
+
   add(ideFrame, QString("IDE"));
   log(";;; IDE frame loaded");
 
@@ -66,4 +59,4 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   log(";;; preferences frame loaded");
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

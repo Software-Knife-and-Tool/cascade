@@ -19,40 +19,33 @@
 #include "libmu/libmu.h"
 
 namespace gyreide {
-  
-using libmu::platform::Platform;  
+
+using libmu::platform::Platform;
 
 class Mu {
  public:
-  QString version() {
-    return QString(libmu::api::version());  
-  }
+  QString version() { return QString(libmu::api::version()); }
 
   QString mu(QString form) {
     auto rval =
-      libmu::api::eval(env, libmu::api::read_string(env, form.toStdString()));
-    
-    return
-      QString::fromStdString(
-        Platform::GetStdString(stdout) +
-        libmu::api::print_cstr(env, rval, true));
+        libmu::api::eval(env, libmu::api::read_string(env, form.toStdString()));
+
+    return QString::fromStdString(Platform::GetStdString(stdout) +
+                                  libmu::api::print_cstr(env, rval, true));
   }
 
   QString withException(std::function<void()> fn) {
-    libmu::api::withException(env,
-                         [fn](void*) { (void)fn(); });
-    return
-      QString::fromStdString(Platform::GetStdString(stderr));
+    libmu::api::withException(env, [fn](void*) { (void)fn(); });
+    return QString::fromStdString(Platform::GetStdString(stderr));
   }
-  
+
   Mu() : platform(new Platform()) {
     stdout = Platform::OpenOutputString("");
     stderr = Platform::OpenOutputString("");
     env = libmu::api::env(platform, stdout, stdout, stderr);
-      
-    libmu::api::eval(env,
-               libmu::api::read_string(env,
-                                 "(load \"/opt/gyre/src/core/mu.l\")"));
+
+    libmu::api::eval(env, libmu::api::read_string(
+                              env, "(load \"/opt/gyre/src/core/mu.l\")"));
   }
 
  private:
@@ -62,6 +55,6 @@ class Mu {
   void* env;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif /* _GYREIDE_SRC_UI_MU_H_ */ 
+#endif /* _GYREIDE_SRC_UI_MU_H_ */

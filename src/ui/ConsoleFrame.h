@@ -34,10 +34,9 @@ class TtyWidget;
 namespace gyreide {
 
 class MainTabBar;
-  
-class ConsoleFrame : public QFrame {
 
- Q_OBJECT
+class ConsoleFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit ConsoleFrame(QString, MainTabBar*);
@@ -45,8 +44,8 @@ class ConsoleFrame : public QFrame {
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
   GyreEnv* get_gyre() { return ttyWidget->get_gyre(); }
-  
-private:
+
+ private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*);
 
@@ -57,6 +56,6 @@ private:
   QVBoxLayout* layout;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_CONSOLEFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_CONSOLEFRAME_H_ */

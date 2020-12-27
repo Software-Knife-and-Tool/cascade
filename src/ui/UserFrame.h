@@ -30,10 +30,9 @@ QT_END_NAMESPACE
 namespace gyreide {
 
 class MainTabBar;
-  
-class UserFrame : public QFrame {
 
- Q_OBJECT
+class UserFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit UserFrame(QString, MainTabBar*);
@@ -42,13 +41,13 @@ class UserFrame : public QFrame {
   void log(QString);
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
-  
+
   MainTabBar* tabBar;
   QString name;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_USERFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_USERFRAME_H_ */

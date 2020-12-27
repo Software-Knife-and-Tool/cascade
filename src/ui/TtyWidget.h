@@ -31,13 +31,12 @@ class QPaintEvent;
 class QMouseEvent;
 
 namespace gyreide {
-  
+
 struct TextSelection;
 struct TextPosition;
 
 class TtyWidget : public QAbstractScrollArea {
-
- Q_OBJECT
+  Q_OBJECT
 
  public:
   explicit TtyWidget(QWidget*);
@@ -45,7 +44,7 @@ class TtyWidget : public QAbstractScrollArea {
   void writeTty(QString);
 
   GyreEnv* get_gyre() { return ideEnv; }
-  
+
  protected:
   void paintEvent(QPaintEvent* event) override;
 
@@ -58,7 +57,7 @@ class TtyWidget : public QAbstractScrollArea {
  private:
   void DrawCursor();
   void DrawLine(int&, int, QString, QFontMetrics, int);
-  
+
   TextPosition getTextPosition(const QPoint& pos) const;
 
   QString cursor_;
@@ -70,6 +69,6 @@ class TtyWidget : public QAbstractScrollArea {
   QSharedPointer<TextSelection> _selection;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
 #endif /* _GYREIDE_SRC_UI_CONSOLEWIDGET_H_ */

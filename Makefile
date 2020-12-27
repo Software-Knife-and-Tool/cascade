@@ -27,7 +27,7 @@ clobber: clean
 
 
 format:
-	(cd ../src/ui && clang-format -i *.h *.cpp)
+	(cd ./src/ui && clang-format -i *.h *.cpp)
 
 build:
 	(cd src/ui ; qmake)

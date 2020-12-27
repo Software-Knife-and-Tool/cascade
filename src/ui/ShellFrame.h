@@ -34,24 +34,20 @@ class TtyWidget;
 namespace gyreide {
 
 class MainTabBar;
-  
-class ShellFrame : public QFrame {
 
- Q_OBJECT
+class ShellFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit ShellFrame(QString, MainTabBar*);
 
-  void log(QString msg) {
-    ttyWidget->writeTty(msg);
-  }
-  
+  void log(QString msg) { ttyWidget->writeTty(msg); }
+
   void setContextStatus(QString);
 
   void showEvent(QShowEvent*) override;
 
  protected:
-
  private:
   MainTabBar* tabBar;
   QString name;
@@ -59,6 +55,6 @@ class ShellFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_SHELLFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_SHELLFRAME_H_ */

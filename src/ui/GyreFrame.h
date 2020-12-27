@@ -20,8 +20,8 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "GyreEnv.h"
 #include "ComposerFrame.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -35,14 +35,13 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace gyreide {
-  
+
 class ComposerFrame;
 class MainTabBar;
 class MainWindow;
-  
-class GyreFrame : public QFrame {
 
- Q_OBJECT
+class GyreFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit GyreFrame(QString, MainTabBar*, GyreEnv*);
@@ -51,13 +50,11 @@ class GyreFrame : public QFrame {
   void runStatus(QString);
 
  private:
-  void del() { }
+  void del() {}
   void log(QString msg) { tabBar->log(msg); }
   void clear() { statusText->setText(""); }
 
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
@@ -70,9 +67,9 @@ class GyreFrame : public QFrame {
   QLabel* statusText;
   MainTabBar* tabBar;
   QDateTime evalDate;
-  QToolBar* toolBar;  
+  QToolBar* toolBar;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_GYREFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_GYREFRAME_H_ */

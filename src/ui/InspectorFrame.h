@@ -20,8 +20,8 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "GyreEnv.h"
 #include "ComposerFrame.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,10 +36,9 @@ namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
-  
-class InspectorFrame : public QFrame {
 
- Q_OBJECT
+class InspectorFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit InspectorFrame(QString, MainTabBar*, GyreEnv*);
@@ -49,20 +48,19 @@ class InspectorFrame : public QFrame {
   void eval();
 
   void log(QString msg) { tabBar->log(msg); }
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
 
-  MainTabBar *tabBar;
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+
+  MainTabBar* tabBar;
   GyreEnv* devEnv;
   QString name;
-  ComposerFrame* composerFrame;;
+  ComposerFrame* composerFrame;
+  ;
   QLabel* viewLabel;
   QLabel* timeLabel;
-  QToolBar* toolBar;  
+  QToolBar* toolBar;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_INSPECTORFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_INSPECTORFRAME_H_ */

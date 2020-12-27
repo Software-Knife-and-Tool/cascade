@@ -37,16 +37,15 @@ namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
-  
-class ComposerFrame : public QFrame {
 
- Q_OBJECT
+class ComposerFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit ComposerFrame(QString, MainTabBar*, GyreEnv*);
 
-  signals:
-    void evalHappened(QString);
+ signals:
+  void evalHappened(QString);
 
  private:
   void clear();
@@ -58,25 +57,23 @@ class ComposerFrame : public QFrame {
   void save();
   void save_as();
   void del();
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
+
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
     tabBar->setContextStatus(name);
   }
-  
+
   bool eventFilter(QObject, QEvent*);
-    void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { tabBar->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
   QString loadFileName;
   QString saveFileName;
 
-  MainTabBar *tabBar;
+  MainTabBar* tabBar;
   GyreEnv* devEnv;
   QString name;
   QTextEdit* editText;
@@ -86,6 +83,6 @@ class ComposerFrame : public QFrame {
   QScrollArea* evalScroll;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_COMPOSERFRAME_H_ */

@@ -20,31 +20,26 @@
 #include <QToolBar>
 #include <QtWidgets>
 
+#include "ComposerFrame.h"
 #include "GyreEnv.h"
 #include "GyreFrame.h"
-#include "ComposerFrame.h"
 
 namespace gyreide {
 
 void GyreFrame::runStatus(QString form) {
-  auto date =
-    new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
+  auto date = new QString(
+      QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
 
-  statusText->setText(statusText->text() +
-                      "\n;;;\n;;; " +
-                      form +
-                      " evaluated at " +
-                      date +
-                      "\n;;;\n" +
+  statusText->setText(statusText->text() + "\n;;;\n;;; " + form +
+                      " evaluated at " + date + "\n;;;\n" +
                       devEnv->rep("(room :nil)"));
 }
 
 GyreFrame::GyreFrame(QString name, MainTabBar* tb, GyreEnv* cn)
-  : devEnv(cn), name(name), tabBar(tb) {
-  
+    : devEnv(cn), name(name), tabBar(tb) {
   toolBar = new QToolBar();
-  connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &GyreFrame::del);
+  connect(toolBar->addAction(tr("del")), &QAction::triggered, this,
+          &GyreFrame::del);
 
   statusText = new QLabel();
   scrollArea = new QScrollArea();
@@ -55,22 +50,20 @@ GyreFrame::GyreFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   QSizePolicy spStatus(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spStatus.setVerticalStretch(1);
   statusText->setSizePolicy(spStatus);
-  
+
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(toolBar);
   layout->addWidget(scrollArea);
-    
+
   setLayout(layout);
 
   QString out;
 
-  auto error_text =
-    devEnv->withException([this, &out]() {
-         out = devEnv->rep("(room :default)");
-       });
+  auto error_text = devEnv->withException(
+      [this, &out]() { out = devEnv->rep("(room :default)"); });
 
   statusText->setText(out + error_text);
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

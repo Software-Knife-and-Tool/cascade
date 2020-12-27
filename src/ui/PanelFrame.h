@@ -36,26 +36,24 @@ namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
-  
-class PanelFrame : public QFrame {
 
- Q_OBJECT
+class PanelFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit PanelFrame(QString, MainTabBar*, GyreEnv*);
 
  private:
-
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
     tabBar->setContextStatus(name);
   }
 
   void log(QString msg) { tabBar->log(msg); }
-  
+
   QToolButton* toolMenu();
-  
-  MainTabBar *tabBar;
+
+  MainTabBar* tabBar;
   bool init;
   GyreEnv* devEnv;
   QString name;
@@ -67,6 +65,6 @@ class PanelFrame : public QFrame {
   Tile* rootTile;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_PANELFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_PANELFRAME_H_ */

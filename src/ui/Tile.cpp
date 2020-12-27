@@ -13,10 +13,10 @@
  **/
 #include <QFileDialog>
 #include <QLabel>
-#include <QTextEdit>
-#include <QToolBar>
 #include <QSplitter>
 #include <QString>
+#include <QTextEdit>
+#include <QToolBar>
 #include <QtWidgets>
 
 #include "Tile.h"
@@ -31,28 +31,32 @@ void scrub_layout(QLayout* layout) {
   QWidget* widget;
 
   while ((item = layout->takeAt(0))) {
-    if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
-    else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
-    else {delete item;}
+    if ((sublayout = item->layout()) != 0) { /* do the same for sublayout*/
+    } else if ((widget = item->widget()) != 0) {
+      widget->hide();
+      delete widget;
+    } else {
+      delete item;
+    }
   }
-  
+
   delete layout;
 }
-  
-} /* anynonymous namespace */
+
+}  // namespace
 
 void Tile::split(QFrame* fr) {
   switch (splitState) {
-  case UNSPLIT:
-    break;
-  case HORIZONTAL:
-    splitTile = new Tile(tabBar, fr);
-    splith();
-    break;
-  case VERTICAL:
-    splitTile = new Tile(tabBar, fr);
-    splitv();
-    break;
+    case UNSPLIT:
+      break;
+    case HORIZONTAL:
+      splitTile = new Tile(tabBar, fr);
+      splith();
+      break;
+    case VERTICAL:
+      splitTile = new Tile(tabBar, fr);
+      splitv();
+      break;
   }
 }
 
@@ -61,7 +65,7 @@ void Tile::rebase(QFrame* base) {
 
   baseFrame = base;
   baseFrame->setMinimumHeight(size.height() / 2);
-  
+
   QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spBase.setVerticalStretch(1);
   baseFrame->setSizePolicy(spBase);
@@ -73,7 +77,7 @@ void Tile::rebase(QFrame* base) {
 
   scrub_layout(this->layout());
   setLayout(layout);
-  
+
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
@@ -82,10 +86,10 @@ void Tile::splitv() {
   auto size = this->frameSize();
 
   splitState = VERTICAL;
-  
+
   auto panel = (splitTile == nullptr) ? new QFrame() : splitTile;
   panel->setMinimumHeight(size.height() / 2);
-  
+
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spPanel.setVerticalStretch(1);
   panel->setSizePolicy(spPanel);
@@ -107,12 +111,12 @@ void Tile::splitv() {
 
 void Tile::splith() {
   auto size = this->frameSize();
-  
+
   splitState = HORIZONTAL;
 
   auto panel = (splitTile == nullptr) ? new QFrame() : splitTile;
   panel->setMinimumWidth(size.width() / 2);
-  
+
   QSizePolicy spPanel(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spPanel.setHorizontalStretch(1);
   panel->setSizePolicy(spPanel);
@@ -132,14 +136,12 @@ void Tile::splith() {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-Tile::Tile(MainTabBar* tb, QFrame* cf)
-  : tabBar(tb), baseFrame(cf) {
-  
+Tile::Tile(MainTabBar* tb, QFrame* cf) : tabBar(tb), baseFrame(cf) {
   splitState = UNSPLIT;
   splitTile = nullptr;
 
   baseFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-  
+
   QSizePolicy spBase(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spBase.setVerticalStretch(1);
   baseFrame->setSizePolicy(spBase);
@@ -149,7 +151,7 @@ Tile::Tile(MainTabBar* tb, QFrame* cf)
   layout->addWidget(baseFrame);
 
   setLayout(layout);
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);  
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

@@ -36,10 +36,9 @@ class MainWindow;
 class ConsoleFrame;
 class UserFrame;
 class IdeFrame;
-  
-class MainTabBar : public QTabWidget {
 
- Q_OBJECT
+class MainTabBar : public QTabWidget {
+  Q_OBJECT
 
  public:
   explicit MainTabBar(MainWindow*);
@@ -47,14 +46,10 @@ class MainTabBar : public QTabWidget {
   void log(QString);
   void setContextStatus(QString);
   User* userInfo();
-  
-  void add(QWidget* w, QString label) {
-    addTab(w, label);
-  }
 
-  MainWindow* get_mw() {
-    return this->mw;
-  }
+  void add(QWidget* w, QString label) { addTab(w, label); }
+
+  MainWindow* get_mw() { return this->mw; }
 
  private slots:
 
@@ -63,6 +58,6 @@ class MainTabBar : public QTabWidget {
   IdeFrame* ideFrame;
 };
 
-} /* loigicaide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_MAINTABBAR_H_ */
+#endif /* _GYREIDE_SRC_UI_MAINTABBAR_H_ */

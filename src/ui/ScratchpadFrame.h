@@ -20,8 +20,8 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "GyreEnv.h"
 #include "ComposerFrame.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -35,14 +35,13 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace gyreide {
-  
+
 class ComposerFrame;
 class MainTabBar;
 class MainWindow;
-  
-class ScratchpadFrame : public QFrame {
 
- Q_OBJECT
+class ScratchpadFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit ScratchpadFrame(QString, MainTabBar*);
@@ -57,9 +56,7 @@ class ScratchpadFrame : public QFrame {
 
   void log(QString msg) { tabBar->log(msg); }
 
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
@@ -70,12 +67,12 @@ class ScratchpadFrame : public QFrame {
   QString saveFileName;
 
   QString name;
-  QScrollArea *scrollArea;
+  QScrollArea* scrollArea;
   QTextEdit* scratchText;
-  QToolBar* toolBar;  
-  MainTabBar *tabBar;
+  QToolBar* toolBar;
+  MainTabBar* tabBar;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_SCRATCHPADFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_SCRATCHPADFRAME_H_ */

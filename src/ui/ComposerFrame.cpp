@@ -14,13 +14,13 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QSplitter>
+#include <QString>
 #include <QTextEdit>
 #include <QToolBar>
-#include <QString>
 #include <QtWidgets>
 
-#include "GyreEnv.h"
 #include "ComposerFrame.h"
+#include "GyreEnv.h"
 
 namespace gyreide {
 
@@ -30,11 +30,8 @@ void ComposerFrame::clear() {
 }
 
 void ComposerFrame::load() {
-  loadFileName =
-    QFileDialog::getOpenFileName(this,
-                                 tr("Load File"),
-                                 tabBar->userInfo()->userdir(),
-                                 tr("File (*)"));
+  loadFileName = QFileDialog::getOpenFileName(
+      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -45,16 +42,14 @@ void ComposerFrame::load() {
 
   saveFileName = loadFileName;
 }
-    
+
 void ComposerFrame::eval() {
   QString out;
 
   tabBar->setContextStatus(tr("eval"));
-  
-  auto error =
-    devEnv->withException([this, &out]() {
-         out = devEnv->rep(editText->toPlainText());
-       });
+
+  auto error = devEnv->withException(
+      [this, &out]() { out = devEnv->rep(editText->toPlainText()); });
 
   evalText->setText(out + error);
 
@@ -66,12 +61,11 @@ void ComposerFrame::macroexpand() {
 
   tabBar->setContextStatus(tr("macroexpand"));
 
-  auto error =
-    devEnv->withException([this, &out]() {
-      auto mex = "(macroexpand (:quote " + editText->toPlainText() + "))";
+  auto error = devEnv->withException([this, &out]() {
+    auto mex = "(macroexpand (:quote " + editText->toPlainText() + "))";
 
-      out = devEnv->rep(mex);
-    });
+    out = devEnv->rep(mex);
+  });
 
   evalText->setText(out + error);
 }
@@ -81,33 +75,28 @@ void ComposerFrame::describe() {
 
   tabBar->setContextStatus(tr("describe"));
 
-  auto error =
-    devEnv->withException([this, &out]() {
-      auto mex = "(describe (:quote " + editText->toPlainText() + "))";
+  auto error = devEnv->withException([this, &out]() {
+    auto mex = "(describe (:quote " + editText->toPlainText() + "))";
 
-      out = devEnv->rep(mex);
-    });
+    out = devEnv->rep(mex);
+  });
 
   evalText->setText(out + error);
 }
 
-void ComposerFrame::reset() {
-  devEnv = new GyreEnv();
-}
+void ComposerFrame::reset() { devEnv = new GyreEnv(); }
 
-void ComposerFrame::del() {
-}
+void ComposerFrame::del() {}
 
 void ComposerFrame::save_as() {
-  saveFileName = QFileDialog::getSaveFileName(this,
-        tr("Save As"), "",
-        tr("File (*)"));
+  saveFileName =
+      QFileDialog::getSaveFileName(this, tr("Save As"), "", tr("File (*)"));
   save();
 }
 
 void ComposerFrame::save() {
   QString text = editText->toPlainText();
-  
+
   QSaveFile file(saveFileName);
   file.open(QIODevice::WriteOnly);
   file.write(text.toUtf8());
@@ -115,42 +104,40 @@ void ComposerFrame::save() {
 }
 
 bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
-  if ( /* watched == textEdit && */ event->type() == QEvent::KeyPress) {
-    QKeyEvent *e = static_cast < QKeyEvent * >(event);
-    if (e->key() == Qt::Key_Return &&
-        e->modifiers() & Qt::ShiftModifier) {
+  if (/* watched == textEdit && */ event->type() == QEvent::KeyPress) {
+    QKeyEvent *e = static_cast<QKeyEvent *>(event);
+    if (e->key() == Qt::Key_Return && e->modifiers() & Qt::ShiftModifier) {
       eval();
       return true;
     }
   }
-    
+
   return tabBar->get_mw()->eventFilter(watched, event);
 }
-  
-ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, GyreEnv* cn)
-  : tabBar(tb), devEnv(cn), name(name) {
-  
+
+ComposerFrame::ComposerFrame(QString name, MainTabBar *tb, GyreEnv *cn)
+    : tabBar(tb), devEnv(cn), name(name) {
   auto size = this->frameSize();
 
   toolBar = new QToolBar();
-  connect(toolBar->addAction(tr("clear")),
-          &QAction::triggered, this, &ComposerFrame::clear);
-  connect(toolBar->addAction(tr("load")),
-          &QAction::triggered, this, &ComposerFrame::load);
-  connect(toolBar->addAction(tr("eval")),
-          &QAction::triggered, this, &ComposerFrame::eval);
-  connect(toolBar->addAction(tr("describe")),
-          &QAction::triggered, this, &ComposerFrame::describe);
-  connect(toolBar->addAction(tr("macroexpand")),
-          &QAction::triggered, this, &ComposerFrame::macroexpand);
-  connect(toolBar->addAction(tr("reset")),
-          &QAction::triggered, this, &ComposerFrame::reset);
-  connect(toolBar->addAction(tr("save")),
-          &QAction::triggered, this, &ComposerFrame::save);
-  connect(toolBar->addAction(tr("save as")),
-          &QAction::triggered, this, &ComposerFrame::save_as);
-  connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &ComposerFrame::del);
+  connect(toolBar->addAction(tr("clear")), &QAction::triggered, this,
+          &ComposerFrame::clear);
+  connect(toolBar->addAction(tr("load")), &QAction::triggered, this,
+          &ComposerFrame::load);
+  connect(toolBar->addAction(tr("eval")), &QAction::triggered, this,
+          &ComposerFrame::eval);
+  connect(toolBar->addAction(tr("describe")), &QAction::triggered, this,
+          &ComposerFrame::describe);
+  connect(toolBar->addAction(tr("macroexpand")), &QAction::triggered, this,
+          &ComposerFrame::macroexpand);
+  connect(toolBar->addAction(tr("reset")), &QAction::triggered, this,
+          &ComposerFrame::reset);
+  connect(toolBar->addAction(tr("save")), &QAction::triggered, this,
+          &ComposerFrame::save);
+  connect(toolBar->addAction(tr("save as")), &QAction::triggered, this,
+          &ComposerFrame::save_as);
+  connect(toolBar->addAction(tr("del")), &QAction::triggered, this,
+          &ComposerFrame::del);
 
   editText = new QTextEdit();
   editText->setMouseTracking(true);
@@ -171,12 +158,12 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   evalScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   evalScroll->installEventFilter(this);
   evalScroll->setMinimumHeight(size.height() / 2);
-  
+
   QSizePolicy spEdit(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEdit.setVerticalStretch(1);
   editText->setSizePolicy(spEdit);
   editText->setMouseTracking(true);
-  
+
   QSizePolicy spEval(QSizePolicy::Preferred, QSizePolicy::Preferred);
   spEval.setVerticalStretch(1);
   evalText->setSizePolicy(spEval);
@@ -190,8 +177,8 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   layout->setContentsMargins(5, 5, 5, 5);
   layout->addWidget(toolBar);
   layout->addWidget(vs);
-  
+
   setLayout(layout);
 }
 
-} /* gyreide namespace */
+}  // namespace gyreide

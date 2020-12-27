@@ -10,7 +10,7 @@
  **
  **  StatusClock.h: StatusClock class
  **
- **/ 
+ **/
 #ifndef _GYREIDE_SRC_UI_STATUSCLOCK_H_
 #define _GYREIDE_SRC_UI_STATUSCLOCK_H_
 
@@ -30,15 +30,13 @@ QT_END_NAMESPACE
 namespace gyreide {
 
 class MainWindow;
-  
-class StatusClock : public QObject {
 
+class StatusClock : public QObject {
   Q_OBJECT
-    
+
  public:
   StatusClock(QStatusBar*, QLabel* dl)
-    : timer(new QTimer(this)), dateLabel(dl) {
-    
+      : timer(new QTimer(this)), dateLabel(dl) {
     connect(timer, SIGNAL(timeout()), this, SLOT(statusClock()));
     timer->start(1000);
   }
@@ -54,6 +52,6 @@ class StatusClock : public QObject {
   QLabel* dateLabel;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_STATUSCLOCK_H_ */
+#endif /* _GYREIDE_SRC_UI_STATUSCLOCK_H_ */

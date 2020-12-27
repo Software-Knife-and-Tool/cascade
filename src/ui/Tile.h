@@ -35,10 +35,9 @@ namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
-  
-class Tile : public QFrame {
 
- Q_OBJECT
+class Tile : public QFrame {
+  Q_OBJECT
 
  public:
   explicit Tile(MainTabBar*, QFrame*);
@@ -51,14 +50,14 @@ class Tile : public QFrame {
  private:
   enum STATE { UNSPLIT, HORIZONTAL, VERTICAL };
 
-  void log(QString msg) { tabBar->log(msg); }  
+  void log(QString msg) { tabBar->log(msg); }
 
-  MainTabBar *tabBar;
+  MainTabBar* tabBar;
   STATE splitState;
   QFrame* baseFrame;
   Tile* splitTile;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_TILE_H_ */
+#endif /* _GYREIDE_SRC_UI_TILE_H_ */

@@ -17,8 +17,8 @@
 #include <QFrame>
 #include <QWidget>
 
-#include "GyreEnv.h"
 #include "ConsoleFrame.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
@@ -34,20 +34,19 @@ namespace gyreide {
 
 class MainTabBar;
 class ConsoleFrame;
-  
-class IdeFrame : public QFrame {
 
- Q_OBJECT
+class IdeFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit IdeFrame(QString, MainTabBar*);
   static const char* configFile;
   static const char* version;
-  
+
   void log(QString);
 
   GyreEnv* get_gyre();
-    
+
  private:
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
@@ -59,6 +58,6 @@ class IdeFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_IDEFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_IDEFRAME_H_ */

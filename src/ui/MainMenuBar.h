@@ -29,17 +29,14 @@ QT_END_NAMESPACE
 namespace gyreide {
 
 class MainWindow;
-  
-class MainMenuBar : public QMenu {
 
- Q_OBJECT
+class MainMenuBar : public QMenu {
+  Q_OBJECT
 
  public:
-  MainMenuBar(MainWindow*);
+  MainMenuBar(MainWindow *);
 
-  QMenuBar* menu_bar() {
-    return mb;
-  }
+  QMenuBar *menu_bar() { return mb; }
 
   QAction *cutAct;
   QAction *copyAct;
@@ -95,10 +92,10 @@ class MainMenuBar : public QMenu {
   QAction *undoAct;
 
  private:
-  MainWindow* mw;
-  QMenuBar* mb;
+  MainWindow *mw;
+  QMenuBar *mb;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_MAINMENUBAR_H_ */
+#endif /* _GYREIDE_SRC_UI_MAINMENUBAR_H_ */

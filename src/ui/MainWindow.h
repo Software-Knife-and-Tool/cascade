@@ -38,35 +38,34 @@ namespace gyreide {
 
 class MainMenuBar;
 class MainTabBar;
-  
-class MainWindow : public QMainWindow {
 
- Q_OBJECT
+class MainWindow : public QMainWindow {
+  Q_OBJECT
 
  public:
   explicit MainWindow();
 
   void setContextStatus(QString);
-  
+
   MainTabBar* mainTabBar() { return this->tabBar; }
   MainMenuBar* mainMenuBar() { return this->menuBar; }
   User* userInfo() { return this->user; }
-  
+
  protected:
-  void contextMenuEvent(QContextMenuEvent *event) override;
+  void contextMenuEvent(QContextMenuEvent* event) override;
 
  private:
   void createStatusBar();
 
  private:
   User* user;
-  QLabel *contextLabel;
+  QLabel* contextLabel;
   MainMenuBar* menuBar;
   MainTabBar* tabBar;
   QDateTime startTime;
   StatusClock* statusClock;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_MAINWINDOW_H_ */
+#endif /* _GYREIDE_SRC_UI_MAINWINDOW_H_ */
