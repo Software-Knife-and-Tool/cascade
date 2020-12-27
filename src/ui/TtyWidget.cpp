@@ -44,7 +44,7 @@
 #include <QPainter>
 #include <QScrollBar>
 
-namespace logicaide {
+namespace gyreide {
   
 struct LineStyle {
 
@@ -362,13 +362,13 @@ void TtyWidget::writeTty(QString str) {
 /** * constructor **/
 TtyWidget::TtyWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
-    ideEnv(new CanonEnv()),
+    ideEnv(new GyreEnv()),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  buffer_ << QString(";;; canon ").append(ideEnv->version());
+  buffer_ << QString(";;; gyre ").append(ideEnv->version());
   prompt_ = QString(". ");
   cursor_ = QString("_");
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

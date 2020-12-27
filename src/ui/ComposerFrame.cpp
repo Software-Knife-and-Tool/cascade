@@ -44,10 +44,10 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void ComposerFrame::clear() {
   editText->setText("");
@@ -117,7 +117,7 @@ void ComposerFrame::describe() {
 }
 
 void ComposerFrame::reset() {
-  devEnv = new CanonEnv();
+  devEnv = new GyreEnv();
 }
 
 void ComposerFrame::del() {
@@ -152,7 +152,7 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
   return tabBar->get_mw()->eventFilter(watched, event);
 }
   
-ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
+ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   : tabBar(tb), devEnv(cn), name(name) {
   
   auto size = this->frameSize();
@@ -219,4 +219,4 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar* tb, CanonEnv* cn)
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

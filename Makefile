@@ -21,8 +21,8 @@ build:
 	@make -C src/ui
 
 run:
-	@open build/logicaide.app
+	@open build/gyre-ide.app
 
 install:
-	@cp logica-ide.l ~/.logica-ide
+	@cp gyre-ide.l ~/.gyre-ide
 

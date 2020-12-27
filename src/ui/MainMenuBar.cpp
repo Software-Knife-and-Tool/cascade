@@ -42,7 +42,7 @@
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void MainMenuBar::newFile() {
   mw->setContextStatus("Invoked <b>File|New</b>");
@@ -296,5 +296,5 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
   mb->addMenu(helpMenu);
 }
   
-} /* logicaide namespace */
+} /* gyreide namespace */
 

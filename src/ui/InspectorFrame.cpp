@@ -43,11 +43,11 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "InspectorFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void InspectorFrame::clear() {
   //  edit_text->setText("");
@@ -55,7 +55,7 @@ void InspectorFrame::clear() {
 
 InspectorFrame::InspectorFrame(QString name,
                                MainTabBar* tb,
-                               CanonEnv* env)
+                               GyreEnv* env)
   : tabBar(tb), devEnv(env), name(name) {
   
   composerFrame = new ComposerFrame("inspector", tb, env);
@@ -73,4 +73,4 @@ InspectorFrame::InspectorFrame(QString name,
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

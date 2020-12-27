@@ -36,62 +36,57 @@
  **  mu.h: Mu class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_MU_H_
-#define _LOGICAIDE_SRC_UI_MU_H_
+#ifndef _GYREIDE_SRC_UI_MU_H_
+#define _GYREIDE_SRC_UI_MU_H_
 
 #include <QString>
 
 #include "libmu/libmu.h"
 
-namespace logicaide {
+namespace gyreide {
   
+using libmu::platform::Platform;  
+
 class Mu {
  public:
   QString version() {
-    return QString(libmu_version());  
+    return QString(libmu::api::version());  
   }
 
   QString mu(QString form) {
     auto rval =
-      libmu_eval(env, libmu_read_string(env, form.toStdString()));
+      libmu::api::eval(env, libmu::api::read_string(env, form.toStdString()));
     
     return
       QString::fromStdString(
-        platform::Platform::GetStdString(stdout) +
-        libmu_print_cstr(env, rval, true));
+        Platform::GetStdString(stdout) +
+        libmu::api::print_cstr(env, rval, true));
   }
 
   QString withException(std::function<void()> fn) {
-    libmu_withException(env,
+    libmu::api::withException(env,
                          [fn](void*) { (void)fn(); });
     return
-      QString::fromStdString(
-        platform::Platform::GetStdString(stderr));
+      QString::fromStdString(Platform::GetStdString(stderr));
   }
   
-  Mu() : platform(new platform::Platform()) {
-    stdout = platform::Platform::OpenOutputString("");
-    stderr = platform::Platform::OpenOutputString("");
-    env = libmu_env(platform, stdout, stdout, stderr);
+  Mu() : platform(new Platform()) {
+    stdout = Platform::OpenOutputString("");
+    stderr = Platform::OpenOutputString("");
+    env = libmu::api::env(platform, stdout, stdout, stderr);
       
-    libmu_eval(env,
-               libmu_read_string(env,
-                                 "(load \"/usr/local/logica/mu/mu.l\")"));
-    libmu_eval(env,
-               libmu_read_string(env,
-                                 "(:defcon lib-base \"/usr/local/logica\")"));
-    libmu_eval(env,
-               libmu_read_string(env,
-                                 "(load-once logica/library \"/canon/lib.l\")"));
+    libmu::api::eval(env,
+               libmu::api::read_string(env,
+                                 "(load \"/opt/gyre/src/core/mu.l\")"));
   }
 
  private:
-  platform::Platform* platform;
-  platform::Platform::StreamId stdout;
-  platform::Platform::StreamId stderr;
+  Platform* platform;
+  Platform::StreamId stdout;
+  Platform::StreamId stderr;
   void* env;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_MU_H_ */ 
+#endif /* _GYREIDE_SRC_UI_MU_H_ */ 

@@ -41,7 +41,7 @@
 
 #include "ShellFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void ShellFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -71,4 +71,4 @@ ShellFrame::ShellFrame(QString name, MainTabBar* tb)
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

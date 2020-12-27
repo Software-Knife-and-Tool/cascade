@@ -36,8 +36,8 @@
  **  PanelFrame.h: PanelFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_PANELFRAME_H_
-#define _LOGICAIDE_SRC_UI_PANELFRAME_H_
+#ifndef _GYREIDE_SRC_UI_PANELFRAME_H_
+#define _GYREIDE_SRC_UI_PANELFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 #include "Tile.h"
 
@@ -57,7 +57,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
@@ -67,7 +67,7 @@ class PanelFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit PanelFrame(QString, MainTabBar*, CanonEnv*);
+  explicit PanelFrame(QString, MainTabBar*, GyreEnv*);
 
  private:
 
@@ -82,7 +82,7 @@ class PanelFrame : public QFrame {
   
   MainTabBar *tabBar;
   bool init;
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   QLayout* layout;
   QToolBar* toolBar;
@@ -92,6 +92,6 @@ class PanelFrame : public QFrame {
   Tile* rootTile;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_PANELFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_PANELFRAME_H_ */

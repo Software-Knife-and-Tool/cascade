@@ -36,8 +36,8 @@
  **  TtyWidget.h: TtyWidget class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_TTYWIDGET_H_
-#define _LOGICAIDE_SRC_UI_TTYWIDGET_H_
+#ifndef _GYREIDE_SRC_UI_TTYWIDGET_H_
+#define _GYREIDE_SRC_UI_TTYWIDGET_H_
 
 #include <QAbstractScrollArea>
 #include <QDebug>
@@ -50,12 +50,12 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 
 class QPaintEvent;
 class QMouseEvent;
 
-namespace logicaide {
+namespace gyreide {
   
 struct TextSelection;
 struct TextPosition;
@@ -69,7 +69,7 @@ class TtyWidget : public QAbstractScrollArea {
 
   void writeTty(QString);
 
-  CanonEnv* get_canon() { return ideEnv; }
+  GyreEnv* get_gyre() { return ideEnv; }
   
  protected:
   void paintEvent(QPaintEvent* event) override;
@@ -91,10 +91,10 @@ class TtyWidget : public QAbstractScrollArea {
   QString prompt_;
   QStringList buffer_;
 
-  CanonEnv* ideEnv;
+  GyreEnv* ideEnv;
   QSharedPointer<TextSelection> _selection;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif /* _LOGICAIDE_SRC_UI_CONSOLEWIDGET_H_ */
+#endif /* _GYREIDE_SRC_UI_CONSOLEWIDGET_H_ */

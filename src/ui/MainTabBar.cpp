@@ -39,7 +39,7 @@
 #include <QtWidgets>
 #include <QTabBar>
 
-#include "CanonFrame.h"
+#include "GyreFrame.h"
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
 #include "InspectorFrame.h"
@@ -49,7 +49,7 @@
 #include "ScratchpadFrame.h"
 #include "ScriptFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void MainTabBar::log(QString msg) {
   ideFrame->log(msg);
@@ -69,12 +69,12 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  auto devEnv = new CanonEnv();
-  auto ideDev = ideFrame->get_canon();
+  auto devEnv = new GyreEnv();
+  auto ideDev = ideFrame->get_gyre();
 
 #if 0
   if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &CanonFrame::runStatus))
+                        canonf, &GyreFrame::runStatus))
     exit(0);
 #endif
   
@@ -91,4 +91,4 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
   log(";;; preferences frame loaded");
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

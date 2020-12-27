@@ -42,7 +42,7 @@
 #include "IdeFrame.h"
 #include "UserFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void UserFrame::log(QString msg) {
   tabBar->log(msg);
@@ -65,7 +65,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica IDE <i>%1</i></h1>"
+    "        <h1>Gyre IDE <i>%1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
@@ -95,4 +95,4 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   setLayout(layout);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

@@ -44,10 +44,10 @@
 #include "MainTabBar.h"
 #include "ScriptFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
 void IdeFrame::log(QString msg) { console->log(msg); }
-const char* IdeFrame::configFile = "~/.logica-ide";
+const char* IdeFrame::configFile = "~/.gyre-ide";
 const char* IdeFrame::version = "0.0.7";
   
 void IdeFrame::setContextStatus(QString str) {
@@ -59,8 +59,8 @@ void IdeFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-CanonEnv* IdeFrame::get_canon() {
-  return console->get_canon();
+GyreEnv* IdeFrame::get_gyre() {
+  return console->get_gyre();
 }
   
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)
@@ -72,7 +72,7 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica IDE <i>%1</i></h1>"
+    "        <h1>Gyre IDE <i>%1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"
@@ -119,4 +119,4 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb)
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

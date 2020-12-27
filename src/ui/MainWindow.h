@@ -36,8 +36,8 @@
  **  MainWindow.h: MainWindow class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_MAINWINDOW_H_
-#define _LOGICAIDE_SRC_UI_MAINWINDOW_H_
+#ifndef _GYREIDE_SRC_UI_MAINWINDOW_H_
+#define _GYREIDE_SRC_UI_MAINWINDOW_H_
 
 #include <QDateTime>
 #include <QMainWindow>
@@ -59,7 +59,7 @@ class QLabel;
 class QStatusBar;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
 
 class MainMenuBar;
 class MainTabBar;
@@ -92,6 +92,6 @@ class MainWindow : public QMainWindow {
   StatusClock* statusClock;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_MAINWINDOW_H_ */
+#endif  /* _GYREIDE_SRC_UI_MAINWINDOW_H_ */

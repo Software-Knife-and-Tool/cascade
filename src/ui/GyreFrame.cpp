@@ -33,7 +33,7 @@
 
 /********
  **
- **  CanonFrame.cpp: CanonFrame implementation
+ **  GyreFrame.cpp: GyreFrame implementation
  **
  **/
 #include <QDate>
@@ -45,13 +45,13 @@
 #include <QToolBar>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
-#include "CanonFrame.h"
+#include "GyreEnv.h"
+#include "GyreFrame.h"
 #include "ComposerFrame.h"
 
-namespace logicaide {
+namespace gyreide {
 
-void CanonFrame::runStatus(QString form) {
+void GyreFrame::runStatus(QString form) {
   auto date =
     new QString(QDateTime::currentDateTime().toString("ddd MMMM d yy h:m:s ap"));
 
@@ -64,12 +64,12 @@ void CanonFrame::runStatus(QString form) {
                       devEnv->rep("(room :nil)"));
 }
 
-CanonFrame::CanonFrame(QString name, MainTabBar* tb, CanonEnv* cn)
+GyreFrame::GyreFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   : devEnv(cn), name(name), tabBar(tb) {
   
   toolBar = new QToolBar();
   connect(toolBar->addAction(tr("del")),
-          &QAction::triggered, this, &CanonFrame::del);
+          &QAction::triggered, this, &GyreFrame::del);
 
   statusText = new QLabel();
   scrollArea = new QScrollArea();
@@ -98,4 +98,4 @@ CanonFrame::CanonFrame(QString name, MainTabBar* tb, CanonEnv* cn)
   statusText->setText(out + error_text);
 }
 
-} /* logicaide namespace */
+} /* gyreide namespace */

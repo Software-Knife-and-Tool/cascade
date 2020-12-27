@@ -33,11 +33,11 @@
 
 /********
  **
- **  CanonFrame.h: CanonFrame class
+ **  GyreFrame.h: GyreFrame class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_CANONFRAME_H_
-#define _LOGICAIDE_SRC_UI_CANONFRAME_H_
+#ifndef _GYREIDE_SRC_UI_GYREFRAME_H_
+#define _GYREIDE_SRC_UI_GYREFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
 
@@ -59,18 +59,18 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace logicaide {
+namespace gyreide {
   
 class ComposerFrame;
 class MainTabBar;
 class MainWindow;
   
-class CanonFrame : public QFrame {
+class GyreFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit CanonFrame(QString, MainTabBar*, CanonEnv*);
+  explicit GyreFrame(QString, MainTabBar*, GyreEnv*);
 
  public slots:
   void runStatus(QString);
@@ -89,7 +89,7 @@ class CanonFrame : public QFrame {
     tabBar->setContextStatus(name);
   }
 
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   QScrollArea* scrollArea;
   QLabel* statusText;
@@ -98,6 +98,6 @@ class CanonFrame : public QFrame {
   QToolBar* toolBar;  
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
-#endif  /* _LOGICAIDE_SRC_UI_CANONFRAME_H_ */
+#endif  /* _GYREIDE_SRC_UI_GYREFRAME_H_ */
