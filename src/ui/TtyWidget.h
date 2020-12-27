@@ -69,7 +69,7 @@ class TtyWidget : public QAbstractScrollArea {
 
   void writeTty(QString);
 
-  GyreEnv* get_canon() { return ideEnv; }
+  GyreEnv* get_gyre() { return ideEnv; }
   
  protected:
   void paintEvent(QPaintEvent* event) override;

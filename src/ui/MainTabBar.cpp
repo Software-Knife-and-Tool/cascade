@@ -69,8 +69,8 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  auto devEnv = new GyreEnvEnv();
-  auto ideDev = ideFrame->get_canon();
+  auto devEnv = new GyreEnv();
+  auto ideDev = ideFrame->get_gyre();
 
 #if 0
   if (!QObject::connect(composef, &ComposerFrame::evalHappened,

@@ -366,7 +366,7 @@ TtyWidget::TtyWidget(QWidget *parent)
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);
-  buffer_ << QString(";;; canon ").append(ideEnv->version());
+  buffer_ << QString(";;; gyre ").append(ideEnv->version());
   prompt_ = QString(". ");
   cursor_ = QString("_");
 }

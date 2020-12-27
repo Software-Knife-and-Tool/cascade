@@ -100,7 +100,7 @@ MainWindow::MainWindow() : user(new User()) {
   createStatusBar();
   
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
-  setWindowTitle(tr("Software Knife and Tool Logica IDE"));
+  setWindowTitle(tr("Software Knife and Tool Gyre IDE"));
 }
 
 } /* gyreide namespace */

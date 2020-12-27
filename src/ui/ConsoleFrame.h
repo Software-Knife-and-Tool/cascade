@@ -69,7 +69,7 @@ class ConsoleFrame : public QFrame {
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
-  GyreEnv* get_canon() { return ttyWidget->get_gyre(); }
+  GyreEnv* get_gyre() { return ttyWidget->get_gyre(); }
   
 private:
   void setContextStatus(QString);

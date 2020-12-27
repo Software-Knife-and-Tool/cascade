@@ -65,7 +65,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
     "    <span style=\"text-align: center; font-family:Eaglefeather\">"
     "      <div>"
     "        <br>"
-    "        <h1>Logica IDE <i>%1</i></h1>"
+    "        <h1>Gyre IDE <i>%1</i></h1>"
     "        <p></p>"
     "        <h2>running on <i>%2</i>, %3</h2>"
     "        <h2>%4</h2>"

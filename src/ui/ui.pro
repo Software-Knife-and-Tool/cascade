@@ -10,7 +10,7 @@ TARGET = gyre-ide
 TEMPLATE = app
 
 HEADERS += \
-           /opt/gyre/include/libmu.h \
+           /opt/gyre/include/libmu/libmu.h \
            ComposerFrame.h   \
            ConsoleFrame.h    \
            GyreEnv.h         \
