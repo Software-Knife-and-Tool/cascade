@@ -1,35 +1,10 @@
-/*******
+/********
  **
- ** Copyright (c) 2017, James M. Putnam
- ** All rights reserved.
+ **  SPDX-License-Identifier: BSD-3-Clause
  **
- ** Redistribution and use in source and binary forms, with or without
- ** modification, are permitted provided that the following conditions are met:
+ **  Copyright (c) 2017-2021 James M. Putnam <putnamjm.design@gmail.com>
  **
- ** 1. Redistributions of source code must retain the above copyright notice,
- **    this list of conditions and the following disclaimer.
- **
- ** 2. Redistributions in binary form must reproduce the above copyright
- **    notice, this list of conditions and the following disclaimer in the
- **    documentation and/or other materials provided with the distribution.
- **
- ** 3. Neither the name of the copyright holder nor the names of its
- **    contributors may be used to endorse or promote products derived from
- **    this software without specific prior written permission.
- **
- ** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- ** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- ** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- ** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- ** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- ** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- ** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- ** INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- ** POSSIBILITY OF SUCH DAMAGE.
- **
- *******/
+ **/
 
 /********
  **
@@ -44,7 +19,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <utility>
- 
+
 #include <QFrame>
 #include <QLabel>
 #include <QScrollArea>
@@ -68,35 +43,34 @@ namespace gyreide {
 
 class MainTabBar;
 class MainWindow;
-  
-class ScriptFrame : public QFrame {
 
- Q_OBJECT
+class ScriptFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit ScriptFrame(QString, MainTabBar*, GyreEnv*, GyreEnv*);
-  
+
  private:
   static const size_t FNV_prime = 16777619;
   static const uint64_t OFFSET_BASIS = 2166136261UL;
- 
+
   typedef std::unordered_map<uint32_t, QObject*> object_map;
   typedef object_map::const_iterator object_iter;
- 
+
   static object_iter find(const std::shared_ptr<object_map>& map, QString key) {
     return map->find(hash_id(key));
   }
- 
+
   static bool isFound(const std::shared_ptr<object_map>& map, object_iter el) {
     return el != map->end();
   }
- 
+
   static QObject* Insert(const std::shared_ptr<object_map>& map, QString key,
-                       QObject* object) {
+                         QObject* object) {
     (*map.get())[hash_id(key)] = object;
     return object;
   }
- 
+
   static uint64_t hash_id(QString str) {
     uint64_t hash = OFFSET_BASIS;
 
@@ -104,7 +78,7 @@ class ScriptFrame : public QFrame {
       hash ^= ch.toLatin1();
       hash *= FNV_prime;
     }
- 
+
     return hash;
   }
 
@@ -116,9 +90,9 @@ class ScriptFrame : public QFrame {
     TYPE type;
     QString value;
   };
-  
-  std::vector<struct tag> parse(QString);  
- 
+
+  std::vector<struct tag> parse(QString);
+
   void evalFrame(GyreEnv*);
   QString evalString(QString, GyreEnv*);
 
@@ -130,16 +104,14 @@ class ScriptFrame : public QFrame {
   void del();
 
   void loadConfigFile();
-  
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
+
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
     tabBar->setContextStatus(name);
   }
-  
+
   void log(QString msg) { tabBar->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
@@ -149,17 +121,17 @@ class ScriptFrame : public QFrame {
 #if 0
   QString invoke(std::string(*)(std::string), QString);
 #endif
-  
+
   static constexpr unsigned int hash(const char* str, int h = 0) {
-    return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
+    return !str[h] ? 5381 : (hash(str, h + 1) * 33) ^ str[h];
   }
 
-  QString scriptIdOf(std::string (* fn)(std::string)) {
+  QString scriptIdOf(std::string (*fn)(std::string)) {
     auto fnp = reinterpret_cast<uint64_t>(fn);
 
     return QString("%1").arg(fnp);
   }
-  
+
   QString contextIdOf() {
     auto ctxp = reinterpret_cast<uint64_t>(this);
 
@@ -169,7 +141,7 @@ class ScriptFrame : public QFrame {
   QString loadFileName;
   QString saveFileName;
 
-  MainTabBar *tabBar;
+  MainTabBar* tabBar;
   GyreEnv* devEnv;
   GyreEnv* ideEnv;
   QString name;
@@ -180,6 +152,6 @@ class ScriptFrame : public QFrame {
   QScrollArea* evalScroll;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_SCRIPTFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_SCRIPTFRAME_H_ */

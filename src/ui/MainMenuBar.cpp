@@ -1,35 +1,10 @@
-/*******
+/********
  **
- ** Copyright (c) 2017, James M. Putnam
- ** All rights reserved.
+ **  SPDX-License-Identifier: BSD-3-Clause
  **
- ** Redistribution and use in source and binary forms, with or without
- ** modification, are permitted provided that the following conditions are met:
+ **  Copyright (c) 2017-2021 James M. Putnam <putnamjm.design@gmail.com>
  **
- ** 1. Redistributions of source code must retain the above copyright notice,
- **    this list of conditions and the following disclaimer.
- **
- ** 2. Redistributions in binary form must reproduce the above copyright
- **    notice, this list of conditions and the following disclaimer in the
- **    documentation and/or other materials provided with the distribution.
- **
- ** 3. Neither the name of the copyright holder nor the names of its
- **    contributors may be used to endorse or promote products derived from
- **    this software without specific prior written permission.
- **
- ** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- ** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- ** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- ** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- ** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- ** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- ** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- ** INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- ** POSSIBILITY OF SUCH DAMAGE.
- **
- *******/
+ **/
 
 /********
  **
@@ -44,41 +19,23 @@
 
 namespace gyreide {
 
-void MainMenuBar::newFile() {
-  mw->setContextStatus("Invoked <b>File|New</b>");
-}
+void MainMenuBar::newFile() { mw->setContextStatus("Invoked <b>File|New</b>"); }
 
-void MainMenuBar::open() {
-  mw->setContextStatus("Invoked <b>File|Open</b>");
-}
+void MainMenuBar::open() { mw->setContextStatus("Invoked <b>File|Open</b>"); }
 
-void MainMenuBar::save() {
-    mw->setContextStatus("Invoked <b>File|Save</b>");
-}
+void MainMenuBar::save() { mw->setContextStatus("Invoked <b>File|Save</b>"); }
 
-void MainMenuBar::print() {
-    mw->setContextStatus("Invoked <b>File|Print</b>");
-}
+void MainMenuBar::print() { mw->setContextStatus("Invoked <b>File|Print</b>"); }
 
-void MainMenuBar::undo() {
-    mw->setContextStatus("Invoked <b>Edit|Undo</b>");
-}
+void MainMenuBar::undo() { mw->setContextStatus("Invoked <b>Edit|Undo</b>"); }
 
-void MainMenuBar::redo() {
-    mw->setContextStatus("Invoked <b>Edit|Redo</b>");
-}
+void MainMenuBar::redo() { mw->setContextStatus("Invoked <b>Edit|Redo</b>"); }
 
-void MainMenuBar::cut() {
-    mw->setContextStatus("Invoked <b>Edit|Cut</b>");
-}
+void MainMenuBar::cut() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
 
-void MainMenuBar::copy() {
-    mw->setContextStatus("Invoked <b>Edit|Copy</b>");
-}
+void MainMenuBar::copy() { mw->setContextStatus("Invoked <b>Edit|Copy</b>"); }
 
-void MainMenuBar::paste() {
-    mw->setContextStatus("Invoked <b>Edit|Paste</b>");
-}
+void MainMenuBar::paste() { mw->setContextStatus("Invoked <b>Edit|Paste</b>"); }
 
 void MainMenuBar::bold() {
   mw->setContextStatus("Invoked <b>Edit|Format|Bold</b>");
@@ -89,23 +46,23 @@ void MainMenuBar::italic() {
 }
 
 void MainMenuBar::leftAlign() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Left Align</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Left Align</b>");
 }
 
 void MainMenuBar::rightAlign() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Right Align</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Right Align</b>");
 }
 
 void MainMenuBar::justify() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Justify</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Justify</b>");
 }
 
 void MainMenuBar::center() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Center</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Center</b>");
 }
 
 void MainMenuBar::setLineSpacing() {
-    mw->setContextStatus("Invoked <b>Edit|Format|Set Line Spacing</b>");
+  mw->setContextStatus("Invoked <b>Edit|Format|Set Line Spacing</b>");
 }
 
 void MainMenuBar::setParagraphSpacing() {
@@ -120,7 +77,6 @@ void MainMenuBar::about() {
 }
 
 void MainMenuBar::createActions() {
- 
   newAct = new QAction(tr("&New"), this);
   newAct->setShortcuts(QKeySequence::New);
   newAct->setStatusTip(tr("Create a new file"));
@@ -158,20 +114,23 @@ void MainMenuBar::createActions() {
 
   cutAct = new QAction(tr("&Cut"), this);
   cutAct->setShortcuts(QKeySequence::Cut);
-  cutAct->setStatusTip(tr("Cut the current selection's contents to the "
-                          "clipboard"));
+  cutAct->setStatusTip(
+      tr("Cut the current selection's contents to the "
+         "clipboard"));
   connect(cutAct, &QAction::triggered, this, &MainMenuBar::cut);
 
   copyAct = new QAction(tr("&Copy"), this);
   copyAct->setShortcuts(QKeySequence::Copy);
-  copyAct->setStatusTip(tr("Copy the current selection's contents to the "
-                           "clipboard"));
+  copyAct->setStatusTip(
+      tr("Copy the current selection's contents to the "
+         "clipboard"));
   connect(copyAct, &QAction::triggered, this, &MainMenuBar::copy);
 
   pasteAct = new QAction(tr("&Paste"), this);
   pasteAct->setShortcuts(QKeySequence::Paste);
-  pasteAct->setStatusTip(tr("Paste the clipboard's contents into the current "
-                            "selection"));
+  pasteAct->setStatusTip(
+      tr("Paste the clipboard's contents into the current "
+         "selection"));
   connect(pasteAct, &QAction::triggered, this, &MainMenuBar::paste);
 
   prefsAct = new QAction(tr("&Preferences"), this);
@@ -200,14 +159,16 @@ void MainMenuBar::createActions() {
   italicAct->setFont(italicFont);
 
   setLineSpacingAct = new QAction(tr("Set &Line Spacing..."), this);
-  setLineSpacingAct->setStatusTip(tr("Change the gap between the lines of a "
-                                     "paragraph"));
-  connect(setLineSpacingAct, &QAction::triggered, this, &MainMenuBar::setLineSpacing);
+  setLineSpacingAct->setStatusTip(
+      tr("Change the gap between the lines of a "
+         "paragraph"));
+  connect(setLineSpacingAct, &QAction::triggered, this,
+          &MainMenuBar::setLineSpacing);
 
   setParagraphSpacingAct = new QAction(tr("Set &Paragraph Spacing..."), this);
   setParagraphSpacingAct->setStatusTip(tr("Change the gap between paragraphs"));
-  connect(setParagraphSpacingAct, &QAction::triggered,
-          this, &MainMenuBar::setParagraphSpacing);
+  connect(setParagraphSpacingAct, &QAction::triggered, this,
+          &MainMenuBar::setParagraphSpacing);
 
   aboutAct = new QAction(tr("&About"), this);
   aboutAct->setStatusTip(tr("Show the application's About box"));
@@ -246,7 +207,6 @@ void MainMenuBar::createActions() {
 }
 
 void MainMenuBar::createMenus() {
-
   fileMenu = addMenu(tr("&File"));
   fileMenu->addAction(newAct);
   fileMenu->addAction(openAct);
@@ -280,12 +240,10 @@ void MainMenuBar::createMenus() {
   /* this ends up in the ui main menu */
   helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(aboutAct);
-  helpMenu->addAction(prefsAct);  
+  helpMenu->addAction(prefsAct);
 }
 
-MainMenuBar::MainMenuBar(MainWindow *mw)
-  : mw(mw) {
-  
+MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
   createActions();
   createMenus();
 
@@ -295,6 +253,5 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
   mb->addMenu(formatMenu);
   mb->addMenu(helpMenu);
 }
-  
-} /* gyreide namespace */
 
+}  // namespace gyreide

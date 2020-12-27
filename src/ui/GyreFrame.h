@@ -1,35 +1,10 @@
-/*******
+/********
  **
- ** Copyright (c) 2017, James M. Putnam
- ** All rights reserved.
+ **  SPDX-License-Identifier: BSD-3-Clause
  **
- ** Redistribution and use in source and binary forms, with or without
- ** modification, are permitted provided that the following conditions are met:
+ **  Copyright (c) 2017-2021 James M. Putnam <putnamjm.design@gmail.com>
  **
- ** 1. Redistributions of source code must retain the above copyright notice,
- **    this list of conditions and the following disclaimer.
- **
- ** 2. Redistributions in binary form must reproduce the above copyright
- **    notice, this list of conditions and the following disclaimer in the
- **    documentation and/or other materials provided with the distribution.
- **
- ** 3. Neither the name of the copyright holder nor the names of its
- **    contributors may be used to endorse or promote products derived from
- **    this software without specific prior written permission.
- **
- ** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- ** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- ** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- ** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- ** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- ** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- ** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- ** INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- ** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- ** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- ** POSSIBILITY OF SUCH DAMAGE.
- **
- *******/
+ **/
 
 /********
  **
@@ -45,8 +20,8 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "GyreEnv.h"
 #include "ComposerFrame.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -60,14 +35,13 @@ class QWidget;
 QT_END_NAMESPACE
 
 namespace gyreide {
-  
+
 class ComposerFrame;
 class MainTabBar;
 class MainWindow;
-  
-class GyreFrame : public QFrame {
 
- Q_OBJECT
+class GyreFrame : public QFrame {
+  Q_OBJECT
 
  public:
   explicit GyreFrame(QString, MainTabBar*, GyreEnv*);
@@ -76,13 +50,11 @@ class GyreFrame : public QFrame {
   void runStatus(QString);
 
  private:
-  void del() { }
+  void del() {}
   void log(QString msg) { tabBar->log(msg); }
   void clear() { statusText->setText(""); }
 
-  void setContextStatus(QString str) {
-    tabBar->setContextStatus(str);
-  }
+  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
@@ -95,9 +67,9 @@ class GyreFrame : public QFrame {
   QLabel* statusText;
   MainTabBar* tabBar;
   QDateTime evalDate;
-  QToolBar* toolBar;  
+  QToolBar* toolBar;
 };
 
-} /* gyreide namespace */
+}  // namespace gyreide
 
-#endif  /* _GYREIDE_SRC_UI_GYREFRAME_H_ */
+#endif /* _GYREIDE_SRC_UI_GYREFRAME_H_ */
