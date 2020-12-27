@@ -362,7 +362,7 @@ void TtyWidget::writeTty(QString str) {
 /** * constructor **/
 TtyWidget::TtyWidget(QWidget *parent)
   : QAbstractScrollArea(parent),
-    ideEnv(new CanonEnv()),
+    ideEnv(new GyreEnv()),
     _selection(new TextSelection) {
 
   viewport()->setCursor(Qt::IBeamCursor);

@@ -42,7 +42,7 @@
 #include <QFrame>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
@@ -69,7 +69,7 @@ class ConsoleFrame : public QFrame {
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
-  CanonEnv* get_canon() { return ttyWidget->get_canon(); }
+  GyreEnv* get_canon() { return ttyWidget->get_gyre(); }
   
 private:
   void setContextStatus(QString);

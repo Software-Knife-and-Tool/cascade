@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 #include "Tile.h"
 
@@ -67,7 +67,7 @@ class PanelFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit PanelFrame(QString, MainTabBar*, CanonEnv*);
+  explicit PanelFrame(QString, MainTabBar*, GyreEnv*);
 
  private:
 
@@ -82,7 +82,7 @@ class PanelFrame : public QFrame {
   
   MainTabBar *tabBar;
   bool init;
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   QLayout* layout;
   QToolBar* toolBar;

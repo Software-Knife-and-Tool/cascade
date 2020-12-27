@@ -50,7 +50,7 @@
 #include <QSharedPointer>
 #include <QStringList>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 
 class QPaintEvent;
 class QMouseEvent;
@@ -69,7 +69,7 @@ class TtyWidget : public QAbstractScrollArea {
 
   void writeTty(QString);
 
-  CanonEnv* get_canon() { return ideEnv; }
+  GyreEnv* get_canon() { return ideEnv; }
   
  protected:
   void paintEvent(QPaintEvent* event) override;
@@ -91,7 +91,7 @@ class TtyWidget : public QAbstractScrollArea {
   QString prompt_;
   QStringList buffer_;
 
-  CanonEnv* ideEnv;
+  GyreEnv* ideEnv;
   QSharedPointer<TextSelection> _selection;
 };
 

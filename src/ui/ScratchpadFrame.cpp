@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "ScratchpadFrame.h"
 

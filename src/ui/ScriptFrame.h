@@ -52,7 +52,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -74,7 +74,7 @@ class ScriptFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ScriptFrame(QString, MainTabBar*, CanonEnv*, CanonEnv*);
+  explicit ScriptFrame(QString, MainTabBar*, GyreEnv*, GyreEnv*);
   
  private:
   static const size_t FNV_prime = 16777619;
@@ -119,8 +119,8 @@ class ScriptFrame : public QFrame {
   
   std::vector<struct tag> parse(QString);  
  
-  void evalFrame(CanonEnv*);
-  QString evalString(QString, CanonEnv*);
+  void evalFrame(GyreEnv*);
+  QString evalString(QString, GyreEnv*);
 
   void clear();
   void load();
@@ -170,8 +170,8 @@ class ScriptFrame : public QFrame {
   QString saveFileName;
 
   MainTabBar *tabBar;
-  CanonEnv* devEnv;
-  CanonEnv* ideEnv;
+  GyreEnv* devEnv;
+  GyreEnv* ideEnv;
   QString name;
   QTextEdit* editText;
   QLabel* evalText;

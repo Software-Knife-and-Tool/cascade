@@ -33,19 +33,19 @@
 
 /********
  **
- **  CanonEnv.h: Canon environment class
+ **  GyreEnv.h: gyre environment class
  **
  **/
-#ifndef _LOGICAIDE_SRC_UI_CANONENV_H_
-#define _LOGICAIDE_SRC_UI_CANONENV_H_
+#ifndef _GYREIDE_SRC_UI_GYREENV_H_
+#define _GYREIDE_SRC_UI_GYREENV_H_
 
 #include <QString>
 
-#include "libmu/libmu.h"
+#include "libmu.h"
 
-namespace logicaide {
+namespace gyreide {
   
-class CanonEnv {
+class GyreEnv {
  public:
   QString version() {
 
@@ -68,7 +68,7 @@ class CanonEnv {
         platform::Platform::GetStdString(stderr));
   }
   
-  CanonEnv() : platform(new platform::Platform()) {
+  GyreEnv() : platform(new platform::Platform()) {
     stdout = platform::Platform::OpenOutputString("");
     stderr = platform::Platform::OpenOutputString("");
     
@@ -76,7 +76,7 @@ class CanonEnv {
 
     libmu_eval(env,
                libmu_read_string(env,
-                                 "(load \"/usr/local/logica/materia/mu/mu.l\")"));
+                                 "(load \"/opt/gyre/core/mu.l\")"));
     libmu_eval(env,
                libmu_read_string(env,
                                  "(:defcon lib-base \"/usr/local/logica\")"));
@@ -92,6 +92,6 @@ class CanonEnv {
   void* env;
 };
 
-} /* logicaide namespace */
+} /* gyreide namespace */
 
 #endif /* _LOGICAIDE_SRC_UI_CANONENV_H_ */ 

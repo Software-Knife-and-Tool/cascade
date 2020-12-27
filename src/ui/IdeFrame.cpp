@@ -59,8 +59,8 @@ void IdeFrame::showEvent(QShowEvent* event) {
   tabBar->setContextStatus(name);
 }
 
-CanonEnv* IdeFrame::get_canon() {
-  return console->get_canon();
+GyreEnv* IdeFrame::get_gyre() {
+  return console->get_gyre();
 }
   
 IdeFrame::IdeFrame(QString name, MainTabBar* tb)

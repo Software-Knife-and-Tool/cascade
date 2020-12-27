@@ -39,7 +39,7 @@
 #include <QtWidgets>
 #include <QTabBar>
 
-#include "CanonFrame.h"
+#include "GyreFrame.h"
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
 #include "InspectorFrame.h"
@@ -69,12 +69,12 @@ MainTabBar::MainTabBar(MainWindow *mw) : mw(mw) {
     
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-  auto devEnv = new CanonEnv();
+  auto devEnv = new GyreEnvEnv();
   auto ideDev = ideFrame->get_canon();
 
 #if 0
   if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &CanonFrame::runStatus))
+                        canonf, &GyreFrame::runStatus))
     exit(0);
 #endif
   

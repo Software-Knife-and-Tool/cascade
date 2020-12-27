@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
 

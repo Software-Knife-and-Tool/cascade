@@ -44,7 +44,7 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "InspectorFrame.h"
 #include "PanelFrame.h"
 #include "ScratchpadFrame.h"
@@ -132,7 +132,7 @@ QToolButton* PanelFrame::toolMenu() {
   return tb;
 }
 
-PanelFrame::PanelFrame(QString nm, MainTabBar* tb, CanonEnv* dev)
+PanelFrame::PanelFrame(QString nm, MainTabBar* tb, GyreEnv* dev)
   : tabBar(tb), devEnv(dev), name(nm) {
 
   init = true;

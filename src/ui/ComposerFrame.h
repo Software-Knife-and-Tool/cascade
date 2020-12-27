@@ -46,7 +46,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "MainTabBar.h"
 
 QT_BEGIN_NAMESPACE
@@ -68,7 +68,7 @@ class ComposerFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit ComposerFrame(QString, MainTabBar*, CanonEnv*);
+  explicit ComposerFrame(QString, MainTabBar*, GyreEnv*);
 
   signals:
     void evalHappened(QString);
@@ -102,7 +102,7 @@ class ComposerFrame : public QFrame {
   QString saveFileName;
 
   MainTabBar *tabBar;
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   QTextEdit* editText;
   QLabel* evalText;

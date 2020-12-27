@@ -44,7 +44,7 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ScriptFrame.h"
 
 namespace logicaide {
@@ -79,7 +79,7 @@ void ScriptFrame::load() {
   saveFileName = loadFileName;
 }
     
-void ScriptFrame::evalFrame(CanonEnv* env) {
+void ScriptFrame::evalFrame(GyreEnv* env) {
   QString out;
 
   auto error =
@@ -90,7 +90,7 @@ void ScriptFrame::evalFrame(CanonEnv* env) {
   evalText->setText(out + error);
 }
 
-QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
+QString ScriptFrame::evalString(QString expr, GyreEnv* env) {
   QString out;
 
   auto error =
@@ -102,7 +102,7 @@ QString ScriptFrame::evalString(QString expr, CanonEnv* env) {
 }
 
 void ScriptFrame::reset() {
-  ideEnv = new CanonEnv();
+  ideEnv = new GyreEnv();
 }
 
 void ScriptFrame::del() {
@@ -217,8 +217,8 @@ QString ScriptFrame::invoke(
 
 ScriptFrame::ScriptFrame(QString name,
                          MainTabBar* tb,
-                         CanonEnv* dev,
-                         CanonEnv* ide)
+                         GyreEnv* dev,
+                         GyreEnv* ide)
   : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
   
   auto size = this->frameSize();

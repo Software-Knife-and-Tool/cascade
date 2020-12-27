@@ -43,7 +43,7 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "InspectorFrame.h"
 
@@ -55,7 +55,7 @@ void InspectorFrame::clear() {
 
 InspectorFrame::InspectorFrame(QString name,
                                MainTabBar* tb,
-                               CanonEnv* env)
+                               GyreEnv* env)
   : tabBar(tb), devEnv(env), name(name) {
   
   composerFrame = new ComposerFrame("inspector", tb, env);

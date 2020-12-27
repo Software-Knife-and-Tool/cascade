@@ -42,7 +42,7 @@
 #include <QFrame>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ConsoleFrame.h"
 #include "MainTabBar.h"
 #include "MainWindow.h"
@@ -71,7 +71,7 @@ class IdeFrame : public QFrame {
   
   void log(QString);
 
-  CanonEnv* get_canon();
+  GyreEnv* get_gyre();
     
  private:
   void setContextStatus(QString);

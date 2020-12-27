@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
 
@@ -67,7 +67,7 @@ class InspectorFrame : public QFrame {
  Q_OBJECT
 
  public:
-  explicit InspectorFrame(QString, MainTabBar*, CanonEnv*);
+  explicit InspectorFrame(QString, MainTabBar*, GyreEnv*);
 
  private:
   void clear();
@@ -80,7 +80,7 @@ class InspectorFrame : public QFrame {
   }
 
   MainTabBar *tabBar;
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   ComposerFrame* composerFrame;;
   QLabel* viewLabel;

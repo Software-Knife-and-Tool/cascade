@@ -33,7 +33,7 @@
 
 /********
  **
- **  CanonFrame.h: CanonFrame class
+ **  GyreFrame.h: GyreFrame class
  **
  **/
 #ifndef _LOGICAIDE_SRC_UI_CANONFRAME_H_
@@ -45,7 +45,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-#include "CanonEnv.h"
+#include "GyreEnv.h"
 #include "ComposerFrame.h"
 #include "MainTabBar.h"
 
@@ -65,12 +65,12 @@ class ComposerFrame;
 class MainTabBar;
 class MainWindow;
   
-class CanonFrame : public QFrame {
+class GyreFrame : public QFrame {
 
  Q_OBJECT
 
  public:
-  explicit CanonFrame(QString, MainTabBar*, CanonEnv*);
+  explicit GyreFrame(QString, MainTabBar*, CanonEnv*);
 
  public slots:
   void runStatus(QString);
@@ -89,7 +89,7 @@ class CanonFrame : public QFrame {
     tabBar->setContextStatus(name);
   }
 
-  CanonEnv* devEnv;
+  GyreEnv* devEnv;
   QString name;
   QScrollArea* scrollArea;
   QLabel* statusText;
