@@ -1,7 +1,7 @@
 CONFIG += console c++14
   
 DESTDIR = ../../build
-ICON = ./tesseract.icns
+ICON = ./gyre.icns
 INCLUDEPATH += . /opt/gyre/include
 LIBS += /opt/gyre/lib/libmu.a
 MOC_DIR = ../../build
@@ -28,7 +28,6 @@ HEADERS += \
            Tile.h            \
            TtyWidget.h       \
            UserFrame.h       \
-           gyre.h            \
            user.h
 
 SOURCES += \
