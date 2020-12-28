@@ -11,8 +11,8 @@
  **  PanelFrame.h: PanelFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_PANELFRAME_H_
-#define _GYREIDE_SRC_UI_PANELFRAME_H_
+#ifndef _GYREUI_SRC_UI_PANELFRAME_H_
+#define _GYREUI_SRC_UI_PANELFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -32,7 +32,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class MainWindow;
@@ -65,6 +65,6 @@ class PanelFrame : public QFrame {
   Tile* rootTile;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_PANELFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_PANELFRAME_H_ */

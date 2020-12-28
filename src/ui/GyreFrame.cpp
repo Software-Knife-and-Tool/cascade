@@ -24,7 +24,7 @@
 #include "GyreEnv.h"
 #include "GyreFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void GyreFrame::runStatus(QString form) {
   auto date = new QString(
@@ -66,4 +66,4 @@ GyreFrame::GyreFrame(QString name, MainTabBar* tb, GyreEnv* cn)
   statusText->setText(out + error_text);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

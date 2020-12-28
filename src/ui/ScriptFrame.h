@@ -11,8 +11,8 @@
  **  ScriptFrame.h: ScriptFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_SCRIPTFRAME_H_
-#define _GYREIDE_SRC_UI_SCRIPTFRAME_H_
+#ifndef _GYREUI_SRC_UI_SCRIPTFRAME_H_
+#define _GYREUI_SRC_UI_SCRIPTFRAME_H_
 
 #include <algorithm>
 #include <cassert>
@@ -39,7 +39,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class MainWindow;
@@ -152,6 +152,6 @@ class ScriptFrame : public QFrame {
   QScrollArea* evalScroll;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_SCRIPTFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_SCRIPTFRAME_H_ */

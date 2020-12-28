@@ -16,7 +16,7 @@
 
 #include "ShellFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void ShellFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -44,4 +44,4 @@ ShellFrame::ShellFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

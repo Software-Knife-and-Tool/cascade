@@ -14,10 +14,10 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "IdeFrame.h"
+#include "UiFrame.h"
 #include "UserFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void UserFrame::log(QString msg) { tabBar->log(msg); }
 
@@ -35,7 +35,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
       "    <span style=\"text-align: center; font-family:Eaglefeather\">"
       "      <div>"
       "        <br>"
-      "        <h1>Gyre IDE <i>%1</i></h1>"
+      "        <h1>Gyre UI <i>%1</i></h1>"
       "        <p></p>"
       "        <h2>running on <i>%2</i>, %3</h2>"
       "        <h2>%4</h2>"
@@ -48,7 +48,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
 
   auto user = tabBar->userInfo();
 
-  auto system_html = QString(html).arg(IdeFrame::version, user->aboutHost(),
+  auto system_html = QString(html).arg(UiFrame::version, user->aboutHost(),
                                        "an " + user->aboutCpu() + " system",
                                        user->aboutSystem());
 
@@ -64,4 +64,4 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

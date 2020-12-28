@@ -11,8 +11,8 @@
  **  IdeFrame.h: IdeFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_IDEFRAME_H_
-#define _GYREIDE_SRC_UI_IDEFRAME_H_
+#ifndef _GYREUI_SRC_UI_UIFRAME_H_
+#define _GYREUI_SRC_UI_UIFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -30,16 +30,16 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class ConsoleFrame;
 
-class IdeFrame : public QFrame {
+class UiFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit IdeFrame(QString, MainTabBar*);
+  explicit UiFrame(QString, MainTabBar*);
   static const char* configFile;
   static const char* version;
 
@@ -58,6 +58,6 @@ class IdeFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_IDEFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_UIFRAME_H_ */

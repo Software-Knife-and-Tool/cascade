@@ -11,15 +11,15 @@
  **  MainTabBar.h: MainTabBar class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_MAINTABBAR_H_
-#define _GYREIDE_SRC_UI_MAINTABBAR_H_
+#ifndef _GYREUI_SRC_UI_MAINTABBAR_H_
+#define _GYREUI_SRC_UI_MAINTABBAR_H_
 
 #include <QMainWindow>
 #include <QTabWidget>
 
 #include "ConsoleFrame.h"
-#include "IdeFrame.h"
 #include "MainWindow.h"
+#include "UiFrame.h"
 #include "UserFrame.h"
 #include "user.h"
 
@@ -30,12 +30,12 @@ class QLabel;
 class QTabWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainWindow;
 class ConsoleFrame;
 class UserFrame;
-class IdeFrame;
+class UiFrame;
 
 class MainTabBar : public QTabWidget {
   Q_OBJECT
@@ -55,9 +55,9 @@ class MainTabBar : public QTabWidget {
 
  private:
   MainWindow* mw;
-  IdeFrame* ideFrame;
+  UiFrame* uiFrame;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_MAINTABBAR_H_ */
+#endif /* _GYREUI_SRC_UI_MAINTABBAR_H_ */

@@ -11,8 +11,8 @@
  **  UserFrame.h: UserFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_USERFRAME_H_
-#define _GYREIDE_SRC_UI_USERFRAME_H_
+#ifndef _GYREUI_SRC_UI_USERFRAME_H_
+#define _GYREUI_SRC_UI_USERFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -27,7 +27,7 @@ class QWidget;
 class QLabel;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 
@@ -48,6 +48,6 @@ class UserFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_USERFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_USERFRAME_H_ */

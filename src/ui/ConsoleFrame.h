@@ -11,8 +11,8 @@
  **  ConsoleFrame.h: ConsoleFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_CONSOLEFRAME_H_
-#define _GYREIDE_SRC_UI_CONSOLEFRAME_H_
+#ifndef _GYREUI_SRC_UI_CONSOLEFRAME_H_
+#define _GYREUI_SRC_UI_CONSOLEFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -31,7 +31,7 @@ QT_END_NAMESPACE
 
 class TtyWidget;
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 
@@ -56,6 +56,6 @@ class ConsoleFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_CONSOLEFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_CONSOLEFRAME_H_ */

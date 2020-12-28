@@ -22,7 +22,7 @@
 #include "MainWindow.h"
 #include "user.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
@@ -73,7 +73,7 @@ MainWindow::MainWindow() : user(new User()) {
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
-  setWindowTitle(tr("Software Knife and Tool Gyre IDE"));
+  setWindowTitle(tr("Software Knife and Tool Gyre UI"));
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

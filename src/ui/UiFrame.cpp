@@ -15,33 +15,33 @@
 #include <QtWidgets>
 
 #include "ConsoleFrame.h"
-#include "IdeFrame.h"
 #include "MainTabBar.h"
 #include "ScriptFrame.h"
+#include "UiFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
-void IdeFrame::log(QString msg) { console->log(msg); }
-const char* IdeFrame::configFile = "~/.gyre-ide";
-const char* IdeFrame::version = "0.0.7";
+void UiFrame::log(QString msg) { console->log(msg); }
+const char* UiFrame::configFile = "~/.gyre-ide";
+const char* UiFrame::version = "0.0.7";
 
-void IdeFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
+void UiFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
-void IdeFrame::showEvent(QShowEvent* event) {
+void UiFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
   tabBar->setContextStatus(name);
 }
 
-GyreEnv* IdeFrame::get_gyre() { return console->get_gyre(); }
+GyreEnv* UiFrame::get_gyre() { return console->get_gyre(); }
 
-IdeFrame::IdeFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
+UiFrame::UiFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
       "    <span style=\"text-align: center; font-family:Eaglefeather\">"
       "      <div>"
       "        <br>"
-      "        <h1>Gyre IDE <i>%1</i></h1>"
+      "        <h1>Gyre UI <i>%1</i></h1>"
       "        <p></p>"
       "        <h2>running on <i>%2</i>, %3</h2>"
       "        <h2>%4</h2>"
@@ -85,4 +85,4 @@ IdeFrame::IdeFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

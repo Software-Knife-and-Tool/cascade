@@ -11,8 +11,8 @@
  **  Tile.h: Tile class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_TILE_H_
-#define _GYREIDE_SRC_UI_TILE_H_
+#ifndef _GYREUI_SRC_UI_TILE_H_
+#define _GYREUI_SRC_UI_TILE_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -31,7 +31,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class MainWindow;
@@ -58,6 +58,6 @@ class Tile : public QFrame {
   Tile* splitTile;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_TILE_H_ */
+#endif /* _GYREUI_SRC_UI_TILE_H_ */

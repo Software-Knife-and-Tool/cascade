@@ -22,7 +22,7 @@
 #include "GyreEnv.h"
 #include "ScriptFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 #if 0
 std::vector<struct tag> ScriptFrame::parse(QString src) {
@@ -142,7 +142,7 @@ std::string ScriptFrame::script(std::string arg) {
 
 void ScriptFrame::loadConfigFile() {
   auto home = getenv("HOME");
-  auto path = QString::fromStdString(IdeFrame::configFile);
+  auto path = QString::fromStdString(UiFrame::configFile);
 
   auto npath = home + path.remove(0, 1);
   log(";;; config file " + npath + " loaded");
@@ -240,4 +240,4 @@ ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, GyreEnv* dev,
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

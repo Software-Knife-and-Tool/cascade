@@ -6,7 +6,7 @@ INCLUDEPATH += . /opt/gyre/include
 LIBS += /opt/gyre/lib/libmu.a
 MOC_DIR = ../../build
 OBJECTS_DIR = ../../build
-TARGET = gyre-ide
+TARGET = gyre-ui
 TEMPLATE = app
 
 HEADERS += \
@@ -15,7 +15,6 @@ HEADERS += \
            ConsoleFrame.h    \
            GyreEnv.h         \
            GyreFrame.h       \
-           IdeFrame.h        \
            InspectorFrame.h  \
            MainMenuBar.h     \
            MainTabBar.h      \
@@ -27,6 +26,7 @@ HEADERS += \
            StatusClock.h     \
            Tile.h            \
            TtyWidget.h       \
+           UiFrame.h         \
            UserFrame.h       \
            user.h
 
@@ -34,7 +34,6 @@ SOURCES += \
            ComposerFrame.cpp \
            ConsoleFrame.cpp  \
            GyreFrame.cpp     \
-           IdeFrame.cpp      \
            InspectorFrame.cpp\
            MainMenuBar.cpp   \
            MainTabBar.cpp    \
@@ -45,6 +44,7 @@ SOURCES += \
            ShellFrame.cpp    \
            Tile.cpp          \
            TtyWidget.cpp     \
+           UiFrame.cpp       \
            UserFrame.cpp     \
            main.cpp
 

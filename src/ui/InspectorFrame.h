@@ -11,8 +11,8 @@
  **  InspectorFrame.h: InspectorFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_INSPECTORFRAME_H_
-#define _GYREIDE_SRC_UI_INSPECTORFRAME_H_
+#ifndef _GYREUI_SRC_UI_INSPECTORFRAME_H_
+#define _GYREUI_SRC_UI_INSPECTORFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -32,7 +32,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class MainWindow;
@@ -61,6 +61,6 @@ class InspectorFrame : public QFrame {
   QToolBar* toolBar;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_INSPECTORFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_INSPECTORFRAME_H_ */

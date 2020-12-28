@@ -11,8 +11,8 @@
  **  ShellFrame.h: ShellFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_SHELLFRAME_H_
-#define _GYREIDE_SRC_UI_SHELLFRAME_H_
+#ifndef _GYREUI_SRC_UI_SHELLFRAME_H_
+#define _GYREUI_SRC_UI_SHELLFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -31,7 +31,7 @@ QT_END_NAMESPACE
 
 class TtyWidget;
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 
@@ -55,6 +55,6 @@ class ShellFrame : public QFrame {
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_SHELLFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_SHELLFRAME_H_ */

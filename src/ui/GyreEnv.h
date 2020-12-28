@@ -11,14 +11,14 @@
  **  GyreEnv.h: gyre environment class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_GYREENV_H_
-#define _GYREIDE_SRC_UI_GYREENV_H_
+#ifndef _GYREUI_SRC_UI_GYREENV_H_
+#define _GYREUI_SRC_UI_GYREENV_H_
 
 #include <QString>
 
 #include "libmu/libmu.h"
 
-namespace gyreide {
+namespace gyreui {
 
 using libmu::platform::Platform;
 
@@ -56,6 +56,6 @@ class GyreEnv {
   void* env;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_GYREENV_H_ */
+#endif /* _GYREUI_SRC_UI_GYREENV_H_ */

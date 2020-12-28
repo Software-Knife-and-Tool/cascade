@@ -11,8 +11,8 @@
  **  TtyWidget.h: TtyWidget class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_TTYWIDGET_H_
-#define _GYREIDE_SRC_UI_TTYWIDGET_H_
+#ifndef _GYREUI_SRC_UI_TTYWIDGET_H_
+#define _GYREUI_SRC_UI_TTYWIDGET_H_
 
 #include <QAbstractScrollArea>
 #include <QDebug>
@@ -30,7 +30,7 @@
 class QPaintEvent;
 class QMouseEvent;
 
-namespace gyreide {
+namespace gyreui {
 
 struct TextSelection;
 struct TextPosition;
@@ -69,6 +69,6 @@ class TtyWidget : public QAbstractScrollArea {
   QSharedPointer<TextSelection> _selection;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_CONSOLEWIDGET_H_ */
+#endif /* _GYREUI_SRC_UI_CONSOLEWIDGET_H_ */

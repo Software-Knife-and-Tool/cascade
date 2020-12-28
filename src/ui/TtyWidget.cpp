@@ -19,7 +19,7 @@
 #include <QPainter>
 #include <QScrollBar>
 
-namespace gyreide {
+namespace gyreui {
 
 struct LineStyle {
   LineStyle(const QColor& bg, const QColor& fg, int s, int l)
@@ -315,4 +315,4 @@ TtyWidget::TtyWidget(QWidget* parent)
   cursor_ = QString("_");
 }
 
-}  // namespace gyreide
+}  // namespace gyreui
