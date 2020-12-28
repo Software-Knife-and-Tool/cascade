@@ -25,7 +25,7 @@
 #include "ScratchpadFrame.h"
 #include "Tile.h"
 
-namespace gyreide {
+namespace gyreui {
 
 QToolButton* PanelFrame::toolMenu() {
   auto tb = new QToolButton(toolBar);
@@ -118,4 +118,4 @@ PanelFrame::PanelFrame(QString nm, MainTabBar* tb, GyreEnv* dev)
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

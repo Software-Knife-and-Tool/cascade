@@ -24,7 +24,7 @@
 #include "GyreEnv.h"
 #include "ScratchpadFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void ScratchpadFrame::clear() { scratchText->setText(""); }
 
@@ -108,4 +108,4 @@ ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
   this->setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

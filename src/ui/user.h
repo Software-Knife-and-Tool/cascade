@@ -11,8 +11,8 @@
  **  user.h: user class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_USER_H_
-#define _GYREIDE_SRC_UI_USER_H_
+#ifndef _GYREUI_SRC_UI_USER_H_
+#define _GYREUI_SRC_UI_USER_H_
 
 #include <QDir>
 #include <QString>
@@ -22,7 +22,7 @@
 
 #include "libmu/libmu.h"
 
-namespace gyreide {
+namespace gyreui {
 
 class User {
  public:
@@ -48,6 +48,6 @@ class User {
   QString userName;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_USER_H_ */
+#endif /* _GYREUI_SRC_UI_USER_H_ */

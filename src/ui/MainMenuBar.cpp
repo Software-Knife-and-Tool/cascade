@@ -17,7 +17,7 @@
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void MainMenuBar::newFile() { mw->setContextStatus("Invoked <b>File|New</b>"); }
 
@@ -254,4 +254,4 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
   mb->addMenu(helpMenu);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

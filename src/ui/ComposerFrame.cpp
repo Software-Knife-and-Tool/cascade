@@ -22,7 +22,7 @@
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void ComposerFrame::clear() {
   editText->setText("");
@@ -181,4 +181,4 @@ ComposerFrame::ComposerFrame(QString name, MainTabBar *tb, GyreEnv *cn)
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

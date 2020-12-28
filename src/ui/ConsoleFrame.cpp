@@ -16,7 +16,7 @@
 
 #include "ConsoleFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void ConsoleFrame::setContextStatus(QString str) {
   tabBar->setContextStatus(str);
@@ -42,4 +42,4 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

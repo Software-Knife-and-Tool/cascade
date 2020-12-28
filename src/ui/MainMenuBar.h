@@ -11,8 +11,8 @@
  **  MainMenuBar.h: MainMenuBar class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_MAINMENUBAR_H_
-#define _GYREIDE_SRC_UI_MAINMENUBAR_H_
+#ifndef _GYREUI_SRC_UI_MAINMENUBAR_H_
+#define _GYREUI_SRC_UI_MAINMENUBAR_H_
 
 #include <QMainWindow>
 #include <QMenu>
@@ -26,7 +26,7 @@ class QLabel;
 class QMenu;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainWindow;
 
@@ -96,6 +96,6 @@ class MainMenuBar : public QMenu {
   QMenuBar *mb;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_MAINMENUBAR_H_ */
+#endif /* _GYREUI_SRC_UI_MAINMENUBAR_H_ */

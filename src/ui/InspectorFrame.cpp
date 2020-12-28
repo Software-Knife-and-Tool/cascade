@@ -22,7 +22,7 @@
 #include "GyreEnv.h"
 #include "InspectorFrame.h"
 
-namespace gyreide {
+namespace gyreui {
 
 void InspectorFrame::clear() {
   //  edit_text->setText("");
@@ -45,4 +45,4 @@ InspectorFrame::InspectorFrame(QString name, MainTabBar* tb, GyreEnv* env)
   setLayout(layout);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui

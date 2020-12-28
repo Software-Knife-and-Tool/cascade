@@ -34,8 +34,8 @@ build:
 	@make -C src/ui
 
 run:
-	@open build/gyre-ide.app
+	@open build/gyre-ui.app
 
 install:
-	@cp gyre-ide.l ~/.gyre-ide
+	@cp gyre-ui.l ~/.gyre-ui
 

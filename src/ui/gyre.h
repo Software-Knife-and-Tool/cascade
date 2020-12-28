@@ -11,8 +11,8 @@
  **  gyre.h: Gyre class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_GYRE_H_
-#define _GYREIDE_SRC_UI_GYRE_H_
+#ifndef _GYREUI_SRC_UI_GYRE_H_
+#define _GYREUI_SRC_UI_GYRE_H_
 
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -24,7 +24,7 @@
 #include "ComposerFrame.h"
 #include "libmu/libmu.h"
 
-namespace gyreide {
+namespace gyreui {
 
 class ComposerFrame;
 
@@ -89,6 +89,6 @@ class Gyre {
   int gyre;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_GYRE_H_ */
+#endif /* _GYREUI_SRC_UI_GYRE_H_ */

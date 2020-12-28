@@ -11,8 +11,8 @@
  **  ComposerFrame.h: ComposerFrame class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_COMPOSERFRAME_H_
-#define _GYREIDE_SRC_UI_COMPOSERFRAME_H_
+#ifndef _GYREUI_SRC_UI_COMPOSERFRAME_H_
+#define _GYREUI_SRC_UI_COMPOSERFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -33,7 +33,7 @@ class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainTabBar;
 class MainWindow;
@@ -83,6 +83,6 @@ class ComposerFrame : public QFrame {
   QScrollArea* evalScroll;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_COMPOSERFRAME_H_ */
+#endif /* _GYREUI_SRC_UI_COMPOSERFRAME_H_ */

@@ -8,7 +8,7 @@
 
 /********
  **
- **  main.cpp: Gyreide Ui main
+ **  main.cpp: Gyreui Ui main
  **
  **/
 #include <QApplication>
@@ -19,7 +19,7 @@
 int main(int argc, char **argv) {
   QApplication app(argc, argv);
 
-  gyreide::MainWindow mainWindow;
+  gyreui::MainWindow mainWindow;
   mainWindow.show();
 
   return app.exec();

@@ -11,8 +11,8 @@
  **  StatusClock.h: StatusClock class
  **
  **/
-#ifndef _GYREIDE_SRC_UI_STATUSCLOCK_H_
-#define _GYREIDE_SRC_UI_STATUSCLOCK_H_
+#ifndef _GYREUI_SRC_UI_STATUSCLOCK_H_
+#define _GYREUI_SRC_UI_STATUSCLOCK_H_
 
 #include <QDateTime>
 #include <QLabel>
@@ -27,7 +27,7 @@ class QStatusBar;
 class QDateTime;
 QT_END_NAMESPACE
 
-namespace gyreide {
+namespace gyreui {
 
 class MainWindow;
 
@@ -52,6 +52,6 @@ class StatusClock : public QObject {
   QLabel* dateLabel;
 };
 
-}  // namespace gyreide
+}  // namespace gyreui
 
-#endif /* _GYREIDE_SRC_UI_STATUSCLOCK_H_ */
+#endif /* _GYREUI_SRC_UI_STATUSCLOCK_H_ */

@@ -21,7 +21,7 @@
 
 #include "Tile.h"
 
-namespace gyreide {
+namespace gyreui {
 
 namespace {
 
@@ -154,4 +154,4 @@ Tile::Tile(MainTabBar* tb, QFrame* cf) : tabBar(tb), baseFrame(cf) {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-}  // namespace gyreide
+}  // namespace gyreui
