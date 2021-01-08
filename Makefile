@@ -19,7 +19,7 @@ src/ui/Makefile:
 	(cd src/ui ; qmake)
 
 clean:
-	@make -C src/ui clean
+	# @make -C src/ui clean
 	@rm -f src/ui/Makefile
 
 clobber: clean
