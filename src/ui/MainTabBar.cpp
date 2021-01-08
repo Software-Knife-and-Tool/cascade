@@ -51,7 +51,7 @@ MainTabBar::MainTabBar(MainWindow* mw) : mw(mw) {
   log(";;; UI frame loaded");
 
   add(new PanelFrame("panels", this, devEnv), "panels");
-  log(";;; tools frame loaded");
+  log(";;; panels frame loaded");
 
   add(new ScriptFrame("script", this, devEnv, uiDev), "scripts");
   log(";;; scripts frame loaded");

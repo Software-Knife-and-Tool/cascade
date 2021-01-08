@@ -22,8 +22,8 @@
 namespace gyreui {
 
 void UiFrame::log(QString msg) { console->log(msg); }
-const char* UiFrame::configFile = "~/.gyre-ide";
-const char* UiFrame::version = "0.0.7";
+const char* UiFrame::configFile = "~/.gyre-ui";
+const char* UiFrame::version = "0.0.8";
 
 void UiFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
 
