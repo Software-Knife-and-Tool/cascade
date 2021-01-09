@@ -19,22 +19,17 @@
 
 namespace gyreui {
 
+// file menu
 void MainMenuBar::newFile() { mw->setContextStatus("Invoked <b>File|New</b>"); }
-
 void MainMenuBar::open() { mw->setContextStatus("Invoked <b>File|Open</b>"); }
-
 void MainMenuBar::save() { mw->setContextStatus("Invoked <b>File|Save</b>"); }
-
 void MainMenuBar::print() { mw->setContextStatus("Invoked <b>File|Print</b>"); }
 
+// edit menu
 void MainMenuBar::undo() { mw->setContextStatus("Invoked <b>Edit|Undo</b>"); }
-
 void MainMenuBar::redo() { mw->setContextStatus("Invoked <b>Edit|Redo</b>"); }
-
 void MainMenuBar::cut() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
-
 void MainMenuBar::copy() { mw->setContextStatus("Invoked <b>Edit|Copy</b>"); }
-
 void MainMenuBar::paste() { mw->setContextStatus("Invoked <b>Edit|Paste</b>"); }
 
 void MainMenuBar::bold() {
@@ -69,6 +64,7 @@ void MainMenuBar::setParagraphSpacing() {
   mw->setContextStatus("Invoked <b>Edit|Format|Set Paragraph Spacing</b>");
 }
 
+// help
 void MainMenuBar::about() {
   mw->setContextStatus("Invoked <b>Help|About</b>");
   QMessageBox::about(this, tr("About Menu"),
@@ -133,6 +129,7 @@ void MainMenuBar::createActions() {
          "selection"));
   connect(pasteAct, &QAction::triggered, this, &MainMenuBar::paste);
 
+  // prefs
   prefsAct = new QAction(tr("&Preferences"), this);
   prefsAct->setShortcuts(QKeySequence::Paste);
   prefsAct->setStatusTip(tr("Show the preferences panel"));
