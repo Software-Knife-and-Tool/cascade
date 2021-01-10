@@ -47,8 +47,8 @@ MainTabBar::MainTabBar(MainWindow* mw) : mw(mw) {
     exit(0);
 #endif
 
-  add(uiFrame, QString("UI"));
-  log(";;; UI frame loaded");
+  add(uiFrame, QString("environment"));
+  log(";;; environment frame loaded");
 
   add(new PanelFrame("panels", this, devEnv), "panels");
   log(";;; panels frame loaded");
