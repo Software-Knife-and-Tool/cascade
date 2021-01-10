@@ -43,15 +43,20 @@ class MainMenuBar : public QMenu {
   QAction *pasteAct;
 
  private slots:
+  // file menu
   void newFile();
   void open();
   void save();
   void print();
+
+  // edit menu
   void undo();
   void redo();
   void cut();
   void copy();
   void paste();
+
+  // settings menu
   void bold();
   void italic();
   void leftAlign();
@@ -60,6 +65,8 @@ class MainMenuBar : public QMenu {
   void center();
   void setLineSpacing();
   void setParagraphSpacing();
+
+  // help menu
   void about();
 
  private:
@@ -73,16 +80,22 @@ class MainMenuBar : public QMenu {
 
   QActionGroup *alignmentGroup;
   QAction *aboutAct;
+
+  // settings
   QAction *boldAct;
   QAction *centerAct;
   QAction *exitAct;
   QAction *italicAct;
   QAction *justifyAct;
   QAction *leftAlignAct;
+
+  // file menu
   QAction *newAct;
   QAction *openAct;
-  QAction *prefsAct;
   QAction *printAct;
+  
+  QAction *prefsAct;
+
   QAction *redoAct;
   QAction *rightAlignAct;
   QAction *saveAct;
