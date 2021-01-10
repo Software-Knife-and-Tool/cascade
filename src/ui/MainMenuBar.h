@@ -81,7 +81,7 @@ class MainMenuBar : public QMenu {
   QActionGroup *alignmentGroup;
   QAction *aboutAct;
 
-  // seetings
+  // settings
   QAction *boldAct;
   QAction *centerAct;
   QAction *exitAct;
