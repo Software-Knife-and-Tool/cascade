@@ -27,9 +27,9 @@ namespace gyreui {
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
 
-  menu.addAction(menuBar->cutAct);
-  menu.addAction(menuBar->copyAct);
-  menu.addAction(menuBar->pasteAct);
+  // menu.addAction(menuBar->cutAct);
+  // menu.addAction(menuBar->copyAct);
+  // menu.addAction(menuBar->pasteAct);
   menu.exec(event->globalPos());
 }
 

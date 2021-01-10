@@ -34,14 +34,10 @@ class MainMenuBar : public QMenu {
   Q_OBJECT
 
  public:
-  MainMenuBar(MainWindow *);
+  MainMenuBar(MainWindow*);
 
-  QMenuBar *menu_bar() { return mb; }
-
-  QAction *cutAct;
-  QAction *copyAct;
-  QAction *pasteAct;
-
+  QMenuBar* menu_bar() { return mb; }
+  
  private slots:
   // file menu
   void newFile();
@@ -56,55 +52,29 @@ class MainMenuBar : public QMenu {
   void copy();
   void paste();
 
-  // settings menu
-  void bold();
-  void italic();
-  void leftAlign();
-  void rightAlign();
-  void justify();
-  void center();
-  void setLineSpacing();
-  void setParagraphSpacing();
-
   // help menu
   void about();
+  void prefs();
 
  private:
-  void createActions();
-  void createMenus();
+  template<typename SLOTFN>
+  QAction* defAction(const char* label,
+                     QKeySequence::StandardKey key,
+                     const char* tooltip,
+                     SLOTFN fn) {
+      auto action = new QAction(tr(label), this);
+      action->setShortcuts(key);
+      action->setStatusTip(tr(tooltip));
+      connect(action, &QAction::triggered, this, fn);
 
+      return action;
+  }
+  
   QMenu *fileMenu;
   QMenu *editMenu;
-  QMenu *formatMenu;
   QMenu *helpMenu;
 
-  QActionGroup *alignmentGroup;
-  QAction *aboutAct;
-
-  // settings
-  QAction *boldAct;
-  QAction *centerAct;
-  QAction *exitAct;
-  QAction *italicAct;
-  QAction *justifyAct;
-  QAction *leftAlignAct;
-
-  // file menu
-  QAction *newAct;
-  QAction *openAct;
-  QAction *printAct;
-  
-  QAction *prefsAct;
-
-  QAction *redoAct;
-  QAction *rightAlignAct;
-  QAction *saveAct;
-  QAction *scriptAct;
-  QAction *setLineSpacingAct;
-  QAction *setParagraphSpacingAct;
-  QAction *undoAct;
-
- private:
+private:
   MainWindow *mw;
   QMenuBar *mb;
 };
