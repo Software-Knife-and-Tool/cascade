@@ -34,7 +34,7 @@ void MainTabBar::setContextStatus(QString str) { mw->setContextStatus(str); }
 User* MainTabBar::userInfo() { return mw->userInfo(); }
 
 MainTabBar::MainTabBar(MainWindow* mw) : mw(mw) {
-  uiFrame = new UiFrame("ui", this);
+  uiFrame = new UiFrame("environment", this);
 
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

@@ -19,10 +19,22 @@
 
 namespace gyreui {
 
-void MainMenuBar::newFile() { mw->setContextStatus("Invoked <b>File|New</b>"); }
-void MainMenuBar::open() { mw->setContextStatus("Invoked <b>File|Open</b>"); }
-void MainMenuBar::save() { mw->setContextStatus("Invoked <b>File|Save</b>"); }
-void MainMenuBar::print() { mw->setContextStatus("Invoked <b>File|Print</b>"); }
+void MainMenuBar::newFile() {
+  mw->setContextStatus("<b>File|New</b>");
+  fm->newFile();
+}
+void MainMenuBar::open() {
+  mw->setContextStatus("<b>File|Open</b>");
+  fm->openFile();
+}
+void MainMenuBar::save() {
+  mw->setContextStatus("<b>File|Save</b>");
+  fm->saveFile();
+}
+void MainMenuBar::print() {
+  mw->setContextStatus("<b>File|Print</b>");
+  fm->printFile();
+}
 void MainMenuBar::undo() { mw->setContextStatus("Invoked <b>Edit|Undo</b>"); }
 void MainMenuBar::redo() { mw->setContextStatus("Invoked <b>Edit|Redo</b>"); }
 void MainMenuBar::cut() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
@@ -36,7 +48,7 @@ void MainMenuBar::about() {
 }
 void MainMenuBar::prefs() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
 
-  MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(mw, this)) {
+MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
   mb = new QMenuBar(this);
   
   fileMenu = addMenu(tr("&File"));
@@ -45,7 +57,8 @@ void MainMenuBar::prefs() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
   fileMenu->addAction(defAction("&Save", QKeySequence::Save, "Save the document to disk", &MainMenuBar::save));
   fileMenu->addAction(defAction("&Print...", QKeySequence::Print, "Print the document", &MainMenuBar::print));
   fileMenu->addSeparator();
-  fileMenu->addAction(defAction("&Exit", QKeySequence::Quit, "Exit the application", &QWidget::close));
+  // fileMenu->addAction(defAction("&Exit", QKeySequence::Quit, "Exit the application", &QWidget::close));
+  fileMenu->addAction(defAction("&Exit", QKeySequence::Quit, "Exit the application", []() { exit(0); }));
 
   editMenu = addMenu(tr("&Edit"));
   editMenu->addAction(defAction("&Undo", QKeySequence::Undo, "Undo the last operation", &MainMenuBar::undo));
