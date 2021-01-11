@@ -15,26 +15,29 @@
 #include <QtWidgets>
 
 #include "ConsoleFrame.h"
-#include "MainTabBar.h"
+#include "EnvironmentView.h"
+#include "MainWindow.h"
 #include "ScriptFrame.h"
-#include "UiFrame.h"
 
 namespace gyreui {
 
-void UiFrame::log(QString msg) { console->log(msg); }
-const char* UiFrame::configFile = "~/.gyre-ui";
-const char* UiFrame::version = "0.0.8";
+void EnvironmentView::log(QString msg) { console->log(msg); }
+const char* EnvironmentView::configFile = "~/.gyre-ui";
+const char* EnvironmentView::version = "0.0.8";
 
-void UiFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
-
-void UiFrame::showEvent(QShowEvent* event) {
-  QWidget::showEvent(event);
-  tabBar->setContextStatus(name);
+void EnvironmentView::setContextStatus(QString str) {
+  mw->setContextStatus(str);
 }
 
-GyreEnv* UiFrame::get_gyre() { return console->get_gyre(); }
+void EnvironmentView::showEvent(QShowEvent* event) {
+  QWidget::showEvent(event);
+  mw->setContextStatus(name);
+}
 
-UiFrame::UiFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
+GyreEnv* EnvironmentView::get_gyre() { return console->get_gyre(); }
+
+EnvironmentView::EnvironmentView(QString name, MainWindow* tb)
+    : mw(tb), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -53,7 +56,7 @@ UiFrame::UiFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
       "  </body>"
       "</html>";
 
-  auto user = tabBar->userInfo();
+  auto user = mw->userInfo();
 
   auto syshtml = QString::fromStdString(html).arg(
       version, user->aboutHost(), "an " + user->aboutCpu() + " system",

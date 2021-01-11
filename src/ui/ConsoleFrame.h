@@ -11,14 +11,13 @@
  **  ConsoleFrame.h: ConsoleFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_CONSOLEFRAME_H_
-#define _GYREUI_SRC_UI_CONSOLEFRAME_H_
+#ifndef GYREUI_UI_CONSOLEFRAME_H_
+#define GYREUI_UI_CONSOLEFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
 #include "user.h"
@@ -33,13 +32,13 @@ class TtyWidget;
 
 namespace gyreui {
 
-class MainTabBar;
+class MainWindow;
 
 class ConsoleFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ConsoleFrame(QString, MainTabBar*);
+  explicit ConsoleFrame(QString, MainWindow*);
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
@@ -49,7 +48,7 @@ class ConsoleFrame : public QFrame {
   void setContextStatus(QString);
   void showEvent(QShowEvent*);
 
-  MainTabBar* tabBar;
+  MainWindow* mw;
   QString name;
   TtyWidget* ttyWidget;
   QLabel* bannerLabel;
@@ -58,4 +57,4 @@ class ConsoleFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_CONSOLEFRAME_H_ */
+#endif /* GYREUI_UI_CONSOLEFRAME_H_ */

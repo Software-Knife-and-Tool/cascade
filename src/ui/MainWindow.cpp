@@ -17,13 +17,15 @@
 
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
+#include "EnvironmentView.h"
 #include "MainMenuBar.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "user.h"
 
 namespace gyreui {
 
+void MainWindow::log(QString msg) { envView->log(msg); }
+  
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
 
@@ -66,14 +68,46 @@ void MainWindow::createStatusBar() {
 
 MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
-  tabBar = new MainTabBar(this);
 
   setMenuBar(menuBar->menu_bar());
-  setCentralWidget(tabBar);
+  envView = new EnvironmentView("environment", this);
+
+#if 0
+  auto devEnv = new GyreEnv();
+  auto uiDev = uiFrame->get_gyre();
+  
+  envView = new EnvironmentView("environment", this);
+
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  auto devEnv = new GyreEnv();
+  auto uiDev = envView->get_gyre();
+
+  /*
+  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
+                        canonf, &GyreFrame::runStatus))
+    exit(0);
+  */
+
+  add(envView, QString("environment"));
+  log(";;; environment frame loaded");
+
+  add(new PanelFrame("panels", this, devEnv), "panels");
+  log(";;; panels frame loaded");
+
+  add(new ScriptFrame("script", this, devEnv, uiDev), "scripts");
+  log(";;; scripts frame loaded");
+
+  add(new UserFrame("user", this), "user");
+  log(";;; preferences frame loaded");
+
+#endif
+
+  setCentralWidget(envView);
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
   setWindowTitle(tr("Software Knife and Tool Gyre UI"));
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */

@@ -8,18 +8,17 @@
 
 /********
  **
- **  IdeFrame.h: IdeFrame class
+ **  EnvironmentView.h: EnvironmentView class
  **
  **/
-#ifndef _GYREUI_SRC_UI_UIFRAME_H_
-#define _GYREUI_SRC_UI_UIFRAME_H_
+#ifndef GYREUI_UI_ENVIRONMENTVIEW_H_
+#define GYREUI_UI_ENVIRONMENTVIEW_H_
 
 #include <QFrame>
 #include <QWidget>
 
 #include "ConsoleFrame.h"
 #include "GyreEnv.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
 #include "user.h"
@@ -32,14 +31,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class MainWindow;
 class ConsoleFrame;
 
-class UiFrame : public QFrame {
+class EnvironmentView : public QFrame {
   Q_OBJECT
 
  public:
-  explicit UiFrame(QString, MainTabBar*);
+  explicit EnvironmentView(QString, MainWindow*);
   static const char* configFile;
   static const char* version;
 
@@ -51,13 +50,13 @@ class UiFrame : public QFrame {
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
 
-  MainTabBar* tabBar;
+  MainWindow* mw;
   QString name;
   ConsoleFrame* console;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
-#endif /* _GYREUI_SRC_UI_UIFRAME_H_ */
+#endif /* GYREUI_UI_ENVIRONMENTVIEW_H_ */

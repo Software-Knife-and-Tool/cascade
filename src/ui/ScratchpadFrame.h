@@ -11,8 +11,8 @@
  **  ScratchpadFrame.h: ScratchpadFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_SCRATCHPADFRAME_H_
-#define _GYREUI_SRC_UI_SCRATCHPADFRAME_H_
+#ifndef GYREUI_UI_SCRATCHPADFRAME_H_
+#define GYREUI_UI_SCRATCHPADFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -22,7 +22,7 @@
 
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;
@@ -37,14 +37,14 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class ComposerFrame;
-class MainTabBar;
+class MainWindow;
 class MainWindow;
 
 class ScratchpadFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ScratchpadFrame(QString, MainTabBar*);
+  explicit ScratchpadFrame(QString, MainWindow*);
 
  private:
   void clear();
@@ -54,13 +54,13 @@ class ScratchpadFrame : public QFrame {
   void save_as();
   void del();
 
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
-  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
   QString loadFileName;
@@ -70,9 +70,9 @@ class ScratchpadFrame : public QFrame {
   QScrollArea* scrollArea;
   QTextEdit* scratchText;
   QToolBar* toolBar;
-  MainTabBar* tabBar;
+  MainWindow* mw;
 };
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_SCRATCHPADFRAME_H_ */
+#endif /* GYREUI_UI_SCRATCHPADFRAME_H_ */

@@ -18,17 +18,14 @@
 
 namespace gyreui {
 
-void ConsoleFrame::setContextStatus(QString str) {
-  tabBar->setContextStatus(str);
-}
+void ConsoleFrame::setContextStatus(QString str) { mw->setContextStatus(str); }
 
 void ConsoleFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus(name);
+  mw->setContextStatus(name);
 }
 
-ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
-    : tabBar(tb), name(name) {
+ConsoleFrame::ConsoleFrame(QString name, MainWindow* mw) : mw(mw), name(name) {
   ttyWidget = new TtyWidget(this);
 
   QSizePolicy tty_policy = ttyWidget->sizePolicy();
@@ -42,4 +39,4 @@ ConsoleFrame::ConsoleFrame(QString name, MainTabBar* tb)
   setLayout(layout);
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */

@@ -11,8 +11,8 @@
  **  ScriptFrame.h: ScriptFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_SCRIPTFRAME_H_
-#define _GYREUI_SRC_UI_SCRIPTFRAME_H_
+#ifndef GYREUI_UI_SCRIPTFRAME_H_
+#define GYREUI_UI_SCRIPTFRAME_H_
 
 #include <algorithm>
 #include <cassert>
@@ -28,7 +28,7 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -41,14 +41,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class MainWindow;
 class MainWindow;
 
 class ScriptFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ScriptFrame(QString, MainTabBar*, GyreEnv*, GyreEnv*);
+  explicit ScriptFrame(QString, MainWindow*, GyreEnv*, GyreEnv*);
 
  private:
   static const size_t FNV_prime = 16777619;
@@ -105,14 +105,14 @@ class ScriptFrame : public QFrame {
 
   void loadConfigFile();
 
-  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
@@ -141,7 +141,7 @@ class ScriptFrame : public QFrame {
   QString loadFileName;
   QString saveFileName;
 
-  MainTabBar* tabBar;
+  MainWindow* mw;
   GyreEnv* devEnv;
   GyreEnv* ideEnv;
   QString name;
@@ -154,4 +154,4 @@ class ScriptFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_SCRIPTFRAME_H_ */
+#endif /* GYREUI_UI_SCRIPTFRAME_H_ */

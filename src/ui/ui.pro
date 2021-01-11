@@ -13,11 +13,12 @@ HEADERS += \
            /opt/gyre/include/libmu/libmu.h \
            ComposerFrame.h   \
            ConsoleFrame.h    \
+           EnvironmentView.h \
+           FileMenu.h        \
            GyreEnv.h         \
            GyreFrame.h       \
            InspectorFrame.h  \
            MainMenuBar.h     \
-           MainTabBar.h      \
            MainWindow.h      \
            PanelFrame.h      \
            ScratchpadFrame.h \
@@ -26,26 +27,24 @@ HEADERS += \
            StatusClock.h     \
            Tile.h            \
            TtyWidget.h       \
-           UiFrame.h         \
            UserFrame.h       \
            user.h
 
 SOURCES += \
-           ComposerFrame.cpp \
-           ConsoleFrame.cpp  \
-           GyreFrame.cpp     \
-           InspectorFrame.cpp\
-           MainMenuBar.cpp   \
-           MainTabBar.cpp    \
-           MainWindow.cpp    \
-           PanelFrame.cpp    \
+           ComposerFrame.cpp   \
+           ConsoleFrame.cpp    \
+           EnvironmentView.cpp \
+           GyreFrame.cpp       \
+           InspectorFrame.cpp  \
+           MainMenuBar.cpp     \
+           MainWindow.cpp      \
+           PanelFrame.cpp      \
            ScratchpadFrame.cpp \
-           ScriptFrame.cpp   \
-           ShellFrame.cpp    \
-           Tile.cpp          \
-           TtyWidget.cpp     \
-           UiFrame.cpp       \
-           UserFrame.cpp     \
+           ScriptFrame.cpp     \
+           ShellFrame.cpp      \
+           Tile.cpp            \
+           TtyWidget.cpp       \
+           UserFrame.cpp       \
            main.cpp
 
 QT += core gui widgets

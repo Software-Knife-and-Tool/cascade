@@ -11,8 +11,8 @@
  **  GyreFrame.h: GyreFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_GYREFRAME_H_
-#define _GYREUI_SRC_UI_GYREFRAME_H_
+#ifndef GYREUI_UI_GYREFRAME_H_
+#define GYREUI_UI_GYREFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -22,7 +22,7 @@
 
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;
@@ -37,39 +37,39 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class ComposerFrame;
-class MainTabBar;
+class MainWindow;
 class MainWindow;
 
 class GyreFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit GyreFrame(QString, MainTabBar*, GyreEnv*);
+  explicit GyreFrame(QString, MainWindow*, GyreEnv*);
 
  public slots:
   void runStatus(QString);
 
  private:
   void del() {}
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { mw->log(msg); }
   void clear() { statusText->setText(""); }
 
-  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
   GyreEnv* devEnv;
   QString name;
   QScrollArea* scrollArea;
   QLabel* statusText;
-  MainTabBar* tabBar;
+  MainWindow* mw;
   QDateTime evalDate;
   QToolBar* toolBar;
 };
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_GYREFRAME_H_ */
+#endif /* GYREUI_UI_GYREFRAME_H_ */

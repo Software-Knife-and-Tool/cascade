@@ -11,8 +11,8 @@
  **  gyre.h: Gyre class
  **
  **/
-#ifndef _GYREUI_SRC_UI_GYRE_H_
-#define _GYREUI_SRC_UI_GYRE_H_
+#ifndef GYREUI_UI_GYRE_H_
+#define GYREUI_UI_GYRE_H_
 
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -91,4 +91,4 @@ class Gyre {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_GYRE_H_ */
+#endif /* GYREUI_UI_GYRE_H_ */

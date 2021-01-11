@@ -39,7 +39,7 @@ void ScriptFrame::clear() {
 
 void ScriptFrame::load() {
   loadFileName = QFileDialog::getOpenFileName(
-      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
+      this, tr("Load File"), mw->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -97,7 +97,7 @@ bool ScriptFrame::eventFilter(QObject* watched, QEvent* event) {
     }
   }
 
-  return tabBar->get_mw()->eventFilter(watched, event);
+  return mw->eventFilter(watched, event);
 }
 
 std::string ScriptFrame::script(std::string arg) {
@@ -141,12 +141,14 @@ std::string ScriptFrame::script(std::string arg) {
 }
 
 void ScriptFrame::loadConfigFile() {
+#if 0
   auto home = getenv("HOME");
-  auto path = QString::fromStdString(UiFrame::configFile);
+  auto path = QString::fromStdString(EnvironmentView::configFile);
 
   auto npath = home + path.remove(0, 1);
   log(";;; config file " + npath + " loaded");
   evalString("(load \"" + npath + "\")", ideEnv);
+#endif
 }
 
 #if 0
@@ -174,9 +176,9 @@ QString ScriptFrame::invoke(
 }
 #endif
 
-ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, GyreEnv* dev,
+ScriptFrame::ScriptFrame(QString name, MainWindow* tb, GyreEnv* dev,
                          GyreEnv* ide)
-    : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
+    : mw(tb), devEnv(dev), ideEnv(ide), name(name) {
   auto size = this->frameSize();
 
   toolBar = new QToolBar();

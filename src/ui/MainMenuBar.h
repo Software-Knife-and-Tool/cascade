@@ -11,12 +11,13 @@
  **  MainMenuBar.h: MainMenuBar class
  **
  **/
-#ifndef _GYREUI_SRC_UI_MAINMENUBAR_H_
-#define _GYREUI_SRC_UI_MAINMENUBAR_H_
+#ifndef GYREUI_UI_MAINMENUBAR_H_
+#define GYREUI_UI_MAINMENUBAR_H_
 
 #include <QMainWindow>
 #include <QMenu>
 
+#include "FileMenu.h"
 #include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,6 +30,7 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class MainWindow;
+class FileMenu;
 
 class MainMenuBar : public QMenu {
   Q_OBJECT
@@ -37,7 +39,8 @@ class MainMenuBar : public QMenu {
   MainMenuBar(MainWindow*);
 
   QMenuBar* menu_bar() { return mb; }
-  
+  MainWindow* mw_() { return this->mw; }
+
  private slots:
   // file menu
   void newFile();
@@ -57,28 +60,29 @@ class MainMenuBar : public QMenu {
   void prefs();
 
  private:
-  template<typename SLOTFN>
-  QAction* defAction(const char* label,
-                     QKeySequence::StandardKey key,
-                     const char* tooltip,
+  template <typename SLOTFN>
+  QAction* defAction(const char* label, QKeySequence key, const char* tooltip,
                      SLOTFN fn) {
-      auto action = new QAction(tr(label), this);
-      action->setShortcuts(key);
-      action->setStatusTip(tr(tooltip));
-      connect(action, &QAction::triggered, this, fn);
+    auto action = new QAction(tr(label), this);
+    action->setShortcut(key);
+    action->setStatusTip(tr(tooltip));
+    connect(action, &QAction::triggered, this, fn);
 
-      return action;
+    return action;
   }
-  
-  QMenu *fileMenu;
-  QMenu *editMenu;
-  QMenu *helpMenu;
 
-private:
-  MainWindow *mw;
-  QMenuBar *mb;
+  QMenu* fileMenu;
+  QMenu* editMenu;
+  QMenu* helpMenu;
+  QMenu* viewMenu;
+  QMenu* frameMenu;
+
+ private:
+  MainWindow* mw;
+  QMenuBar* mb;
+  FileMenu* fm;
 };
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_MAINMENUBAR_H_ */
+#endif /* GYREUI_UI_MAINMENUBAR_H_ */

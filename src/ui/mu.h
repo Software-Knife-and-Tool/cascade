@@ -11,8 +11,8 @@
  **  mu.h: Mu class
  **
  **/
-#ifndef _GYREUI_SRC_UI_MU_H_
-#define _GYREUI_SRC_UI_MU_H_
+#ifndef GYREUI_UI_MU_H_
+#define GYREUI_UI_MU_H_
 
 #include <QString>
 
@@ -57,4 +57,4 @@ class Mu {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_MU_H_ */
+#endif /* GYREUI_UI_MU_H_ */

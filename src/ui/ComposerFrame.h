@@ -11,8 +11,8 @@
  **  ComposerFrame.h: ComposerFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_COMPOSERFRAME_H_
-#define _GYREUI_SRC_UI_COMPOSERFRAME_H_
+#ifndef GYREUI_UI_COMPOSERFRAME_H_
+#define GYREUI_UI_COMPOSERFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -22,7 +22,7 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -35,14 +35,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class MainWindow;
 class MainWindow;
 
 class ComposerFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ComposerFrame(QString, MainTabBar*, GyreEnv*);
+  explicit ComposerFrame(QString, MainWindow*, GyreEnv*);
 
  signals:
   void evalHappened(QString);
@@ -58,22 +58,22 @@ class ComposerFrame : public QFrame {
   void save_as();
   void del();
 
-  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
   bool eventFilter(QObject, QEvent*);
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
   QString loadFileName;
   QString saveFileName;
 
-  MainTabBar* tabBar;
+  MainWindow* mw;
   GyreEnv* devEnv;
   QString name;
   QTextEdit* editText;
@@ -85,4 +85,4 @@ class ComposerFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_COMPOSERFRAME_H_ */
+#endif /* GYREUI_UI_COMPOSERFRAME_H_ */
