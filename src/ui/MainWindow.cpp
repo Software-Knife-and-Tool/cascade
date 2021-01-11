@@ -20,7 +20,6 @@
 #include "EnvironmentView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
-#include "MainWindow.h"
 #include "user.h"
 
 namespace gyreui {
@@ -101,8 +100,8 @@ MainWindow::MainWindow() : user(new User()) {
   add(new UserFrame("user", this), "user");
   log(";;; preferences frame loaded");
 
- #endif
-  
+#endif
+
   //  setCentralWidget(mw);
   createStatusBar();
 

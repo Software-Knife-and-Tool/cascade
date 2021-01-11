@@ -15,9 +15,9 @@
 #include <QtWidgets>
 
 #include "ConsoleFrame.h"
-#include "ScriptFrame.h"
 #include "EnvironmentView.h"
 #include "MainWindow.h"
+#include "ScriptFrame.h"
 
 namespace gyreui {
 
@@ -25,7 +25,9 @@ void EnvironmentView::log(QString msg) { console->log(msg); }
 const char* EnvironmentView::configFile = "~/.gyre-ui";
 const char* EnvironmentView::version = "0.0.8";
 
-void EnvironmentView::setContextStatus(QString str) { mw->setContextStatus(str); }
+void EnvironmentView::setContextStatus(QString str) {
+  mw->setContextStatus(str);
+}
 
 void EnvironmentView::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
@@ -34,7 +36,8 @@ void EnvironmentView::showEvent(QShowEvent* event) {
 
 GyreEnv* EnvironmentView::get_gyre() { return console->get_gyre(); }
 
-EnvironmentView::EnvironmentView(QString name, MainWindow* tb) : mw(tb), name(name) {
+EnvironmentView::EnvironmentView(QString name, MainWindow* tb)
+    : mw(tb), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"

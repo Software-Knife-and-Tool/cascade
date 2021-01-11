@@ -49,10 +49,10 @@ class MainWindow : public QMainWindow {
 
   void log(QString);
   void setContextStatus(QString);
-  
+
  private:
   //  void showEvent(QShowEvent*) override;
-  
+
  protected:
   void contextMenuEvent(QContextMenuEvent* event) override;
 
@@ -68,6 +68,6 @@ class MainWindow : public QMainWindow {
   StatusClock* statusClock;
 };
 
-}  /* namespace gyreui */
+} /* namespace gyreui */
 
 #endif /* GYREUI_UI_MAINWINDOW_H_ */

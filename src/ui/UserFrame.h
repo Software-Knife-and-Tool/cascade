@@ -18,7 +18,6 @@
 #include <QWidget>
 
 #include "MainWindow.h"
-#include "MainWindow.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE

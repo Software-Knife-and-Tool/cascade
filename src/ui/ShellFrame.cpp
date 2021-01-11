@@ -18,9 +18,7 @@
 
 namespace gyreui {
 
-void ShellFrame::setContextStatus(QString str) {
-  mw->setContextStatus(str);
-}
+void ShellFrame::setContextStatus(QString str) { mw->setContextStatus(str); }
 
 void ShellFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);

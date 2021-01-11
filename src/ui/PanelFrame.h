@@ -21,8 +21,8 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "Tile.h"
 #include "MainWindow.h"
+#include "Tile.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -64,6 +64,6 @@ class PanelFrame : public QFrame {
   Tile* rootTile;
 };
 
-}  /* namespace gyreui */
+} /* namespace gyreui */
 
 #endif /* GYREUI_UI_PANELFRAME_H_ */

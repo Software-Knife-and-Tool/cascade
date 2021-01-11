@@ -48,9 +48,9 @@ UserFrame::UserFrame(QString name, MainWindow* tb) : mw(tb), name(name) {
 
   auto user = mw->userInfo();
 
-  auto system_html = QString(html).arg(EnvironmentView::version, user->aboutHost(),
-                                       "an " + user->aboutCpu() + " system",
-                                       user->aboutSystem());
+  auto system_html = QString(html).arg(
+      EnvironmentView::version, user->aboutHost(),
+      "an " + user->aboutCpu() + " system", user->aboutSystem());
 
   bannerLabel = new QLabel(system_html);
   bannerLabel->setAlignment(Qt::AlignCenter);
