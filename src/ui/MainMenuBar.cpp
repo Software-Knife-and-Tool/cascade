@@ -54,6 +54,15 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
   editMenu->addAction(defAction("&Copy", QKeySequence::Copy, "Copy the current selection", &MainMenuBar::copy));
   editMenu->addAction(defAction("&Paste", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
   editMenu->addSeparator();
+
+  viewMenu = addMenu(tr("&View"));
+  viewMenu->addAction(defAction("&environment", QKeySequence::Undo, "Undo the last operation", &MainMenuBar::undo));
+  viewMenu->addAction(defAction("&file system", QKeySequence::Redo, "Redo the last operation", &MainMenuBar::redo));
+  viewMenu->addAction(defAction("&debugger", QKeySequence::Cut, "Cut the current selection", &MainMenuBar::cut));
+  viewMenu->addAction(defAction("&inspector", QKeySequence::Copy, "Copy the current selection", &MainMenuBar::copy));
+  viewMenu->addAction(defAction("&listener", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
+  viewMenu->addAction(defAction("&notifications", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
+  viewMenu->addAction(defAction("&system", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
   
   helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(defAction("&About", QKeySequence::WhatsThis, "Show the About box", &MainMenuBar::about));
@@ -61,6 +70,7 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
 
   mb->addMenu(fileMenu);
   mb->addMenu(editMenu);
+  mb->addMenu(viewMenu);
   mb->addMenu(helpMenu);
 }
 

@@ -73,6 +73,7 @@ class MainMenuBar : public QMenu {
   QMenu *fileMenu;
   QMenu *editMenu;
   QMenu *helpMenu;
+  QMenu *viewMenu;
 
 private:
   MainWindow *mw;
