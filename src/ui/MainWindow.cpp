@@ -24,6 +24,8 @@
 
 namespace gyreui {
 
+void MainWindow::log(QString msg) { envView->log(msg); }
+  
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
 
@@ -64,12 +66,11 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-void MainWindow::log(QString msg) { env->log(msg); }
-
 MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
 
   setMenuBar(menuBar->menu_bar());
+  envView = new EnvironmentView("environment", this);
 
 #if 0
   auto devEnv = new GyreEnv();
@@ -102,7 +103,7 @@ MainWindow::MainWindow() : user(new User()) {
 
 #endif
 
-  //  setCentralWidget(mw);
+  setCentralWidget(envView);
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);

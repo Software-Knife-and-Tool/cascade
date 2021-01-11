@@ -42,13 +42,12 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
+  void log(QString);
+  void setContextStatus(QString);
   explicit MainWindow();
 
   MainMenuBar* mainMenuBar() { return this->menuBar; }
   User* userInfo() { return this->user; }
-
-  void log(QString);
-  void setContextStatus(QString);
 
  private:
   //  void showEvent(QShowEvent*) override;
@@ -60,7 +59,7 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
-  EnvironmentView* env;
+  EnvironmentView* envView;
   User* user;
   QLabel* contextLabel;
   MainMenuBar* menuBar;
