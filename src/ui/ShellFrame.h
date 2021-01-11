@@ -11,16 +11,16 @@
  **  ShellFrame.h: ShellFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_SHELLFRAME_H_
-#define _GYREUI_SRC_UI_SHELLFRAME_H_
+#ifndef GYREUI_UI_SHELLFRAME_H_
+#define GYREUI_UI_SHELLFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
+#include "ViewFrame.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -33,13 +33,13 @@ class TtyWidget;
 
 namespace gyreui {
 
-class MainTabBar;
+class ViewFrame;
 
 class ShellFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ShellFrame(QString, MainTabBar*);
+  explicit ShellFrame(QString, ViewFrame*);
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
@@ -49,7 +49,7 @@ class ShellFrame : public QFrame {
 
  protected:
  private:
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   QString name;
   TtyWidget* ttyWidget;
   QVBoxLayout* layout;
@@ -57,4 +57,4 @@ class ShellFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_SHELLFRAME_H_ */
+#endif /* GYREUI_UI_SHELLFRAME_H_ */

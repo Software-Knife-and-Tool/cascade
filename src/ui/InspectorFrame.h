@@ -11,8 +11,8 @@
  **  InspectorFrame.h: InspectorFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_INSPECTORFRAME_H_
-#define _GYREUI_SRC_UI_INSPECTORFRAME_H_
+#ifndef GYREUI_UI_INSPECTORFRAME_H_
+#define GYREUI_UI_INSPECTORFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -22,7 +22,7 @@
 
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "ViewFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -34,24 +34,24 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class ViewFrame;
 class MainWindow;
 
 class InspectorFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit InspectorFrame(QString, MainTabBar*, GyreEnv*);
+  explicit InspectorFrame(QString, ViewFrame*, GyreEnv*);
 
  private:
   void clear();
   void eval();
 
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { viewFrame->log(msg); }
 
-  void setContextStatus(QString str) { tabBar->setContextStatus(str); }
+  void setContextStatus(QString str) { viewFrame->setContextStatus(str); }
 
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   GyreEnv* devEnv;
   QString name;
   ComposerFrame* composerFrame;
@@ -63,4 +63,4 @@ class InspectorFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_INSPECTORFRAME_H_ */
+#endif /* GYREUI_UI_INSPECTORFRAME_H_ */

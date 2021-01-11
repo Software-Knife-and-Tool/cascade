@@ -39,7 +39,7 @@ void ScriptFrame::clear() {
 
 void ScriptFrame::load() {
   loadFileName = QFileDialog::getOpenFileName(
-      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
+      this, tr("Load File"), viewFrame->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -97,7 +97,7 @@ bool ScriptFrame::eventFilter(QObject* watched, QEvent* event) {
     }
   }
 
-  return tabBar->mw_()->eventFilter(watched, event);
+  return viewFrame->mw_()->eventFilter(watched, event);
 }
 
 std::string ScriptFrame::script(std::string arg) {
@@ -174,9 +174,9 @@ QString ScriptFrame::invoke(
 }
 #endif
 
-ScriptFrame::ScriptFrame(QString name, MainTabBar* tb, GyreEnv* dev,
+ScriptFrame::ScriptFrame(QString name, ViewFrame* tb, GyreEnv* dev,
                          GyreEnv* ide)
-    : tabBar(tb), devEnv(dev), ideEnv(ide), name(name) {
+    : viewFrame(tb), devEnv(dev), ideEnv(ide), name(name) {
   auto size = this->frameSize();
 
   toolBar = new QToolBar();

@@ -31,7 +31,7 @@ void ComposerFrame::clear() {
 
 void ComposerFrame::load() {
   loadFileName = QFileDialog::getOpenFileName(
-      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
+      this, tr("Load File"), viewFrame->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -46,7 +46,7 @@ void ComposerFrame::load() {
 void ComposerFrame::eval() {
   QString out;
 
-  tabBar->setContextStatus(tr("eval"));
+  viewFrame->setContextStatus(tr("eval"));
 
   auto error = devEnv->withException(
       [this, &out]() { out = devEnv->rep(editText->toPlainText()); });
@@ -59,7 +59,7 @@ void ComposerFrame::eval() {
 void ComposerFrame::macroexpand() {
   QString out;
 
-  tabBar->setContextStatus(tr("macroexpand"));
+  viewFrame->setContextStatus(tr("macroexpand"));
 
   auto error = devEnv->withException([this, &out]() {
     auto mex = "(macroexpand (:quote " + editText->toPlainText() + "))";
@@ -73,7 +73,7 @@ void ComposerFrame::macroexpand() {
 void ComposerFrame::describe() {
   QString out;
 
-  tabBar->setContextStatus(tr("describe"));
+  viewFrame->setContextStatus(tr("describe"));
 
   auto error = devEnv->withException([this, &out]() {
     auto mex = "(describe (:quote " + editText->toPlainText() + "))";
@@ -112,11 +112,11 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
     }
   }
 
-  return tabBar->mw_()->eventFilter(watched, event);
+  return viewFrame->mw_()->eventFilter(watched, event);
 }
 
-ComposerFrame::ComposerFrame(QString name, MainTabBar *tb, GyreEnv *cn)
-    : tabBar(tb), devEnv(cn), name(name) {
+ComposerFrame::ComposerFrame(QString name, ViewFrame *vf, GyreEnv *cn)
+    : viewFrame(vf), devEnv(cn), name(name) {
   auto size = this->frameSize();
 
   toolBar = new QToolBar();

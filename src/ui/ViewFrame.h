@@ -8,11 +8,11 @@
 
 /********
  **
- **  MainTabBar.h: MainTabBar class
+ **  ViewFrame.h: ViewFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_MAINTABBAR_H_
-#define _GYREUI_SRC_UI_MAINTABBAR_H_
+#ifndef GYREUI_UI_VIEWFRAME_H_
+#define GYREUI_UI_VIEWFRAME_H_
 
 #include <QMainWindow>
 #include <QTabWidget>
@@ -37,11 +37,11 @@ class ConsoleFrame;
 class UserFrame;
 class UiFrame;
 
-class MainTabBar : public QTabWidget {
+class ViewFrame : public QTabWidget {
   Q_OBJECT
 
  public:
-  explicit MainTabBar(MainWindow*);
+  explicit ViewFrame(MainWindow*);
 
   void log(QString);
   void setContextStatus(QString);
@@ -60,4 +60,4 @@ class MainTabBar : public QTabWidget {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_MAINTABBAR_H_ */
+#endif /* GYREUI_VIEWFRAME_H_ */

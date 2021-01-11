@@ -11,8 +11,8 @@
  **  GyreEnv.h: gyre environment class
  **
  **/
-#ifndef _GYREUI_SRC_UI_GYREENV_H_
-#define _GYREUI_SRC_UI_GYREENV_H_
+#ifndef GYREUI_UI_GYREENV_H_
+#define GYREUI_UI_GYREENV_H_
 
 #include <QString>
 
@@ -58,4 +58,4 @@ class GyreEnv {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_GYREENV_H_ */
+#endif /* GYREUI_UI_GYREENV_H_ */

@@ -11,8 +11,8 @@
  **  Tile.h: Tile class
  **
  **/
-#ifndef _GYREUI_SRC_UI_TILE_H_
-#define _GYREUI_SRC_UI_TILE_H_
+#ifndef GYREUI_UI_TILE_H_
+#define GYREUI_UI_TILE_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -21,7 +21,7 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
+#include "ViewFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -33,14 +33,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class ViewFrame;
 class MainWindow;
 
 class Tile : public QFrame {
   Q_OBJECT
 
  public:
-  explicit Tile(MainTabBar*, QFrame*);
+  explicit Tile(ViewFrame*, QFrame*);
 
   void rebase(QFrame*);
   void split(QFrame*);
@@ -50,9 +50,9 @@ class Tile : public QFrame {
  private:
   enum STATE { UNSPLIT, HORIZONTAL, VERTICAL };
 
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { viewFrame->log(msg); }
 
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   STATE splitState;
   QFrame* baseFrame;
   Tile* splitTile;
@@ -60,4 +60,4 @@ class Tile : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_TILE_H_ */
+#endif /* GYREUI_UI_TILE_H_ */

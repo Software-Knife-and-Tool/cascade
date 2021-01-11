@@ -11,8 +11,8 @@
  **  MainWindow.h: MainWindow class
  **
  **/
-#ifndef _GYREUI_SRC_UI_MAINWINDOW_H_
-#define _GYREUI_SRC_UI_MAINWINDOW_H_
+#ifndef GYREUI_UI_MAINWINDOW_H_
+#define GYREUI_UI_MAINWINDOW_H_
 
 #include <QDateTime>
 #include <QMainWindow>
@@ -21,8 +21,8 @@
 #include <QTimer>
 
 #include "MainMenuBar.h"
-#include "MainTabBar.h"
 #include "StatusClock.h"
+#include "ViewFrame.h"
 #include "mu.h"
 #include "user.h"
 
@@ -37,7 +37,7 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class MainMenuBar;
-class MainTabBar;
+class ViewFrame;
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -47,9 +47,9 @@ class MainWindow : public QMainWindow {
 
   void setContextStatus(QString);
 
-  MainTabBar* mainTabBar() { return this->tabBar; }
   MainMenuBar* mainMenuBar() { return this->menuBar; }
   User* userInfo() { return this->user; }
+  ViewFrame* viewFrame_() { return this->viewFrame; }
 
  protected:
   void contextMenuEvent(QContextMenuEvent* event) override;
@@ -61,11 +61,11 @@ class MainWindow : public QMainWindow {
   User* user;
   QLabel* contextLabel;
   MainMenuBar* menuBar;
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   QDateTime startTime;
   StatusClock* statusClock;
 };
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_MAINWINDOW_H_ */
+#endif /* GYREUI_UI_MAINWINDOW_H_ */

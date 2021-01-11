@@ -8,7 +8,7 @@
 
 /********
  **
- **  MainTabBar.cpp: MainTabBar class
+ **  ViewFrame.cpp: ViewFrame class
  **
  **/
 #include <QTabBar>
@@ -18,22 +18,22 @@
 #include "ConsoleFrame.h"
 #include "GyreFrame.h"
 #include "InspectorFrame.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "PanelFrame.h"
 #include "ScratchpadFrame.h"
 #include "ScriptFrame.h"
 #include "UiFrame.h"
+#include "ViewFrame.h"
 
 namespace gyreui {
 
-void MainTabBar::log(QString msg) { uiFrame->log(msg); }
+void ViewFrame::log(QString msg) { uiFrame->log(msg); }
 
-void MainTabBar::setContextStatus(QString str) { mw->setContextStatus(str); }
+void ViewFrame::setContextStatus(QString str) { mw->setContextStatus(str); }
 
-User* MainTabBar::userInfo() { return mw->userInfo(); }
+User* ViewFrame::userInfo() { return mw->userInfo(); }
 
-MainTabBar::MainTabBar(MainWindow* mw) : mw(mw) {
+ViewFrame::ViewFrame(MainWindow* mw) : mw(mw) {
   uiFrame = new UiFrame("environment", this);
 
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

@@ -11,17 +11,17 @@
  **  IdeFrame.h: IdeFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_UIFRAME_H_
-#define _GYREUI_SRC_UI_UIFRAME_H_
+#ifndef GYREUIFRAME_H_
+#define GYREUIFRAME_H_
 
 #include <QFrame>
 #include <QWidget>
 
 #include "ConsoleFrame.h"
 #include "GyreEnv.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
+#include "ViewFrame.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -32,14 +32,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class ViewFrame;
 class ConsoleFrame;
 
 class UiFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit UiFrame(QString, MainTabBar*);
+  explicit UiFrame(QString, ViewFrame*);
   static const char* configFile;
   static const char* version;
 
@@ -51,7 +51,7 @@ class UiFrame : public QFrame {
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
 
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   QString name;
   ConsoleFrame* console;
   QLabel* bannerLabel;
@@ -60,4 +60,4 @@ class UiFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_UIFRAME_H_ */
+#endif /* GYREUIFRAME_H_ */

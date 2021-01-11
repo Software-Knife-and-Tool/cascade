@@ -32,7 +32,7 @@ void ScratchpadFrame::del() {}
 
 void ScratchpadFrame::load() {
   loadFileName = QFileDialog::getOpenFileName(
-      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
+      this, tr("Load File"), viewFrame->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -46,7 +46,7 @@ void ScratchpadFrame::load() {
 
 void ScratchpadFrame::append() {
   loadFileName = QFileDialog::getOpenFileName(
-      this, tr("Load File"), tabBar->userInfo()->userdir(), tr("File (*)"));
+      this, tr("Load File"), viewFrame->userInfo()->userdir(), tr("File (*)"));
 
   QFile f(loadFileName);
   if (f.open(QFile::ReadOnly | QFile::Text)) {
@@ -71,8 +71,8 @@ void ScratchpadFrame::save() {
   file.commit();
 }
 
-ScratchpadFrame::ScratchpadFrame(QString name, MainTabBar* tb)
-    : name(name), tabBar(tb) {
+ScratchpadFrame::ScratchpadFrame(QString name, ViewFrame* tb)
+    : name(name), viewFrame(tb) {
   toolBar = new QToolBar();
 
   connect(toolBar->addAction(tr("clear")), &QAction::triggered, this,

@@ -11,8 +11,8 @@
  **  PanelFrame.h: PanelFrame class
  **
  **/
-#ifndef _GYREUI_SRC_UI_PANELFRAME_H_
-#define _GYREUI_SRC_UI_PANELFRAME_H_
+#ifndef GYREUI_UI_PANELFRAME_H_
+#define GYREUI_UI_PANELFRAME_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -21,8 +21,8 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "MainTabBar.h"
 #include "Tile.h"
+#include "ViewFrame.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -34,26 +34,26 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainTabBar;
+class ViewFrame;
 class MainWindow;
 
 class PanelFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit PanelFrame(QString, MainTabBar*, GyreEnv*);
+  explicit PanelFrame(QString, ViewFrame*, GyreEnv*);
 
  private:
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
-    tabBar->setContextStatus(name);
+    viewFrame->setContextStatus(name);
   }
 
-  void log(QString msg) { tabBar->log(msg); }
+  void log(QString msg) { viewFrame->log(msg); }
 
   QToolButton* toolMenu();
 
-  MainTabBar* tabBar;
+  ViewFrame* viewFrame;
   bool init;
   GyreEnv* devEnv;
   QString name;
@@ -67,4 +67,4 @@ class PanelFrame : public QFrame {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_PANELFRAME_H_ */
+#endif /* GYREUI_UI_PANELFRAME_H_ */

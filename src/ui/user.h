@@ -11,8 +11,8 @@
  **  user.h: user class
  **
  **/
-#ifndef _GYREUI_SRC_UI_USER_H_
-#define _GYREUI_SRC_UI_USER_H_
+#ifndef GYREUI_USER_H_
+#define GYREUI_USER_H_
 
 #include <QDir>
 #include <QString>
@@ -50,4 +50,4 @@ class User {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_USER_H_ */
+#endif /* GYREUI_USER_H_ */

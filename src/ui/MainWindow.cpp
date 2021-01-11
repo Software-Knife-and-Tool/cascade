@@ -18,8 +18,8 @@
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
 #include "MainMenuBar.h"
-#include "MainTabBar.h"
 #include "MainWindow.h"
+#include "ViewFrame.h"
 #include "user.h"
 
 namespace gyreui {
@@ -66,14 +66,14 @@ void MainWindow::createStatusBar() {
 
 MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
-  tabBar = new MainTabBar(this);
+  viewFrame = new ViewFrame(this);
 
   setMenuBar(menuBar->menu_bar());
-  setCentralWidget(tabBar);
+  setCentralWidget(viewFrame);
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
   setWindowTitle(tr("Software Knife and Tool Gyre UI"));
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */

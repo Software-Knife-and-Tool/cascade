@@ -18,7 +18,6 @@ HEADERS += \
            GyreFrame.h       \
            InspectorFrame.h  \
            MainMenuBar.h     \
-           MainTabBar.h      \
            MainWindow.h      \
            PanelFrame.h      \
            ScratchpadFrame.h \
@@ -29,6 +28,7 @@ HEADERS += \
            TtyWidget.h       \
            UiFrame.h         \
            UserFrame.h       \
+           ViewFrame.h       \
            user.h
 
 SOURCES += \
@@ -37,7 +37,6 @@ SOURCES += \
            GyreFrame.cpp     \
            InspectorFrame.cpp\
            MainMenuBar.cpp   \
-           MainTabBar.cpp    \
            MainWindow.cpp    \
            PanelFrame.cpp    \
            ScratchpadFrame.cpp \
@@ -47,6 +46,7 @@ SOURCES += \
            TtyWidget.cpp     \
            UiFrame.cpp       \
            UserFrame.cpp     \
+           ViewFrame.cpp     \
            main.cpp
 
 QT += core gui widgets

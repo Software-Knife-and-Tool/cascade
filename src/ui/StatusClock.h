@@ -11,8 +11,8 @@
  **  StatusClock.h: StatusClock class
  **
  **/
-#ifndef _GYREUI_SRC_UI_STATUSCLOCK_H_
-#define _GYREUI_SRC_UI_STATUSCLOCK_H_
+#ifndef GYREUI_UI_STATUSCLOCK_H_
+#define GYREUI_UI_STATUSCLOCK_H_
 
 #include <QDateTime>
 #include <QLabel>
@@ -54,4 +54,4 @@ class StatusClock : public QObject {
 
 }  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_STATUSCLOCK_H_ */
+#endif /* GYREUI_UI_STATUSCLOCK_H_ */

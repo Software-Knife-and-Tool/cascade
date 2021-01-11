@@ -11,8 +11,8 @@
  **  FileMenu.h: FileMenu class
  **
  **/
-#ifndef _GYREUI_SRC_UI_FILEMENU_H_
-#define _GYREUI_SRC_UI_FILEMENU_H_
+#ifndef GYREUI_UI_FILEMENU_H_
+#define GYREUI_UI_FILEMENU_H_
 
 #include <QMainWindow>
 #include <QMenu>
@@ -36,17 +36,17 @@ class FileMenu : public QMenu {
   Q_OBJECT
 
  public:
-  void newFile() { }
-  void openFile() { }
-  void saveFile() { }
-  void printFile() { }
-  
-  explicit FileMenu(MainMenuBar* mb) : mb(mb) { }
-  
+  void newFile() {}
+  void openFile() {}
+  void saveFile() {}
+  void printFile() {}
+
+  explicit FileMenu(MainMenuBar* mb) : mb(mb) {}
+
  private:
   MainMenuBar* mb;
 };
 
-} // namespace gyreui
+}  // namespace gyreui
 
-#endif /* _GYREUI_SRC_UI_FILEMENU_H_ */
+#endif /* GYREUI_UI_FILEMENU_H_ */

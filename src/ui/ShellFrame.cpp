@@ -19,15 +19,15 @@
 namespace gyreui {
 
 void ShellFrame::setContextStatus(QString str) {
-  tabBar->setContextStatus(str);
+  viewFrame->setContextStatus(str);
 }
 
 void ShellFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus(name);
+  viewFrame->setContextStatus(name);
 }
 
-ShellFrame::ShellFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
+ShellFrame::ShellFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
   ttyWidget = new TtyWidget(this);
 
   QSizePolicy tty_policy = ttyWidget->sizePolicy();

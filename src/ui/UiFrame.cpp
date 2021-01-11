@@ -15,9 +15,9 @@
 #include <QtWidgets>
 
 #include "ConsoleFrame.h"
-#include "MainTabBar.h"
 #include "ScriptFrame.h"
 #include "UiFrame.h"
+#include "ViewFrame.h"
 
 namespace gyreui {
 
@@ -25,16 +25,16 @@ void UiFrame::log(QString msg) { console->log(msg); }
 const char* UiFrame::configFile = "~/.gyre-ui";
 const char* UiFrame::version = "0.0.8";
 
-void UiFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
+void UiFrame::setContextStatus(QString str) { viewFrame->setContextStatus(str); }
 
 void UiFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus(name);
+  viewFrame->setContextStatus(name);
 }
 
 GyreEnv* UiFrame::get_gyre() { return console->get_gyre(); }
 
-UiFrame::UiFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
+UiFrame::UiFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -53,7 +53,7 @@ UiFrame::UiFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
       "  </body>"
       "</html>";
 
-  auto user = tabBar->userInfo();
+  auto user = viewFrame->userInfo();
 
   auto syshtml = QString::fromStdString(html).arg(
       version, user->aboutHost(), "an " + user->aboutCpu() + " system",

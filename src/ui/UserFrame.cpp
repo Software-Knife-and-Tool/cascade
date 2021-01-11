@@ -19,16 +19,16 @@
 
 namespace gyreui {
 
-void UserFrame::log(QString msg) { tabBar->log(msg); }
+void UserFrame::log(QString msg) { viewFrame->log(msg); }
 
-void UserFrame::setContextStatus(QString str) { tabBar->setContextStatus(str); }
+void UserFrame::setContextStatus(QString str) { viewFrame->setContextStatus(str); }
 
 void UserFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  tabBar->setContextStatus(name);
+  viewFrame->setContextStatus(name);
 }
 
-UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
+UserFrame::UserFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
   const char* html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -46,7 +46,7 @@ UserFrame::UserFrame(QString name, MainTabBar* tb) : tabBar(tb), name(name) {
       "  </body>"
       "</html>";
 
-  auto user = tabBar->userInfo();
+  auto user = viewFrame->userInfo();
 
   auto system_html = QString(html).arg(UiFrame::version, user->aboutHost(),
                                        "an " + user->aboutCpu() + " system",
