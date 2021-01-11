@@ -97,7 +97,7 @@ bool ScriptFrame::eventFilter(QObject* watched, QEvent* event) {
     }
   }
 
-  return tabBar->get_mw()->eventFilter(watched, event);
+  return tabBar->mw_()->eventFilter(watched, event);
 }
 
 std::string ScriptFrame::script(std::string arg) {

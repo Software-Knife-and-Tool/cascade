@@ -39,6 +39,7 @@ class MainMenuBar : public QMenu {
   MainMenuBar(MainWindow*);
 
   QMenuBar* menu_bar() { return mb; }
+  MainWindow* mw_() { return this->mw; }
   
  private slots:
   // file menu
@@ -61,11 +62,11 @@ class MainMenuBar : public QMenu {
  private:
   template<typename SLOTFN>
   QAction* defAction(const char* label,
-                     QKeySequence::StandardKey key,
+                     QKeySequence key,
                      const char* tooltip,
                      SLOTFN fn) {
       auto action = new QAction(tr(label), this);
-      action->setShortcuts(key);
+      action->setShortcut(key);
       action->setStatusTip(tr(tooltip));
       connect(action, &QAction::triggered, this, fn);
 
@@ -76,6 +77,7 @@ class MainMenuBar : public QMenu {
   QMenu *editMenu;
   QMenu *helpMenu;
   QMenu *viewMenu;
+  QMenu *frameMenu;
 
 private:
   MainWindow* mw;

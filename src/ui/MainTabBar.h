@@ -49,7 +49,7 @@ class MainTabBar : public QTabWidget {
 
   void add(QWidget* w, QString label) { addTab(w, label); }
 
-  MainWindow* get_mw() { return this->mw; }
+  MainWindow* mw_() { return this->mw; }
 
  private slots:
 

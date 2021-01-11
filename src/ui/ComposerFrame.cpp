@@ -112,7 +112,7 @@ bool ComposerFrame::eventFilter(QObject *watched, QEvent *event) {
     }
   }
 
-  return tabBar->get_mw()->eventFilter(watched, event);
+  return tabBar->mw_()->eventFilter(watched, event);
 }
 
 ComposerFrame::ComposerFrame(QString name, MainTabBar *tb, GyreEnv *cn)

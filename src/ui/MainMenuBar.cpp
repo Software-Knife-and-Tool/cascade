@@ -50,14 +50,14 @@ void MainMenuBar::prefs() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
 
 MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
   mb = new QMenuBar(this);
-  
+
+  // on macos, ctrl is cmd and meta is ctrl. pfffft.
   fileMenu = addMenu(tr("&File"));
   fileMenu->addAction(defAction("&New", QKeySequence::New, "Create new file", &MainMenuBar::newFile));
   fileMenu->addAction(defAction("&Open...", QKeySequence::Open, "Open an existing file", &MainMenuBar::open));
   fileMenu->addAction(defAction("&Save", QKeySequence::Save, "Save the document to disk", &MainMenuBar::save));
   fileMenu->addAction(defAction("&Print...", QKeySequence::Print, "Print the document", &MainMenuBar::print));
   fileMenu->addSeparator();
-  // fileMenu->addAction(defAction("&Exit", QKeySequence::Quit, "Exit the application", &QWidget::close));
   fileMenu->addAction(defAction("&Exit", QKeySequence::Quit, "Exit the application", []() { exit(0); }));
 
   editMenu = addMenu(tr("&Edit"));
@@ -70,21 +70,25 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
   editMenu->addSeparator();
 
   viewMenu = addMenu(tr("&View"));
-  viewMenu->addAction(defAction("&environment", QKeySequence::Undo, "Undo the last operation", &MainMenuBar::undo));
-  viewMenu->addAction(defAction("&file system", QKeySequence::Redo, "Redo the last operation", &MainMenuBar::redo));
-  viewMenu->addAction(defAction("&debugger", QKeySequence::Cut, "Cut the current selection", &MainMenuBar::cut));
-  viewMenu->addAction(defAction("&inspector", QKeySequence::Copy, "Copy the current selection", &MainMenuBar::copy));
-  viewMenu->addAction(defAction("&listener", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
-  viewMenu->addAction(defAction("&notifications", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
-  viewMenu->addAction(defAction("&system", QKeySequence::Paste, "Paste the clipboard", &MainMenuBar::paste));
+  viewMenu->addAction(defAction("&split screen", QKeySequence::UnknownKey, "split screen", [](){}));
+  
+  frameMenu = addMenu(tr("&Frames"));
+  frameMenu->addAction(defAction("&environment", QKeySequence(tr("Ctrl+1", "")), "environment", [](){}));
+  frameMenu->addAction(defAction("&file system", QKeySequence(tr("Ctrl+2", "")), "file system", [](){}));
+  frameMenu->addAction(defAction("&debugger", QKeySequence(tr("Ctrl+3", "")), "debugger", [](){}));
+  frameMenu->addAction(defAction("&inspector", QKeySequence(tr("Ctrl+4", "")), "inspector", [](){}));
+  frameMenu->addAction(defAction("&listener", QKeySequence(tr("Ctrl+5", "")), "listener", [](){}));
+  frameMenu->addAction(defAction("&notifications", QKeySequence(tr("Ctrl+6", "")), "notifications", [](){}));
+  frameMenu->addAction(defAction("&system", QKeySequence(tr("Ctrl+7", "")), "system inspector", [](){}));
   
   helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(defAction("&About", QKeySequence::WhatsThis, "Show the About box", &MainMenuBar::about));
-  helpMenu->addAction(defAction("&Preferences", QKeySequence::Preferences, "Show the prefs panel", &MainMenuBar::prefs));
+  helpMenu->addAction(defAction("&Preferences", QKeySequence::Preferences, "Show the prefs panel", [](){}));
 
   mb->addMenu(fileMenu);
   mb->addMenu(editMenu);
   mb->addMenu(viewMenu);
+  mb->addMenu(frameMenu);
   mb->addMenu(helpMenu);
 }
 
