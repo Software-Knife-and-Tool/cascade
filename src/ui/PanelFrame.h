@@ -22,7 +22,7 @@
 
 #include "GyreEnv.h"
 #include "Tile.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -34,26 +34,25 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
 class MainWindow;
 
 class PanelFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit PanelFrame(QString, ViewFrame*, GyreEnv*);
+  explicit PanelFrame(QString, MainWindow*, GyreEnv*);
 
  private:
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
-    viewFrame->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
-  void log(QString msg) { viewFrame->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
   QToolButton* toolMenu();
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   bool init;
   GyreEnv* devEnv;
   QString name;
@@ -65,6 +64,6 @@ class PanelFrame : public QFrame {
   Tile* rootTile;
 };
 
-}  // namespace gyreui
+}  /* namespace gyreui */
 
 #endif /* GYREUI_UI_PANELFRAME_H_ */

@@ -14,21 +14,21 @@
 #include <QString>
 #include <QtWidgets>
 
-#include "UiFrame.h"
+#include "EnvironmentView.h"
 #include "UserFrame.h"
 
 namespace gyreui {
 
-void UserFrame::log(QString msg) { viewFrame->log(msg); }
+void UserFrame::log(QString msg) { mw->log(msg); }
 
-void UserFrame::setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+void UserFrame::setContextStatus(QString str) { mw->setContextStatus(str); }
 
 void UserFrame::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  viewFrame->setContextStatus(name);
+  mw->setContextStatus(name);
 }
 
-UserFrame::UserFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
+UserFrame::UserFrame(QString name, MainWindow* tb) : mw(tb), name(name) {
   const char* html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -46,9 +46,9 @@ UserFrame::UserFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
       "  </body>"
       "</html>";
 
-  auto user = viewFrame->userInfo();
+  auto user = mw->userInfo();
 
-  auto system_html = QString(html).arg(UiFrame::version, user->aboutHost(),
+  auto system_html = QString(html).arg(EnvironmentView::version, user->aboutHost(),
                                        "an " + user->aboutCpu() + " system",
                                        user->aboutSystem());
 

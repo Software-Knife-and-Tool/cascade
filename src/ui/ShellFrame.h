@@ -20,7 +20,7 @@
 #include "GyreEnv.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -33,13 +33,13 @@ class TtyWidget;
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 
 class ShellFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ShellFrame(QString, ViewFrame*);
+  explicit ShellFrame(QString, MainWindow*);
 
   void log(QString msg) { ttyWidget->writeTty(msg); }
 
@@ -49,7 +49,7 @@ class ShellFrame : public QFrame {
 
  protected:
  private:
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   QString name;
   TtyWidget* ttyWidget;
   QVBoxLayout* layout;

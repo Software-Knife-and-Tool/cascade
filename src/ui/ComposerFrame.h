@@ -22,7 +22,7 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -35,14 +35,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 class MainWindow;
 
 class ComposerFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ComposerFrame(QString, ViewFrame*, GyreEnv*);
+  explicit ComposerFrame(QString, MainWindow*, GyreEnv*);
 
  signals:
   void evalHappened(QString);
@@ -58,22 +58,22 @@ class ComposerFrame : public QFrame {
   void save_as();
   void del();
 
-  void setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    viewFrame->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
   bool eventFilter(QObject, QEvent*);
-  void log(QString msg) { viewFrame->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
   QString loadFileName;
   QString saveFileName;
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   GyreEnv* devEnv;
   QString name;
   QTextEdit* editText;

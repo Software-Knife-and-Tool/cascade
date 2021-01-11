@@ -35,8 +35,8 @@ void GyreFrame::runStatus(QString form) {
                       devEnv->rep("(room :nil)"));
 }
 
-GyreFrame::GyreFrame(QString name, ViewFrame* tb, GyreEnv* cn)
-    : devEnv(cn), name(name), viewFrame(tb) {
+GyreFrame::GyreFrame(QString name, MainWindow* tb, GyreEnv* cn)
+    : devEnv(cn), name(name), mw(tb) {
   toolBar = new QToolBar();
   connect(toolBar->addAction(tr("del")), &QAction::triggered, this,
           &GyreFrame::del);

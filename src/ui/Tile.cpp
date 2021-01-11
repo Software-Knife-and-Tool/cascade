@@ -50,11 +50,11 @@ void Tile::split(QFrame* fr) {
     case UNSPLIT:
       break;
     case HORIZONTAL:
-      splitTile = new Tile(viewFrame, fr);
+      splitTile = new Tile(mw, fr);
       splith();
       break;
     case VERTICAL:
-      splitTile = new Tile(viewFrame, fr);
+      splitTile = new Tile(mw, fr);
       splitv();
       break;
   }
@@ -136,7 +136,7 @@ void Tile::splith() {
   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
-Tile::Tile(ViewFrame* tb, QFrame* cf) : viewFrame(tb), baseFrame(cf) {
+Tile::Tile(MainWindow* tb, QFrame* cf) : mw(tb), baseFrame(cf) {
   splitState = UNSPLIT;
   splitTile = nullptr;
 

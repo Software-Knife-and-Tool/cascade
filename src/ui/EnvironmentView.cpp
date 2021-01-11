@@ -16,25 +16,25 @@
 
 #include "ConsoleFrame.h"
 #include "ScriptFrame.h"
-#include "UiFrame.h"
-#include "ViewFrame.h"
+#include "EnvironmentView.h"
+#include "MainWindow.h"
 
 namespace gyreui {
 
-void UiFrame::log(QString msg) { console->log(msg); }
-const char* UiFrame::configFile = "~/.gyre-ui";
-const char* UiFrame::version = "0.0.8";
+void EnvironmentView::log(QString msg) { console->log(msg); }
+const char* EnvironmentView::configFile = "~/.gyre-ui";
+const char* EnvironmentView::version = "0.0.8";
 
-void UiFrame::setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+void EnvironmentView::setContextStatus(QString str) { mw->setContextStatus(str); }
 
-void UiFrame::showEvent(QShowEvent* event) {
+void EnvironmentView::showEvent(QShowEvent* event) {
   QWidget::showEvent(event);
-  viewFrame->setContextStatus(name);
+  mw->setContextStatus(name);
 }
 
-GyreEnv* UiFrame::get_gyre() { return console->get_gyre(); }
+GyreEnv* EnvironmentView::get_gyre() { return console->get_gyre(); }
 
-UiFrame::UiFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
+EnvironmentView::EnvironmentView(QString name, MainWindow* tb) : mw(tb), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -53,7 +53,7 @@ UiFrame::UiFrame(QString name, ViewFrame* tb) : viewFrame(tb), name(name) {
       "  </body>"
       "</html>";
 
-  auto user = viewFrame->userInfo();
+  auto user = mw->userInfo();
 
   auto syshtml = QString::fromStdString(html).arg(
       version, user->aboutHost(), "an " + user->aboutCpu() + " system",

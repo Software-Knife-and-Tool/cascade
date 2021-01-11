@@ -19,6 +19,8 @@
 #include <QToolBar>
 #include <QtWidgets>
 
+#include "ComposerFrame.h"
+#include "ConsoleFrame.h"
 #include "GyreEnv.h"
 #include "InspectorFrame.h"
 #include "PanelFrame.h"
@@ -38,9 +40,9 @@ QToolButton* PanelFrame::toolMenu() {
 
   tm->addAction(tr("&composer"), [this]() {
     if (init)
-      rootTile->rebase(new ComposerFrame("rebase-composer", viewFrame, devEnv));
+      rootTile->rebase(new ComposerFrame("rebase-composer", mw, devEnv));
     else
-      rootTile->split(new ComposerFrame("split-composer", viewFrame, devEnv));
+      rootTile->split(new ComposerFrame("split-composer", mw, devEnv));
     init = false;
     vsplitAction->setEnabled(true);
     hsplitAction->setEnabled(true);
@@ -48,9 +50,9 @@ QToolButton* PanelFrame::toolMenu() {
 
   tm->addAction(tr("&console"), [this]() {
     if (init)
-      rootTile->rebase(new ConsoleFrame("rebase-console", viewFrame));
+      rootTile->rebase(new ConsoleFrame("rebase-console", mw));
     else
-      rootTile->split(new ConsoleFrame("split-console", viewFrame));
+      rootTile->split(new ConsoleFrame("split-console", mw));
     init = false;
     vsplitAction->setEnabled(true);
     hsplitAction->setEnabled(true);
@@ -58,9 +60,9 @@ QToolButton* PanelFrame::toolMenu() {
 
   tm->addAction(tr("&inspector"), [this]() {
     if (init)
-      rootTile->rebase(new InspectorFrame("rebase-inspector", viewFrame, devEnv));
+      rootTile->rebase(new InspectorFrame("rebase-inspector", mw, devEnv));
     else
-      rootTile->split(new InspectorFrame("split-inspector", viewFrame, devEnv));
+      rootTile->split(new InspectorFrame("split-inspector", mw, devEnv));
     init = false;
     vsplitAction->setEnabled(true);
     hsplitAction->setEnabled(true);
@@ -68,9 +70,9 @@ QToolButton* PanelFrame::toolMenu() {
 
   tm->addAction(tr("&shell"), [this]() {
     if (init)
-      rootTile->rebase(new ScratchpadFrame("rebase-shell", viewFrame));
+      rootTile->rebase(new ScratchpadFrame("rebase-shell", mw));
     else
-      rootTile->split(new ScratchpadFrame("split-shell", viewFrame));
+      rootTile->split(new ScratchpadFrame("split-shell", mw));
     init = false;
     vsplitAction->setEnabled(true);
     hsplitAction->setEnabled(true);
@@ -78,9 +80,9 @@ QToolButton* PanelFrame::toolMenu() {
 
   tm->addAction(tr("&scratch"), [this]() {
     if (init)
-      rootTile->rebase(new ScratchpadFrame("rebase-scratch", viewFrame));
+      rootTile->rebase(new ScratchpadFrame("rebase-scratch", mw));
     else
-      rootTile->split(new ScratchpadFrame("split-scratch", viewFrame));
+      rootTile->split(new ScratchpadFrame("split-scratch", mw));
     init = false;
     vsplitAction->setEnabled(true);
     hsplitAction->setEnabled(true);
@@ -88,8 +90,8 @@ QToolButton* PanelFrame::toolMenu() {
   return tb;
 }
 
-PanelFrame::PanelFrame(QString nm, ViewFrame* tb, GyreEnv* dev)
-    : viewFrame(tb), devEnv(dev), name(nm) {
+PanelFrame::PanelFrame(QString nm, MainWindow* tb, GyreEnv* dev)
+    : mw(tb), devEnv(dev), name(nm) {
   init = true;
 
   toolBar = new QToolBar();

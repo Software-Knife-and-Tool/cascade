@@ -8,11 +8,11 @@
 
 /********
  **
- **  IdeFrame.h: IdeFrame class
+ **  EnvironmentView.h: EnvironmentView class
  **
  **/
-#ifndef GYREUIFRAME_H_
-#define GYREUIFRAME_H_
+#ifndef GYREUI_UI_ENVIRONMENTVIEW_H_
+#define GYREUI_UI_ENVIRONMENTVIEW_H_
 
 #include <QFrame>
 #include <QWidget>
@@ -21,7 +21,7 @@
 #include "GyreEnv.h"
 #include "MainWindow.h"
 #include "TtyWidget.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -32,14 +32,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 class ConsoleFrame;
 
-class UiFrame : public QFrame {
+class EnvironmentView : public QFrame {
   Q_OBJECT
 
  public:
-  explicit UiFrame(QString, ViewFrame*);
+  explicit EnvironmentView(QString, MainWindow*);
   static const char* configFile;
   static const char* version;
 
@@ -51,13 +51,13 @@ class UiFrame : public QFrame {
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   QString name;
   ConsoleFrame* console;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
-#endif /* GYREUIFRAME_H_ */
+#endif /* GYREUI_UI_ENVIRONMENTVIEW_H_ */

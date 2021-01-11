@@ -17,9 +17,10 @@
 
 #include "ComposerFrame.h"
 #include "ConsoleFrame.h"
+#include "EnvironmentView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 #include "user.h"
 
 namespace gyreui {
@@ -64,12 +65,45 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
+void MainWindow::log(QString msg) { env->log(msg); }
+
 MainWindow::MainWindow() : user(new User()) {
   menuBar = new MainMenuBar(this);
-  viewFrame = new ViewFrame(this);
 
   setMenuBar(menuBar->menu_bar());
-  setCentralWidget(viewFrame);
+
+#if 0
+  auto devEnv = new GyreEnv();
+  auto uiDev = uiFrame->get_gyre();
+  
+  envView = new EnvironmentView("environment", this);
+
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  auto devEnv = new GyreEnv();
+  auto uiDev = envView->get_gyre();
+
+  /*
+  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
+                        canonf, &GyreFrame::runStatus))
+    exit(0);
+  */
+
+  add(envView, QString("environment"));
+  log(";;; environment frame loaded");
+
+  add(new PanelFrame("panels", this, devEnv), "panels");
+  log(";;; panels frame loaded");
+
+  add(new ScriptFrame("script", this, devEnv, uiDev), "scripts");
+  log(";;; scripts frame loaded");
+
+  add(new UserFrame("user", this), "user");
+  log(";;; preferences frame loaded");
+
+ #endif
+  
+  //  setCentralWidget(mw);
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);

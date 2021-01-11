@@ -28,7 +28,7 @@
 #include <QWidget>
 
 #include "GyreEnv.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -41,14 +41,14 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 class MainWindow;
 
 class ScriptFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit ScriptFrame(QString, ViewFrame*, GyreEnv*, GyreEnv*);
+  explicit ScriptFrame(QString, MainWindow*, GyreEnv*, GyreEnv*);
 
  private:
   static const size_t FNV_prime = 16777619;
@@ -105,14 +105,14 @@ class ScriptFrame : public QFrame {
 
   void loadConfigFile();
 
-  void setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    viewFrame->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
-  void log(QString msg) { viewFrame->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
   bool eventFilter(QObject*, QEvent*) override;
 
@@ -141,7 +141,7 @@ class ScriptFrame : public QFrame {
   QString loadFileName;
   QString saveFileName;
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   GyreEnv* devEnv;
   GyreEnv* ideEnv;
   QString name;

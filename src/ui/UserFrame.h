@@ -18,7 +18,7 @@
 #include <QWidget>
 
 #include "MainWindow.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 #include "user.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,20 +29,20 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 
 class UserFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit UserFrame(QString, ViewFrame*);
+  explicit UserFrame(QString, MainWindow*);
 
  private:
   void log(QString);
   void setContextStatus(QString);
   void showEvent(QShowEvent*) override;
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   QString name;
   QLabel* bannerLabel;
   QVBoxLayout* layout;

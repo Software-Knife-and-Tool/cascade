@@ -22,7 +22,7 @@
 
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -34,24 +34,24 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
-class ViewFrame;
+class MainWindow;
 class MainWindow;
 
 class InspectorFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit InspectorFrame(QString, ViewFrame*, GyreEnv*);
+  explicit InspectorFrame(QString, MainWindow*, GyreEnv*);
 
  private:
   void clear();
   void eval();
 
-  void log(QString msg) { viewFrame->log(msg); }
+  void log(QString msg) { mw->log(msg); }
 
-  void setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   GyreEnv* devEnv;
   QString name;
   ComposerFrame* composerFrame;

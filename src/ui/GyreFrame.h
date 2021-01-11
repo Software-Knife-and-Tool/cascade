@@ -22,7 +22,7 @@
 
 #include "ComposerFrame.h"
 #include "GyreEnv.h"
-#include "ViewFrame.h"
+#include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
 class QDate;
@@ -37,35 +37,35 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class ComposerFrame;
-class ViewFrame;
+class MainWindow;
 class MainWindow;
 
 class GyreFrame : public QFrame {
   Q_OBJECT
 
  public:
-  explicit GyreFrame(QString, ViewFrame*, GyreEnv*);
+  explicit GyreFrame(QString, MainWindow*, GyreEnv*);
 
  public slots:
   void runStatus(QString);
 
  private:
   void del() {}
-  void log(QString msg) { viewFrame->log(msg); }
+  void log(QString msg) { mw->log(msg); }
   void clear() { statusText->setText(""); }
 
-  void setContextStatus(QString str) { viewFrame->setContextStatus(str); }
+  void setContextStatus(QString str) { mw->setContextStatus(str); }
 
   void showEvent(QShowEvent* event) override {
     QWidget::showEvent(event);
-    viewFrame->setContextStatus(name);
+    mw->setContextStatus(name);
   }
 
   GyreEnv* devEnv;
   QString name;
   QScrollArea* scrollArea;
   QLabel* statusText;
-  ViewFrame* viewFrame;
+  MainWindow* mw;
   QDateTime evalDate;
   QToolBar* toolBar;
 };

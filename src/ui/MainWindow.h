@@ -22,7 +22,6 @@
 
 #include "MainMenuBar.h"
 #include "StatusClock.h"
-#include "ViewFrame.h"
 #include "mu.h"
 #include "user.h"
 
@@ -37,7 +36,7 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class MainMenuBar;
-class ViewFrame;
+class EnvironmentView;
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -45,12 +44,15 @@ class MainWindow : public QMainWindow {
  public:
   explicit MainWindow();
 
-  void setContextStatus(QString);
-
   MainMenuBar* mainMenuBar() { return this->menuBar; }
   User* userInfo() { return this->user; }
-  ViewFrame* viewFrame_() { return this->viewFrame; }
 
+  void log(QString);
+  void setContextStatus(QString);
+  
+ private:
+  //  void showEvent(QShowEvent*) override;
+  
  protected:
   void contextMenuEvent(QContextMenuEvent* event) override;
 
@@ -58,14 +60,14 @@ class MainWindow : public QMainWindow {
   void createStatusBar();
 
  private:
+  EnvironmentView* env;
   User* user;
   QLabel* contextLabel;
   MainMenuBar* menuBar;
-  ViewFrame* viewFrame;
   QDateTime startTime;
   StatusClock* statusClock;
 };
 
-}  // namespace gyreui
+}  /* namespace gyreui */
 
 #endif /* GYREUI_UI_MAINWINDOW_H_ */
