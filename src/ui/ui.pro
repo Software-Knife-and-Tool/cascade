@@ -13,6 +13,7 @@ HEADERS += \
            /opt/gyre/include/libmu/libmu.h \
            ComposerFrame.h   \
            ConsoleFrame.h    \
+           FileMenu.h        \
            GyreEnv.h         \
            GyreFrame.h       \
            InspectorFrame.h  \

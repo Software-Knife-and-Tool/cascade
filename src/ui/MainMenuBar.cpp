@@ -13,6 +13,7 @@
  **/
 #include <QtWidgets>
 
+#include "FileMenu.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
@@ -35,9 +36,9 @@ void MainMenuBar::about() {
 }
 void MainMenuBar::prefs() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
 
-MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw) {
+  MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(mw, this)) {
   mb = new QMenuBar(this);
-
+  
   fileMenu = addMenu(tr("&File"));
   fileMenu->addAction(defAction("&New", QKeySequence::New, "Create new file", &MainMenuBar::newFile));
   fileMenu->addAction(defAction("&Open...", QKeySequence::Open, "Open an existing file", &MainMenuBar::open));

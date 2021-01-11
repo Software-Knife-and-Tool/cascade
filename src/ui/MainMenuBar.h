@@ -18,6 +18,7 @@
 #include <QMenu>
 
 #include "MainWindow.h"
+#include "FileMenu.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -29,6 +30,7 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class MainWindow;
+class FileMenu;
 
 class MainMenuBar : public QMenu {
   Q_OBJECT
@@ -76,8 +78,9 @@ class MainMenuBar : public QMenu {
   QMenu *viewMenu;
 
 private:
-  MainWindow *mw;
-  QMenuBar *mb;
+  MainWindow* mw;
+  QMenuBar* mb;
+  FileMenu* fm;
 };
 
 }  // namespace gyreui
