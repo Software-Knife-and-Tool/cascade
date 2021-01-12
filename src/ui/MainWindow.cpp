@@ -66,12 +66,7 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow() : user(new User()) {
-  menuBar = new MainMenuBar(this);
-
-  setMenuBar(menuBar->menu_bar());
-  envView = new EnvironmentView("environment", this);
-
+MainWindow::MainWindow() : user(new User()), menuBar(new MainMenuBar(this)) {
 #if 0
   auto devEnv = new GyreEnv();
   auto uiDev = uiFrame->get_gyre();
@@ -103,7 +98,7 @@ MainWindow::MainWindow() : user(new User()) {
 
 #endif
 
-  setCentralWidget(envView);
+  setCentralWidget(menuBar->defaultView());
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);

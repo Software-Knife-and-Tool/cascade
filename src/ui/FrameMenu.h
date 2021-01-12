@@ -17,6 +17,7 @@
 #include <QMainWindow>
 #include <QMenu>
 
+#include "EnvironmentView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
@@ -31,6 +32,7 @@ namespace gyreui {
 
 class MainMenuBar;
 class MainWindow;
+class EnvironmentView;
 
 class FrameMenu : public QMenu {
   Q_OBJECT
@@ -39,11 +41,14 @@ class FrameMenu : public QMenu {
   void envFrame();
   void sysFrame();
 
+  QWidget* defaultView();
+
   explicit FrameMenu(MainMenuBar*);
 
  private:
   MainMenuBar* mb;
   MainWindow* mw;
+  EnvironmentView* ev;
 };
 
 } /* namespace gyreui */

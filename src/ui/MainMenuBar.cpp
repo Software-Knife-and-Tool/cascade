@@ -24,13 +24,13 @@ void MainMenuBar::openFile() { fv->openFile(); }
 void MainMenuBar::saveFile() { fv->saveFile(); }
 void MainMenuBar::printFile() { fv->printFile(); }
 
-void MainMenuBar::envFrame() { fr->envFrame(); }
-void MainMenuBar::fsiFrame() { fr->envFrame(); }
-void MainMenuBar::dbgFrame() { fr->envFrame(); }
-void MainMenuBar::insFrame() { fr->envFrame(); }
-void MainMenuBar::lstFrame() { fr->envFrame(); }
-void MainMenuBar::notFrame() { fr->envFrame(); }
-void MainMenuBar::sysFrame() { fr->sysFrame(); }
+void MainMenuBar::envFrame() { fm->envFrame(); }
+void MainMenuBar::fsiFrame() { fm->envFrame(); }
+void MainMenuBar::dbgFrame() { fm->envFrame(); }
+void MainMenuBar::insFrame() { fm->envFrame(); }
+void MainMenuBar::lstFrame() { fm->envFrame(); }
+void MainMenuBar::notFrame() { fm->envFrame(); }
+void MainMenuBar::sysFrame() { fm->sysFrame(); }
 
 void MainMenuBar::undoEdit() {
   mw->setContextStatus("Invoked <b>Edit|Undo</b>");
@@ -59,7 +59,7 @@ void MainMenuBar::prefsHelp() {
 
 /** * menu bar constructor **/
 MainMenuBar::MainMenuBar(MainWindow *mw)
-    : mw(mw), fv(new FileView(this)), fr(new FrameMenu(this)) {
+    : mw(mw), fv(new FileView(this)), fm(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 
   /* on macos, ctrl is cmd and meta is ctrl. pfffft. */
@@ -102,7 +102,7 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
 
   frameMenu = addMenu(tr("&Frame"));
   frameMenu->addAction(defAction("&environment", QKeySequence(tr("Ctrl+1", "")),
-                                 "environment", []() {}));
+                                 "environment", &MainMenuBar::envFrame));
   frameMenu->addAction(defAction("&file system", QKeySequence(tr("Ctrl+2", "")),
                                  "file system", []() {}));
   frameMenu->addAction(defAction("&debugger", QKeySequence(tr("Ctrl+3", "")),

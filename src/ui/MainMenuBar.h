@@ -40,6 +40,7 @@ class MainMenuBar : public QMenu {
  public:
   MainMenuBar(MainWindow*);
 
+  QWidget* defaultView() { return nullptr; }
   QMenuBar* menu_bar() { return mb; }
   MainWindow* mw_() { return this->mw; }
 
@@ -92,9 +93,9 @@ class MainMenuBar : public QMenu {
   MainWindow* mw;
   QMenuBar* mb;
   FileView* fv;
-  FrameMenu* fr;
+  FrameMenu* fm;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
 #endif /* GYREUI_UI_MAINMENUBAR_H_ */

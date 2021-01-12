@@ -13,15 +13,23 @@
  **/
 #include <QtWidgets>
 
+#include "EnvironmentView.h"
 #include "FrameMenu.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
 namespace gyreui {
 
-void FrameMenu::envFrame() { mw->setContextStatus("<b>Frame|Env</b>"); }
+void FrameMenu::envFrame() {
+  mw->setContextStatus("<b>Frame|Env</b>");
+  mw->setCentralWidget(ev);
+}
+
+QWidget* FrameMenu::defaultView() { return ev; }
+
 void FrameMenu::sysFrame() { mw->setContextStatus("<b>Frame|Sys</b>"); }
 
-FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {}
+FrameMenu::FrameMenu(MainMenuBar* mb)
+    : mb(mb), mw(mb->mw_()), ev(new EnvironmentView("environment", mw)) {}
 
 } /* namespace gyreui */
