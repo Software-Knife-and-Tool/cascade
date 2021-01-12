@@ -36,17 +36,18 @@ class FileMenu : public QMenu {
   Q_OBJECT
 
  public:
-  void newFile() {}
-  void openFile() {}
-  void saveFile() {}
-  void printFile() {}
+  void newFile();
+  void openFile();
+  void saveFile();
+  void printFile();
 
-  explicit FileMenu(MainMenuBar* mb) : mb(mb) {}
+  explicit FileMenu(MainMenuBar*);
 
  private:
   MainMenuBar* mb;
+  MainWindow* mw;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
 #endif /* GYREUI_UI_FILEMENU_H_ */
