@@ -34,9 +34,8 @@ void FrameMenu::sysFrame() {
 QWidget* FrameMenu::defaultView() { return ev; }
 
 FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb) {
-
   mw = mb->mw;
-    
+
   auto devEnv = new GyreEnv();
 
   ev = new EnvironmentView("environment", mw);
