@@ -13,16 +13,16 @@
  **/
 #include <QtWidgets>
 
-#include "FileMenu.h"
+#include "FileView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
 namespace gyreui {
 
-void MainMenuBar::newFile() { fm->newFile(); }
-void MainMenuBar::openFile() { fm->openFile(); }
-void MainMenuBar::saveFile() { fm->saveFile(); }
-void MainMenuBar::printFile() { fm->printFile(); }
+void MainMenuBar::newFile() { fv->newFile(); }
+void MainMenuBar::openFile() { fv->openFile(); }
+void MainMenuBar::saveFile() { fv->saveFile(); }
+void MainMenuBar::printFile() { fv->printFile(); }
 
 void MainMenuBar::envFrame() { fr->envFrame(); }
 void MainMenuBar::fsiFrame() { fr->envFrame(); }
@@ -59,7 +59,7 @@ void MainMenuBar::prefsHelp() {
 
 /** * menu bar constructor **/
 MainMenuBar::MainMenuBar(MainWindow *mw)
-    : mw(mw), fm(new FileMenu(this)), fr(new FrameMenu(this)) {
+    : mw(mw), fv(new FileView(this)), fr(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 
   /* on macos, ctrl is cmd and meta is ctrl. pfffft. */

@@ -14,7 +14,7 @@ HEADERS += \
            ComposerFrame.h   \
            ConsoleFrame.h    \
            EnvironmentView.h \
-           FileMenu.h        \
+           FileView.h        \
            FrameMenu.h       \
            GyreEnv.h         \
            GyreFrame.h       \
@@ -35,7 +35,7 @@ SOURCES += \
            ComposerFrame.cpp   \
            ConsoleFrame.cpp    \
            EnvironmentView.cpp \
-           FileMenu.cpp        \
+           FileView.cpp        \
            FrameMenu.cpp       \
            GyreFrame.cpp       \
            InspectorFrame.cpp  \

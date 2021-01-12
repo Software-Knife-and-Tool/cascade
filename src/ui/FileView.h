@@ -8,11 +8,11 @@
 
 /********
  **
- **  FileMenu.h: FileMenu class
+ **  FileView.h: FileView class
  **
  **/
-#ifndef GYREUI_UI_FILEMENU_H_
-#define GYREUI_UI_FILEMENU_H_
+#ifndef GYREUI_UI_FILEVIEW_H_
+#define GYREUI_UI_FILEVIEW_H_
 
 #include <QMainWindow>
 #include <QMenu>
@@ -32,7 +32,7 @@ namespace gyreui {
 class MainMenuBar;
 class MainWindow;
 
-class FileMenu : public QMenu {
+class FileView : public QMenu {
   Q_OBJECT
 
  public:
@@ -41,7 +41,7 @@ class FileMenu : public QMenu {
   void saveFile();
   void printFile();
 
-  explicit FileMenu(MainMenuBar*);
+  explicit FileView(MainMenuBar*);
 
  private:
   MainMenuBar* mb;
@@ -50,4 +50,4 @@ class FileMenu : public QMenu {
 
 } /* namespace gyreui */
 
-#endif /* GYREUI_UI_FILEMENU_H_ */
+#endif /* GYREUI_UI_FILEVIEW_H_ */
