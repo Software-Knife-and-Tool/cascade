@@ -21,11 +21,11 @@ HEADERS += \
            InspectorFrame.h  \
            MainMenuBar.h     \
            MainWindow.h      \
-           PanelFrame.h      \
            ScratchpadFrame.h \
            ScriptFrame.h     \
            ShellFrame.h      \
            StatusClock.h     \
+           SystemView.h      \
            Tile.h            \
            TtyWidget.h       \
            UserFrame.h       \
@@ -41,10 +41,10 @@ SOURCES += \
            InspectorFrame.cpp  \
            MainMenuBar.cpp     \
            MainWindow.cpp      \
-           PanelFrame.cpp      \
            ScratchpadFrame.cpp \
            ScriptFrame.cpp     \
            ShellFrame.cpp      \
+           SystemView.cpp      \
            Tile.cpp            \
            TtyWidget.cpp       \
            UserFrame.cpp       \

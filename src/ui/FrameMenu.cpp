@@ -20,6 +20,7 @@
 namespace gyreui {
 
 void FrameMenu::envFrame() { mw->setContextStatus("<b>Frame|Env</b>"); }
+void FrameMenu::sysFrame() { mw->setContextStatus("<b>Frame|Sys</b>"); }
 
 FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {}
 

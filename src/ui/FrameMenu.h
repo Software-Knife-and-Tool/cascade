@@ -37,6 +37,7 @@ class FrameMenu : public QMenu {
 
  public:
   void envFrame();
+  void sysFrame();
 
   explicit FrameMenu(MainMenuBar*);
 

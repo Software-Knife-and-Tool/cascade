@@ -8,11 +8,11 @@
 
 /********
  **
- **  PanelFrame.h: PanelFrame class
+ **  SystemView.h: SystemView class
  **
  **/
-#ifndef GYREUI_UI_PANELFRAME_H_
-#define GYREUI_UI_PANELFRAME_H_
+#ifndef GYREUI_UI_SYSTEMVIEW_H_
+#define GYREUI_UI_SYSTEMVIEW_H_
 
 #include <QFrame>
 #include <QLabel>
@@ -36,11 +36,11 @@ namespace gyreui {
 
 class MainWindow;
 
-class PanelFrame : public QFrame {
+class SystemView : public QFrame {
   Q_OBJECT
 
  public:
-  explicit PanelFrame(QString, MainWindow*, GyreEnv*);
+  explicit SystemView(QString, MainWindow*, GyreEnv*);
 
  private:
   void showEvent(QShowEvent* event) {
@@ -66,4 +66,4 @@ class PanelFrame : public QFrame {
 
 } /* namespace gyreui */
 
-#endif /* GYREUI_UI_PANELFRAME_H_ */
+#endif /* GYREUI_UI_SYSTEMVIEW_H_ */

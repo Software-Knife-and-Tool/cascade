@@ -8,7 +8,7 @@
 
 /********
  **
- **  PanelFrame.cpp: PanelFrame implementation
+ **  SystemView.cpp: SystemView implementation
  **
  **/
 #include <QFileDialog>
@@ -23,13 +23,13 @@
 #include "ConsoleFrame.h"
 #include "GyreEnv.h"
 #include "InspectorFrame.h"
-#include "PanelFrame.h"
 #include "ScratchpadFrame.h"
+#include "SystemView.h"
 #include "Tile.h"
 
 namespace gyreui {
 
-QToolButton* PanelFrame::toolMenu() {
+QToolButton* SystemView::toolMenu() {
   auto tb = new QToolButton(toolBar);
   tb->setToolButtonStyle(Qt::ToolButtonTextOnly);
   tb->setText("tools");
@@ -90,7 +90,7 @@ QToolButton* PanelFrame::toolMenu() {
   return tb;
 }
 
-PanelFrame::PanelFrame(QString nm, MainWindow* tb, GyreEnv* dev)
+SystemView::SystemView(QString nm, MainWindow* tb, GyreEnv* dev)
     : mw(tb), devEnv(dev), name(nm) {
   init = true;
 
@@ -120,4 +120,4 @@ PanelFrame::PanelFrame(QString nm, MainWindow* tb, GyreEnv* dev)
   setLayout(layout);
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */

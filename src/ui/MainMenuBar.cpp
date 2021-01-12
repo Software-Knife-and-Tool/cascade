@@ -30,7 +30,7 @@ void MainMenuBar::dbgFrame() { fr->envFrame(); }
 void MainMenuBar::insFrame() { fr->envFrame(); }
 void MainMenuBar::lstFrame() { fr->envFrame(); }
 void MainMenuBar::notFrame() { fr->envFrame(); }
-void MainMenuBar::sysFrame() { fr->envFrame(); }
+void MainMenuBar::sysFrame() { fr->sysFrame(); }
 
 void MainMenuBar::undoEdit() {
   mw->setContextStatus("Invoked <b>Edit|Undo</b>");
@@ -39,6 +39,7 @@ void MainMenuBar::redoEdit() {
   mw->setContextStatus("Invoked <b>Edit|Redo</b>");
 }
 void MainMenuBar::cutEdit() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
+
 void MainMenuBar::copyEdit() {
   mw->setContextStatus("Invoked <b>Edit|Copy</b>");
 }
