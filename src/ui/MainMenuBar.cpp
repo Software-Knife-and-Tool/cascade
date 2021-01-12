@@ -31,12 +31,20 @@ void MainMenuBar::insFrame() { fr->envFrame(); }
 void MainMenuBar::lstFrame() { fr->envFrame(); }
 void MainMenuBar::notFrame() { fr->envFrame(); }
 void MainMenuBar::sysFrame() { fr->envFrame(); }
-  
-void MainMenuBar::undoEdit() { mw->setContextStatus("Invoked <b>Edit|Undo</b>"); }
-void MainMenuBar::redoEdit() { mw->setContextStatus("Invoked <b>Edit|Redo</b>"); }
+
+void MainMenuBar::undoEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Undo</b>");
+}
+void MainMenuBar::redoEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Redo</b>");
+}
 void MainMenuBar::cutEdit() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
-void MainMenuBar::copyEdit() { mw->setContextStatus("Invoked <b>Edit|Copy</b>"); }
-void MainMenuBar::pasteEdit() { mw->setContextStatus("Invoked <b>Edit|Paste</b>"); }
+void MainMenuBar::copyEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Copy</b>");
+}
+void MainMenuBar::pasteEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Paste</b>");
+}
 
 void MainMenuBar::aboutHelp() {
   mw->setContextStatus("Invoked <b>Help|About</b>");
@@ -44,11 +52,13 @@ void MainMenuBar::aboutHelp() {
                      tr("The <b>Menu</b> example shows how to create "
                         "menu-bar menus and context menus."));
 }
-void MainMenuBar::prefsHelp() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
+void MainMenuBar::prefsHelp() {
+  mw->setContextStatus("Invoked <b>Help|prefs</b>");
+}
 
 /** * menu bar constructor **/
 MainMenuBar::MainMenuBar(MainWindow *mw)
-  : mw(mw), fm(new FileMenu(this)), fr(new FrameMenu(this)) {
+    : mw(mw), fm(new FileMenu(this)), fr(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 
   /* on macos, ctrl is cmd and meta is ctrl. pfffft. */
@@ -56,7 +66,8 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
   fileMenu->addAction(defAction("&New", QKeySequence::New, "Create new file",
                                 &MainMenuBar::newFile));
   fileMenu->addAction(defAction("&Open...", QKeySequence::Open,
-                                "Open an existing file", &MainMenuBar::openFile));
+                                "Open an existing file",
+                                &MainMenuBar::openFile));
   fileMenu->addAction(defAction("&Save", QKeySequence::Save,
                                 "Save the document to disk",
                                 &MainMenuBar::saveFile));
@@ -68,9 +79,11 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
 
   editMenu = addMenu(tr("&Edit"));
   editMenu->addAction(defAction("&Undo", QKeySequence::Undo,
-                                "Undo the last operation", &MainMenuBar::undoEdit));
+                                "Undo the last operation",
+                                &MainMenuBar::undoEdit));
   editMenu->addAction(defAction("&Redo", QKeySequence::Redo,
-                                "Redo the last operation", &MainMenuBar::redoEdit));
+                                "Redo the last operation",
+                                &MainMenuBar::redoEdit));
   editMenu->addSeparator();
   editMenu->addAction(defAction("&Cut", QKeySequence::Cut,
                                 "Cut the current selection",
@@ -79,7 +92,8 @@ MainMenuBar::MainMenuBar(MainWindow *mw)
                                 "Copy the current selection",
                                 &MainMenuBar::copyEdit));
   editMenu->addAction(defAction("&Paste", QKeySequence::Paste,
-                                "Paste the clipboard", &MainMenuBar::pasteEdit));
+                                "Paste the clipboard",
+                                &MainMenuBar::pasteEdit));
 
   viewMenu = addMenu(tr("&View"));
   viewMenu->addAction(defAction("&split screen", QKeySequence::UnknownKey,

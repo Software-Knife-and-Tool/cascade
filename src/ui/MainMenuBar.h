@@ -63,8 +63,8 @@ class MainMenuBar : public QMenu {
   void dbgFrame();
   void insFrame();
   void lstFrame();
-  void notFrame(); 
-  void sysFrame(); 
+  void notFrame();
+  void sysFrame();
 
   /* help menu */
   void aboutHelp();

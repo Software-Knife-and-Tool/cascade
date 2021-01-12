@@ -18,12 +18,9 @@
 #include "MainWindow.h"
 
 namespace gyreui {
-  
-void FrameMenu::envFrame() {
-  mw->setContextStatus("<b>Frame|Env</b>");
-}
 
-FrameMenu::FrameMenu(MainMenuBar* mb)
-    : mb(mb), mw(mb->mw_()) {}
+void FrameMenu::envFrame() { mw->setContextStatus("<b>Frame|Env</b>"); }
+
+FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {}
 
 } /* namespace gyreui */

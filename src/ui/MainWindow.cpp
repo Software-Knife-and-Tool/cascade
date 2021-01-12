@@ -25,7 +25,7 @@
 namespace gyreui {
 
 void MainWindow::log(QString msg) { envView->log(msg); }
-  
+
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
   QMenu menu(this);
 
