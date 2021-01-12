@@ -33,7 +33,10 @@ void FrameMenu::sysFrame() {
 
 QWidget* FrameMenu::defaultView() { return ev; }
 
-FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {
+FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb) {
+
+  mw = mb->mw;
+    
   auto devEnv = new GyreEnv();
 
   ev = new EnvironmentView("environment", mw);
@@ -41,9 +44,6 @@ FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {
   fv = new FileView("file system", mw);
 
 #if 0
-  add(new PanelFrame("panels", this, devEnv), "panels");
-  log(";;; panels frame loaded");
-
   add(new ScriptFrame("script", this, devEnv, uiDev), "scripts");
   log(";;; scripts frame loaded");
 

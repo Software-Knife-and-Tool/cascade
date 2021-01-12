@@ -23,6 +23,7 @@
 namespace gyreui {
 
 void EnvironmentView::log(QString msg) { console->log(msg); }
+
 const char* EnvironmentView::configFile = "~/.gyre-ui";
 const char* EnvironmentView::version = "0.0.9";
 
@@ -89,4 +90,4 @@ EnvironmentView::EnvironmentView(QString name, MainWindow* mw)
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */
