@@ -40,7 +40,7 @@ class MainMenuBar : public QMenu {
  public:
   MainMenuBar(MainWindow*);
 
-  QWidget* defaultView() { return nullptr; }
+  QWidget* defaultView();
   QMenuBar* menu_bar() { return mb; }
   MainWindow* mw_() { return this->mw; }
 

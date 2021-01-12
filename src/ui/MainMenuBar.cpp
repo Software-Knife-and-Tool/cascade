@@ -14,6 +14,7 @@
 #include <QtWidgets>
 
 #include "FileView.h"
+#include "FrameMenu.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
@@ -57,8 +58,10 @@ void MainMenuBar::prefsHelp() {
   mw->setContextStatus("Invoked <b>Help|prefs</b>");
 }
 
+QWidget* MainMenuBar::defaultView() { return fm->defaultView(); }
+
 /** * menu bar constructor **/
-MainMenuBar::MainMenuBar(MainWindow *mw)
+MainMenuBar::MainMenuBar(MainWindow* mw)
     : mw(mw), fv(new FileView(this)), fm(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 

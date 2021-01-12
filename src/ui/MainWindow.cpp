@@ -66,41 +66,11 @@ void MainWindow::createStatusBar() {
   statusBar()->addWidget(contextLabel);
 }
 
-MainWindow::MainWindow()
-  : user(new User()), menuBar(new MainMenuBar(this)) {
-  
-#if 0
-  auto devEnv = new GyreEnv();
-  auto uiDev = uiFrame->get_gyre();
-  
-  envView = new EnvironmentView("environment", this);
+MainWindow::MainWindow() : user(new User()) {
+  menuBar = new MainMenuBar(this);
+  setMenuBar(menuBar->menu_bar());
 
-  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  auto devEnv = new GyreEnv();
-  auto uiDev = envView->get_gyre();
-
-  /*
-  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &GyreFrame::runStatus))
-    exit(0);
-  */
-
-  add(envView, QString("environment"));
-  log(";;; environment frame loaded");
-
-  add(new PanelFrame("panels", this, devEnv), "panels");
-  log(";;; panels frame loaded");
-
-  add(new ScriptFrame("script", this, devEnv, uiDev), "scripts");
-  log(";;; scripts frame loaded");
-
-  add(new UserFrame("user", this), "user");
-  log(";;; preferences frame loaded");
-
-#endif
-
-  // setCentralWidget(menuBar->defaultView());
+  setCentralWidget(menuBar->defaultView());
   createStatusBar();
 
   resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
