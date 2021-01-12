@@ -18,12 +18,14 @@
 #include "EnvironmentView.h"
 #include "MainWindow.h"
 #include "ScriptFrame.h"
+#include "SystemView.h"
 
 namespace gyreui {
 
 void EnvironmentView::log(QString msg) { console->log(msg); }
+
 const char* EnvironmentView::configFile = "~/.gyre-ui";
-const char* EnvironmentView::version = "0.0.8";
+const char* EnvironmentView::version = "0.0.9";
 
 void EnvironmentView::setContextStatus(QString str) {
   mw->setContextStatus(str);
@@ -36,8 +38,8 @@ void EnvironmentView::showEvent(QShowEvent* event) {
 
 GyreEnv* EnvironmentView::get_gyre() { return console->get_gyre(); }
 
-EnvironmentView::EnvironmentView(QString name, MainWindow* tb)
-    : mw(tb), name(name) {
+EnvironmentView::EnvironmentView(QString name, MainWindow* mw)
+    : mw(mw), name(name) {
   std::string html =
       "<html>"
       "  <body bgcolor=#c0c0c0>"
@@ -74,7 +76,7 @@ EnvironmentView::EnvironmentView(QString name, MainWindow* tb)
   top->setLayout(tlayout);
   top->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 
-  console = new ConsoleFrame("ide-console", tb);
+  console = new ConsoleFrame("console", mw);
   QSizePolicy policy = console->sizePolicy();
   policy.setVerticalStretch(1);
   console->setSizePolicy(policy);
@@ -88,4 +90,4 @@ EnvironmentView::EnvironmentView(QString name, MainWindow* tb)
   setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 }
 
-}  // namespace gyreui
+} /* namespace gyreui */

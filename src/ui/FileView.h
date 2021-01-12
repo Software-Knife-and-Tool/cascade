@@ -8,16 +8,15 @@
 
 /********
  **
- **  FileMenu.h: FileMenu class
+ **  FileView.h: FileView class
  **
  **/
-#ifndef GYREUI_UI_FILEMENU_H_
-#define GYREUI_UI_FILEMENU_H_
+#ifndef GYREUI_UI_FILEVIEW_H_
+#define GYREUI_UI_FILEVIEW_H_
 
 #include <QMainWindow>
 #include <QMenu>
 
-#include "MainMenuBar.h"
 #include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -25,28 +24,31 @@ class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
+class QScrollArea;
+class QTextEdit;
 QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainMenuBar;
 class MainWindow;
 
-class FileMenu : public QMenu {
+class FileView : public QMenu {
   Q_OBJECT
 
  public:
-  void newFile() {}
-  void openFile() {}
-  void saveFile() {}
-  void printFile() {}
+  void newFile();
+  void openFile();
+  void saveFile();
+  void printFile();
 
-  explicit FileMenu(MainMenuBar* mb) : mb(mb) {}
+  explicit FileView(QString, MainWindow*);
 
  private:
-  MainMenuBar* mb;
+  QTextEdit* fileText;
+  QScrollArea* scrollArea;
+  MainWindow* mw;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
-#endif /* GYREUI_UI_FILEMENU_H_ */
+#endif /* GYREUI_UI_FILEVIEW_H_ */

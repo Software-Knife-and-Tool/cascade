@@ -13,43 +13,56 @@
  **/
 #include <QtWidgets>
 
-#include "FileMenu.h"
+#include "FileView.h"
+#include "FrameMenu.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
 
 namespace gyreui {
 
-void MainMenuBar::newFile() {
-  mw->setContextStatus("<b>File|New</b>");
-  fm->newFile();
+void MainMenuBar::newFile() { fv->newFile(); }
+void MainMenuBar::openFile() { fv->openFile(); }
+void MainMenuBar::saveFile() { fv->saveFile(); }
+void MainMenuBar::printFile() { fv->printFile(); }
+
+void MainMenuBar::envFrame() { fm->envFrame(); }
+void MainMenuBar::fsiFrame() { fm->envFrame(); }
+void MainMenuBar::dbgFrame() { fm->envFrame(); }
+void MainMenuBar::insFrame() { fm->envFrame(); }
+void MainMenuBar::lstFrame() { fm->envFrame(); }
+void MainMenuBar::notFrame() { fm->envFrame(); }
+void MainMenuBar::sysFrame() { fm->sysFrame(); }
+
+void MainMenuBar::undoEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Undo</b>");
 }
-void MainMenuBar::open() {
-  mw->setContextStatus("<b>File|Open</b>");
-  fm->openFile();
+void MainMenuBar::redoEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Redo</b>");
 }
-void MainMenuBar::save() {
-  mw->setContextStatus("<b>File|Save</b>");
-  fm->saveFile();
+void MainMenuBar::cutEdit() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
+
+void MainMenuBar::copyEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Copy</b>");
 }
-void MainMenuBar::print() {
-  mw->setContextStatus("<b>File|Print</b>");
-  fm->printFile();
+void MainMenuBar::pasteEdit() {
+  mw->setContextStatus("Invoked <b>Edit|Paste</b>");
 }
-void MainMenuBar::undo() { mw->setContextStatus("Invoked <b>Edit|Undo</b>"); }
-void MainMenuBar::redo() { mw->setContextStatus("Invoked <b>Edit|Redo</b>"); }
-void MainMenuBar::cut() { mw->setContextStatus("Invoked <b>Edit|Cut</b>"); }
-void MainMenuBar::copy() { mw->setContextStatus("Invoked <b>Edit|Copy</b>"); }
-void MainMenuBar::paste() { mw->setContextStatus("Invoked <b>Edit|Paste</b>"); }
-void MainMenuBar::about() {
+
+void MainMenuBar::aboutHelp() {
   mw->setContextStatus("Invoked <b>Help|About</b>");
   QMessageBox::about(this, tr("About Gyre-UI"),
                      tr("The <b>Menu</b> example shows how to create "
                         "menu-bar menus and context menus."));
 }
-void MainMenuBar::prefs() { mw->setContextStatus("Invoked <b>Help|prefs</b>"); }
+void MainMenuBar::prefsHelp() {
+  mw->setContextStatus("Invoked <b>Help|prefs</b>");
+}
+
+QWidget* MainMenuBar::defaultView() { return fm->defaultView(); }
 
 /** * menu bar constructor **/
-MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
+MainMenuBar::MainMenuBar(MainWindow* mw)
+    : mw(mw), fv(new FileView("", mw)), fm(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 
   /* on macos, ctrl is cmd and meta is ctrl. pfffft. */
@@ -57,39 +70,42 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
   fileMenu->addAction(defAction("&New", QKeySequence::New, "Create new file",
                                 &MainMenuBar::newFile));
   fileMenu->addAction(defAction("&Open...", QKeySequence::Open,
-                                "Open an existing file", &MainMenuBar::open));
+                                "Open an existing file",
+                                &MainMenuBar::openFile));
   fileMenu->addAction(defAction("&Save", QKeySequence::Save,
                                 "Save the document to disk",
-                                &MainMenuBar::save));
+                                &MainMenuBar::saveFile));
   fileMenu->addAction(defAction("&Print...", QKeySequence::Print,
-                                "Print the document", &MainMenuBar::print));
+                                "Print the document", &MainMenuBar::printFile));
   fileMenu->addSeparator();
   fileMenu->addAction(defAction("&Exit", QKeySequence::Quit,
                                 "Exit the application", []() { exit(0); }));
 
   editMenu = addMenu(tr("&Edit"));
   editMenu->addAction(defAction("&Undo", QKeySequence::Undo,
-                                "Undo the last operation", &MainMenuBar::undo));
+                                "Undo the last operation",
+                                &MainMenuBar::undoEdit));
   editMenu->addAction(defAction("&Redo", QKeySequence::Redo,
-                                "Redo the last operation", &MainMenuBar::redo));
+                                "Redo the last operation",
+                                &MainMenuBar::redoEdit));
   editMenu->addSeparator();
   editMenu->addAction(defAction("&Cut", QKeySequence::Cut,
                                 "Cut the current selection",
-                                &MainMenuBar::cut));
+                                &MainMenuBar::cutEdit));
   editMenu->addAction(defAction("&Copy", QKeySequence::Copy,
                                 "Copy the current selection",
-                                &MainMenuBar::copy));
+                                &MainMenuBar::copyEdit));
   editMenu->addAction(defAction("&Paste", QKeySequence::Paste,
-                                "Paste the clipboard", &MainMenuBar::paste));
-  editMenu->addSeparator();
+                                "Paste the clipboard",
+                                &MainMenuBar::pasteEdit));
 
   viewMenu = addMenu(tr("&View"));
   viewMenu->addAction(defAction("&split screen", QKeySequence::UnknownKey,
                                 "split screen", []() {}));
 
-  frameMenu = addMenu(tr("&Frames"));
+  frameMenu = addMenu(tr("&Frame"));
   frameMenu->addAction(defAction("&environment", QKeySequence(tr("Ctrl+1", "")),
-                                 "environment", []() {}));
+                                 "environment", &MainMenuBar::envFrame));
   frameMenu->addAction(defAction("&file system", QKeySequence(tr("Ctrl+2", "")),
                                  "file system", []() {}));
   frameMenu->addAction(defAction("&debugger", QKeySequence(tr("Ctrl+3", "")),
@@ -102,11 +118,11 @@ MainMenuBar::MainMenuBar(MainWindow *mw) : mw(mw), fm(new FileMenu(this)) {
                                  QKeySequence(tr("Ctrl+6", "")),
                                  "notifications", []() {}));
   frameMenu->addAction(defAction("&system", QKeySequence(tr("Ctrl+7", "")),
-                                 "system inspector", []() {}));
+                                 "system inspector", &MainMenuBar::sysFrame));
 
   helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(defAction("&About", QKeySequence::WhatsThis,
-                                "Show the About box", &MainMenuBar::about));
+                                "Show the About box", &MainMenuBar::aboutHelp));
   helpMenu->addAction(defAction("&Preferences", QKeySequence::Preferences,
                                 "Show the prefs panel", []() {}));
 

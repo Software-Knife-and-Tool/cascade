@@ -17,7 +17,8 @@
 #include <QMainWindow>
 #include <QMenu>
 
-#include "FileMenu.h"
+#include "FileView.h"
+#include "FrameMenu.h"
 #include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,8 +30,9 @@ QT_END_NAMESPACE
 
 namespace gyreui {
 
+class FileView;
+class FrameMenu;
 class MainWindow;
-class FileMenu;
 
 class MainMenuBar : public QMenu {
   Q_OBJECT
@@ -38,26 +40,36 @@ class MainMenuBar : public QMenu {
  public:
   MainMenuBar(MainWindow*);
 
+  QWidget* defaultView();
   QMenuBar* menu_bar() { return mb; }
   MainWindow* mw_() { return this->mw; }
 
  private slots:
-  // file menu
+  /* file menu */
   void newFile();
-  void open();
-  void save();
-  void print();
+  void openFile();
+  void saveFile();
+  void printFile();
 
-  // edit menu
-  void undo();
-  void redo();
-  void cut();
-  void copy();
-  void paste();
+  /* edit menu */
+  void undoEdit();
+  void redoEdit();
+  void cutEdit();
+  void copyEdit();
+  void pasteEdit();
 
-  // help menu
-  void about();
-  void prefs();
+  /* frame menu */
+  void envFrame();
+  void fsiFrame();
+  void dbgFrame();
+  void insFrame();
+  void lstFrame();
+  void notFrame();
+  void sysFrame();
+
+  /* help menu */
+  void aboutHelp();
+  void prefsHelp();
 
  private:
   template <typename SLOTFN>
@@ -80,9 +92,10 @@ class MainMenuBar : public QMenu {
  private:
   MainWindow* mw;
   QMenuBar* mb;
-  FileMenu* fm;
+  FileView* fv;
+  FrameMenu* fm;
 };
 
-}  // namespace gyreui
+} /* namespace gyreui */
 
 #endif /* GYREUI_UI_MAINMENUBAR_H_ */

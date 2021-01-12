@@ -45,6 +45,8 @@ void scrub_layout(QLayout* layout) {
 
 }  // namespace
 
+void Tile::log(QString msg) { mw->log(msg); }
+
 void Tile::split(QFrame* fr) {
   switch (splitState) {
     case UNSPLIT:

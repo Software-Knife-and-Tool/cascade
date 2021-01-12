@@ -20,6 +20,7 @@
 #include "ConsoleFrame.h"
 #include "GyreEnv.h"
 #include "MainWindow.h"
+#include "SystemView.h"
 #include "TtyWidget.h"
 #include "user.h"
 
@@ -33,6 +34,7 @@ namespace gyreui {
 
 class MainWindow;
 class ConsoleFrame;
+class SystemView;
 
 class EnvironmentView : public QFrame {
   Q_OBJECT
@@ -53,6 +55,7 @@ class EnvironmentView : public QFrame {
   MainWindow* mw;
   QString name;
   ConsoleFrame* console;
+  SystemView* sv;
   QLabel* bannerLabel;
   QVBoxLayout* layout;
 };

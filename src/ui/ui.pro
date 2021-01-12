@@ -14,17 +14,18 @@ HEADERS += \
            ComposerFrame.h   \
            ConsoleFrame.h    \
            EnvironmentView.h \
-           FileMenu.h        \
+           FileView.h        \
+           FrameMenu.h       \
            GyreEnv.h         \
            GyreFrame.h       \
            InspectorFrame.h  \
            MainMenuBar.h     \
            MainWindow.h      \
-           PanelFrame.h      \
            ScratchpadFrame.h \
            ScriptFrame.h     \
            ShellFrame.h      \
            StatusClock.h     \
+           SystemView.h      \
            Tile.h            \
            TtyWidget.h       \
            UserFrame.h       \
@@ -34,14 +35,16 @@ SOURCES += \
            ComposerFrame.cpp   \
            ConsoleFrame.cpp    \
            EnvironmentView.cpp \
+           FileView.cpp        \
+           FrameMenu.cpp       \
            GyreFrame.cpp       \
            InspectorFrame.cpp  \
            MainMenuBar.cpp     \
            MainWindow.cpp      \
-           PanelFrame.cpp      \
            ScratchpadFrame.cpp \
            ScriptFrame.cpp     \
            ShellFrame.cpp      \
+           SystemView.cpp      \
            Tile.cpp            \
            TtyWidget.cpp       \
            UserFrame.cpp       \
