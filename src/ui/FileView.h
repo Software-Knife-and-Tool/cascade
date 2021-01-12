@@ -17,7 +17,6 @@
 #include <QMainWindow>
 #include <QMenu>
 
-#include "MainMenuBar.h"
 #include "MainWindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -25,11 +24,12 @@ class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
+class QScrollArea;
+class QTextEdit;
 QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainMenuBar;
 class MainWindow;
 
 class FileView : public QMenu {
@@ -41,10 +41,11 @@ class FileView : public QMenu {
   void saveFile();
   void printFile();
 
-  explicit FileView(MainMenuBar*);
+  explicit FileView(QString, MainWindow*);
 
  private:
-  MainMenuBar* mb;
+  QTextEdit* fileText;
+  QScrollArea* scrollArea;
   MainWindow* mw;
 };
 

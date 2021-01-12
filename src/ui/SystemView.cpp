@@ -17,6 +17,7 @@
 #include <QString>
 #include <QTextEdit>
 #include <QToolBar>
+#include <QToolButton>
 #include <QtWidgets>
 
 #include "ComposerFrame.h"
@@ -28,6 +29,8 @@
 #include "Tile.h"
 
 namespace gyreui {
+
+void SystemView::log(QString msg) { mw->log(msg); }
 
 QToolButton* SystemView::toolMenu() {
   auto tb = new QToolButton(toolBar);

@@ -62,7 +62,7 @@ QWidget* MainMenuBar::defaultView() { return fm->defaultView(); }
 
 /** * menu bar constructor **/
 MainMenuBar::MainMenuBar(MainWindow* mw)
-    : mw(mw), fv(new FileView(this)), fm(new FrameMenu(this)) {
+    : mw(mw), fv(new FileView("", mw)), fm(new FrameMenu(this)) {
   mb = new QMenuBar(this);
 
   /* on macos, ctrl is cmd and meta is ctrl. pfffft. */
@@ -118,7 +118,7 @@ MainMenuBar::MainMenuBar(MainWindow* mw)
                                  QKeySequence(tr("Ctrl+6", "")),
                                  "notifications", []() {}));
   frameMenu->addAction(defAction("&system", QKeySequence(tr("Ctrl+7", "")),
-                                 "system inspector", []() {}));
+                                 "system inspector", &MainMenuBar::sysFrame));
 
   helpMenu = addMenu(tr("&Help"));
   helpMenu->addAction(defAction("&About", QKeySequence::WhatsThis,

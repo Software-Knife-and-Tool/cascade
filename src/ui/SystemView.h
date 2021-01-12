@@ -35,6 +35,7 @@ QT_END_NAMESPACE
 namespace gyreui {
 
 class MainWindow;
+class Tile;
 
 class SystemView : public QFrame {
   Q_OBJECT
@@ -45,10 +46,10 @@ class SystemView : public QFrame {
  private:
   void showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
-    mw->setContextStatus(name);
+    // mw->setContextStatus(name);
   }
 
-  void log(QString msg) { mw->log(msg); }
+  void log(QString);
 
   QToolButton* toolMenu();
 

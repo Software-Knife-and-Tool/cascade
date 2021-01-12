@@ -14,36 +14,33 @@
 #include <QtWidgets>
 
 #include "EnvironmentView.h"
-#include "FrameMenu.h"
+#include "FileView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
+#include "SystemView.h"
 
 namespace gyreui {
 
 void FrameMenu::envFrame() {
   mw->setContextStatus("<b>Frame|Env</b>");
-  mw->setCentralWidget(this);
+  mw->setCentralWidget(ev);
+}
+
+void FrameMenu::sysFrame() {
+  mw->setContextStatus("<b>Frame|Sys</b>");
+  mw->setCentralWidget(sv);
 }
 
 QWidget* FrameMenu::defaultView() { return ev; }
 
-void FrameMenu::sysFrame() { mw->setContextStatus("<b>Frame|Sys</b>"); }
-
-FrameMenu::FrameMenu(MainMenuBar* mb)
-    : mb(mb), mw(mb->mw_()), ev(new EnvironmentView("environment", mw)) {
-#if 0
+FrameMenu::FrameMenu(MainMenuBar* mb) : mb(mb), mw(mb->mw_()) {
   auto devEnv = new GyreEnv();
-  auto uiDev = envView->get_gyre();
 
-  /*
-  if (!QObject::connect(composef, &ComposerFrame::evalHappened,
-                        canonf, &GyreFrame::runStatus))
-    exit(0);
-  */
+  ev = new EnvironmentView("environment", mw);
+  sv = new SystemView("system", mw, devEnv);
+  fv = new FileView("file system", mw);
 
-  add(envView, QString("environment"));
-  log(";;; environment frame loaded");
-
+#if 0
   add(new PanelFrame("panels", this, devEnv), "panels");
   log(";;; panels frame loaded");
 
@@ -52,7 +49,6 @@ FrameMenu::FrameMenu(MainMenuBar* mb)
 
   add(new UserFrame("user", this), "user");
   log(";;; preferences frame loaded");
-
 #endif
 }
 

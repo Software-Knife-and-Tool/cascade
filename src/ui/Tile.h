@@ -18,6 +18,7 @@
 #include <QLabel>
 #include <QTextEdit>
 #include <QToolBar>
+#include <QToolButton>
 #include <QWidget>
 
 #include "GyreEnv.h"
@@ -27,13 +28,13 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 class QTextEdit;
 class QToolBar;
+class QToolButton;
 class QVBoxLayout;
 class QWidget;
 QT_END_NAMESPACE
 
 namespace gyreui {
 
-class MainWindow;
 class MainWindow;
 
 class Tile : public QFrame {
@@ -50,7 +51,7 @@ class Tile : public QFrame {
  private:
   enum STATE { UNSPLIT, HORIZONTAL, VERTICAL };
 
-  void log(QString msg) { mw->log(msg); }
+  void log(QString);
 
   MainWindow* mw;
   STATE splitState;

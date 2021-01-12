@@ -18,8 +18,10 @@
 #include <QMenu>
 
 #include "EnvironmentView.h"
+#include "FileView.h"
 #include "MainMenuBar.h"
 #include "MainWindow.h"
+#include "SystemView.h"
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -33,6 +35,8 @@ namespace gyreui {
 class MainMenuBar;
 class MainWindow;
 class EnvironmentView;
+class SystemView;
+class FileView;
 
 class FrameMenu : public QMenu {
   Q_OBJECT
@@ -46,9 +50,11 @@ class FrameMenu : public QMenu {
   explicit FrameMenu(MainMenuBar*);
 
  private:
+  FileView* fv;
   MainMenuBar* mb;
   MainWindow* mw;
   EnvironmentView* ev;
+  SystemView* sv;
 };
 
 } /* namespace gyreui */
